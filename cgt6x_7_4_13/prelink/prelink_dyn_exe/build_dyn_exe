@@ -1,0 +1,7 @@
+#
+
+setenv C_DIR "/db/lang/c60/exec"
+setenv C6X_C_DIR "/db/lang/c60/exec"
+
+cl6x --abi=eabi hello.c -z -r --dynamic -l lnk.cmd -o hello.exe
+

@@ -1,0 +1,197 @@
+.bd B 3
+.TH armhex 1 "Jul 28, 2015" "TI Tools" "TI Code Generation Tools"
+.SH NAME
+armhex - Hex Converter
+.SH SYNOPSIS
+.B armhex
+[
+.I options
+] [
+.I file(s)
+]
+.SH DESCRIPTION
+The hex converter converts an object file into one of several standard hexadecimal formats.
+.SH OPTIONS
+The following options are accepted by this tool:
+.SS General Options:
+.SS
+.TP
+-byte
+Output as bytes rather than target addressing
+.TP
+-e=addr
+Specify entrypoint address or symbol name
+.TP
+-exclude=section
+Exclude section from hex conversion
+.TP
+-fill=val
+Specify fill value
+.TP
+-h
+Display a help message that includes usage and option information [Same as -options]
+.TP
+-image
+Select image mode
+.TP
+-linkerfill
+Include linker fill sections in images
+.TP
+-map=file
+Specify map file name
+.TP
+-memwidth=width
+Specify memory width
+.TP
+-o=file
+Specify output file names
+.TP
+-olength=num
+Number of data items per line of hex output
+.TP
+-options
+Display a help message that includes usage and option information [Same as -h]
+.TP
+-q
+Quiet Operation [Same as -quiet]
+.TP
+-quiet
+Quiet Operation [Same as -q]
+.TP
+-romwidth=width
+Specify rom width
+.TP
+-z
+Zero based addressing [Same as -zero]
+.TP
+-zero
+Zero based addressing [Same as -z]
+.SS Diagnostics Options:
+.SS
+.TP
+--diag_error=id
+Treat diagnostic <id> as error
+.TP
+--diag_remark=id
+Treat diagnostic <id> as remark
+.TP
+--diag_suppress=id
+Suppress diagnostic <id>
+.TP
+--diag_warning=id
+Treat diagnostic <id> as warning
+.TP
+--diag_wrap[=on,off]
+Set diagnostic messages to wrap at 79 columns (on) or not (off). The argument to the option is optional, and if not specified it will default to: on
+.TP
+--display_error_number
+Emit diagnostic identifier numbers
+.TP
+--issue_remarks
+Issue remarks
+.TP
+--no_warnings
+Suppress warnings
+.TP
+-pdb
+Line buffer diagnostic output to reduce message mixing when compiling in parallel.
+.TP
+-pdew
+Treat warnings as errors
+.TP
+--set_error_limit=count
+Set error limit to <count>
+.SS Boot Table Options:
+.SS
+.TP
+-boot
+Select boot mode
+.TP
+-bootorg=addr
+Specify origin address or symbol of boot table ROM
+.TP
+-gpio16
+Specify table source as the GPIO port, 16-bit mode
+.TP
+-gpio8
+Specify table source as the GPIO port, 8-bit mode
+.TP
+-i2c8
+Specify table source as the I2C8 port, 8-bit mode
+.TP
+-i2cclkh=value
+Specify the initial value for I2CCLKH register
+.TP
+-i2cclkl=value
+Specify the initial value for the I2CCLKL register
+.TP
+-i2cpsc=value
+Specify the initial value for I2CPSC register
+.TP
+-lospcp=value
+Specify the initial value for the LOSPCP register
+.TP
+-spi8
+Specify table source as the SPI port, 8-bit mode
+.TP
+-spibrr=value
+Specify the initial value for the SPIBRR register
+.SS Output Format Options:
+.SS
+.TP
+-a
+Output ASCII hex format
+.TP
+-i
+Output Intel hex format
+.TP
+-m[=1,2,3]
+Output Motorola S hex format
+.TP
+-t
+Output TI-Tagged hex format
+.TP
+--ti_txt
+Output TI-TXT hex format
+.TP
+-x
+Output Extended Tektronix hex format
+.SS Load Image Options:
+.SS
+.TP
+--host_image
+Output Host Image Object format
+.TP
+--host_image:endianness=big,little
+Select the endianness of the host image object file. This should match the endianness of whatever other object files will be linked with the host image. The endianness of the host image object file is independent of the endiannes of the input object files.
+.TP
+--host_image:hidden_symbols
+Determine the visibility of symbols copied in host images. Specifying this option will make all symbols in the host image local. If the output format is ELF, the symbols will also be hidden. If this option is not specified symbols are global and visible by default.
+.TP
+--host_image:hide=string
+Explicitly make a host image symbol hidden. Overrides the default binding chosen with --host_image:hidden_symbols.
+.TP
+--host_image:show=string
+Explicitly make a host image symbol visible. Overrides the default binding chosen with --host_image:hidden_symbols.
+.TP
+--host_image:target=ARM,MSP430,C2000,C6000,ARP32,PRU
+Machine type of the host image object file
+.TP
+--load_image
+Output Load Image Object format
+.TP
+--section_name_prefix=string
+Prefix for load/host image object sections. For load images, sections will be named PREFIX_1, PREFIX_2, etc.. For host images, sections will be named .PREFIX:(input section name) instead.
+.SH EXIT STATUS
+The following error values are returned:
+.PD 0
+.TP 10
+.B 0
+Successful completion.
+.TP
+.B >0
+Unsuccessful completion; an error occured.
+.PD
+.SH COPYRIGHT
+.TP
+Copyright (c) 2015, Texas Instruments, Inc.

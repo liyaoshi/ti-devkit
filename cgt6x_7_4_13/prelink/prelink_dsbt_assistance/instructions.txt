@@ -1,0 +1,133 @@
+
+  Tutorial Example for Demonstrating DSBT Assistance Support in prelink6x
+  =======================================================================
+
+  1. Build a DSBT version of the RTS library that you need
+
+     %> mkdir dsbt_rts_work_area
+     %> cd dsbt_rts_work_area
+     %> cp <release installation directory>/lib/rtssrc.zip .
+     %> unzip rtssrc.zip
+
+     For the following step, use the RTS library name that you need in place
+     of "rts64plus_elf.lib":
+
+     %> gmake OPT_CMDLINE="--dsbt --mem_model:data=far" rts64plus_elf.lib
+
+     %> cd .. 
+
+  2. Build up dynamic libraries and dynamic executable used as prelink6x input
+
+     This tutorial example contains the following source files:
+
+     printf.c
+     a.c
+     b.c
+     c.c
+     d.c
+     driver.c
+     main.c
+     format.h
+
+     In the following builds, use the appropriate options and RTS library for
+     your situation (these build steps are available in 'build_dyn_objs' 
+     script):
+
+     %> cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus printf.c -z -r --dynamic=lib ./dsbt_rts_work_area/rts64plus_elf.lib -o printf.dll
+     %> cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus c.c -z -r --dynamic=lib printf.dll -o c.dll
+     %> cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus d.c -z -r --dynamic=lib printf.dll -o d.dll
+     %> cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus a.c -z -r --dynamic=lib printf.dll c.dll d.dll -o a.dll
+     %> cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus b.c -z -r --dynamic=lib printf.dll a.dll d.dll -o b.dll
+     %> cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus driver.c -z -r --dynamic=lib printf.dll a.dll b.dll -o depends.dll
+     %> cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus main.c -z -r ./dsbt_rts_work_area/rts64plus_elf.lib --dynamic depends.dll -o dsbt_ex.exe
+
+  3. Now prelink the dynamic libraries and dynamic executables
+
+     3.1 You can order the prelinker to take user requests to assign DSBT indices to
+         any of the input dynamic objects:
+
+         %> prelink6x dsbt_ex_1.cmd
+
+         where dsbt_ex_1.cmd contains:
+
+	 dsbt_ex.exe
+	 depends.dll
+	 printf.dll
+	 a.dll
+	 b.dll
+	 c.dll
+	 d.dll
+
+         --dsbt_index="depends.dll=2" 
+         --dsbt_index="printf.dll=1" 
+         --dsbt_index="a.dll=6" 
+         --dsbt_index="b.dll=4" 
+         --dsbt_index="c.dll=5" 
+         --dsbt_index="d.dll=3" 
+
+	 --segment_address="dsbt_ex.exe=0x50000000"
+	 --segment_address="depends.dll=0x80000000"
+	 --segment_address="a.dll=0x90000000"
+	 --segment_address="b.dll=0xa0000000"
+	 --segment_address="c.dll=0xb0000000"
+	 --segment_address="d.dll=0xc0000000"
+	 --segment_address="printf.dll=0xd0000000"
+
+	 Observe that in the prelink output files (*.pdo), new dynamic tags have been
+	 added to each file's dynamic table to indicate that a DSBT index has been
+	 assigned to the file and that the file has been prelinked:
+
+	 %> ofd6x -v depends.pdo | less
+
+	 shows:
+
+             20 DT_C6000_DSBT_INDEX  2
+	    
+     3.2 You can set up DSBT index assignments during the static link step and these
+         assignments will be honored by the prelinker.
+
+	 In this example, you will need to re-build one or more dynamic objects and
+	 use the static linker's --dsbt_index option to assign a DSBT index to the
+	 dynamic object that is under construction:
+
+         %> cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus c.c -z -r --dsbt_index=4 --dynamic=lib printf.dll -o c.dll
+         %> cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus d.c -z -r --dsbt_index=5 --dynamic=lib printf.dll -o d.dll
+
+	 Then run the prelinker:
+
+	 %> prelink6x dsbt_ex_2.cmd
+
+	 where dsbt_ex_2.cmd contains:
+
+	 dsbt_ex.exe
+	 depends.dll
+	 printf.dll
+	 a.dll
+	 b.dll
+	 c.dll
+	 d.dll
+
+	 --dsbt_index="depends.dll=3"
+
+	 --segment_address="dsbt_ex.exe=0x50000000"
+	 --segment_address="depends.dll=0x80000000"
+	 --segment_address="a.dll=0x90000000"
+	 --segment_address="b.dll=0xa0000000"
+	 --segment_address="c.dll=0xb0000000"
+	 --segment_address="d.dll=0xc0000000"
+	 --segment_address="printf.dll=0xd0000000"
+
+	 Observe that in the prelink output file, the DSBT indices that were assigned
+	 during the static link step to c.dll and d.dll are kept intact. The DSBT
+	 requests that were made in the prelink command file are also honored, and
+	 for those objects that were left unassigned after processing specific
+	 user requests (--dsbt_index options), these will be assigned a DSBT index
+	 automatically by the prelinker.
+
+	 Look for DT_C6000_DSBT_INDEX tags in the following ofd6x commands:
+
+	 %> ofd6x -v c.pdo | less
+	 %> ofd6x -v depends.pdo | less
+	 %> ofd6x -v b.pdo | less
+
+

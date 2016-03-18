@@ -1,0 +1,21 @@
+#
+
+setenv C_DIR "/db/lang/c60/exec"
+setenv C6X_C_DIR "/db/lang/c60/exec"
+
+# DLL relationships
+#
+#       depends.dll needs: printf.dll, a.dll, b.dll
+#       a.dll       needs: printf.dll, c.dll, d.dll
+#       b.dll       needs: printf.dll, a.dll, d.dll
+#       c.dll       needs: printf.dll
+#       d.dll       needs: printf.dll
+
+cl6x --abi=eabi --mem_model:data=far printf.c -z -r --dynamic=lib -l rts6200_elf.lib -o printf.dll
+cl6x --abi=eabi --mem_model:data=far c.c -z -r --dynamic=lib printf.dll -o c.dll
+cl6x --abi=eabi --mem_model:data=far d.c -z -r --dynamic=lib printf.dll -o d.dll
+cl6x --abi=eabi --mem_model:data=far a.c -z -r --dynamic=lib printf.dll c.dll d.dll -o a.dll
+cl6x --abi=eabi --mem_model:data=far b.c -z -r --dynamic=lib printf.dll a.dll d.dll -o b.dll
+cl6x --abi=eabi --mem_model:data=far driver.c -z -r --dynamic=lib printf.dll a.dll b.dll -o depends.dll
+
+

@@ -1,0 +1,9 @@
+#
+
+setenv C_DIR "/db/lang/c60/exec"
+setenv C6X_C_DIR "/db/lang/c60/exec"
+
+cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus c.c -z -r --dsbt_index=4 --dynamic=lib printf.dll -o c.dll
+
+cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus d.c -z -r --dsbt_index=5 --dynamic=lib printf.dll -o d.dll
+

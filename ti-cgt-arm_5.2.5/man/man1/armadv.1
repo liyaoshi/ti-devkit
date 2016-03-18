@@ -1,0 +1,64 @@
+.bd B 3
+.TH armadv 1 "Jul 28, 2015" "TI Tools" "TI Code Generation Tools"
+.SH NAME
+armadv - Utility for advice-build info for CCS Optimizer Assistant
+.SH SYNOPSIS
+.B armadv
+[
+.I options
+] [
+.I file(s)
+]
+.SH DESCRIPTION
+Generates compiler advice and performance results info for CCS Optimizer Assistant.
+.SH OPTIONS
+The following options are accepted by this tool:
+.SS Options:
+.SS
+.TP
+--diag_wrap[=on,off]
+Set diagnostic messages to wrap at 79 columns (on) or not (off). The argument to the option is optional, and if not specified it will default to: off
+.TP
+-h
+Print a help message that includes usage and option information.
+.TP
+-v
+Prints verbose text output.
+.SS Options for updating advice:
+.SS
+.TP
+-@=path_and_filename
+Read options from specified file and pass to shell options.
+.TP
+--advice_file=path_and_filename
+Output file name for xml advice for CCS advice view.
+.TP
+--benchmarks_file=path_and_filename
+XML benchmark results file for CCS build wizard view.
+.TP
+--xml_link_info=path_and_filename
+Absolute path and file name for xml_link_info.
+.SS Options for generating build wizard updates:
+.SS
+.TP
+--benchmark:event=start,append,end
+Build wizard run notification (start, append, end)
+.TP
+--benchmark:option=option
+Build wizard option being varied.
+.TP
+--benchmark:option_value=opt_value
+Build wizard: setting for option being varied.
+.SH EXIT STATUS
+The following error values are returned:
+.PD 0
+.TP 10
+.B 0
+Successful completion.
+.TP
+.B >0
+Unsuccessful completion; an error occured.
+.PD
+.SH COPYRIGHT
+.TP
+Copyright (c) 2015, Texas Instruments, Inc.

@@ -1,0 +1,19 @@
+#
+
+setenv C_DIR "/db/lang/c60/exec"
+setenv C6X_C_DIR "/db/lang/c60/exec"
+
+cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus printf.c -z -r --dynamic=lib ./dsbt_rts_work_area/rts64plus_elf.lib -o printf.dll
+
+cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus c.c -z -r --dynamic=lib printf.dll -o c.dll
+
+cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus d.c -z -r --dynamic=lib printf.dll -o d.dll
+
+cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus a.c -z -r --dynamic=lib printf.dll c.dll d.dll -o a.dll
+
+cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus b.c -z -r --dynamic=lib printf.dll a.dll d.dll -o b.dll
+
+cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus driver.c -z -r --dynamic=lib printf.dll a.dll b.dll -o depends.dll
+
+cl6x --abi=eabi --dsbt --mem_model:data=far -mv64plus main.c -z -r ./dsbt_rts_work_area/rts64plus_elf.lib --dynamic depends.dll -o dsbt_ex.exe
+

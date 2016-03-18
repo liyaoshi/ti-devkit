@@ -1,0 +1,63 @@
+.bd B 3
+.TH prelink6x 1 "Feb 06, 2015" "TI Tools" "TI Code Generation Tools"
+.SH NAME
+prelink6x - Prelink Tool
+.SH SYNOPSIS
+.B prelink6x
+[
+.I options
+] [
+.I file(s)
+]
+.SH DESCRIPTION
+Move segments in an ELF dynamic object module to specified addresses and update file contents per new segment addresses.
+.SH OPTIONS
+The following options are accepted by this tool:
+.SS Options:
+.SS
+.TP
+--auto_assign_dsbt_indices[=on,off]
+For any dynamic object file that is specified as input to the prelink session and is part of an application that is using the DSBT model, after all --dsbt_index options have been processed and there are files that have not been assigned a DSBT index, the prelink will by default automatically assign the lowest available DSBT index to each unassigned file. The argument to the option is optional, and if not specified it will default to: on
+.TP
+--diag_wrap[=on,off]
+Set diagnostic messages to wrap at 79 columns (on) or not (off). The argument to the option is optional, and if not specified it will default to: on
+.TP
+--dsbt_index=specification
+Indicate a DSBT index to be associated with the specified file; the DSBT index specifiation is <file>=<index> ; where <file> is identified using the file's soname or input filename, and <index> indicates the DSBT index to be assigned to the specified file. If the file has already been assigned a DSBT index, or the requested DSBT index has already been assigned to another file, then a warning diagnostic will be emitted and this option will be ignored.
+.TP
+-h
+Print a help message that includes usage and option information.
+.TP
+--prelink_directory=dir
+Indicate a directory in which to write the prelinked output files that result from a prelink session. By default, prelinked output files will be written to the current working directory in which the prelinker was invoked.
+.TP
+--prelink_extension[=ext]
+Assign the specified extension to each prelinked output file that results from a prelink session; a specified prelink extension of 'pre' will create a prelinked output file with an extension of 'pre' for each dynamic object file specified as input into the prelink session.
+.TP
+-q
+Suppress banner and progress output
+.TP
+--segment_address=specification
+Identify a new address for a specific segment in a specific file; the specification of the segment address is <file>[<segment index>]=<new address> ; where the <file> is identified using the file's soname or input filename, <segment index> refers to segment's location in the program header table, and <new address> is where the identified segment is to be relocated to. The specified segment must be a PT_LOAD segment.
+.TP
+-v
+Prints verbose text output.
+.TP
+--xip_segment=specification
+Identify file's address and alignment constraint on a segment that is meant to be executed in the same location where it is initially loaded; the specification of the xip segment is <file>=<file address>,<segment index>,<segment alignment> ; where the <file> is identified using the file's soname or input filename, <file address> refers to the address where the file is loaded, <segment index> refers to segment's location in the file's program header table, and <segment alignment> indicates that the location of the identified segment must be aligned to a multiple of the specified amount. The file's specified load address must also be aligned to at least the specified <segment alignment>.
+.TP
+--xml_prelink_info=file
+Generate a prelink output report in XML form to a named <file>.
+.SH EXIT STATUS
+The following error values are returned:
+.PD 0
+.TP 10
+.B 0
+Successful completion.
+.TP
+.B >0
+Unsuccessful completion; an error occured.
+.PD
+.SH COPYRIGHT
+.TP
+Copyright (c) 2015, Texas Instruments, Inc.

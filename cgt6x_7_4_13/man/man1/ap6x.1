@@ -1,0 +1,38 @@
+.bd B 3
+.TH ap6x 1 "Feb 06, 2015" "TI Tools" "TI Code Generation Tools"
+.SH NAME
+ap6x - Assembly Optimizer Parser
+.SH SYNOPSIS
+.B ap6x
+[
+.I options
+] [
+.I file(s)
+]
+.SH DESCRIPTION
+The assembly optimizer allows you to write assembly code without being concerned with the pipeline structure of the 'C6x or assigning registers.  It accepts 
+.I linear assembly code
+, which is assembly code that may have had register-allocation performed and is unscheduled.  The assembly optimizer assigns registers and uses loop optimizations to turn linear assembly into highly parallel assembly.
+
+.SH ABOUT THE ASSEMBLY OPTIMIZER
+
+If you are not satisfied with the performance of your C code after you have used all of the C optimizations that are available, you can use the assembly optimizer to make it easier to write assembly code for the 'C6x.
+
+The assembly optimizer performs several tasks including the following:
+
+- Schedules instructions to maximize performance using the instruction level parallelism of the 'C6x
+
+- Ensures that the instructions conform to the 'C6x latency requirements
+
+- Allocates registers for your source code
+
+Like the C compiler, the assembly optimizer performs software pipelining.  
+.I Software
+pipelining
+is a technique used to schedule instructions from a loop so that multiple
+iterations of the loop execute in parallel.  The code generation tools attempt to software
+pipeline your code with inputs from you and with information that it gathers from your program.
+This tool should be invoked via the shell (cl).  See the shell documentation for information on shell options.
+.SH COPYRIGHT
+.TP
+Copyright (c) 2015, Texas Instruments, Inc.
