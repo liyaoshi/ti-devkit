@@ -1,0 +1,171 @@
+<HTML><HEAD><TITLE>Preprocessing</TITLE></HEAD><BODY>
+
+<H1><A NAME="Preprocessing">Preprocessing</A></H1><HR>
+
+<P>The translator processes each source file in a series of phases.
+<B>Preprocessing</B> constitutes the earliest phases, which produce a
+<A HREF="#translation unit">translation unit</A>.
+Preprocessing treats a source file as a sequence of
+<A HREF="lib_file.html#text lines">text lines</A>. You can specify
+<B><A NAME="directives">directives</A></B> and
+<B><A NAME="macros">macros</A></B>
+that insert, delete, and alter source text.</P>
+
+<P>This document describes briefly just those aspects
+of preprocessing most relevant to the use of the Standard C library:</P>
+
+<P>The macro <CODE><A NAME="__FILE__">__FILE__</A></CODE>
+expands to a
+<A HREF="charset.html#string literal">string literal</A>
+that gives the remembered
+<A HREF="lib_over.html#filename">filename</A>
+of the current source file. You can alter the value of this macro
+by writing a
+<A HREF="#line directive"><I>line</I> directive</A>.</P>
+
+<P>The macro <CODE><A NAME="__LINE__">__LINE__</A></CODE>
+expands to a decimal integer constant
+that gives the remembered line number within the current source file.
+You can alter the value of this macro by writing a
+<A HREF="#line directive"><I>line</I> directive</A>.</P>
+
+<P>A <B><A NAME="define directive"><I>define</I> directive</A></B>
+defines a name as a macro.
+Following the directive name <CODE>define</CODE>,
+you write one of two forms:</P>
+
+<UL>
+<LI>a name <I>not</I> immediately followed by a left parenthesis,
+followed by any sequence of preprocessing tokens -- to define a
+macro without parameters
+
+<LI>a name immediately followed by a left parenthesis with <I>no</I>
+intervening white space, followed by zero or more distinct <I>parameter
+names</I> separated by commas, followed by a right parenthesis, followed
+by any sequence of preprocessing tokens -- to define a macro with
+as many parameters as names that you write inside the parentheses
+</UL>
+
+<P>You can selectively skip groups of lines
+within source files by writing an
+<B><A NAME="if directive"><I>if</I> directive</A></B>,
+or one of the other <B>conditional directives</B>,
+<I>ifdef</I> or <I>ifndef.</I>
+You follow the conditional directive by the first group of lines
+that you want to selectively skip.
+Zero or more <I>elif</I> directives follow this first group of lines,
+each followed by a group of lines that you want to selectively skip.
+An optional <I>else</I> directive follows all groups of lines controlled
+by <I>elif</I> directives, followed by the last group of lines you want
+to selectively skip.
+The last group of lines ends with an <I>endif</I> directive.</P>
+
+<P>At most one group of lines is retained in the translation unit --
+the one immediately preceded by a directive whose
+<A HREF="#if expression"><I>#if</I> expression</A> has a nonzero value.
+For the directive:</P>
+
+<PRE>#ifdef X</PRE>
+
+<P>this expression is <CODE>defined (X)</CODE>, and for the directive:</P>
+
+<PRE>#ifndef X</PRE>
+
+<P>this expression is <CODE>!defined (X)</CODE>.</P>
+
+<P>A <B><A NAME="if expression"><I>#if</I> expression</A></B> is a
+conditional expression that the preprocessor evaluates.
+You can write only
+<A HREF="express.html#integer constant expression">
+integer constant expressions</A>, with the following
+additional considerations:</P>
+
+<UL>
+<LI>The expression <CODE>defined X</CODE>, or <CODE>defined (X)</CODE>,
+is replaced by 1 if <CODE>X</CODE> is defined as a macro, otherwise 0.
+
+<LI>You cannot write the
+<A HREF="express.html#sizeof operator"><I>sizeof</I></A>
+or <I>type cast</I> operators. (The translator expands all macro
+names, then replaces each remaining name with 0,
+before it recognizes keywords.)
+
+<LI>The translator may be able to represent a broader range of integers
+than the target environment.
+
+<LI>The translator represents type <I>int</I> the same as <I>long,</I>
+and <I>unsigned int</I> the same as <I>unsigned long.</I>
+
+<LI>The translator can translate character constants to a set of
+code values different from the set for the target environment.
+</UL>
+
+<P>An <B><A NAME="include directive"><I>include</I> directive</A></B>
+includes the contents of a
+<A HREF="lib_over.html#standard headers">standard header</A>
+or another source file in a translation unit. The contents of
+the specified standard header or source file replace the <I>include</I>
+directive. Following the directive name <CODE>include</CODE>,
+write one of the following:</P>
+
+<UL>
+<LI>a standard header name between angle brackets
+
+<LI>a filename between double quotes
+
+<LI>any other form that expands to one of the two previous forms
+after macro replacement
+</UL>
+
+<P>A <B><A NAME="line directive"><I>line</I> directive</A></B> alters
+the source line number and filename used by the predefined macros
+<A HREF="#__FILE__"><CODE>__FILE__</CODE></A> and
+<A HREF="#__FILE__"><CODE>__FILE__</CODE></A>.
+Following the directive name <CODE>line</CODE>,
+write one of the following:</P>
+
+<UL>
+<LI>a decimal integer (giving the new line number of the line following)
+
+<LI>a decimal integer as before, followed by a string literal (giving
+the new line number and the new source filename)
+
+<LI>any other form that expands to one of the two previous forms
+after macro replacement
+</UL>
+
+<P>Preprocessing translates each source file in a series of distinct
+<B><A NAME="Phases of Translation">phases</A></B>.
+The first few phases of translation:
+terminate each line with a newline character (<CODE><I>NL</I></CODE>),
+convert trigraphs to their single-character equivalents,
+and concatenate each line ending in a backslash (<CODE>\</CODE>)
+with the line following. Later phases process
+<A HREF="#include directive">include directives</A>,
+expand macros, and so on to produce a
+<B><A NAME="translation unit">translation unit</A></B>.
+The translator combines separate translation units,
+with contributions as needed from the
+<A HREF="index.html#Standard C Library">Standard C library</A>, at
+<B><A NAME="link time">link time</A></B>, to form the executable
+<B><A NAME="program">program</A></B>.</P>
+
+<P> An <B><A NAME="undef directive"><I>undef</I> directive</A></B>
+removes a macro definition. You might want to
+remove a macro definition so that you can define it differently with
+a <I>define</I> directive or to unmask any other meaning given to
+the name. The name whose definition you want to remove
+follows the directive name <CODE>undef</CODE>.
+If the name is not currently defined as a macro,
+the <I>undef</I> directive has no effect.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pb.html">Copyright</A> &#169; 1989-2002
+by P.J. Plauger and Jim Brodie. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

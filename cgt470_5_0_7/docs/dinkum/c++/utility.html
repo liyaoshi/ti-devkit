@@ -1,0 +1,183 @@
+<HTML><HEAD><TITLE>&lt;utility&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;utility&gt;"><CODE>&lt;utility&gt;</CODE></A></H1><HR>
+
+<P>Include the <A HREF="index.html#STL">STL</A>
+standard header <B><CODE>&lt;utility&gt;</CODE></B>
+to define several templates of general use
+throughout the Standard Template Library.</P>
+
+<P>Four template operators --
+<CODE>operator!=</CODE>,
+<CODE>operator&lt;=</CODE>,
+<CODE>operator&gt;</CODE>, and
+<CODE>operator&gt;=</CODE> -- define a
+<B><A NAME="total ordering">total ordering</A></B>
+on pairs of operands of the same type, given definitions of
+<CODE>operator==</CODE> and <CODE>operator&lt;</CODE>.
+
+<P>If an <A HREF="index.html#implementation">implementation</A>
+supports namespaces,
+these template operators are defined in the
+<B><CODE><A NAME="rel_ops">rel_ops</A></CODE></B> namespace,
+nested within the <CODE>std</CODE> namespace.
+If you wish to make use of these template operators,
+write the declaration:</P>
+
+<PRE>using namespace std::rel_ops;</PRE>
+
+<P>which promotes the template operators into the current namespace.</P>
+
+<PRE>namespace std {
+template&lt;class T, class Ty2&gt;
+    struct <B><A HREF="#pair">pair</A></B>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Ty1, class Ty2&gt;
+    pair&lt;Ty, Ty2&gt; <B><A HREF="#make_pair">make_pair</A></B>(Ty1 val1, Ty2 val2);
+template&lt;class Ty1, class Ty2&gt;
+    bool <B><A HREF="#operator==">operator==</A></B>(const pair&lt;Ty, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <B><A HREF="#operator!=">operator!=</A></B>(const pair&lt;Ty, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <B><A HREF="#operator&lt;">operator&lt;</A></B>(const pair&lt;Ty, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <B><A HREF="#operator&gt;">operator&gt;</A></B>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <B><A HREF="#operator&lt;=">operator&lt;=</A></B>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <B><A HREF="#operator&gt;=">operator&gt;=</A></B>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);
+
+namespace rel_ops {
+    template&lt;class Ty&gt;
+        bool <B><A HREF="#operator!=">operator!=</A></B>(const Ty&amp; left, const Ty&amp; right);
+    template&lt;class Ty&gt;
+        bool <B><A HREF="#operator&lt;=">operator&lt;=</A></B>(const Ty&amp; left, const Ty&amp; right);
+    template&lt;class Ty&gt;
+        bool <B><A HREF="#operator&gt;">operator&gt;</A></B>(const Ty&amp; left, const Ty&amp; right);
+    template&lt;class Ty&gt;
+        bool <B><A HREF="#operator&gt;=">operator&gt;=</A></B>(const Ty&amp; left, const Ty&amp; right);
+        };
+    };</PRE>
+
+<H2><A NAME="make_pair"><CODE>make_pair</CODE></A></H2>
+
+<PRE>template&lt;class Ty1, class Ty2&gt;
+    pair&lt;Ty1, Ty2&gt; <B>make_pair</B>(Ty1 val1, Ty2 val2);</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#pair">pair</A>&lt;Ty1, Ty2&gt;(val1, val2)</CODE>.</P>
+
+<H2><A NAME="operator!="><CODE>operator!=</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    bool <B>operator!=</B>(const Ty&amp; left, const Ty&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <B>operator!=</B>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(left == right)</CODE>.</P>
+
+<H2><A NAME="operator=="><CODE>operator==</CODE></A></H2>
+
+<PRE>template&lt;class Ty1, class Ty2&gt;
+    bool <B>operator==</B>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);</PRE>
+
+<P>The template function returns
+<CODE>left.<A HREF="#pair::first">first</A> == right.first &amp;&amp;
+left.<A HREF="#pair::second">second</A> == right.second</CODE>.</P>
+
+<H2><A NAME="operator&lt;"><CODE>operator&lt;</CODE></A></H2>
+
+<PRE>template&lt;class Ty1, class Ty2&gt;
+    bool <B>operator&lt;</B>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);</PRE>
+
+<P>The template function returns
+<CODE>left.<A HREF="#pair::first">first</A> &lt; right.first ||
+!(right.first &lt; left.first &amp;&amp;
+left.<A HREF="#pair::second">second</A> &lt; right.second)</CODE>.</P>
+
+<H2><A NAME="operator&lt;="><CODE>operator&lt;=</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    bool <B>operator&lt;=</B>(const Ty&amp; left, const Ty&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <B>operator&lt;=</B>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(right &lt; left)</CODE>.</P>
+
+<H2><A NAME="operator&gt;"><CODE>operator&gt;</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    bool <B>operator&gt;</B>(const Ty&amp; left, const Ty&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <B>operator&gt;</B>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>right &lt; left</CODE>.</P>
+
+<H2><A NAME="operator&gt;="><CODE>operator&gt;=</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    bool <B>operator&gt;=</B>(const Ty&amp; left, const Ty&amp; right);
+template&lt;class Ty1, class Ty2&gt;
+    bool <B>operator&gt;=</B>(const pair&lt;Ty1, Ty2&gt;&amp; left,
+        const pair&lt;Ty1, Ty2&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(left &lt; right)</CODE>.</P>
+
+<H2><A NAME="pair"><CODE>pair</CODE></A></H2>
+
+<PRE>template&lt;class Ty1, class Ty2&gt;
+    struct <B>pair</B> {
+    typedef Ty1 <B>first_type</B>;
+    typedef Ty2 <B>second_type</B>
+    Ty1 <B>first</B>;
+    Ty2 <B>second</B>;
+    <B>pair</B>();
+    <B>pair</B>(const Ty1&amp; val1, const Ty2&amp; val2);
+    template&lt;class Other1, class Other2&gt;
+        pair(const pair&lt;Other1, Other2&gt;&amp; right);
+    };</PRE>
+
+<P>The template class stores a pair of objects,
+<B><A NAME="pair::first"><CODE>first</CODE></A></B>,
+of type <CODE>Ty1</CODE>, and
+<B><A NAME="pair::second"><CODE>second</CODE></A></B>,
+of type <CODE>Ty2</CODE>. The type definition
+<B><A NAME="pair::first_type"><CODE>first_type</CODE></A></B>,
+is the same as the template parameter <CODE>Ty1</CODE>, while
+<B><A NAME="pair::second_type"><CODE>second_type</CODE></A></B>,
+is the same as the template parameter <CODE>Ty2</CODE>.</P>
+
+<P>The first (default) constructor initializes
+<CODE>first</CODE> to <CODE>Ty1()</CODE> and <CODE>second</CODE>
+to <CODE>Ty2()</CODE>. The second constructor initializes
+<CODE>first</CODE> to <CODE>val1</CODE> and <CODE>second</CODE>
+to <CODE>val2</CODE>. The third (template) constructor initializes
+<CODE>first</CODE> to <CODE>right.first</CODE> and <CODE>second</CODE>
+to <CODE>right.second</CODE>. <CODE>Ty1</CODE> and <CODE>Ty2</CODE> each
+need supply only a default constructor, single-argument constructor,
+and a destructor.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1994-2002
+by P.J. Plauger. Portions derived from work
+<A HREF="crit_hp.html">copyright</A> &#169; 1994
+by Hewlett-Packard Company. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

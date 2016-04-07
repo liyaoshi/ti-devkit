@@ -1,0 +1,1278 @@
+<HTML><HEAD><TITLE>&lt;iterator&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;iterator&gt;"><CODE>&lt;iterator&gt;</CODE></A></H1><HR>
+
+<P><B><CODE><A HREF="#advance">advance</A>
+&#183; <A HREF="#back_insert_iterator">back_insert_iterator</A>
+&#183; <A HREF="#back_inserter">back_inserter</A>
+&#183; <A HREF="#bidirectional_iterator_tag">bidirectional_iterator_tag</A>
+&#183; <A HREF="#distance">distance</A>
+&#183; <A HREF="#forward_iterator_tag">forward_iterator_tag</A>
+&#183; <A HREF="#front_insert_iterator">front_insert_iterator</A>
+&#183; <A HREF="#front_inserter">front_inserter</A>
+&#183; <A HREF="#input_iterator_tag">input_iterator_tag</A>
+&#183; <A HREF="#insert_iterator">insert_iterator</A>
+&#183; <A HREF="#inserter">inserter</A>
+&#183; <A HREF="#istream_iterator">istream_iterator</A>
+&#183; <A HREF="#istreambuf_iterator">istreambuf_iterator</A>
+&#183; <A HREF="#iterator">iterator</A>
+&#183; <A HREF="#iterator_traits">iterator_traits</A>
+&#183; <A HREF="#operator!=">operator!=</A>
+&#183; <A HREF="#operator==">operator==</A>
+&#183; <A HREF="#operator&lt;">operator&lt;</A>
+&#183; <A HREF="#operator&lt;=">operator&lt;=</A>
+&#183; <A HREF="#operator&gt;">operator&gt;</A>
+&#183; <A HREF="#operator&gt;=">operator&gt;=</A>
+&#183; <A HREF="#operator+">operator+</A>
+&#183; <A HREF="#operator-">operator-</A>
+&#183; <A HREF="#ostream_iterator">ostream_iterator</A>
+&#183; <A HREF="#ostreambuf_iterator">ostreambuf_iterator</A>
+&#183; <A HREF="#output_iterator_tag">output_iterator_tag</A>
+&#183; <A HREF="#random_access_iterator_tag">random_access_iterator_tag</A>
+&#183; <A HREF="#reverse_iterator">reverse_iterator</A>
+</CODE></B></P>
+<HR>
+
+<P>Include the <A HREF="index.html#STL">STL</A>
+standard header <B><CODE>&lt;iterator&gt;</CODE></B>
+to define a number of classes, template classes, and template
+functions that aid in the declaration and manipulation of iterators.</P>
+
+<PRE>namespace std {
+struct <B><A HREF="#input_iterator_tag">input_iterator_tag</A></B>;
+struct <B><A HREF="#output_iterator_tag">output_iterator_tag</A></B>;
+struct <B><A HREF="#forward_iterator_tag">forward_iterator_tag</A></B>;
+struct <B><A HREF="#bidirectional_iterator_tag">bidirectional_iterator_tag</A></B>;
+struct <B><A HREF="#random_access_iterator_tag">random_access_iterator_tag</A></B>;
+
+        // TEMPLATE CLASSES
+template&lt;class Category, class Ty, class Diff,
+    class Pointer, class Reference&gt;
+    struct <B><A HREF="#iterator">iterator</A></B>;
+template&lt;class Iter&gt;
+    struct <B><A HREF="#iterator_traits">iterator_traits</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#iterator_traits">iterator_traits</A></B>&lt;Ty *&gt;;
+template&lt;class Ty&gt;
+    struct <B>iterator_traits</B>&lt;const Ty *&gt;;
+template&lt;class RanIt&gt;
+    class <B><A HREF="#reverse_iterator">reverse_iterator</A></B>;
+template&lt;class Container&gt;
+    class <B><A HREF="#back_insert_iterator">back_insert_iterator</A></B>;
+template&lt;class Container&gt;
+    class <B><A HREF="#front_insert_iterator">front_insert_iterator</A></B>;
+template&lt;class Container&gt;
+    class <B><A HREF="#insert_iterator">insert_iterator</A></B>;
+template&lt;class Ty, class Elem, class Tr, class Diff&gt;
+    class <B><A HREF="#istream_iterator">istream_iterator</A></B>;
+template&lt;class Ty, class Elem, class Tr&gt;
+    class <B><A HREF="#ostream_iterator">ostream_iterator</A></B>;
+template&lt;class Elem, class Tr&gt;
+    class <B><A HREF="#istreambuf_iterator">istreambuf_iterator</A></B>;
+template&lt;class Elem, class Tr&gt;
+    class <B><A HREF="#ostreambuf_iterator">ostreambuf_iterator</A></B>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class RanIt&gt;
+    bool <B><A HREF="#operator==">operator==</A></B>(
+        const reverse_iterator&lt;RanIt&gt;&amp; left,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);
+template&lt;class Ty, class Elem, class Tr, class Diff&gt;
+    bool <B><A HREF="#operator==">operator==</A></B>(
+        const istream_iterator&lt;Ty, Elem, Tr, Diff&gt;&amp; left,
+        const istream_iterator&lt;Ty, Elem, Tr, Diff&gt;&amp; right);
+template&lt;class Elem, class Tr&gt;
+    bool <B><A HREF="#operator==">operator==</A></B>(
+        const istreambuf_iterator&lt;Elem, Tr&gt;&amp; left,
+        const istreambuf_iterator&lt;Elem, Tr&gt;&amp; right);
+template&lt;class RanIt&gt;
+    bool <B><A HREF="#operator!=">operator!=</A></B>(
+        const reverse_iterator&lt;RanIt&gt;&amp; left,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);
+template&lt;class Ty, class Elem, class Tr, class Diff&gt;
+    bool <B><A HREF="#operator!=">operator!=</A></B>(
+        const istream_iterator&lt;Ty, Elem, Tr, Diff&gt;&amp; left,
+        const istream_iterator&lt;Ty, Elem, Tr, Diff&gt;&amp; right);
+template&lt;class Elem, class Tr&gt;
+    bool <B><A HREF="#operator!=">operator!=</A></B>(
+        const istreambuf_iterator&lt;Elem, Tr&gt;&amp; left,
+        const istreambuf_iterator&lt;Elem, Tr&gt;&amp; right);
+template&lt;class RanIt&gt;
+    bool <B><A HREF="#operator&lt;">operator&lt;</A></B>(
+        const reverse_iterator&lt;RanIt&gt;&amp; left,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);
+template&lt;class RanIt&gt;
+    bool <B><A HREF="#operator&gt;">operator&gt;</A></B>(
+        const reverse_iterator&lt;RanIt&gt;&amp; left,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);
+template&lt;class RanIt&gt;
+    bool <B><A HREF="#operator&lt;=">operator&lt;=</A></B>(
+        const reverse_iterator&lt;RanIt&gt;&amp; left,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);
+template&lt;class RanIt&gt;
+    bool <B><A HREF="#operator&gt;=">operator&gt;=</A></B>(
+        const reverse_iterator&lt;RanIt&gt;&amp; left,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);
+template&lt;class RanIt&gt;
+    Diff <B><A HREF="#operator-">operator-</A></B>(
+        const reverse_iterator&lt;RanIt&gt;&amp; left,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);
+template&lt;class RanIt&gt;
+    reverse_iterator&lt;RanIt&gt; <B><A HREF="#operator+">operator+</A></B>(
+        Diff off,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);
+template&lt;class Container&gt;
+    back_insert_iterator&lt;Container&gt; <B><A HREF="#back_inserter">back_inserter</A></B>(Container&amp; cont);
+template&lt;class Container&gt;
+    front_insert_iterator&lt;Container&gt; <B><A HREF="#front_inserter">front_inserter</A></B>(Container&amp; cont);
+template&lt;class Container, class Iter&gt;
+    insert_iterator&lt;Container&gt; <B><A HREF="#inserter">inserter</A></B>(Container&amp; cont, Iter it);
+template&lt;class InIt, class Diff&gt;
+    void <B><A HREF="#advance">advance</A></B>(InIt&amp; it, Diff off);
+template&lt;class Init&gt;
+    iterator_traits&lt;InIt&gt;::difference_type
+        <B><A HREF="#distance">distance</A></B>(InIt first, InIt last);
+    };</PRE>
+
+<H2><A NAME="advance"><CODE>advance</CODE></A></H2>
+
+<PRE>template&lt;class InIt, class Diff&gt;
+    void <B>advance</B>(InIt&amp; it, Diff off);</PRE>
+
+<P>The template function effectively advances <CODE>it</CODE> by
+incrementing it <CODE>off</CODE> times. If <CODE>InIt</CODE> is
+a random-access iterator type, the function evaluates the expression
+<CODE>it += off</CODE>. Otherwise, it performs each increment
+by evaluating <CODE>++it</CODE>. If <CODE>InIt</CODE> is an
+input or forward iterator type, <CODE>off</CODE> must not be negative.</P>
+
+<H2><A NAME="back_insert_iterator"><CODE>back_insert_iterator</CODE></A></H2>
+
+<PRE>template&lt;class Container&gt;
+    class <B>back_insert_iterator</B>
+        : public iterator&lt;output_iterator_tag,
+            void, void, void, void&gt; {
+public:
+    typedef Container <B><A HREF="#back_insert_iterator::container_type">container_type</A></B>;
+    typedef typename Container::reference <B><A HREF="#back_insert_iterator::reference">reference</A></B>;
+    explicit <B><A HREF="#back_insert_iterator::back_insert_iterator">back_insert_iterator</A></B>(Container&amp; cont);
+    back_insert_iterator&amp;
+        <B><A HREF="#back_insert_iterator::operator=">operator=</A></B>(typename Container::const_reference val);
+    back_insert_iterator&amp; <B><A HREF="#back_insert_iterator::operator*">operator*</A></B>();
+    back_insert_iterator&amp; <B><A HREF="#back_insert_iterator::operator++">operator++</A></B>();
+    back_insert_iterator <B><A HREF="#back_insert_iterator::operator++">operator++</A></B>(int);
+protected:
+    Container *<B><A HREF="#back_insert_iterator::container">container</A></B>;
+    };</PRE>
+
+<P>The template class describes an output iterator object.
+It inserts elements
+into a container of type <B><CODE>Container</CODE></B>, which it accesses via
+the protected pointer object it stores called
+<B><CODE><A NAME="back_insert_iterator::container">container</A></CODE></B>.
+The container must define:</P>
+
+<UL>
+<LI>the member type <B><CODE>const_reference</CODE></B>, which is the type of
+a constant reference to an element of the sequence controlled by the container</LI>
+
+<LI>the member type <B><CODE>reference</CODE></B>, which is the type of
+a reference to an element of the sequence controlled by the container</LI>
+
+<LI>the member type <B><CODE>value_type</CODE></B>, which is the type of
+an element of the sequence controlled by the container</LI>
+
+<LI>the member function <CODE><B>push_back</B>(value_type val)</CODE>,
+which appends a new element with value <CODE>val</CODE> to the end of
+the sequence</LI>
+</UL>
+
+<H3><A NAME="back_insert_iterator::back_insert_iterator"><CODE>back_insert_iterator::back_insert_iterator</CODE></A></H3>
+
+<PRE>explicit <B>back_insert_iterator</B>(Container&amp; cont);</PRE>
+
+<P>The constructor initializes
+<CODE><A HREF="#back_insert_iterator::container">container</A></CODE>
+with <CODE>&amp;cont</CODE>.</P>
+
+<H3><A NAME="back_insert_iterator::container_type">
+<CODE>back_insert_iterator::container_type</CODE></A></H3>
+
+<PRE>typedef Container <B>container_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Container</CODE>.</P>
+
+<H3><A NAME="back_insert_iterator::operator*"><CODE>back_insert_iterator::operator*</CODE></A></H3>
+
+<PRE>back_insert_iterator&amp; <B>operator*</B>();</PRE>
+
+<P>The member function returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="back_insert_iterator::operator++"><CODE>back_insert_iterator::operator++</CODE></A></H3>
+
+<PRE>back_insert_iterator&amp; <B>operator++</B>();
+back_insert_iterator <B>operator++</B>(int);</PRE>
+
+<P>The member functions both return <CODE>*this</CODE>.</P>
+
+<H3><A NAME="back_insert_iterator::operator="><CODE>back_insert_iterator::operator=</CODE></A></H3>
+
+<PRE>back_insert_iterator&amp;
+    <B>operator=</B>(typename Container::const_reference val);</PRE>
+
+<P>The member function evaluates
+<CODE><A HREF="#back_insert_iterator::container">container</A>-&gt;
+push_back(val)</CODE>, then returns <CODE>*this</CODE>-&gt;</P>
+
+<H3><A NAME="back_insert_iterator::reference">
+<CODE>back_insert_iterator::reference</CODE></A></H3>
+
+<PRE>typedef typename Container::reference <B>reference</B>;</PRE>
+
+<P>The type describes a reference to an element of the sequence
+controlled by the associated container.</P>
+
+<H2><A NAME="back_inserter"><CODE>back_inserter</CODE></A></H2>
+
+<PRE>template&lt;class Container&gt;
+    back_insert_iterator&lt;Container&gt; <B>back_inserter</B>(Container&amp; cont);</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#back_insert_iterator::back_insert_iterator">back_insert_iterator</A>&lt;Container&gt;(cont)</CODE>.</P>
+
+<H2><A NAME="bidirectional_iterator_tag"><CODE>bidirectional_iterator_tag</CODE></A></H2>
+
+<PRE>struct <B>bidirectional_iterator_tag</B>
+    : public forward_iterator_tag {
+    };</PRE>
+
+<P>The type is the same as
+<CODE>iterator&lt;Iter&gt;::<A HREF="#iterator::iterator_category">iterator_category</A></CODE>
+when <CODE>Iter</CODE> describes an object that can serve as a
+bidirectional iterator.</P>
+
+<H2><A NAME="distance"><CODE>distance</CODE></A></H2>
+
+<PRE>template&lt;class Init&gt;
+    typename iterator_traits&lt;InIt&gt;::difference_type
+        <B>distance</B>(InIt first, InIt last);</PRE>
+
+<P>The template function sets a count <CODE>N</CODE> to zero. It then
+effectively advances <CODE>first</CODE>
+and increments <CODE>N</CODE> until <CODE>first == last</CODE>.
+If <CODE>InIt</CODE> is
+a random-access iterator type, the function evaluates the expression
+<CODE>N += last - first</CODE>. Otherwise, it performs each iterator
+increment by evaluating <CODE>++first</CODE>.
+The function returns <CODE>N</CODE>.</P>
+
+
+<H2><A NAME="forward_iterator_tag"><CODE>forward_iterator_tag</CODE></A></H2>
+
+<PRE>struct <B>forward_iterator_tag</B>
+    : public input_iterator_tag {
+    };</PRE>
+
+<P>The type is the same as
+<CODE>iterator&lt;Iter&gt;::<A HREF="#iterator::iterator_category">iterator_category</A></CODE>
+when <CODE>Iter</CODE> describes an object that can serve as a
+forward iterator.</P>
+
+<H2><A NAME="front_insert_iterator"><CODE>front_insert_iterator</CODE></A></H2>
+
+<PRE>template&lt;class Container&gt;
+    class <B>front_insert_iterator</B>
+        : public iterator&lt;output_iterator_tag,
+            void, void, void, void&gt; {
+public:
+    typedef Container <B><A HREF="#front_insert_iterator::container_type">container_type</A></B>;
+    typedef typename Container::reference <B><A HREF="#front_insert_iterator::reference">reference</A></B>;
+    explicit <B><A HREF="#front_insert_iterator::front_insert_iterator">front_insert_iterator</A></B>(Container&amp; cont);
+    front_insert_iterator&amp;
+        <B><A HREF="#front_insert_iterator::operator=">operator=</A></B>(typename Container::const_reference val);
+    front_insert_iterator&amp; <B><A HREF="#front_insert_iterator::operator*">operator*</A></B>();
+    front_insert_iterator&amp; <B><A HREF="#front_insert_iterator::operator++">operator++</A></B>();
+    front_insert_iterator <B><A HREF="#front_insert_iterator::operator++">operator++</A></B>(int);
+protected:
+    Container *<B><A HREF="#front_insert_iterator::container">container</A></B>;
+    };</PRE>
+
+<P>The template class describes an output iterator object.
+It inserts elements
+into a container of type <B><CODE>Container</CODE></B>, which it accesses via
+the protected pointer object it stores called
+<B><CODE><A NAME="front_insert_iterator::container">container</A></CODE></B>.
+The container must define:</P>
+
+<UL>
+<LI>the member type <B><CODE>const_reference</CODE></B>, which is the type of
+a constant reference to an element of the sequence controlled by the container</LI>
+
+<LI>the member type <B><CODE>reference</CODE></B>, which is the type of
+a reference to an element of the sequence controlled by the container</LI>
+
+<LI>the member type <B><CODE>value_type</CODE></B>, which is the type of
+an element of the sequence controlled by the container</LI>
+
+<LI>the member function <CODE><B>push_front</B>(value_type val)</CODE>,
+which prepends a new element with value <CODE>val</CODE> to the beginning of
+the sequence</LI>
+</UL>
+
+<H3><A NAME="front_insert_iterator::container_type">
+<CODE>front_insert_iterator::container_type</CODE></A></H3>
+
+<PRE>typedef Container <B>container_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Container</CODE>.</P>
+
+<H3><A NAME="front_insert_iterator::front_insert_iterator"><CODE>front_insert_iterator::front_insert_iterator</CODE></A></H3>
+
+<PRE>explicit <B>front_insert_iterator</B>(Container&amp; cont);</PRE>
+
+<P>The constructor initializes
+<CODE><A HREF="#front_insert_iterator::container">container</A></CODE>
+with <CODE>&amp;cont</CODE>.</P>
+
+<H3><A NAME="front_insert_iterator::operator*"><CODE>front_insert_iterator::operator*</CODE></A></H3>
+
+<PRE>front_insert_iterator&amp; <B>operator*</B>();</PRE>
+
+<P>The member function returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="front_insert_iterator::operator++"><CODE>front_insert_iterator::operator++</CODE></A></H3>
+
+<PRE>front_insert_iterator&amp; <B>operator++</B>();
+front_insert_iterator <B>operator++</B>(int);</PRE>
+
+<P>The member functions both return <CODE>*this</CODE>.</P>
+
+<H3><A NAME="front_insert_iterator::operator="><CODE>front_insert_iterator::operator=</CODE></A></H3>
+
+<PRE>front_insert_iterator&amp;
+    <B>operator=</B>(typename Container::const_reference val);</PRE>
+
+<P>The member function evaluates
+<CODE><A HREF="#front_insert_iterator::container">container</A>-&gt;
+push_front(val)</CODE>, then returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="front_insert_iterator::reference">
+<CODE>front_insert_iterator::reference</CODE></A></H3>
+
+<PRE>typedef typename Container::reference <B>reference</B>;</PRE>
+
+<P>The type describes a reference to an element of the sequence
+controlled by the associated container.</P>
+
+<H2><A NAME="front_inserter"><CODE>front_inserter</CODE></A></H2>
+
+<PRE>template&lt;class Container&gt;
+    front_insert_iterator&lt;Container&gt; <B>front_inserter</B>(Container&amp; cont);</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#front_insert_iterator::front_insert_iterator">front_insert_iterator</A>&lt;Container&gt;(cont)</CODE>.</P>
+
+<H2><A NAME="input_iterator_tag"><CODE>input_iterator_tag</CODE></A></H2>
+
+<PRE>struct <B>input_iterator_tag</B> {
+    };</PRE>
+
+<P>The type is the same as
+<CODE>iterator&lt;Iter&gt;::<A HREF="#iterator::iterator_category">iterator_category</A></CODE>
+when <CODE>Iter</CODE> describes an object that can serve as an
+input iterator.</P>
+
+<H2><A NAME="insert_iterator"><CODE>insert_iterator</CODE></A></H2>
+
+<PRE>template&lt;class Container&gt;
+    class <B>insert_iterator</B>
+        : public iterator&lt;output_iterator_tag,
+            void, void, void, void&gt; {
+public:
+    typedef Container <B><A HREF="#insert_iterator::container_type">container_type</A></B>;
+    typedef typename Container::reference <B><A HREF="#insert_iterator::reference">reference</A></B>;
+    <B><A HREF="#insert_iterator::insert_iterator">insert_iterator</A></B>(Container&amp; cont,
+        typename Container::iterator it);
+    insert_iterator&amp;
+        <B><A HREF="#insert_iterator::operator=">operator=</A></B>(typename Container::const_reference val);
+    insert_iterator&amp; <B><A HREF="#insert_iterator::operator*">operator*</A></B>();
+    insert_iterator&amp; <B><A HREF="#insert_iterator::operator++">operator++</A></B>();
+    insert_iterator&amp; <B><A HREF="#insert_iterator::operator++">operator++</A></B>(int);
+protected:
+    Container *<B><A HREF="#insert_iterator::container">container</A></B>;
+    typename Container::iterator <B><A HREF="#insert_iterator::iter">iter</A></B>;
+    };</PRE>
+
+<P>The template class describes an output iterator object.
+It inserts elements
+into a container of type <B><CODE>Container</CODE></B>, which it accesses via
+the protected pointer object it stores called
+<B><CODE><A NAME="insert_iterator::container">container</A></CODE></B>.
+It also stores the protected iterator object, of class
+<CODE>Container::iterator</CODE>, called
+<B><CODE><A NAME="insert_iterator::iter">iter</A></CODE></B>.
+The container must define:</P>
+
+<UL>
+<LI>the member type <B><CODE>const_reference</CODE></B>, which is the type of
+a constant reference to an element of the sequence controlled by the container</LI>
+
+<LI>the member type <B><CODE>iterator</CODE></B>, which is the type of
+an iterator for the container</LI>
+
+<LI>the member type <B><CODE>reference</CODE></B>, which is the type of
+a reference to an element of the sequence controlled by the container</LI>
+
+<LI>the member type <B><CODE>value_type</CODE></B>, which is the type of
+an element of the sequence controlled by the container</LI>
+
+<LI>the member function <CODE><B>insert</B>(iterator it,
+value_type val)</CODE>,
+which inserts a new element with value <CODE>val</CODE> immediately before
+the element designated by <CODE>it</CODE> in the controlled sequence,
+then returns an iterator that designates the inserted element</LI>
+</UL>
+
+<H3><A NAME="insert_iterator::container_type">
+<CODE>insert_iterator::container_type</CODE></A></H3>
+
+<PRE>typedef Container <B>container_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Container</CODE>.</P>
+
+<H3><A NAME="insert_iterator::insert_iterator"><CODE>insert_iterator::insert_iterator</CODE></A></H3>
+
+<PRE><B>insert_iterator</B>(Container&amp; cont,
+    typename Container::iterator it);</PRE>
+
+<P>The constructor initializes
+<CODE><A HREF="#insert_iterator::container">container</A></CODE>
+with <CODE>&amp;cont</CODE>, and
+<CODE><A HREF="#insert_iterator::iter">iter</A></CODE>
+with <CODE>it</CODE>.</P>
+
+<H3><A NAME="insert_iterator::operator*"><CODE>insert_iterator::operator*</CODE></A></H3>
+
+<PRE>insert_iterator&amp; <B>operator*</B>();</PRE>
+
+<P>The member function returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="insert_iterator::operator++"><CODE>insert_iterator::operator++</CODE></A></H3>
+
+<PRE>insert_iterator&amp; <B>operator++</B>();
+insert_iterator&amp; <B>operator++</B>(int);</PRE>
+
+<P>The member functions both return <CODE>*this</CODE>.</P>
+
+<H3><A NAME="insert_iterator::operator="><CODE>insert_iterator::operator=</CODE></A></H3>
+
+<PRE>insert_iterator&amp;
+    <B>operator=</B>(typename Container::const_reference val);</PRE>
+
+<P>The member function evaluates
+<CODE><A HREF="#insert_iterator::iter">iter</A> =
+<A HREF="#insert_iterator::container">container</A>-&gt;
+insert(iter, val)</CODE>, then returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="insert_iterator::reference">
+<CODE>insert_iterator::reference</CODE></A></H3>
+
+<PRE>typedef typename Container::reference <B>reference</B>;</PRE>
+
+<P>The type describes a reference to an element of the sequence
+controlled by the associated container.</P>
+
+<H2><A NAME="inserter"><CODE>inserter</CODE></A></H2>
+
+<PRE>template&lt;class Container, class Iter&gt;
+    insert_iterator&lt;Container&gt; <B>inserter</B>(Container&amp; cont, Iter it);</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#insert_iterator::insert_iterator">insert_iterator</A>&lt;Container&gt;(cont, it)</CODE>.</P>
+
+<H2><A NAME="istream_iterator"><CODE>istream_iterator</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Elem = char,
+    class Tr = char_traits&gt;
+    class Diff = ptrdiff_t&gt;
+    class <B>istream_iterator</B>
+        : public iterator&lt;input_iterator_tag,
+            Ty, Diff, const Ty *, const Ty&amp;&gt; {
+public:
+    typedef Elem <B><A HREF="#istream_iterator::char_type">char_type</A></B>;
+    typedef Tr <B><A HREF="#istream_iterator::traits_type">traits_type</A></B>;
+    typedef basic_istream&lt;Elem, Tr&gt; <B><A HREF="#istream_iterator::istream_type">istream_type</A></B>;
+    <B><A HREF="#istream_iterator::istream_iterator">istream_iterator</A></B>();
+    <B><A HREF="#istream_iterator::istream_iterator">istream_iterator</A></B>(istream_type&amp; istr);
+    const Ty&amp; <B><A HREF="#istream_iterator::operator*">operator*</A></B>() const;
+    const Ty *<B><A HREF="#istream_iterator::operator-&gt;">operator-&gt;</A></B>() const;
+    istream_iterator&lt;Ty, Elem, Tr, Diff&gt;&amp; <B><A HREF="#istream_iterator::operator++">operator++</A></B>();
+    istream_iterator&lt;Ty, Elem, Tr, Diff&gt; <B><A HREF="#istream_iterator::operator++">operator++</A></B>(int);
+    };</PRE>
+
+<P>The template class describes an input iterator object.
+It extracts objects of class <B><CODE>Ty</CODE></B>
+from an <B>input stream</B>, which it accesses via an object it stores,
+of type pointer to
+<CODE>basic_istream&lt;Elem, Tr&gt;</CODE>.
+After constructing or incrementing an object of class
+<CODE>istream_iterator</CODE> with a non-null stored pointer,
+the object attempts to extract and store an object of type
+<CODE>Ty</CODE> from the associated input stream. If the extraction
+fails, the object effectively replaces the stored pointer with
+a null pointer (thus making an end-of-sequence indicator).</P>
+
+
+<H3><A NAME="istream_iterator::char_type"><CODE>istream_iterator::char_type</CODE></A></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><A NAME="istream_iterator::istream_iterator"><CODE>istream_iterator::istream_iterator</CODE></A></H3>
+
+<PRE><B>istream_iterator</B>();
+<B>istream_iterator</B>(istream_type&amp; istr);</PRE>
+
+<P>The first constructor initializes the input stream pointer
+with a null pointer.
+The second constructor initializes the input stream pointer
+with <CODE>&amp;istr</CODE>, then attempts to extract and store
+an object of type <CODE>Ty</CODE>.</P>
+
+<H3><A NAME="istream_iterator::istream_type"><CODE>istream_iterator::istream_type</CODE></A></H3>
+
+<PRE>typedef basic_istream&lt;Elem, Tr&gt; <B>istream_type</B>;</PRE>
+
+<P>The type is a synonym for
+<CODE>basic_istream&lt;Elem, Tr&gt;</CODE>.</P>
+
+<H3><A NAME="istream_iterator::operator*"><CODE>istream_iterator::operator*</CODE></A></H3>
+
+<PRE>const Ty&amp; <B>operator*</B>() const;</PRE>
+
+<P>The operator returns the stored object of type <CODE>Ty</CODE>.</P>
+
+<H3><A NAME="istream_iterator::operator-&gt;">
+<CODE>istream_iterator::operator-&gt;</CODE></A></H3>
+
+<PRE>const Ty *<B>operator-&gt;</B>() const;</PRE>
+
+<P>The operator returns <CODE>&amp;**this</CODE>.</P>
+
+<H3><A NAME="istream_iterator::operator++"><CODE>istream_iterator::operator++</CODE></A></H3>
+
+<PRE>istream_iterator&lt;Ty, Elem, Tr, Diff&gt;&amp; <B>operator++</B>();
+istream_iterator&lt;Ty, Elem, Tr, Diff&gt; <B>operator++</B>(int);</PRE>
+
+<P>The first operator attempts to extract and store an object
+of type <CODE>Ty</CODE> from the associated input stream. The second
+operator makes a copy of the object, increments the object, then
+returns the copy.</P>
+
+<H3><A NAME="istream_iterator::traits_type"><CODE>istream_iterator::traits_type</CODE></A></H3>
+
+<PRE>typedef Tr <B>traits_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Tr</CODE>.</P>
+
+<H2><A NAME="istreambuf_iterator"><CODE>istreambuf_iterator</CODE></A></H2>
+
+<PRE>template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B>istreambuf_iterator</B>
+        : public iterator&lt;input_iterator_tag,
+            Elem, typename Ty::off_type, Elem *, Elem&amp;&gt; {
+public:
+    typedef Elem <B><A HREF="#istreambuf_iterator::char_type">char_type</A></B>;
+    typedef Tr <B><A HREF="#istreambuf_iterator::traits_type">traits_type</A></B>;
+    typedef typename Tr::int_type <B><A HREF="#istreambuf_iterator::int_type">int_type</A></B>;
+    typedef basic_streambuf&lt;Elem, Tr&gt; <B><A HREF="#istreambuf_iterator::streambuf_type">streambuf_type</A></B>;
+    typedef basic_istream&lt;Elem, Tr&gt; <B><A HREF="#istreambuf_iterator::istream_type">istream_type</A></B>;
+    <B><A HREF="#istreambuf_iterator::istreambuf_iterator">istreambuf_iterator</A></B>(streambuf_type *strbuf = 0) throw();
+    <B><A HREF="#istreambuf_iterator::istreambuf_iterator">istreambuf_iterator</A></B>(istream_type&amp; istr) throw();
+    Elem <B><A HREF="#istreambuf_iterator::operator*">operator*</A></B>() const;
+    istreambuf_iterator&amp; <B><A HREF="#istreambuf_iterator::operator++">operator++</A></B>();
+    istreambuf_iterator <B><A HREF="#istreambuf_iterator::operator++">operator++</A></B>(int);
+    bool <B><A HREF="#istreambuf_iterator::equal">equal</A></B>(const istreambuf_iterator&amp; right) const;
+    };</PRE>
+
+<P>The template class describes an input iterator object.
+It extracts elements of class <B><CODE>Elem</CODE></B>
+from an <B>input stream buffer</B>,
+which it accesses via an object it stores,
+of type pointer to
+<CODE>basic_streambuf&lt;Elem,
+<B>Tr</B>&gt;</CODE>.
+After constructing or incrementing an object of class
+<CODE>istreambuf_iterator</CODE> with a non-null stored pointer,
+the object effectively attempts to extract and store an object of type
+<CODE>Elem</CODE> from the associated input stream.
+(The extraction may be delayed, however, until the object
+is actually dereferenced or copied.) If the extraction
+fails, the object effectively replaces the stored pointer with
+a null pointer (thus making an end-of-sequence indicator).</P>
+
+
+<H3><A NAME="istreambuf_iterator::char_type"><CODE>istreambuf_iterator::char_type</CODE></A></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><A NAME="istreambuf_iterator::equal"><CODE>istreambuf_iterator::equal</CODE></A></H3>
+
+<PRE>bool <B>equal</B>(const istreambuf_iterator&amp; right) const;</PRE>
+
+<P>The member function returns true only if the stored stream buffer
+pointers for the object and <CODE>right</CODE> are both null pointers
+or are both non-null pointers.</P>
+
+<H3><A NAME="istreambuf_iterator::int_type"><CODE>istreambuf_iterator::int_type</CODE></A></H3>
+
+<PRE>typedef typename Tr::int_type <B>int_type</B>;</PRE>
+
+<P>The type is a synonym for
+<CODE>Ty::int_type</CODE>.</P>
+
+<H3><A NAME="istreambuf_iterator::istream_type"><CODE>istreambuf_iterator::istream_type</CODE></A></H3>
+
+<PRE>typedef basic_istream&lt;Elem, Tr&gt; <B>istream_type</B>;</PRE>
+
+<P>The type is a synonym for
+<CODE>basic_istream&lt;Elem,
+Tr&gt;</CODE>.</P>
+
+<H3><A NAME="istreambuf_iterator::istreambuf_iterator"><CODE>istreambuf_iterator::istreambuf_iterator</CODE></A></H3>
+
+<PRE><B>istreambuf_iterator</B>(streambuf_type *strbuf = 0) throw();
+<B>istreambuf_iterator</B>(istream_type&amp; istr) throw();</PRE>
+
+<P>The first constructor initializes the input stream-buffer pointer
+with <CODE>strbuf</CODE>.
+The second constructor initializes the input stream-buffer pointer with
+<CODE>istr.rdbuf()</CODE>,
+then (eventually) attempts to extract and store
+an object of type <CODE>Elem</CODE>.</P>
+
+<H3><A NAME="istreambuf_iterator::operator*"><CODE>istreambuf_iterator::operator*</CODE></A></H3>
+
+<PRE>Elem <B>operator*</B>() const;</PRE>
+
+<P>The operator returns the stored object of type <CODE>Elem</CODE>.</P>
+
+<H3><A NAME="istreambuf_iterator::operator++"><CODE>istreambuf_iterator::operator++</CODE></A></H3>
+
+<PRE>istreambuf_iterator&amp; <B>operator++</B>();
+istreambuf_iterator <B>operator++</B>(int);</PRE>
+
+<P>The first operator (eventually) attempts to extract and store an object
+of type <CODE>Elem</CODE> from the associated input stream. The second
+operator makes a copy of the object, increments the object, then
+returns the copy.</P>
+
+<H3><A NAME="istreambuf_iterator::streambuf_type"><CODE>istreambuf_iterator::streambuf_type</CODE></A></H3>
+
+<PRE>typedef basic_streambuf&lt;Elem, Tr&gt; <B>streambuf_type</B>;</PRE>
+
+<P>The type is a synonym for
+<CODE>basic_streambuf&lt;Elem,
+Tr&gt;</CODE>.</P>
+
+<H3><A NAME="istreambuf_iterator::traits_type"><CODE>istreambuf_iterator::traits_type</CODE></A></H3>
+
+<PRE>typedef Tr <B>traits_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Tr</CODE>.</P>
+
+<H2><A NAME="iterator"><CODE>iterator</CODE></A></H2>
+
+<PRE>template&lt;class Category, class Ty, class Diff = ptrdiff_t
+    class Pointer = Ty *, class Reference = Ty&amp;&gt;
+    struct <B>iterator</B> {
+    typedef Category <B>iterator_category</B>;
+    typedef Ty <B>value_type</B>;
+    typedef Diff <B>difference_type</B>;
+    typedef Pointer <B>pointer</B>;
+    typedef Reference <B>reference</B>;
+    };</PRE>
+
+<P>The template class can serve as a convenient base class
+for an iterator class that you define.
+It defines the member types
+<CODE><A NAME="iterator::iterator_category">iterator_category</A></CODE>
+(a synonym for the template parameter <CODE>Category</CODE>),
+<CODE><A NAME="iterator::value_type">value_type</A></CODE>
+(a synonym for the template parameter <CODE>Ty</CODE>),
+<CODE><A NAME="iterator::difference_type">difference_type</A></CODE>
+(a synonym for the template parameter <CODE>Diff</CODE>),
+<CODE><A NAME="iterator::pointer">pointer</A></CODE>
+(a synonym for the template parameter <CODE>Pointer</CODE>), and
+<CODE><A NAME="iterator::reference">reference</A></CODE>
+(a synonym for the template parameter <CODE>Reference</CODE>).</P>
+
+<P>Note that <CODE>value_type</CODE> should <I>not</I> be a constant
+type even if <CODE>pointer</CODE> points at an object of const type
+and <CODE>reference</CODE> designates an object of const type.</P>
+
+<H2><A NAME="iterator_traits"><CODE>iterator_traits</CODE></A></H2>
+
+<PRE>template&lt;class Iter&gt;
+    struct <B>iterator_traits</B> {
+    typedef typename Iter::iterator_category <B>iterator_category</B>;
+    typedef typename Iter::value_type <B>value_type</B>;
+    typedef typename Iter::difference_type <B>difference_type</B>;
+    typedef typename Iter::pointer <B>pointer</B>;
+    typedef typename Iter::reference <B>reference</B>;
+    };
+template&lt;class Ty&gt;
+    struct <B>iterator_traits</B>&lt;Ty *&gt; {
+    typedef random_access_iterator_tag <B>iterator_category</B>;
+    typedef Ty <B>value_type</B>;
+    typedef ptrdiff_t <B>difference_type</B>;
+    typedef Ty *<B>pointer</B>;
+    typedef Ty&amp; <B>reference</B>;
+    };
+template&lt;class Ty&gt;
+    struct <B>iterator_traits</B>&lt;const Ty *&gt; {
+    typedef random_access_iterator_tag <B>iterator_category</B>;
+    typedef Ty <B>value_type</B>;
+    typedef ptrdiff_t <B>difference_type</B>;
+    typedef const Ty *<B>pointer</B>;
+    typedef const Tr&amp; <B>reference</B>;
+    };</PRE>
+
+<P>The template class determines several critical types associated
+with the iterator type <CODE>Iter</CODE>.
+It defines the member types
+<CODE><A NAME="iterator_traits::iterator_category">iterator_category</A></CODE>
+(a synonym for <CODE>Iter::iterator_category</CODE>),
+<CODE><A NAME="iterator_traits::value_type">value_type</A></CODE>
+(a synonym for <CODE>Iter::value_type</CODE>),
+<CODE><A NAME="iterator_traits::difference_type">difference_type</A></CODE>
+(a synonym for <CODE>Iter::difference_type</CODE>),
+<CODE><A NAME="iterator_traits::pointer">pointer</A></CODE>
+(a synonym for <CODE>Iter::pointer</CODE>), and
+<CODE><A NAME="iterator_traits::reference">reference</A></CODE>
+(a synonym for <CODE>Iter::reference</CODE>).</P>
+
+<P>The partial specializations determine the critical types associated
+with an object pointer type <CODE>Ty *</CODE> or <CODE>const Ty *</CODE>. In this
+<A HREF="index.html#implementation">implementation</A>,
+you can also use several template functions that do not make use of
+partial specialization:</P>
+
+<PRE>template&lt;class Category, class Ty, class Diff&gt;
+    C <B><A NAME="_Iter_cat">_Iter_cat</A></B>(const iterator&lt;Category, Ty, Diff&gt;&amp;);
+template&lt;class Ty&gt;
+    random_access_iterator_tag <B>_Iter_cat</B>(const Ty *);
+
+template&lt;class Category, class Ty, class Diff&gt;
+    Ty *<B><A NAME="_Val_type">_Val_type</A></B>(const iterator&lt;Category, Ty, Diff&gt;&amp;);
+template&lt;class Ty&gt;
+    Ty *<B>_Val_type</B>(const Ty *);
+
+template&lt;class Category, class Ty, class Diff&gt;
+    Diff *<B><A NAME="_Dist_type">_Dist_type</A></B>(const iterator&lt;Category, Ty, Diff&gt;&amp;);
+template&lt;class Ty&gt;
+    ptrdiff_t *<B>_Dist_type</B>(const Ty *);</PRE>
+
+<P>which determine several of the same types a bit more indirectly.
+You use these functions as arguments
+on a function call. Their sole purpose is to supply a useful template
+class parameter to the called function.</P>
+
+<H2><A NAME="operator!="><CODE>operator!=</CODE></A></H2>
+
+<PRE>template&lt;class RanIt&gt;
+    bool <B>operator!=</B>(
+        const reverse_iterator&lt;RanIt&gt;&amp; left,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);
+template&lt;class Ty, class Elem, class Tr, class Diff&gt;
+    bool <B>operator!=</B>(
+        const istream_iterator&lt;Ty, Elem, Tr, Diff&gt;&amp; left,
+        const istream_iterator&lt;Ty, Elem, Tr, Diff&gt;&amp; right);
+template&lt;class Elem, class Tr&gt;
+    bool <B>operator!=</B>(
+        const istreambuf_iterator&lt;Elem, Tr&gt;&amp; left,
+        const istreambuf_iterator&lt;Elem, Tr&gt;&amp; right);</PRE>
+
+<P>The template operator returns <CODE>!(left == right)</CODE>.</P>
+
+<H2><A NAME="operator=="><CODE>operator==</CODE></A></H2>
+
+<PRE>template&lt;class RanIt&gt;
+    bool <B>operator==</B>(
+        const reverse_iterator&lt;RanIt&gt;&amp; left,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);
+template&lt;class Ty, class Elem, class Tr, class Diff&gt;
+    bool <B>operator==</B>(
+        const istream_iterator&lt;Ty, Elem, Tr, Diff&gt;&amp; left,
+        const istream_iterator&lt;Ty, Elem, Tr, Diff&gt;&amp; right);
+template&lt;class Elem, class Tr&gt;
+    bool <B>operator==</B>(
+        const istreambuf_iterator&lt;Elem, Tr&gt;&amp; left,
+        const istreambuf_iterator&lt;Elem, Tr&gt;&amp; right);</PRE>
+
+<P>The first template operator returns true only if
+<CODE>left.<A HREF="#reverse_iterator::current">current</A> ==
+right.current</CODE>. The second template operator returns true only
+if both <CODE>left</CODE> and <CODE>right</CODE> store the same
+stream pointer. The third template operator returns
+<CODE>left.<A HREF="#istreambuf_iterator::equal">equal</A>(right)</CODE>.</P>
+
+<H2><A NAME="operator&lt;"><CODE>operator&lt;</CODE></A></H2>
+
+<PRE>template&lt;class RanIt&gt;
+    bool <B>operator&lt;</B>(
+        const reverse_iterator&lt;RanIt&gt;&amp; left,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);</PRE>
+
+<P>The template operator returns
+<CODE>right.<A HREF="#reverse_iterator::current">current</A> &lt;
+left.current</CODE> [sic].</P>
+
+<H2><A NAME="operator&lt;="><CODE>operator&lt;=</CODE></A></H2>
+
+<PRE>template&lt;class RanIt&gt;
+    bool <B>operator&lt;=</B>(
+        const reverse_iterator&lt;RanIt&gt;&amp; left,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);</PRE>
+
+<P>The template operator returns <CODE>!(right &lt; left)</CODE>.</P>
+
+<H2><A NAME="operator&gt;"><CODE>operator&gt;</CODE></A></H2>
+
+<PRE>template&lt;class RanIt&gt;
+    bool <B>operator&gt;</B>(
+        const reverse_iterator&lt;RanIt&gt;&amp; left,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);</PRE>
+
+<P>The template operator returns <CODE>right &lt; left</CODE>.</P>
+
+<H2><A NAME="operator&gt;="><CODE>operator&gt;=</CODE></A></H2>
+
+<PRE>template&lt;class RanIt&gt;
+    bool <B>operator&gt;=</B>(
+        const reverse_iterator&lt;RanIt&gt;&amp; left,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);</PRE>
+
+<P>The template operator returns <CODE>!(left &lt; right)</CODE>.</P>
+
+<H2><A NAME="operator+"><CODE>operator+</CODE></A></H2>
+
+<PRE>template&lt;class RanIt&gt;
+    reverse_iterator&lt;RanIt&gt; <B>operator+</B>(Diff off,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);</PRE>
+
+<P>The template operator returns <CODE>right + off</CODE>.</P>
+
+<H2><A NAME="operator-"><CODE>operator-</CODE></A></H2>
+
+<PRE>template&lt;class RanIt&gt;
+    Diff <B>operator-</B>(
+        const reverse_iterator&lt;RanIt&gt;&amp; left,
+        const reverse_iterator&lt;RanIt&gt;&amp; right);</PRE>
+
+<P>The template operator returns
+<CODE>right.<A HREF="#reverse_iterator::current">current</A> -
+left.current</CODE> [sic].</P>
+
+<H2><A NAME="ostream_iterator"><CODE>ostream_iterator</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Elem = char,
+    class Tr = char_traits&lt;Elem&gt;  &gt;
+    class <B>ostream_iterator</B>
+        : public iterator&lt;output_iterator_tag,
+            void, void, void, void&gt; {
+public:
+    typedef Elem <B><A HREF="#ostream_iterator::char_type">char_type</A></B>;
+    typedef Tr <B><A HREF="#ostream_iterator::traits_type">traits_type</A></B>;
+    typedef basic_ostream&lt;Elem, Tr&gt; <B><A HREF="#ostream_iterator::ostream_type">ostream_type</A></B>;
+    <B><A HREF="#ostream_iterator::ostream_iterator">ostream_iterator</A></B>(ostream_type&amp; ostr);
+    <B><A HREF="#ostream_iterator::ostream_iterator">ostream_iterator</A></B>(ostream_type&amp; ostr, const Elem *delim);
+    ostream_iterator&lt;Ty, Elem, Tr&gt;&amp; <B><A HREF="#ostream_iterator::operator=">operator=</A></B>(const Ty&amp; val);
+    ostream_iterator&lt;Ty, Elem, Tr&gt;&amp; <B><A HREF="#ostream_iterator::operator*">operator*</A></B>();
+    ostream_iterator&lt;Ty, Elem, Tr&gt;&amp; <B><A HREF="#ostream_iterator::operator++">operator++</A></B>();
+    ostream_iterator&lt;Ty, Elem, Tr&gt; <B><A HREF="#ostream_iterator::operator++">operator++</A></B>(int);
+    };</PRE>
+
+<P>The template class describes an output iterator object.
+It inserts objects of class <B><CODE>Ty</CODE></B>
+into an <B>output stream</B>, which it accesses via an object it stores,
+of type pointer to
+<CODE>basic_ostream&lt;Elem, Tr&gt;</CODE>.
+It also stores a pointer to a <B>delimiter string</B>, a
+null-terminated string
+of elements of type <CODE>Elem</CODE>, which is appended after
+each insertion. (Note that the string itself is <I>not</I> copied
+by the constructor.</P>
+
+
+<H3><A NAME="ostream_iterator::char_type"><CODE>ostream_iterator::char_type</CODE></A></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><A NAME="ostream_iterator::operator*"><CODE>ostream_iterator::operator*</CODE></A></H3>
+
+<PRE>ostream_iterator&lt;Ty, Elem, Tr&gt;&amp; <B>operator*</B>();</PRE>
+
+<P>The operator returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="ostream_iterator::operator++"><CODE>ostream_iterator::operator++</CODE></A></H3>
+
+<PRE>ostream_iterator&lt;Ty, Elem, Tr&gt;&amp; <B>operator++</B>();
+ostream_iterator&lt;Ty, Elem, Tr&gt; <B>operator++</B>(int);</PRE>
+
+<P>The operators both return <CODE>*this</CODE>.</P>
+
+<H3><A NAME="ostream_iterator::operator="><CODE>ostream_iterator::operator=</CODE></A></H3>
+
+<PRE>ostream_iterator&lt;Ty, Elem, Tr&gt;&amp; <B>operator=</B>(const Ty&amp; val);</PRE>
+
+<P>The operator inserts <CODE>val</CODE> into the
+output stream associated with the object,
+then returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="ostream_iterator::ostream_iterator"><CODE>ostream_iterator::ostream_iterator</CODE></A></H3>
+
+<PRE><B>ostream_iterator</B>(ostream_type&amp; ostr);
+<B>ostream_iterator</B>(ostream_type&amp; ostr, const Elem *delim);</PRE>
+
+<P>The first constructor initializes the output stream pointer
+with <CODE>&amp;ostr</CODE>. The delimiter string pointer designates an
+empty string. The second constructor initializes the output stream
+pointer with <CODE>&amp;ostr</CODE> and the delimiter string pointer
+with <CODE>delim</CODE>.</P>
+
+<H3><A NAME="ostream_iterator::ostream_type"><CODE>ostream_iterator::ostream_type</CODE></A></H3>
+
+<PRE>typedef basic_ostream&lt;Elem, Tr&gt; <B>ostream_type</B>;</PRE>
+
+<P>The type is a synonym for
+<CODE>basic_ostream&lt;Elem, Tr&gt;</CODE>.</P>
+
+<H3><A NAME="ostream_iterator::traits_type"><CODE>ostream_iterator::traits_type</CODE></A></H3>
+
+<PRE>typedef Tr <B>traits_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Tr</CODE>.</P>
+
+<H2><A NAME="ostreambuf_iterator"><CODE>ostreambuf_iterator</CODE></A></H2>
+
+<PRE>template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B>ostreambuf_iterator</B>
+        : public iterator&lt;output_iterator_tag,
+            void, void, void, void&gt; {
+public:
+    typedef Elem <B><A HREF="#ostreambuf_iterator::char_type">char_type</A></B>;
+    typedef Tr <B><A HREF="#ostreambuf_iterator::traits_type">traits_type</A></B>;
+    typedef basic_streambuf&lt;Elem, Tr&gt; <B><A HREF="#ostreambuf_iterator::streambuf_type">streambuf_type</A></B>;
+    typedef basic_ostream&lt;Elem, Tr&gt; <B><A HREF="#ostreambuf_iterator::ostream_type">ostream_type</A></B>;
+    <B><A HREF="#ostreambuf_iterator::ostreambuf_iterator">ostreambuf_iterator</A></B>(streambuf_type *stebuf) throw();
+    <B><A HREF="#ostreambuf_iterator::ostreambuf_iterator">ostreambuf_iterator</A></B>(ostream_type&amp; ostr) throw();
+    ostreambuf_iterator&amp; <B><A HREF="#ostreambuf_iterator::operator=">operator=</A></B>(Elem ch);
+    ostreambuf_iterator&amp; <B><A HREF="#ostreambuf_iterator::operator*">operator*</A></B>();
+    ostreambuf_iterator&amp; <B><A HREF="#ostreambuf_iterator::operator++">operator++</A></B>();
+    T1 <B><A HREF="#ostreambuf_iterator::operator++">operator++</A></B>(int);
+    bool <B><A HREF="#ostreambuf_iterator::failed">failed</A></B>() const throw();
+    };</PRE>
+
+<P>The template class describes an output iterator object.
+It inserts elements of class <B><CODE>Elem</CODE></B>
+into an <B>output stream buffer</B>,
+which it accesses via an object it stores,
+of type pointer to
+<CODE>basic_streambuf&lt;Elem, Tr&gt;</CODE>.</P>
+
+
+<H3><A NAME="ostreambuf_iterator::char_type"><CODE>ostreambuf_iterator::char_type</CODE></A></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><A NAME="ostreambuf_iterator::failed"><CODE>ostreambuf_iterator::failed</CODE></A></H3>
+
+<PRE>bool <B>failed</B>() const throw();</PRE>
+
+<P>The member function returns true only if an insertion into the
+output stream buffer has earlier failed.</P>
+
+<H3><A NAME="ostreambuf_iterator::operator*"><CODE>ostreambuf_iterator::operator*</CODE></A></H3>
+
+<PRE>ostreambuf_iterator&amp; <B>operator*</B>();</PRE>
+
+<P>The operator returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="ostreambuf_iterator::operator++"><CODE>ostreambuf_iterator::operator++</CODE></A></H3>
+
+<PRE>ostreambuf_iterator&amp; <B>operator++</B>();
+T1 <B>operator++</B>(int);</PRE>
+
+<P>The first operator returns <CODE>*this</CODE>. The second operator
+returns an object of some type <CODE>T1</CODE> that can be converted to
+<CODE>ostreambuf_iterator&lt;Elem, Tr&gt;</CODE>.</P>
+
+<H3><A NAME="ostreambuf_iterator::operator="><CODE>ostreambuf_iterator::operator=</CODE></A></H3>
+
+<PRE>ostreambuf_iterator&amp; <B>operator=</B>(Elem ch);</PRE>
+
+<P>The operator inserts <CODE>ch</CODE> into the associated stream buffer,
+then returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="ostreambuf_iterator::ostream_type"><CODE>ostreambuf_iterator::ostream_type</CODE></A></H3>
+
+<PRE>typedef basic_ostream&lt;Elem, Tr&gt; <B>ostream_type</B>;</PRE>
+
+<P>The type is a synonym for
+<CODE>basic_ostream&lt;Elem,
+Tr&gt;</CODE>.</P>
+
+<H3><A NAME="ostreambuf_iterator::ostreambuf_iterator"><CODE>ostreambuf_iterator::ostreambuf_iterator</CODE></A></H3>
+
+<PRE><B>ostreambuf_iterator</B>(streambuf_type *strbuf) throw();
+<B>ostreambuf_iterator</B>(ostream_type&amp; ostr) throw();</PRE>
+
+<P>The first constructor initializes the output stream-buffer pointer
+with <CODE>strbuf</CODE>.
+The second constructor initializes the output stream-buffer pointer with
+<CODE>ostr.rdbuf()</CODE>.
+(The stored pointer must not be a null pointer.)</P>
+
+<H3><A NAME="ostreambuf_iterator::streambuf_type"><CODE>ostreambuf_iterator::streambuf_type</CODE></A></H3>
+
+<PRE>typedef basic_streambuf&lt;Elem, Tr&gt; <B>streambuf_type</B>;</PRE>
+
+<P>The type is a synonym for <CODE>basic_streambuf&lt;Elem, Tr&gt;</CODE>.</P>
+
+<H3><A NAME="ostreambuf_iterator::traits_type"><CODE>ostreambuf_iterator::traits_type</CODE></A></H3>
+
+<PRE>typedef Tr <B>traits_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Tr</CODE>.</P>
+
+<H2><A NAME="output_iterator_tag"><CODE>output_iterator_tag</CODE></A></H2>
+
+<PRE>struct <B>output_iterator_tag</B> {
+    };</PRE>
+
+<P>The type is the same as
+<CODE>iterator&lt;Iter&gt;::<A HREF="#iterator::iterator_category">iterator_category</A></CODE>
+when <CODE>Iter</CODE> describes an object that can serve as a
+output iterator.</P>
+
+<H2><A NAME="random_access_iterator_tag"><CODE>random_access_iterator_tag</CODE></A></H2>
+
+<PRE>struct <B>random_access_iterator_tag</B>
+    : public bidirectional_iterator_tag {
+    };</PRE>
+
+<P>The type is the same as
+<CODE>iterator&lt;Iter&gt;::<A HREF="#iterator::iterator_category">iterator_category</A></CODE>
+when <CODE>Iter</CODE> describes an object that can serve as a
+random-access iterator.</P>
+
+<H2><A NAME="reverse_iterator"><CODE>reverse_iterator</CODE></A></H2>
+
+<PRE>template&lt;class RanIt&gt;
+    class <B>reverse_iterator</B> : public iterator&lt;
+        typename iterator_traits&lt;RanIt&gt;::iterator_category,
+        typename iterator_traits&lt;RanIt&gt;::value_type,
+        typename iterator_traits&lt;RanIt&gt;::difference_type,
+        typename iterator_traits&lt;RanIt&gt;::pointer,
+        typename iterator_traits&lt;RanIt&gt;::reference&gt; {
+    typedef typename iterator_traits&lt;RanIt&gt;::difference_type
+        <B><A HREF="#reverse_iterator::difference_type">difference_type</A></B>;
+    typedef typename iterator_traits&lt;RanIt&gt;::pointer
+        <B><A HREF="#reverse_iterator::pointer">pointer</A></B>;
+    typedef typename iterator_traits&lt;RanIt&gt;::reference
+        <B><A HREF="#reverse_iterator::reference">reference</A></B>;
+public:
+    typedef RanIt <B><A HREF="#reverse_iterator::iterator_type">iterator_type</A></B>;
+    <B><A HREF="#reverse_iterator::reverse_iterator">reverse_iterator</A></B>();
+    explicit <B><A HREF="#reverse_iterator::reverse_iterator">reverse_iterator</A></B>(RanIt right);
+    template&lt;class Ty&gt;
+        <B><A HREF="#reverse_iterator::reverse_iterator">reverse_iterator</A></B>(const reverse_iterator&lt;Ty&gt;&amp; right);
+    RanIt <B><A HREF="#reverse_iterator::base">base</A></B>() const;
+    reference <B><A HREF="#reverse_iterator::operator*">operator*</A></B>() const;
+    pointer <B><A HREF="#reverse_iterator::operator-&gt;">operator-&gt;</A></B>() const;
+    reverse_iterator&amp; <B><A HREF="#reverse_iterator::operator++">operator++</A></B>();
+    reverse_iterator <B><A HREF="#reverse_iterator::operator++">operator++</A></B>(int);
+    reverse_iterator&amp; <B><A HREF="#reverse_iterator::operator--">operator--</A></B>();
+    reverse_iterator <B><A HREF="#reverse_iterator::operator--">operator--</A></B>();
+    reverse_iterator&amp; <B><A HREF="#reverse_iterator::operator+=">operator+=</A></B>(difference_type off);
+    reverse_iterator <B><A HREF="#reverse_iterator::operator+">operator+</A></B>(difference_type off) const;
+    reverse_iterator&amp; <B><A HREF="#reverse_iterator::operator-=">operator-=</A></B>(difference_type off);
+    reverse_iterator <B><A HREF="#reverse_iterator::operator-">operator-</A></B>(difference_type off) const;
+    reference <B><A HREF="#reverse_iterator::operator[]">operator[]</A></B>(difference_type off) const;
+protected:
+    RanIt <B>current</B>;
+    };</PRE>
+
+<P>The template class describes an object that behaves like a
+random-access iterator, only in reverse. It stores a random-access iterator
+of type <B><CODE>RanIt</CODE></B> in the protected object
+<B><CODE><A NAME="reverse_iterator::current">current</A></CODE></B>.
+Incrementing the object <CODE>X</CODE> of type
+<CODE>reverse_iterator</CODE>
+decrements <CODE>X.current</CODE>, and decrementing <CODE>x</CODE>
+increments <CODE>X.current</CODE>.
+Moreover, the expression <CODE>*X</CODE> evaluates to
+<CODE>*(current - 1)</CODE>,
+of type <B><CODE>reference</CODE></B>. Typically, <CODE>reference</CODE> is
+type <CODE>Tr&amp;</CODE>.</P>
+
+<P>Thus, you can use an object of class
+<CODE>reverse_iterator</CODE> to access in reverse
+order a sequence that is traversed in order by a random-access
+iterator.</P>
+
+<P>Several STL <A HREF="lib_cont.html#Containers">containers</A> specialize
+<CODE>reverse_iterator</CODE> for <CODE>RanIt</CODE> a bidirectional iterator.
+In these cases, you must not call any of the member functions <CODE>operator+=</CODE>,
+<CODE>operator+</CODE>, <CODE>operator-=</CODE>, <CODE>operator-</CODE>, or
+<CODE>operator[]</CODE>.</P>
+
+<H3><A NAME="reverse_iterator::base"><CODE>reverse_iterator::base</CODE></A></H3>
+
+<PRE>RanIt <B>base</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#reverse_iterator::current">current</A></CODE>.</P>
+
+<H3><A NAME="reverse_iterator::difference_type">
+<CODE>reverse_iterator::difference_type</CODE></A></H3>
+
+<PRE>typedef typename iterator_traits&lt;RanIt&gt;::difference_type
+    <B>difference_type</B>;</PRE>
+
+<P>The type is a synonym for the iterator trait
+<CODE>typename iterator_traits&lt;RanIt&gt;::pointer</CODE>.</P>
+
+<H3><A NAME="reverse_iterator::iterator_type">
+<CODE>reverse_iterator::iterator_type</CODE></A></H3>
+
+<PRE>typedef RanIt <B>iterator_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>RanIt</CODE>.</P>
+
+<H3><A NAME="reverse_iterator::operator*"><CODE>reverse_iterator::operator*</CODE></A></H3>
+
+<PRE>reference <B>operator*</B>() const;</PRE>
+
+<P>The operator returns
+<CODE>*(<A HREF="#reverse_iterator::current">current</A> - 1)</CODE>.</P>
+
+<H3><A NAME="reverse_iterator::operator+"><CODE>reverse_iterator::operator+</CODE></A></H3>
+
+<PRE>reverse_iterator <B>operator+</B>(difference_type off) const;</PRE>
+
+<P>The operator returns <CODE>reverse_iterator(*this) += off</CODE>.</P>
+
+<H3><A NAME="reverse_iterator::operator++"><CODE>reverse_iterator::operator++</CODE></A></H3>
+
+<PRE>reverse_iterator&amp; <B>operator++</B>();
+reverse_iterator <B>operator++</B>(int);</PRE>
+
+<P>The first (preincrement) operator evaluates
+<CODE>--<A HREF="#reverse_iterator::current">current</A></CODE>.
+then returns <CODE>*this</CODE>.</P>
+
+<P>The second (postincrement) operator makes a copy of <CODE>*this</CODE>,
+evaluates <CODE>--current</CODE>, then returns the copy.</P>
+
+<H3><A NAME="reverse_iterator::operator+="><CODE>reverse_iterator::operator+=</CODE></A></H3>
+
+<PRE>reverse_iterator&amp; <B>operator+=</B>(difference_type off);</PRE>
+
+<P>The operator evaluates
+<CODE><A HREF="#reverse_iterator::current">current</A> - off</CODE>.
+then returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="reverse_iterator::operator-"><CODE>reverse_iterator::operator-</CODE></A></H3>
+
+<PRE>reverse_iterator <B>operator-</B>(difference_type off) const;</PRE>
+
+<P>The operator returns <CODE>reverse_iterator(*this) -= off</CODE>.</P>
+
+<H3><A NAME="reverse_iterator::operator--"><CODE>reverse_iterator::operator--</CODE></A></H3>
+
+<PRE>reverse_iterator&amp; <B>operator--</B>();
+reverse_iterator <B>operator--</B>();</PRE>
+
+<P>The first (predecrement) operator evaluates
+<CODE>++<A HREF="#reverse_iterator::current">current</A></CODE>.
+then returns <CODE>*this</CODE>.</P>
+
+<P>The second (postdecrement) operator makes a copy of <CODE>*this</CODE>,
+evaluates <CODE>++current</CODE>, then returns the copy.</P>
+
+<H3><A NAME="reverse_iterator::operator-="><CODE>reverse_iterator::operator-=</CODE></A></H3>
+
+<PRE>reverse_iterator&amp; <B>operator-=</B>(difference_type off);</PRE>
+
+<P>The operator evaluates
+<CODE><A HREF="#reverse_iterator::current">current</A> + off</CODE>.
+then returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="reverse_iterator::operator-&gt;"><CODE>reverse_iterator::operator-&gt;</CODE></A></H3>
+
+<PRE>pointer <B>operator-&gt;</B>() const;</PRE>
+
+<P>The operator returns <CODE>&amp;**this</CODE>.</P>
+
+<H3><A NAME="reverse_iterator::operator[]"><CODE>reverse_iterator::operator[]</CODE></A></H3>
+
+<PRE>reference <B>operator[]</B>(difference_type off) const;</PRE>
+
+<P>The operator returns <CODE>*(*this + off)</CODE>.</P>
+
+<H3><A NAME="reverse_iterator::pointer">
+<CODE>reverse_iterator::pointer</CODE></A></H3>
+
+<PRE>typedef typename iterator_traits&lt;RanIt&gt;::pointer
+    <B>pointer</B>;</PRE>
+
+<P>The type is a synonym for the iterator trait
+<CODE>typename iterator_traits&lt;RanIt&gt;::pointer</CODE>.</P>
+
+<H3><A NAME="reverse_iterator::reference">
+<CODE>reverse_iterator::reference</CODE></A></H3>
+
+<PRE>typedef typename iterator_traits&lt;RanIt&gt;::reference
+    <B>reference</B>;</PRE>
+
+<P>The type is a synonym for the iterator trait
+<CODE>typename iterator_traits&lt;RanIt&gt;::reference</CODE>.</P>
+
+<H3><A NAME="reverse_iterator::reverse_iterator">
+<CODE>reverse_iterator::reverse_iterator</CODE></A></H3>
+
+<PRE><B>reverse_iterator</B>();
+explicit <B>reverse_iterator</B>(RanIt right);
+template&lt;class Ty&gt;
+    <B><A HREF="#reverse_iterator::reverse_iterator">reverse_iterator</A></B>(const reverse_iterator&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first constructor initializes
+<CODE><A HREF="#reverse_iterator::current">current</A></CODE>
+with its default constructor. The second constructor initializes
+<CODE>current</CODE> with
+<CODE>right.<A HREF="#reverse_iterator::current">current</A></CODE>.</P>
+
+<P>The template constructor initializes <CODE>current</CODE>
+with <CODE>right.<A HREF="#reverse_iterator::base">base</A>()</CODE>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1994-2002
+by P.J. Plauger. Portions derived from work
+<A HREF="crit_hp.html">copyright</A> &#169; 1994
+by Hewlett-Packard Company. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

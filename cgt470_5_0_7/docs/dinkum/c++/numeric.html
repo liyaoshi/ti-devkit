@@ -1,0 +1,147 @@
+<HTML><HEAD><TITLE>&lt;numeric&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;numeric&gt;"><CODE>&lt;numeric&gt;</CODE></A></H1><HR>
+
+<P>Include the <A HREF="index.html#STL">STL</A>
+standard header <B><CODE>&lt;numeric&gt;</CODE></B>
+to define several template functions useful for computing numeric values.
+The descriptions of these templates employ a number of
+<A HREF="lib_stl.html#Algorithm Conventions">conventions</A>
+common to all algorithms.</P>
+
+<PRE>namespace std {
+template&lt;class InIt, class Ty&gt;
+    Ty <B><A HREF="#accumulate">accumulate</A></B>(InIt first, InIt last, Ty val);
+template&lt;class InIt, class Ty, class Fn2&gt;
+    Ty <B><A HREF="#accumulate">accumulate</A></B>(InIt first, InIt last, Ty val, Fn2 func);
+template&lt;class InIt1, class InIt2, class Ty&gt;
+    Ty <B><A HREF="#inner_product">inner_product</A></B>(InIt1 first1, InIt1 last1,
+        Init2 first2, Ty val);
+template&lt;class InIt1, class InIt2, class Ty,
+    class Fn21, class Fn22&gt;
+    Ty <B><A HREF="#inner_product">inner_product</A></B>(InIt1 first1, InIt1 last1,
+        Init2 first2, Ty val, Fn21 func1, Fn22 func2);
+template&lt;class InIt, class OutIt&gt;
+    OutIt <B><A HREF="#partial_sum">partial_sum</A></B>(InIt first, InIt last,
+        OutIt result);
+template&lt;class InIt, class OutIt, class Fn2&gt;
+    OutIt <B><A HREF="#partial_sum">partial_sum</A></B>(InIt first, InIt last,
+        OutIt result, Fn2 func);
+template&lt;class InIt, class OutIt&gt;
+    OutIt <B><A HREF="#adjacent_difference">adjacent_difference</A></B>(InIt first, InIt last,
+        OutIt result);
+template&lt;class InIt, class OutIt, class Fn2&gt;
+    OutIt <B><A HREF="#adjacent_difference">adjacent_difference</A></B>(InIt first, InIt last,
+        OutIt result, Fn2 func);
+    };</PRE>
+
+<H2><A NAME="accumulate"><CODE>accumulate</CODE></A></H2>
+
+<PRE>template&lt;class InIt, class Ty&gt;
+    Ty <B>accumulate</B>(InIt first, InIt last, Ty val);
+template&lt;class InIt, class Ty, class Fn2&gt;
+    Ty <B>accumulate</B>(InIt first, InIt last, Ty val, Fn2 func);</PRE>
+
+<P>The first template function repeatedly replaces <CODE>val</CODE>
+with <CODE>val + *I</CODE>, for each value of the <CODE>InIt</CODE>
+iterator <CODE>I</CODE> in the interval <CODE>[first, last)</CODE>.
+It then returns <CODE>val</CODE>.</P>
+
+<P>The second template function repeatedly replaces <CODE>val</CODE>
+with <CODE>func(val, *I)</CODE>, for each value of the <CODE>InIt</CODE>
+iterator <CODE>I</CODE> in the interval <CODE>[first, last)</CODE>.
+It then returns <CODE>val</CODE>.</P>
+
+<H2><A NAME="adjacent_difference"><CODE>adjacent_difference</CODE></A></H2>
+
+<PRE>template&lt;class InIt, class OutIt&gt;
+    OutIt <B>adjacent_difference</B>(InIt first, InIt last,
+        OutIt result);
+template&lt;class InIt, class OutIt, class Fn2&gt;
+    OutIt <B>adjacent_difference</B>(InIt first, InIt last,
+        OutIt result, Fn2 func);</PRE>
+
+<P>The first template function stores successive values beginning
+at <CODE>result</CODE>, for each value of the <CODE>InIt</CODE>
+iterator <CODE>I</CODE> in the interval <CODE>[first, last)</CODE>.
+The first value <CODE>val</CODE> stored (if any)
+is <CODE>*I</CODE>. Each subsequent value
+stored is <CODE>*I - val</CODE>, and <CODE>val</CODE> is replaced
+by <CODE>*I</CODE>.
+The function returns <CODE>result</CODE> incremented
+<CODE>last - first</CODE> times.</P>
+
+<P>The second template function stores successive values beginning
+at <CODE>result</CODE>, for each value of the <CODE>InIt</CODE>
+iterator <CODE>I</CODE> in the interval <CODE>[first, last)</CODE>.
+The first value <CODE>val</CODE> stored (if any)
+is <CODE>*I</CODE>. Each subsequent value
+stored is <CODE>func(*I, val)</CODE>, and <CODE>val</CODE> is replaced
+by <CODE>*I</CODE>.
+The function returns <CODE>result</CODE> incremented
+<CODE>last - first</CODE> times.</P>
+
+<H2><A NAME="inner_product"><CODE>inner_product</CODE></A></H2>
+
+<PRE>template&lt;class InIt1, class InIt2, class Ty&gt;
+    Ty <B>inner_product</B>(InIt1 first1, InIt1 last1,
+        Init2 first2, Ty val);
+template&lt;class InIt1, class InIt2, class Ty,
+    class Fn21, class Fn22&gt;
+    Ty <B>inner_product</B>(InIt1 first1, InIt1 last1,
+        Init2 first2, Ty val, Fn21 func1, Fn22 func2);</PRE>
+
+<P>The first template function repeatedly replaces <CODE>val</CODE>
+with <CODE>val + (*I1 * *I2)</CODE>, for each value of the <CODE>InIt1</CODE>
+iterator <CODE>I1</CODE> in the interval <CODE>[first1, last2)</CODE>.
+In each case, the <CODE>InIt2</CODE> iterator <CODE>I2</CODE> equals
+<CODE>first2 + (I1 - first1)</CODE>.
+The function returns <CODE>val</CODE>.</P>
+
+<P>The second template function repeatedly replaces <CODE>val</CODE>
+with <CODE>func1(val, func2(*I1, *I2))</CODE>,
+for each value of the <CODE>InIt1</CODE>
+iterator <CODE>I1</CODE> in the interval <CODE>[first1, last2)</CODE>.
+In each case, the <CODE>InIt2</CODE> iterator <CODE>I2</CODE> equals
+<CODE>first2 + (I1 - first1)</CODE>.
+The function returns <CODE>val</CODE>.</P>
+
+<H2><A NAME="partial_sum"><CODE>partial_sum</CODE></A></H2>
+
+<PRE>template&lt;class InIt, class OutIt&gt;
+    OutIt <B>partial_sum</B>(InIt first, InIt last,
+        OutIt result);
+template&lt;class InIt, class OutIt, class Fn2&gt;
+    OutIt <B>partial_sum</B>(InIt first, InIt last,
+        OutIt result, Fn2 func);</PRE>
+
+<P>The first template function stores successive values beginning
+at <CODE>result</CODE>, for each value of the <CODE>InIt</CODE>
+iterator <CODE>I</CODE> in the interval <CODE>[first, last)</CODE>.
+The first value <CODE>val</CODE> stored (if any)
+is <CODE>*I</CODE>. Each subsequent value <CODE>val</CODE>
+stored is <CODE>val + *I</CODE>.
+The function returns <CODE>result</CODE> incremented
+<CODE>last - first</CODE> times.</P>
+
+<P>The second template function stores successive values beginning
+at <CODE>result</CODE>, for each value of the <CODE>InIt</CODE>
+iterator <CODE>I</CODE> in the interval <CODE>[first, last)</CODE>.
+The first value <CODE>val</CODE> stored (if any)
+is <CODE>*I</CODE>. Each subsequent value <CODE>val</CODE>
+stored is <CODE>func(val, *I)</CODE>.
+The function returns <CODE>result</CODE> incremented
+<CODE>last - first</CODE> times.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1994-2002
+by P.J. Plauger. Portions derived from work
+<A HREF="crit_hp.html">copyright</A> &#169; 1994
+by Hewlett-Packard Company. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

@@ -1,0 +1,554 @@
+<HTML><HEAD><TITLE>&lt;fstream&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;fstream&gt;"><CODE>&lt;fstream&gt;</CODE></A></H1><HR>
+
+<P>Include the <A HREF="lib_cpp.html#iostreams">iostreams</A>
+standard header <B><CODE>&lt;fstream&gt;</CODE></B>
+to define several classes that support
+iostreams operations on
+sequences stored in external
+<A HREF="lib_file.html#files">files</A>.</P>
+
+<PRE>        // DECLARATIONS
+class <B><A HREF="#filebuf">filebuf</A></B>;
+class <B><A HREF="#ifstream">ifstream</A></B>;
+class <B><A HREF="#ofstream">ofstream</A></B>;
+        // END OF DECLARATIONS</PRE>
+
+<H2><A NAME="filebuf"><CODE>filebuf</CODE></A></H2>
+
+<PRE>class <B>filebuf</B> : public streambuf {
+public:
+    typedef typename streambuf&lt;Elem, Tr&gt;::char_type
+        char_type;
+    typedef typename streambuf&lt;Elem, Tr&gt;::traits_type
+        traits_type;
+    typedef typename streambuf&lt;Elem, Tr&gt;::int_type
+        int_type;
+    typedef typename streambuf&lt;Elem, Tr&gt;::pos_type
+        pos_type;
+    typedef typename streambuf&lt;Elem, Tr&gt;::off_type
+        off_type;
+    <B><A HREF="#filebuf::filebuf">filebuf</A></B>();
+    bool <B><A HREF="#filebuf::is_open">is_open</A></B>() const;
+    filebuf *<B><A HREF="#filebuf::open">open</A></B>(const char *filename,
+        ios_base::openmode mode);
+    filebuf *<B><A HREF="#filebuf::close">close</A></B>();
+protected:
+    virtual pos_type <B><A HREF="#filebuf::seekoff">seekoff</A></B>(off_type off,
+        ios_base::seekdir way,
+        ios_base::openmode which =
+            ios_base::in | ios_base::out);
+    virtual pos_type <B><A HREF="#filebuf::seekpos">seekpos</A></B>(pos_type pos,
+        ios_base::openmode which =
+            ios_base::in | ios_base::out);
+    virtual int_type <B><A HREF="#filebuf::underflow">underflow</A></B>();
+    virtual int_type <B><A HREF="#filebuf::pbackfail">pbackfail</A></B>(int_type meta =
+        traits_type::eof());
+    virtual int_type <B><A HREF="#filebuf::overflow">overflow</A></B>(int_type meta =
+        traits_type::eof());
+    virtual int <B><A HREF="#filebuf::sync">sync</A></B>();
+    virtual streambuf
+        *<B><A HREF="#filebuf::setbuf">setbuf</A></B>(Elem *buffer, streamsize count);
+    };</PRE>
+
+<P>The class
+describes a <B><A HREF="streambu.html#stream buffer">stream buffer</A></B> that controls
+the transmission of elements to and from a sequence of elements
+stored in an external
+<A HREF="lib_file.html#files">file</A>.</P>
+
+<P>An object of class
+<CODE>filebuf</CODE> stores a
+<B><A NAME="file pointer">file pointer</A></B>, which designates the
+<CODE><A HREF="stdio.html#FILE">FILE</A></CODE> object
+that controls the <B><A HREF="lib_file.html#stream">stream</A></B>
+associated with an
+<A HREF="lib_file.html#file open">open</A> file.</P>
+
+<H3><A NAME="filebuf::filebuf"><CODE>filebuf::filebuf</CODE></A></H3>
+
+<PRE><B>filebuf</B>();</PRE>
+
+<P>The constructor stores a null pointer in all the pointers
+controlling the
+<A HREF="streambu.html#input buffer">input buffer</A> and the
+<A HREF="streambu.html#output buffer">output buffer</A>. It
+also stores a null pointer in the
+<A HREF="#file pointer">file pointer</A>.</P>
+
+<H3><A NAME="filebuf::char_type"><CODE>filebuf::char_type</CODE></A></H3>
+
+<PRE>typedef char <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for <I>char.</I></P>
+
+<H3><A NAME="filebuf::close"><CODE>filebuf::close</CODE></A></H3>
+
+<PRE>filebuf *<B>close</B>();</PRE>
+
+<P>The member function returns a null pointer if the
+<A HREF="#file pointer">file pointer</A> <CODE>fp</CODE>
+is a null pointer. Otherwise, it calls
+<CODE><A HREF="stdio.html#fclose">fclose</A>(fp)</CODE>.
+If that function returns a nonzero value, the function
+returns a null pointer. Otherwise, it returns <CODE>this</CODE>
+to indicate that the file was successfully
+<A HREF="lib_file.html#file close">closed</A>.</P>
+
+
+<H3><A NAME="filebuf::int_type"><CODE>filebuf::int_type</CODE></A></H3>
+
+<PRE>typedef traits_type::int_type <B>int_type</B>;</PRE>
+
+<P>The type is a synonym for
+<CODE>traits_type::<A HREF="string2.html#char_traits::int_type">int_type</A></CODE>.</P>
+
+<H3><A NAME="filebuf::is_open"><CODE>filebuf::is_open</CODE></A></H3>
+
+<PRE>bool <B>is_open</B>();</PRE>
+
+<P>The member function returns true if the
+<A HREF="#file pointer">file pointer</A> is not a null pointer.</P>
+
+<H3><A NAME="filebuf::off_type"><CODE>filebuf::off_type</CODE></A></H3>
+
+<PRE>typedef traits_type::off_type <B>off_type</B>;</PRE>
+
+<P>The type is a synonym for
+<CODE>traits_type::<A HREF="string2.html#char_traits::off_type">off_type</A></CODE>.</P>
+
+<H3><A NAME="filebuf::open"><CODE>filebuf::open</CODE></A></H3>
+
+<PRE>filebuf *<B>open</B>(const char *filename,
+    ios_base::openmode mode);</PRE>
+
+<P>The member function endeavors to open the file with
+<A HREF="lib_over.html#filename">filename</A> <CODE>filename</CODE>, by calling
+<CODE><A HREF="stdio.html#fopen">fopen</A>(filename, strmode)</CODE>. Here
+<CODE>strmode</CODE> is determined from <CODE>mode &amp;
+~(<A HREF="ios.html#ios_base::ate">ate</A> &amp; |
+<A HREF="ios.html#ios_base::binary">binary</A>)</CODE>:</P>
+
+<UL>
+<LI><CODE>ios_base::<A HREF="ios.html#ios_base::in">in</A></CODE>
+becomes <CODE>"r"</CODE> (open existing file for reading).</LI>
+
+<LI><CODE>ios_base::<A HREF="ios.html#ios_base::out">out</A></CODE> or
+<CODE>ios_base::out |
+ios_base::<A HREF="ios.html#ios_base::trunc">trunc</A></CODE>
+becomes <CODE>"w"</CODE> (truncate existing file or create for writing).</LI>
+
+<LI><CODE>ios_base::out |
+ios_base::<A HREF="ios.html#ios_base::app">app</A></CODE>
+becomes <CODE>"a"</CODE> (open existing file for appending all writes).</LI>
+
+<LI><CODE>ios_base::in | ios_base::out</CODE>
+becomes <CODE>"r+"</CODE> (open existing file for reading and writing).</LI>
+
+<LI><CODE>ios_base::in | ios_base::out |
+ios_base::trunc</CODE> becomes <CODE>"w+"</CODE>
+(truncate existing file or create for reading and writing).</LI>
+
+<LI><CODE>ios_base::in | ios_base::out |
+ios_base::app</CODE> becomes <CODE>"a+"</CODE>
+(open existing file for reading and for appending all writes).</LI>
+</UL>
+
+<P>If <CODE>mode &amp; ios_base::binary</CODE> is nonzero,
+the function appends <CODE>b</CODE> to <CODE>strmode</CODE>
+to open a <A HREF="lib_file.html#binary stream">binary stream</A>
+instead of a <A HREF="lib_file.html#text stream">text stream</A>.
+It then stores the value returned by <CODE>fopen</CODE> in the
+<A HREF="#file pointer">file pointer</A> <CODE>fp</CODE>. If
+<CODE>mode &amp; ios_base::ate</CODE> is nonzero and the
+file pointer is not a null pointer, the function calls
+<CODE><A HREF="stdio.html#fseek">fseek</A>(fp, 0,
+<A HREF="stdio.html#SEEK_END">SEEK_END</A>)</CODE> to
+position the stream at end-of-file. If that positioning operation
+fails, the function calls
+<CODE><A HREF="#filebuf::close">close</A>(fp)</CODE> and
+stores a null pointer in the file pointer.</P>
+
+
+<P>If the file pointer is a null pointer, the function returns
+a null pointer. Otherwise, it returns <CODE>this</CODE>.</P>
+
+<H3><A NAME="filebuf::overflow"><CODE>filebuf::overflow</CODE></A></H3>
+
+<PRE>virtual int_type <B>overflow</B>(int_type meta =
+    traits_type::eof());</PRE>
+
+<P>If <CODE>meta !=
+traits_type::<A HREF="string2.html#char_traits::eof">eof</A>()</CODE>,
+the protected virtual member function endeavors to insert the element
+<CODE>ch = traits_type::<A HREF="string2.html#char_traits::to_char_type">to_char_type</A>(meta)</CODE>
+into the
+<A HREF="streambu.html#output buffer">output buffer</A>.
+It can do so in various ways:</P>
+
+<UL>
+<LI>If a <A HREF="streambu.html#write position">write position</A>
+is available, it can store the element into the write position
+and increment the next pointer for the output buffer.</LI>
+
+<LI>It can make a write position available by allocating
+new or additional storage for the output buffer.</LI>
+
+<LI>It can write any pending output in the output buffer, followed
+by <CODE>ch</CODE>, to the associated stream designated by the
+<A HREF="#file pointer">file pointer</A> <CODE>fp</CODE>
+as if by successive calls of the form
+<CODE><A HREF="stdio.html#fputc">fputc</A>(ch, fp)</CODE>.
+If any conversion or write fails, the function does not succeed.</LI>
+</UL>
+
+<P>If the function cannot succeed, it returns <CODE>traits_type::eof()</CODE>.
+Otherwise, it returns
+<CODE>traits_type::<A HREF="string2.html#char_traits::not_eof">not_eof</A>(meta)</CODE>.</P>
+
+<H3><A NAME="filebuf::pbackfail"><CODE>filebuf::pbackfail</CODE></A></H3>
+
+<PRE>virtual int_type <B>pbackfail</B>(int_type meta =
+    traits_type::eof());</PRE>
+
+<P>The protected virtual member function endeavors to put back an element
+into the
+<A HREF="streambu.html#input buffer">input buffer</A>,
+then make it the current element (pointed to
+by the next pointer). If <CODE>meta ==
+traits_type::<A HREF="string2.html#char_traits::eof">eof</A>()</CODE>,
+the element to push back is effectively the one already in the stream
+before the current element. Otherwise, that element is replaced by
+<CODE>ch =
+traits_type::<A HREF="string2.html#char_traits::to_char_type">to_char_type</A>(meta)</CODE>.
+The function can put back an element in various ways:</P>
+
+<UL>
+<LI>If a <A HREF="streambu.html#putback position">putback position</A>
+is available, and the element stored there compares equal to <CODE>ch</CODE>,
+it can simply decrement the next pointer for the input buffer.</LI>
+
+<LI>If the function can make a putback position available,
+it can do so, set the next pointer to point at that position,
+and store <CODE>ch</CODE> in that position.</LI>
+
+<LI>If the function can push back an element onto the input stream,
+it can do so, such as by calling
+<CODE><A HREF="stdio.html#ungetc">ungetc</A></CODE> for an element
+of type <I>char.</I></LI>
+</UL>
+
+<P>If the function cannot succeed, it returns
+<CODE>traits_type::eof()</CODE>. Otherwise, it returns
+<CODE>traits_type::<A HREF="string2.html#char_traits::not_eof">not_eof</A>(meta)</CODE>.</P>
+
+<H3><A NAME="filebuf::pos_type"><CODE>filebuf::pos_type</CODE></A></H3>
+
+<PRE>typedef traits_type::pos_type <B>pos_type</B>;</PRE>
+
+<P>The type is a synonym for
+<CODE>traits_type::<A HREF="string2.html#char_traits::pos_type">pos_type</A></CODE>.</P>
+
+<H3><A NAME="filebuf::seekoff"><CODE>filebuf::seekoff</CODE></A></H3>
+
+<PRE>virtual pos_type <B>seekoff</B>(off_type off,
+    ios_base::seekdir way,
+    ios_base::openmode which =
+        ios_base::in | ios_base::out);</PRE>
+
+<P>The protected virtual member function endeavors to alter the current
+positions for the controlled streams. For an object of class
+<CODE>filebuf</CODE>, a stream position can be represented
+by an object of type
+<CODE><A HREF="stdio.html#fpos_t">fpos_t</A></CODE>.
+Offset zero designates the first element of the stream.
+(An object of type
+<CODE><A HREF="streambu.html#streambuf::pos_type">pos_type</A></CODE>
+stores at least an <CODE>fpos_t</CODE> object.)</P>
+
+<P>For a file opened for both reading and writing,
+both the input and output streams are positioned in tandem. To
+<A HREF="lib_file.html#Stream States">switch</A>
+between inserting and extracting, you must call either
+<CODE><A HREF="streambu.html#streambuf::pubseekoff">pubseekoff</A></CODE>
+or
+<CODE><A HREF="streambu.html#streambuf::pubseekpos">pubseekpos</A></CODE>.
+Calls to <CODE>pubseekoff</CODE> (and hence to <CODE>seekoff</CODE>)
+have various limitations for
+<A HREF="lib_file.html#text stream">text streams</A>
+and <A HREF="lib_file.html#binary stream">binary streams</A>.</P>
+
+<P>If the
+<A HREF="#file pointer">file pointer</A> <CODE>fp</CODE>
+is a null pointer, the function fails. Otherwise, it endeavors
+to alter the stream position by calling
+<CODE><A HREF="stdio.html#fseek">fseek</A>(fp, off, way)</CODE>.
+If that function succeeds and the resultant position
+<CODE>fposn</CODE> can be determined by calling
+<CODE><A HREF="stdio.html#fgetpos">fgetpos</A>(fp, &amp;fposn)</CODE>,
+the function succeeds. If the function succeeds, it returns
+a value of type <CODE>pos_type</CODE> containing <CODE>fposn</CODE>.
+Otherwise, it returns an invalid stream position.</P>
+
+<H3><A NAME="filebuf::seekpos"><CODE>filebuf::seekpos</CODE></A></H3>
+
+<PRE>virtual pos_type <B>seekpos</B>(pos_type pos,
+    ios_base::openmode which =
+        ios_base::in | ios_base::out);</PRE>
+
+<P>The protected virtual member function endeavors to alter the current
+positions for the controlled streams. For an object of class
+<CODE>filebuf</CODE>, a stream position can be represented
+by an object of type
+<CODE><A HREF="stdio.html#fpos_t">fpos_t</A></CODE>.
+Offset zero designates the first element of the stream.
+(An object of type
+<CODE><A HREF="streambu.html#streambuf::pos_type">pos_type</A></CODE>
+stores at least an <CODE>fpos_t</CODE> object.)</P>
+
+<P>For a file opened for both reading and writing,
+both the input and output streams are positioned in tandem. To
+<A HREF="lib_file.html#Stream States">switch</A>
+between inserting and extracting, you must call either
+<CODE><A HREF="streambu.html#streambuf::pubseekoff">pubseekoff</A></CODE>
+or
+<CODE><A HREF="streambu.html#streambuf::pubseekpos">pubseekpos</A></CODE>.
+Calls to <CODE>pubseekoff</CODE> (and hence to <CODE>seekoff</CODE>)
+have various limitations for
+both <A HREF="lib_file.html#text stream">text streams</A>
+and <A HREF="lib_file.html#binary stream">binary streams</A>.</P>
+
+<P>If the
+<A HREF="#file pointer">file pointer</A> <CODE>fp</CODE>
+is a null pointer, the function fails. Otherwise, it endeavors
+to alter the stream position by calling
+<CODE><A HREF="stdio.html#fsetpos">fsetpos</A>(fp, &amp;fposn)</CODE>,
+where <CODE>fposn</CODE> is the <CODE>fpos_t</CODE> object stored
+in <CODE>pos</CODE>. If that function succeeds, the function returns
+<CODE>pos</CODE>. Otherwise, it returns an invalid stream position.</P>
+
+<H3><A NAME="filebuf::setbuf"><CODE>filebuf::setbuf</CODE></A></H3>
+
+<PRE>virtual streambuf
+    *<B>setbuf</B>(Elem *buffer, streamsize count);</PRE>
+
+<P>The protected member function returns zero if the
+<A HREF="#file pointer">file pointer</A> <CODE>fp</CODE>
+is a null pointer. Otherwise, it calls
+<CODE><A HREF="stdio.html#setvbuf">setvbuf</A>(fp, (char *)buffer,
+<A HREF="stdio.html#_IOFBF">_IOFBF</A>, count * sizeof (Elem))</CODE>
+to offer the array of <CODE>count</CODE> elements beginning at <CODE>buffer</CODE>
+as a buffer for the stream. If that function returns a nonzero value,
+the function returns a null pointer. Otherwise, it returns <CODE>this</CODE>
+to signal success.</P>
+
+<H3><A NAME="filebuf::sync"><CODE>filebuf::sync</CODE></A></H3>
+
+<PRE>int <B>sync</B>();</PRE>
+
+<P>The protected member function returns zero if the
+<A HREF="#file pointer">file pointer</A> <CODE>fp</CODE>
+is a null pointer. Otherwise, it returns zero only if calls to both
+<CODE><A HREF="#filebuf::overflow">overflow</A>()</CODE> and
+<CODE><A HREF="stdio.html#fflush">fflush</A>(fp)</CODE>
+succeed in flushing any pending output to the stream.</P>
+
+<H3><A NAME="filebuf::traits_type"><CODE>filebuf::traits_type</CODE></A></H3>
+
+<PRE>typedef char_traits <B>traits_type</B>;</PRE>
+
+<P>The type is a synonym for
+<CODE><A HREF="string2.html#char_traits">char_traits</A></CODE>.</P>
+
+<H3><A NAME="filebuf::underflow"><CODE>filebuf::underflow</CODE></A></H3>
+
+<PRE>virtual int_type <B>underflow</B>();</PRE>
+
+<P>The protected virtual member function endeavors to extract the current
+element <CODE>ch</CODE> from the input stream, and return the element as
+<CODE>traits_type::<A HREF="string2.html#char_traits::to_int_type">to_int_type</A>(ch)</CODE>.
+It can do so in various ways:</P>
+
+<UL>
+<LI>If a <A HREF="streambu.html#read position">read position</A> is available,
+it takes <CODE>ch</CODE> as the element stored in the read position
+and advances the next pointer for the
+<A HREF="streambu.html#input buffer">input buffer</A>.
+
+<LI>It can read one or more elements of type <I>char,</I>
+as if by successive calls of the form
+<CODE><A HREF="stdio.html#fgetc">fgetc</A>(fp)</CODE>.
+If any read or conversion fails,
+the function does not succeed.</LI>
+</UL>
+
+<P>If the function cannot succeed, it returns
+<CODE>traits_type::<A HREF="string2.html#char_traits::eof">eof</A>()</CODE>. Otherwise,
+it returns <CODE>ch</CODE>, converted as described above.</P>
+
+
+<H2><A NAME="ifstream"><CODE>ifstream</CODE></A></H2>
+
+<PRE>class <B>ifstream</B> : public istream {
+public:
+    filebuf *<B><A HREF="#ifstream::rdbuf">rdbuf</A></B>() const;
+    <B><A HREF="#ifstream::ifstream">ifstream</A></B>();
+    explicit <B><A HREF="#ifstream::ifstream">ifstream</A></B>(const char *filename,
+        ios_base::openmode mode = ios_base::in);
+    bool <B><A HREF="#ifstream::is_open">is_open</A></B>() const;
+    void <B><A HREF="#ifstream::open">open</A></B>(const char *filename,
+        ios_base::openmode mode = ios_base::in);
+    void <B><A HREF="#ifstream::close">close</A></B>();
+    };</PRE>
+
+<P>The class describes an object that controls
+extraction of elements and encoded objects from a
+<A HREF="streambu.html#stream buffer">stream buffer</A> of class
+<CODE><A HREF="#filebuf">filebuf</A></CODE>.
+The object stores an object of class
+<CODE>filebuf</CODE>.</P>
+
+<H3><A NAME="ifstream::ifstream"><CODE>ifstream::ifstream</CODE></A></H3>
+
+<PRE><B>ifstream</B>();
+explicit <B>ifstream</B>(const char *filename,
+    ios_base::openmode mode = ios_base::in);</PRE>
+
+<P>The first constructor initializes the base class by calling
+<CODE><A HREF="istream.html#istream::istream">istream</A>(sb)</CODE>,
+where <CODE>sb</CODE> is the stored object of class
+<CODE><A HREF="#filebuf">filebuf</A></CODE>.
+It also initializes <CODE>sb</CODE> by calling
+<CODE><A HREF="#filebuf::filebuf">filebuf</A>()</CODE>.</P>
+
+<P>The second constructor initializes the base class by calling
+<CODE>istream(sb)</CODE>.
+It also initializes <CODE>sb</CODE> by calling
+<CODE><A HREF="#filebuf::filebuf">filebuf</A>()</CODE>,
+then <CODE>sb.<A HREF="#filebuf::open">open</A>(filename, mode
+| ios_base::in)</CODE>. If the latter function returns a null
+pointer, the constructor calls
+<CODE><A HREF="ios.html#ios::setstate">setstate</A>(failbit)</CODE>.</P>
+
+<H3><A NAME="ifstream::close"><CODE>ifstream::close</CODE></A></H3>
+
+<PRE>void <B>close</B>();</PRE>
+
+<P>The member function calls
+<CODE><A HREF="#ifstream::rdbuf">rdbuf</A>()-&gt;
+<A HREF="#filebuf::close">close</A>()</CODE>.</P>
+
+<H3><A NAME="ifstream::is_open"><CODE>ifstream::is_open</CODE></A></H3>
+
+<PRE>bool <B>is_open</B>();</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#ifstream::rdbuf">rdbuf</A>()-&gt;
+<A HREF="#filebuf::is_open">is_open</A>()</CODE>.</P>
+
+<H3><A NAME="ifstream::open"><CODE>ifstream::open</CODE></A></H3>
+
+<PRE>void <B>open</B>(const char *filename,
+    ios_base::openmode mode = ios_base::in);</PRE>
+
+<P>The member function calls
+<CODE><A HREF="#ifstream::rdbuf">rdbuf</A>()-&gt;
+<A HREF="#filebuf::open">open</A>(filename, mode | ios_base::in)</CODE>.
+If that function returns a null pointer, the function calls
+<CODE><A HREF="ios.html#ios::setstate">setstate</A>(failbit)</CODE>.</P>
+
+<H3><A NAME="ifstream::rdbuf"><CODE>ifstream::rdbuf</CODE></A></H3>
+
+<PRE>filebuf *<B>rdbuf</B>() const</PRE>
+
+<P>The member function returns the address of the stored stream buffer.</P>
+
+<H2><A NAME="ofstream"><CODE>ofstream</CODE></A></H2>
+
+<PRE>class <B>ofstream</B> : public ostream {
+public:
+    filebuf *<B><A HREF="#ofstream::rdbuf">rdbuf</A></B>() const;
+    <B><A HREF="#ofstream::ofstream">ofstream</A></B>();
+    explicit <B><A HREF="#ofstream::ofstream">ofstream</A></B>(const char *filename,
+        ios_base::openmode mode = ios_base::out);
+    bool <B><A HREF="#ofstream::is_open">is_open</A></B>() const;
+    void <B><A HREF="#ofstream::open">open</A></B>(const char *filename,
+        ios_base::openmode mode = ios_base::out);
+    void <B><A HREF="#ofstream::close">close</A></B>();
+    };</PRE>
+
+<P>The class describes an object that controls
+insertion of elements and encoded objects into a
+<A HREF="streambu.html#stream buffer">stream buffer</A> of class
+<CODE><A HREF="#filebuf">filebuf</A></CODE>.
+The object stores an object of class
+<CODE>filebuf</CODE>.</P>
+
+<H3><A NAME="ofstream::ofstream"><CODE>ofstream::ofstream</CODE></A></H3>
+
+<PRE><B>ofstream</B>();
+explicit <B>ofstream</B>(const char *filename,
+    ios_base::openmode which = ios_base::out);</PRE>
+
+<P>The first constructor initializes the base class by calling
+<CODE><A HREF="ostream.html#ostream::ostream">ostream</A>(sb)</CODE>,
+where <CODE>sb</CODE> is the stored object of class
+<CODE><A HREF="#filebuf">filebuf</A>&lt;Elem, Tr&gt;</CODE>.
+It also initializes <CODE>sb</CODE> by calling
+<CODE><A HREF="#filebuf::filebuf">filebuf</A>()</CODE>.</P>
+
+<P>The second constructor initializes the base class by calling
+<CODE>ostream(sb)</CODE>.
+It also initializes <CODE>sb</CODE> by calling
+<CODE><A HREF="#filebuf::filebuf">filebuf</A>()</CODE>,
+then <CODE>sb.<A HREF="#filebuf::open">open</A>(filename, mode
+| ios_base::out)</CODE>. If the latter function returns a null
+pointer, the constructor calls
+<CODE><A HREF="ios.html#ios::setstate">setstate</A>(failbit)</CODE>.</P>
+
+<H3><A NAME="ofstream::close"><CODE>ofstream::close</CODE></A></H3>
+
+<PRE>void <B>close</B>();</PRE>
+
+<P>The member function calls
+<CODE><A HREF="#ofstream::rdbuf">rdbuf</A>()-&gt;
+<A HREF="#filebuf::close">close</A>()</CODE>.</P>
+
+<H3><A NAME="ofstream::is_open"><CODE>ofstream::is_open</CODE></A></H3>
+
+<PRE>bool <B>is_open</B>();</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#ofstream::rdbuf">rdbuf</A>()-&gt;
+<A HREF="#filebuf::is_open">is_open</A>()</CODE>.</P>
+
+<H3><A NAME="ofstream::open"><CODE>ofstream::open</CODE></A></H3>
+
+<PRE>void <B>open</B>(const char *filename,
+    ios_base::openmode mode = ios_base::out);</PRE>
+
+<P>The member function calls
+<CODE><A HREF="#ofstream::rdbuf">rdbuf</A>()-&gt;
+<A HREF="#filebuf::open">open</A>(filename, mode | ios_base::out)</CODE>.
+If that function returns a null pointer, the function calls
+<CODE><A HREF="ios.html#ios::setstate">setstate</A>(failbit)</CODE>.</P>
+
+<H3><A NAME="ofstream::rdbuf"><CODE>ofstream::rdbuf</CODE></A></H3>
+
+<PRE>filebuf *<B>rdbuf</B>() const</PRE>
+
+<P>The member function returns the address of the stored
+stream buffer.</P>
+
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1992-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

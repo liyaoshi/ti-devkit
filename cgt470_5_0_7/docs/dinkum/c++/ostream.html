@@ -1,0 +1,639 @@
+<HTML><HEAD><TITLE>&lt;ostream&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;ostream&gt;"><CODE>&lt;ostream&gt;</CODE></A></H1><HR>
+
+<PRE>namespace std {
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="#basic_ostream">basic_ostream</A></B>;
+typedef basic_ostream&lt;char, char_traits&lt;char&gt; &gt;
+    <B><A HREF="#ostream">ostream</A></B>;
+typedef basic_ostream&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <B><A HREF="#wostream">wostream</A></B>;
+
+        // INSERTERS
+template&lt;class Elem, class Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+            const Elem *str);
+template&lt;class Elem, class Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+            Elem ch);
+template&lt;class Elem, class Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+            const char *str);
+template&lt;class Elem, class Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+            char ch);
+template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            const char *str);
+template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            char ch);
+template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            const signed char *str);
+template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            signed char ch);
+template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            const unsigned char *str);
+template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            unsigned char ch);
+
+        // MANIPULATORS
+template class&lt;Elem, Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B><A HREF="#endl">endl</A></B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr);
+template class&lt;Elem, Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B><A HREF="#ends">ends</A></B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr);
+template class&lt;Elem, Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B><A HREF="#flush">flush</A></B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr);
+    };</PRE>
+
+<P>Include the <A HREF="lib_cpp.html#iostreams">iostreams</A>
+standard header <B><CODE>&lt;ostream&gt;</CODE></B> to define
+template
+class <CODE><A HREF="#basic_ostream">basic_ostream</A></CODE>,
+which mediates insertions for the iostreams.
+The header also defines several related
+<A HREF="ios.html#manipulators">manipulators</A>.
+(This header is typically included for you by another
+of the iostreams headers. You seldom have occasion to include it
+directly.)</P>
+
+<H2><A NAME="basic_ostream"><CODE>basic_ostream</CODE></A></H2>
+
+<HR>
+<P><B><CODE><A HREF="#basic_ostream::basic_ostream">basic_ostream</A>
+&#183; <A HREF="#basic_ostream::flush">flush</A>
+&#183; <A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A>
+&#183; <A HREF="#basic_ostream::put">put</A>
+&#183; <A HREF="#basic_ostream::seekp">seekp</A>
+&#183; <A HREF="#basic_ostream::sentry">sentry</A>
+&#183; <A HREF="#basic_ostream::tellp">tellp</A>
+&#183; <A HREF="#basic_ostream::write">write</A>
+</CODE></B></P>
+<HR>
+
+<PRE>template &lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B>basic_ostream</B>
+        : virtual public basic_ios&lt;Elem, Tr&gt; {
+public:
+    typedef typename basic_ios&lt;Elem, Tr&gt;::char_type char_type;
+    typedef typename basic_ios&lt;Elem, Tr&gt;::traits_type traits_type;
+    typedef typename basic_ios&lt;Elem, Tr&gt;::int_type int_type;
+    typedef typename basic_ios&lt;Elem, Tr&gt;::pos_type pos_type;
+    typedef typename basic_ios&lt;Elem, Tr&gt;::off_type off_type;
+    explicit <B><A HREF="#basic_ostream::basic_ostream">basic_ostream</A></B>(basic_streambuf&lt;Elem, Tr&gt; *strbuf);
+    class <B><A HREF="#basic_ostream::sentry">sentry</A></B>;
+    virtual <B>~basic_ostream</B>();
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(
+        basic_ostream&amp; (*pfn)(basic_ostream&amp;));
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(
+        ios_base;&amp; (*pfn)(ios_base&amp;));
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(
+        basic_ios&lt;Elem, Tr&gt;&amp; (*pfn)(basic_ios&lt;Elem, Tr&gt;&amp;));
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(
+        basic_streambuf&lt;Elem, Tr&gt; *strbuf);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(bool val);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(short val);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(unsigned short val);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(int val);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(unsigned int val);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(long val);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(unsigned long val);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(float val);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(double val);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(long double val);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(const void *val);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::put">put</A></B>(char_type ch);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::write">write</A></B>(char_type *str, streamsize count);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::flush">flush</A></B>();
+    pos_type <B><A HREF="#basic_ostream::tellp">tellp</A></B>();
+    basic_ostream&amp; <B><A HREF="#basic_ostream::seekp">seekp</A></B>(pos_type pos);
+    basic_ostream&amp; <B><A HREF="#basic_ostream::seekp">seekp</A></B>(off_type off,
+        ios_base::seek_dir way);
+    };</PRE>
+
+<P>The template class describes an object that controls
+insertion of elements and encoded objects into a
+<A HREF="streambu.html#stream buffer">stream buffer</A>
+with elements of type <CODE>Elem</CODE>, also known as
+<CODE><A HREF="ios.html#basic_ios::char_type">char_type</A></CODE>, whose
+<A HREF="string2.html#character traits">character traits</A> are determined by the
+class <CODE>Tr</CODE>, also known as
+<CODE><A HREF="ios.html#basic_ios::traits_type">traits_type</A></CODE>.</P>
+
+<P>Most of the member functions that overload
+<CODE><A HREF="#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></CODE>
+are <B><A NAME="formatted output functions">formatted output functions</A></B>.
+They follow the pattern:</P>
+
+<PRE>    iostate state = goodbit;
+    const sentry ok(*this);
+    if (ok)
+        {try
+            {&lt;convert and insert elements
+            accumulate flags in state&gt; }
+        catch (...)
+            {try
+                {setstate(badbit); }
+            catch (...)
+                {}
+            if ((exceptions() &amp; badbit) != 0)
+                throw; }}
+    width(0);    // except for operator&lt;&lt;(Elem)
+    setstate(state);
+    return (*this);</PRE>
+
+<P>Two other member functions are
+<B><A NAME="unformatted output functions">unformatted output functions</A></B>.
+They follow the pattern:</P>
+
+<PRE>    iostate state = goodbit;
+    const sentry ok(*this);
+    if (!ok)
+        state |= badbit;
+    else
+        {try
+            {&lt;obtain and insert elements
+            accumulate flags in state&gt; }
+        catch (...)
+            {try
+                {setstate(badbit); }
+            catch (...)
+                {}
+            if ((exceptions() &amp; badbit) != 0)
+                throw; }}
+    setstate(state);
+    return (*this);</PRE>
+
+<P>Both groups of functions call
+<CODE><A HREF="ios.html#basic_ios::setstate">setstate</A>(badbit)</CODE>
+if they encounter a failure while inserting elements.</P>
+
+<P>An object of class <CODE>basic_ostream&lt;Elem, Tr&gt;</CODE> stores only
+a virtual public base object of class
+<B><CODE><A HREF="ios.html#basic_ios">basic_ios</A>&lt;Elem, Tr&gt;</CODE></B></P>
+
+<H3><A NAME="basic_ostream::basic_ostream"><CODE>basic_ostream::basic_ostream</CODE></A></H3>
+
+<PRE>explicit <B>basic_ostream</B>(basic_streambuf&lt;Elem, Tr&gt; *strbuf);</PRE>
+
+<P>The constructor initializes the base class by calling
+<CODE><A HREF="ios.html#basic_ios::init">init</A>(strbuf)</CODE>.</P>
+
+<H3><A NAME="basic_ostream::flush"><CODE>basic_ostream::flush</CODE></A></H3>
+
+<PRE>basic_ostream&amp; <B>flush</B>();</PRE>
+
+<P>If <CODE><A HREF="ios.html#basic_ios::rdbuf">rdbuf</A>()</CODE> is
+not a null pointer, the function calls
+<CODE>rdbuf()-&gt;<A HREF="streambu.html#basic_streambuf::pubsync">pubsync</A>()</CODE>.
+If that returns -1, the function calls
+<CODE><A HREF="ios.html#basic_ios::setstate">setstate</A>(badbit)</CODE>.
+It returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="basic_ostream::operator&lt;&lt;"><CODE>basic_ostream::operator&lt;&lt;</CODE></A></H3>
+
+<PRE>basic_ostream&amp; <B>operator&lt;&lt;</B>(
+    basic_ostream&amp; (*pfn)(basic_ostream&amp;));
+basic_ostream&amp; <B>operator&lt;&lt;</B>(
+    ios_base&amp; (*pfn)(ios_base&amp;));
+basic_ostream&amp; <B>operator&lt;&lt;</B>(
+    basic_ios&lt;Elem, Tr&gt;&amp; (*pfn)(basic_ios&lt;Elem, Tr&gt;&amp;));
+basic_ostream&amp; <B>operator&lt;&lt;</B>(
+    basic_streambuf&lt;Elem, Tr&gt; *strbuf);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(bool val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(short val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(unsigned short val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(int val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(unsigned int val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(long val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(unsigned long val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(float val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(double val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(long double val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(const void *val);</PRE>
+
+<P>The first member function ensures that an expression of the
+form <CODE>ostr &lt;&lt; endl</CODE> calls
+<CODE><A HREF="#endl">endl</A>(ostr)</CODE>, then returns <CODE>*this</CODE>.
+The second and third functions ensure that other
+<A HREF="ios.html#manipulators">manipulators</A>,
+such as <CODE><A HREF="ios.html#hex">hex</A></CODE> behave
+similarly. The remaining functions are all
+<A HREF="#formatted output functions">formatted output functions</A>.</P>
+
+<P>The function:</P>
+
+<PRE>basic_ostream&amp; <B>operator&lt;&lt;</B>(
+    basic_streambuf&lt;Elem, Tr&gt; *strbuf);</PRE>
+
+<P>extracts elements from <CODE>strbuf</CODE>,
+if <CODE>strbuf</CODE> is not a null pointer, and inserts them.
+If <CODE>strbuf</CODE> is a null pointer, the function calls
+<CODE><A HREF="ios.html#basic_ios::setstate">setstate</A>(badbit)</CODE>.
+Otherwise, extraction stops on end-of-file,
+or if an extraction throws an exception (which is rethrown).
+It also stops, without extracting the element in question,
+if an insertion fails. If the function inserts no elements, or
+if an extraction throws an exception, the function calls
+<CODE><A HREF="ios.html#basic_ios::setstate">setstate</A>(failbit)</CODE>.
+In any case, the function returns <CODE>*this</CODE>.</P>
+
+
+<P>The function:</P>
+
+<PRE>basic_ostream&amp; <B>operator&lt;&lt;</B>(bool val);</PRE>
+
+<P>converts <CODE>val</CODE> to a boolean field and inserts it by calling
+<CODE><A HREF="locale2.html#use_facet">use_facet</A>&lt;num_put&lt;Elem,
+OutIt&gt;(<A HREF="ios.html#ios_base::getloc">getloc</A>()).
+<A HREF="locale2.html#num_put::put">put</A>(OutIt(
+<A HREF="ios.html#basic_ios::rdbuf">rdbuf</A>()), *this,
+getloc(), val)</CODE>. Here, <CODE>OutIt</CODE> is defined as
+<CODE><A HREF="iterator.html#ostreambuf_iterator">ostreambuf_iterator</A>&lt;Elem,
+Tr&gt;</CODE>.
+The function returns <CODE>*this</CODE>.</P>
+
+
+<P>The functions:</P>
+
+<PRE>basic_ostream&amp; <B>operator&lt;&lt;</B>(short val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(unsigned short val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(int val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(unsigned int val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(long val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(unsigned long val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(const void *val);</PRE>
+
+<P>each convert <CODE>val</CODE> to a numeric field and insert it by calling
+<CODE><A HREF="locale2.html#use_facet">use_facet</A>&lt;num_put&lt;Elem,
+OutIt&gt;(<A HREF="ios.html#ios_base::getloc">getloc</A>()).
+<A HREF="locale2.html#num_put::put">put</A>(OutIt(
+<A HREF="ios.html#basic_ios::rdbuf">rdbuf</A>()), *this,
+getloc(), val)</CODE>. Here, <CODE>OutIt</CODE> is defined as
+<CODE><A HREF="iterator.html#ostreambuf_iterator">ostreambuf_iterator</A>&lt;Elem,
+Tr&gt;</CODE>.</P>
+
+<P>The function returns <CODE>*this</CODE>.</P>
+
+<P>The functions:</P>
+
+<PRE>basic_ostream&amp; <B>operator&lt;&lt;</B>(float val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(double val);
+basic_ostream&amp; <B>operator&lt;&lt;</B>(long double val);</PRE>
+
+<P>each convert <CODE>val</CODE> to a numeric field and insert it by calling
+<CODE><A HREF="locale2.html#use_facet">use_facet</A>&lt;num_put&lt;Elem,
+OutIt&gt;(<A HREF="ios.html#ios_base::getloc">getloc</A>()).
+<A HREF="locale2.html#num_put::put">put</A>(OutIt(
+<A HREF="ios.html#basic_ios::rdbuf">rdbuf</A>()), *this,
+getloc(), val)</CODE>. Here, <CODE>OutIt</CODE> is defined as
+<CODE><A HREF="iterator.html#ostreambuf_iterator">ostreambuf_iterator</A>&lt;Elem,
+Tr&gt;</CODE>. The function returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="basic_ostream::put"><CODE>basic_ostream::put</CODE></A></H3>
+
+<PRE>basic_ostream&amp; <B><A HREF="#basic_ostream::put">put</A></B>(char_type ch);</PRE>
+
+<P>The <A HREF="#unformatted output functions">unformatted output function</A>
+inserts the element <CODE>ch</CODE>. It returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="basic_ostream::seekp"><CODE>basic_ostream::seekp</CODE></A></H3>
+
+<PRE>basic_ostream&amp; <B>seekp</B>(pos_type pos);
+basic_ostream&amp; <B>seekp</B>(off_type off,
+    ios_base::seek_dir way);</PRE>
+
+<P>If <CODE><A HREF="ios.html#basic_ios::fail">fail</A>()</CODE> is false,
+the first member function calls
+<CODE>newpos = <A HREF="ios.html#basic_ios::rdbuf">rdbuf</A>()-&gt;
+<A HREF="streambu.html#basic_streambuf::pubseekpos">pubseekpos</A>(pos,
+<A HREF="ios.html#ios_base::out">out</A>)</CODE>,
+for some <CODE>pos_type</CODE> temporary object <CODE>newpos</CODE>.
+If <CODE>fail()</CODE> is false, the second function calls
+<CODE>newpos = rdbuf()-&gt;
+<A HREF="streambu.html#basic_streambuf::pubseekoff">pubseekoff</A>(off, way,
+<A HREF="ios.html#ios_base::out">out</A>)</CODE>.
+In either case, if <CODE>(off_type)newpos == (off_type)(-1)</CODE>
+(the positioning operation fails) the function calls
+<CODE>istr.<A HREF="ios.html#basic_ios::setstate">setstate</A>(failbit)</CODE>.
+Both functions return <CODE>*this</CODE>.</P>
+
+<H3><A NAME="basic_ostream::sentry"><CODE>basic_ostream::sentry</CODE></A></H3>
+
+<PRE>class <B>sentry</B> {
+public:
+    explicit <B>sentry</B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr);
+    <B>operator bool</B>() const;
+    <B>~sentry</B>();
+private:
+    <B>sentry</B>(const sentry&amp;);  // not defined
+    sentry&amp; <B>operator=</B>(const sentry&amp;);  // not defined
+    bool <B>status</B>;
+    };</PRE>
+
+<P>The nested class describes an object whose declaration structures the
+<A HREF="#formatted output functions">formatted output functions</A>
+and the
+<A HREF="#unformatted output functions">unformatted output functions</A>.
+If <CODE>ostr.<A HREF="ios.html#basic_ios::good">good</A>()</CODE> is true, and
+<CODE>ostr.<A HREF="ios.html#basic_ios::tie">tie</A>()</CODE> is not
+a null pointer, the constructor calls
+<CODE>ostr.tie-&gt;<A HREF="#basic_ostream::flush">flush</A>()</CODE>.
+The constructor then stores the value returned by <CODE>ostr.good()</CODE>
+in <B>status</B>.
+A later call to <CODE>operator bool()</CODE> delivers this stored value.</P>
+
+<P>If
+<P><CODE><A HREF="exceptio.html#uncaught_exception">uncaught_exception</A>()</CODE>
+returns false and
+<CODE><A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+<A HREF="ios.html#ios_base::unitbuf">unitbuf</A></CODE> is nonzero,
+the destructor calls
+<CODE><A HREF="#basic_ostream::flush">flush</A>()</CODE>.</P>
+
+<H3><A NAME="basic_ostream::tellp"><CODE>basic_ostream::tellp</CODE></A></H3>
+
+<PRE>pos_type <B>tellp</B>();</PRE>
+
+<P>If <CODE><A HREF="ios.html#basic_ios::fail">fail</A>()</CODE> is false,
+the member function returns
+<CODE><A HREF="ios.html#basic_ios::rdbuf">rdbuf</A>()-&gt;
+<A HREF="streambu.html#basic_streambuf::pubseekoff">pubseekoff</A>(0,
+<A HREF="ios.html#ios_base::cur">cur</A>,
+<A HREF="ios.html#ios_base::in">in</A>)</CODE>.
+Otherwise, it returns <CODE>pos_type(-1)</CODE>.</P>
+
+<H3><A NAME="basic_ostream::write"><CODE>basic_ostream::write</CODE></A></H3>
+
+<PRE>basic_ostream&amp; <B>write</B>(const char_type *str, streamsize count);</PRE>
+
+<P>The <A HREF="#unformatted output functions">unformatted output function</A>
+inserts the sequence of <CODE>count</CODE> elements
+beginning at <CODE>str</CODE>.</P>
+
+<H2><A NAME="endl"><CODE>endl</CODE></A></H2>
+
+<PRE>template class&lt;Elem, Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp; <B>endl</B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr);</PRE>
+
+<P>The manipulator calls
+<CODE>ostr.<A HREF="#basic_ostream::put">put</A>(ostr.
+<A HREF="ios.html#basic_ios::widen">widen</A>('\n'))</CODE>,
+then calls
+<CODE>ostr.<A HREF="#basic_ostream::flush">flush</A>()</CODE>.
+It returns <CODE>ostr</CODE>.</P>
+
+<H2><A NAME="ends"><CODE>ends</CODE></A></H2>
+
+<PRE>template class&lt;Elem, Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp; <B>ends</B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr);</PRE>
+
+<P>The manipulator calls
+<CODE>ostr.<A HREF="#basic_ostream::put">put</A>(Elem('\0'))</CODE>.
+It returns <CODE>ostr</CODE>.</P>
+
+<H2><A NAME="flush"><CODE>flush</CODE></A></H2>
+
+<PRE>template class&lt;Elem, Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp; <B>flush</B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr);</PRE>
+
+<P>The manipulator calls
+<CODE>ostr.<A HREF="#basic_ostream::flush">flush</A>()</CODE>.
+It returns <CODE>ostr</CODE>.</P>
+
+<H2><A NAME="operator&lt;&lt;"><CODE>operator&lt;&lt;</CODE></A></H2>
+
+<PRE>template&lt;class Elem, class Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+            const Elem *str);
+template&lt;class Elem, class Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+            Elem ch);
+    template&lt;class Elem, class Tr&gt;
+        basic_ostream&lt;Elem, Tr&gt;&amp;
+            <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+                const char *str);
+    template&lt;class Elem, class Tr&gt;
+        basic_ostream&lt;Elem, Tr&gt;&amp;
+            <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+                char ch);
+    template&lt;class Tr&gt;
+        basic_ostream&lt;char, Tr&gt;&amp;
+            <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+                const char *str);
+    template&lt;class Tr&gt;
+        basic_ostream&lt;char, Tr&gt;&amp;
+            <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+                char ch);
+template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            const signed char *str);
+template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            signed char ch);
+template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            const unsigned char *str);
+template&lt;class Tr&gt;
+   basic_ostream&lt;char, Tr&gt;&amp;
+       <B>operator&lt;&lt;</B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+           unsigned char ch);</PRE>
+
+<P>The template function:</P>
+
+<PRE>template&lt;class Elem, class Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+            const Elem *str);</PRE>
+
+<P>determines the length <CODE>N =
+traits_type::<A HREF="string2.html#char_traits::length">length</A>(str)</CODE>
+of the sequence beginning at <CODE>str</CODE>, and inserts the sequence. If
+<CODE>N &lt; ostr.<A HREF="ios.html#ios_base::width">width</A>()</CODE>,
+then the function also inserts a repetition of <CODE>ostr.width() - N</CODE>
+<A HREF="ios.html#fill character">fill characters</A>.
+The repetition precedes the sequence if
+<CODE>(ostr.<A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+<A HREF="ios.html#ios_base::adjustfield">adjustfield</A> !=
+<A HREF="ios.html#ios_base::left">left</A></CODE>.
+Otherwise, the repetition follows the sequence.
+The function returns <CODE>ostr</CODE>.</P>
+
+<P>The template function:</P>
+
+<PRE>template&lt;class Elem, class Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+            Elem ch);</PRE>
+
+<P>inserts the element <CODE>ch</CODE>. If
+<CODE>1 &lt; ostr.<A HREF="ios.html#ios_base::width">width</A>()</CODE>,
+then the function also inserts a repetition of <CODE>ostr.width() - 1</CODE>
+<A HREF="ios.html#fill character">fill characters</A>.
+The repetition precedes the sequence if
+<CODE>(ostr.<A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+<A HREF="ios.html#ios_base::adjustfield">adjustfield</A> !=
+<A HREF="ios.html#ios_base::left">left</A></CODE>.
+Otherwise, the repetition follows the sequence.
+It returns <CODE>ostr</CODE>.</P>
+
+
+<P>The template function:</P>
+
+<PRE>template&lt;class Elem, class Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+            const char *str);</PRE>
+
+<P>behaves the same as:</P>
+
+<PRE>template&lt;class Elem, class Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+            const Elem *str);</PRE>
+
+<P>except that each element <CODE>ch</CODE> of the sequence beginning
+at <CODE>str</CODE> is converted to an object of type <CODE>Elem</CODE> by calling
+<CODE>ostr.<A HREF="#basic_ostream::put">put</A>(ostr.
+<A HREF="ios.html#basic_ios::widen">widen</A>(ch))</CODE>.</P>
+
+<P>The template function:</P>
+
+<PRE>template&lt;class Elem, class Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+            char ch);</PRE>
+
+<P>behaves the same as:</P>
+
+<PRE>template&lt;class Elem, class Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+            Elem ch);</PRE>
+
+<P>except that <CODE>ch</CODE> is converted to an object
+of type <CODE>Elem</CODE> by calling
+<CODE>ostr.<A HREF="#basic_ostream::put">put</A>(ostr.
+<A HREF="ios.html#basic_ios::widen">widen</A>(ch))</CODE>.</P>
+
+<P>The template function:</P>
+
+<PRE>template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            const char *str);</PRE>
+
+<P>behaves the same as:</P>
+
+<PRE>template&lt;class Elem, class Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+            const Elem *str);</PRE>
+
+<P>(It does not have to widen the elements before inserting them.)</P>
+
+<P>The template function:</P>
+
+<PRE>template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            char ch);</PRE>
+
+<P>behaves the same as:</P>
+
+<PRE>template&lt;class Elem, class Tr&gt;
+    basic_ostream&lt;Elem, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;Elem, Tr&gt;&amp; ostr,
+            Elem ch);</PRE>
+
+<P>(It does not have to widen <CODE>ch</CODE> before inserting it.)</P>
+
+<P>The template function:</P>
+
+<PRE>template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            const signed char *str);</PRE>
+
+<P>returns <CODE>ostr &lt;&lt; (const char *)str</CODE>.</P>
+
+<P>The template function:</P>
+
+<PRE>template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            signed char ch);</PRE>
+
+<P>returns <CODE>ostr &lt;&lt; (char)ch</CODE>.</P>
+
+<P>The template function:</P>
+
+<PRE>template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            const unsigned char *str);</PRE>
+
+<P>returns <CODE>ostr &lt;&lt; (const char *)str</CODE>.</P>
+
+<P>The template function:</P>
+
+<PRE>template&lt;class Tr&gt;
+    basic_ostream&lt;char, Tr&gt;&amp;
+        <B>operator&lt;&lt;</B>(basic_ostream&lt;char, Tr&gt;&amp; ostr,
+            unsigned char ch);</PRE>
+
+<P>returns <CODE>ostr &lt;&lt; (char)ch</CODE>.</P>
+
+<H2><A NAME="ostream"><CODE>ostream</CODE></A></H2>
+
+<PRE>typedef basic_ostream&lt;char, char_traits&lt;char&gt; &gt; <B>ostream</B>;</PRE>
+
+<P>The type is a synonym for template class
+<A HREF="#basic_ostream"><CODE>basic_ostream</CODE></A>, specialized
+for elements of type <I>char</I> with default
+<A HREF="string2.html#character traits">character traits</A>.</P>
+
+<H2><A NAME="wostream"><CODE>wostream</CODE></A></H2>
+
+<PRE>typedef basic_ostream&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <B>wostream</B>;</PRE>
+
+<P>The type is a synonym for template class
+<A HREF="#basic_ostream"><CODE>basic_ostream</CODE></A>, specialized
+for elements of type <CODE>wchar_t</CODE> with default
+<A HREF="string2.html#character traits">character traits</A>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1992-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>
+

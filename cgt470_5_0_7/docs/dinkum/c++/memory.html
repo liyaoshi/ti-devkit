@@ -1,0 +1,697 @@
+<HTML><HEAD><TITLE>&lt;memory&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;memory&gt;"><CODE>&lt;memory&gt;</CODE></A></H1><HR>
+
+<P>Include the <A HREF="index.html#STL">STL</A>
+standard header <B><CODE>&lt;memory&gt;</CODE></B>
+to define a class, an operator, and several templates that help
+allocate and free objects.</P>
+
+<PRE>namespace std {
+template&lt;class Ty&gt;
+    class <B><A HREF="#allocator">allocator</A></B>;
+template&lt;&gt;
+    class <B><A HREF="#allocator&lt;void&gt;">allocator&lt;void&gt;</A></B>;
+template&lt;class FwdIt, class Ty&gt;
+    class <B><A HREF="#raw_storage_iterator">raw_storage_iterator</A></B>;
+template&lt;class Ty&gt;
+    class <B><A HREF="#auto_ptr">auto_ptr</A></B>;
+template&lt;class Ty&gt;
+    class <B><A HREF="#auto_ptr_ref">auto_ptr_ref</A></B>;
+
+        // TEMPLATE OPERATORS
+template&lt;class Ty&gt;
+    bool <B><A HREF="#operator==">operator==</A></B>(allocator&lt;Ty&gt;&amp; left,
+        allocator&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    bool <B><A HREF="#operator!=">operator!=</A></B>(allocator&lt;Ty&gt;&amp; left,
+        allocator&lt;Ty&gt;&amp; right);
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Ty&gt;
+    pair&lt;Ty *, ptrdiff_t&gt;
+        <B><A HREF="#get_temporary_buffer">get_temporary_buffer</A></B>(ptrdiff_t count);
+template&lt;class Ty&gt;
+    void <B><A HREF="#return_temporary_buffer">return_temporary_buffer</A></B>(Ty *pbuf);
+template&lt;class InIt, class FwdIt&gt;
+    FwdIt <B><A HREF="#uninitialized_copy">uninitialized_copy</A></B>(InIt first, InIt last,
+        FwdIt dest);
+template&lt;class FwdIt, class Ty&gt;
+    void <B><A HREF="#uninitialized_fill">uninitialized_fill</A></B>(FwdIt first, FwdIt last,
+        const Ty&amp; val);
+template&lt;class FwdIt, class Size, class Ty&gt;
+    void <B><A HREF="#uninitialized_fill_n">uninitialized_fill_n</A></B>(FwdIt first, Size count,
+        const Ty&amp; val);
+    };</PRE>
+
+<H2><A NAME="allocator"><CODE>allocator</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    class <B>allocator</B> {
+    typedef size_t <B><A HREF="#allocator::size_type">size_type</A></B>;
+    typedef ptrdiff_t <B><A HREF="#allocator::difference_type">difference_type</A></B>;
+    typedef Ty *<B><A HREF="#allocator::pointer">pointer</A></B>;
+    typedef const Ty *<B><A HREF="#allocator::const_pointer">const_pointer</A></B>;
+    typedef Ty&amp; <B><A HREF="#allocator::reference">reference</A></B>;
+    typedef const Ty&amp; <B><A HREF="#allocator::const_reference">const_reference</A></B>;
+    typedef Ty <B><A HREF="#allocator::value_type">value_type</A></B>;
+    pointer <B><A HREF="#allocator::address">address</A></B>(reference val) const;
+    const_pointer <B><A HREF="#allocator::address">address</A></B>(const_reference val) const;
+    template&lt;class Other&gt;
+        struct <B><A HREF="#allocator::rebind">rebind</A></B>;
+    <B><A HREF="#allocator::allocator">allocator</A></B>() throw();
+    template&lt;class Other&gt;
+        <B><A HREF="#allocator::allocator">allocator</A></B>(const allocator&lt;Other&gt;&amp; right) throw();
+    template&lt;class Other&gt;
+        allocator&amp; <B><A HREF="#allocator::operator=">operator=</A></B>(const allocator&lt;Other&gt;&amp; right);
+    pointer <B><A HREF="#allocator::allocate">allocate</A></B>(size_type count, allocator&lt;void&gt;::const_pointer Other *hint = 0);
+    void <B><A HREF="#allocator::deallocate">deallocate</A></B>(pointer ptr, size_type count);
+    void <B><A HREF="#allocator::construct">construct</A></B>(pointer ptr, const Ty&amp; val);
+    void <B><A HREF="#allocator::destroy">destroy</A></B>(pointer ptr);
+    size_type <B><A HREF="#allocator::max_size">max_size</A></B>() const throw();
+    };</PRE>
+
+<P>The template class describes an object that manages
+storage allocation and freeing for arrays of objects of type <CODE>Ty</CODE>.
+An object of class <CODE>allocator</CODE> is the default
+<B><A NAME="allocator object">allocator object</A></B>
+specified in the constructors for several
+container template classes in the Standard C++ library.</P>
+
+<P>Template class <CODE>allocator</CODE> supplies several
+type definitions that are rather pedestrian.
+They hardly seem worth defining.
+But another class with the same members
+might choose more interesting alternatives.
+Constructing a container with an allocator object of such a class
+gives individual control over allocation and freeing
+of elements controlled by that container.</P>
+
+<P>For example, an allocator object might allocate storage on a
+<B><A NAME="private heap">private heap</A></B>.
+Or it might allocate storage on a
+<B><A NAME="far heap">far heap</A></B>, requiring nonstandard
+pointers to access the allocated objects. Or it might specify,
+through the type definitions it supplies, that elements be
+accessed through special
+<B><A NAME="accessor objects">accessor objects</A></B> that manage
+<B><A NAME="shared memory">shared memory</A></B>, or perform automatic
+<B><A NAME="garbage collection">garbage collection</A></B>.
+Hence, a class that allocates storage using an allocator object
+should use these types religiously for declaring pointer and
+reference objects (as do the containers in the Standard C++ library).</P>
+
+<P>Thus, an allocator defines the types (among others):</P>
+
+<UL>
+<LI><A HREF="#allocator::pointer"><CODE>pointer</CODE></A>
+-- behaves like a pointer to <CODE>Ty</CODE>
+
+<LI><A HREF="#allocator::const_pointer"><CODE>const_pointer</CODE></A>
+-- behaves like a
+const pointer to <CODE>Ty</CODE>
+
+<LI><A HREF="#allocator::reference"><CODE>reference</CODE></A>
+-- behaves like a reference to <CODE>Ty</CODE>
+
+<LI><A HREF="#allocator::const_reference"><CODE>const_reference</CODE></A>
+-- behaves like a
+const reference to <CODE>Ty</CODE>
+</UL>
+
+<P>These types specify the form that pointers and references
+must take for allocated elements.
+(<CODE>allocator::pointer</CODE> is not necessarily
+the same as <CODE>Ty *</CODE> for all allocator objects, even though
+it has this obvious definition for class <CODE>allocator</CODE>.)</P>
+
+
+<H3><A NAME="allocator::address">
+<CODE>allocator::address</CODE></A></H3>
+
+<PRE>pointer <B><A HREF="#allocator::address">address</A></B>(reference val) const;
+const_pointer <B><A HREF="#allocator::address">address</A></B>(const_reference val) const;</PRE>
+
+<P>The member functions return the address of <CODE>val</CODE>,
+in the form that pointers must take for allocated elements.</P>
+
+<H3><A NAME="allocator::allocate">
+<CODE>allocator::allocate</CODE></A></H3>
+
+<PRE>pointer <B>allocate</B>(size_type count, allocator&lt;void&gt;::const_pointer *hint = 0);</PRE>
+
+<P>The member function allocates storage for
+an array of <CODE>count</CODE> elements of type <CODE>Ty</CODE>, by calling
+<CODE>operator new(count)</CODE>.
+It returns a pointer to the allocated object.
+The <CODE>hint</CODE> argument helps some allocators
+in improving locality of reference -- a valid choice
+is the address of an object earlier allocated by the same allocator
+object, and not yet deallocated. To supply no
+hint, use a null pointer argument instead.</P>
+
+<H3><A NAME="allocator::allocator">
+<CODE>allocator::allocator</CODE></A></H3>
+
+<PRE><B>allocator</B>() throw();
+template&lt;class Other&gt;
+    <B>allocator</B>(const allocator&lt;Other&gt;&amp; right) throw();</PRE>
+
+<P>The constructor does nothing. In general, however, an allocator object
+constructed from another allocator object should compare equal to it
+(and hence permit intermixing of object allocation and freeing between
+the two allocator objects).</P>
+
+
+<H3><A NAME="allocator::const_pointer">
+<CODE>allocator::const_pointer</CODE></A></H3>
+
+<PRE>typedef const Ty *<B>pointer</B>;</PRE>
+
+<P>The pointer type describes an object <CODE>ptr</CODE> that can
+designate, via the expression <CODE>*ptr</CODE>, any const object
+that an object of template class
+<CODE>allocator</CODE> can allocate.</P>
+
+<H3><A NAME="allocator::const_reference"><CODE>allocator::const_reference</CODE></A></H3>
+
+<PRE>typedef const Ty&amp; <B>const_reference</B>;</PRE>
+
+<P>The reference type describes an object that can
+designate any const object that an object of template class
+<CODE>allocator</CODE> can allocate.</P>
+
+<H3><A NAME="allocator::construct"><CODE>allocator::construct</CODE></A></H3>
+
+<PRE>void <B>construct</B>(pointer ptr, const Ty&amp; val);</PRE>
+
+<P>The member function constructs an object of type <CODE>Ty</CODE>
+at <CODE>ptr</CODE> by evaluating the placement
+<CODE>new</CODE> expression <CODE>new ((void *)ptr) Ty(val)</CODE>.</P>
+
+<H3><A NAME="allocator::deallocate">
+<CODE>allocator::deallocate</CODE></A></H3>
+
+<PRE>void <B>deallocate</B>(pointer ptr, size_type count);</PRE>
+
+<P>The member function frees storage for
+the array of <CODE>count</CODE> objects of type
+<CODE>Ty</CODE> beginning at <CODE>ptr</CODE>, by calling
+<CODE>operator delete(ptr)</CODE>.
+The pointer <CODE>ptr</CODE> must have been earlier returned by a call to
+<CODE><A HREF="#allocator::allocate">allocate</A></CODE> for an allocator
+object that compares equal to <CODE>*this</CODE>, allocating an array object
+of the same size and type.
+<CODE>deallocate</CODE> never throws an exception.</P>
+
+<H3><A NAME="allocator::destroy"><CODE>allocator::destroy</CODE></A></H3>
+
+<PRE>void <B>destroy</B>(pointer ptr);</PRE>
+
+<P>The member function destroys the object
+designated by <CODE>ptr</CODE>,
+by calling the destructor <CODE>ptr-&gt;Ty::~Ty()</CODE>.</P>
+
+<H3><A NAME="allocator::difference_type">
+<CODE>allocator::difference_type</CODE></A></H3>
+
+<PRE>typedef ptrdiff_t <B>difference_type</B>;</PRE>
+
+<P>The signed integer type describes an object that can represent the
+difference between the addresses of any two elements in a sequence
+that an object of template class <CODE>allocator</CODE> can allocate.</P>
+
+<H3><A NAME="allocator::max_size">
+<CODE>allocator::max_size</CODE></A></H3>
+
+<PRE>size_type <B>max_size</B>() const throw();</PRE>
+
+<P>The member function returns the length of the longest sequence
+of elements of type <CODE>Ty</CODE> that an object of class
+<CODE>allocator</CODE> <I>might</I> be able to allocate.</P>
+
+<H3><A NAME="allocator::operator=">
+<CODE>allocator::operator=</CODE></A></H3>
+
+<PRE>template&lt;class Other&gt;
+    allocator&amp; <B>operator=</B>(const allocator&lt;Other&gt;&amp; right);</PRE>
+
+<P>The template assignment operator does nothing.
+In general, however, an allocator object
+assigned to another allocator object should compare equal to it
+(and hence permit intermixing of object allocation and freeing between
+the two allocator objects).</P>
+
+
+<H3><A NAME="allocator::pointer"><CODE>allocator::pointer</CODE></A></H3>
+
+<PRE>typedef Ty *<B>pointer</B>;</PRE>
+
+<P>The pointer type describes an object <CODE>ptr</CODE> that can
+designate, via the expression <CODE>*ptr</CODE>, any object
+that an object of template class
+<CODE>allocator</CODE> can allocate.</P>
+
+<H3><A NAME="allocator::rebind"><CODE>allocator::rebind</CODE></A></H3>
+
+<PRE>template&lt;class Other&gt;
+    struct <B>rebind</B> {
+    typedef allocator&lt;Other&gt; <B>other</B>;
+    };</PRE>
+
+<P>The member template class defines the type
+<B><CODE><A NAME="allocator::other">other</A></CODE></B>.
+Its sole purpose is to provide the type name <CODE>allocator&lt;Other&gt;</CODE>
+given the type name <CODE>allocator&lt;Ty&gt;</CODE>.</P>
+
+<P>For example, given an allocator object <CODE>al</CODE> of type
+<CODE>A</CODE>, you can allocate an object of type
+<CODE>Other</CODE> with the expression:</P>
+
+<PRE>A::rebind&lt;Other&gt;::other(al).allocate(1, (Other *)0)</PRE>
+
+<P>Or, you can simply name its pointer type by writing the type:</P>
+
+<PRE>A::rebind&lt;Other&gt;::other::pointer</PRE>
+
+<H3><A NAME="allocator::reference"><CODE>allocator::reference</CODE></A></H3>
+
+<PRE>typedef Ty&amp; <B>reference</B>;</PRE>
+
+<P>The reference type describes an object that can
+designate any object that an object of template class
+<CODE>allocator</CODE> can allocate.</P>
+
+<H3><A NAME="allocator::size_type">
+<CODE>allocator::size_type</CODE></A></H3>
+
+<PRE>typedef size_t <B>size_type</B>;</PRE>
+
+<P>The unsigned integer type describes an object that can represent
+the length of any sequence that an object of template class
+<CODE>allocator</CODE> can allocate.</P>
+
+<H3><A NAME="allocator::value_type"><CODE>allocator::value_type</CODE></A></H3>
+
+<PRE>typedef Ty <B>value_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Ty</CODE>.</P>
+
+<H2><A NAME="allocator&lt;void&gt;"><CODE>allocator&lt;void&gt;</CODE></A></H2>
+
+<PRE>template&lt;&gt;
+    class <B>allocator&lt;void&gt;</B> {
+    typedef void *<B>pointer</B>;
+    typedef const void *<B>const_pointer</B>;
+    typedef void <B>value_type</B>;
+    template&lt;class Other&gt;
+        struct <B>rebind</B>;
+    <B>allocator</B>() throw();
+    template&lt;class Other&gt;
+        <B>allocator</B>(const allocator&lt;Other&gt;) throw();
+    template&lt;class Other&gt;
+        allocator&lt;void&gt;&amp; <B>operator=</B>(const allocator&lt;Other&gt;);
+    };</PRE>
+
+<P>The class explicitly specializes template class
+<A HREF="#allocator">allocator</A> for type <I>void.</I>
+Its constructors and assignment operator behave the same as for the
+template class, but it defines only the types
+<A HREF="#allocator::const_pointer"><CODE>const_pointer</CODE></A>,
+<A HREF="#allocator::pointer"><CODE>pointer</CODE></A>,
+<A HREF="#allocator::value_type"><CODE>value_type</CODE></A>,
+and the nested template class
+<A HREF="#allocator::rebind"><CODE>rebind</CODE></A>.</P>
+
+<H2><A NAME="auto_ptr"><CODE>auto_ptr</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    class <B>auto_ptr</B> {
+public:
+    typedef Ty <B><A HREF="#auto_ptr::element_type">element_type</A></B>;
+    explicit <B><A HREF="#auto_ptr::auto_ptr">auto_ptr</A></B>(Ty *ptr = 0) throw();
+    <B><A HREF="#auto_ptr::auto_ptr">auto_ptr</A></B>(auto_ptr&lt;Ty&gt;&amp; right) throw();
+    template&lt;class Other&gt;
+        <B><A HREF="#auto_ptr::auto_ptr">auto_ptr</A></B>(auto_ptr&lt;Other&gt;&amp; right) throw();
+    <B><A HREF="#auto_ptr::auto_ptr">auto_ptr</A></B>(auto_ptr_ref&lt;Ty&gt; right) throw();
+    <B><A HREF="#auto_ptr::~auto_ptr">~auto_ptr</A></B>();
+    template&lt;class Other&gt;
+        <B><A HREF="#auto_ptr::operator auto_ptr&lt;Other&gt;">operator auto_ptr&lt;Other&gt;</A></B>() throw();
+    template&lt;class Other&gt;
+        <B><A HREF="#auto_ptr::operator auto_ptr_ref&lt;Other&gt;">operator auto_ptr_ref&lt;Other&gt;</A></B>() throw();
+    template&lt;class Other&gt;
+        auto_ptr&lt;Ty&gt;&amp; <B><A HREF="#auto_ptr::operator=">operator=</A></B>(auto_ptr&lt;Other&gt;&amp; right) throw();
+    auto_ptr&lt;Ty&gt;&amp; <B><A HREF="#auto_ptr::operator=">operator=</A></B>(auto_ptr&lt;Ty&gt;&amp; right) throw();
+    Ty&amp; <B><A HREF="#auto_ptr::operator*">operator*</A></B>() const throw();
+    Ty *<B><A HREF="#auto_ptr::operator-&gt;">operator-&gt;</A></B>() const throw();
+    Ty *<B><A HREF="#auto_ptr::get">get</A></B>() const throw();
+    Ty *<B><A HREF="#auto_ptr::release">release</A></B>() const throw();
+    void <B><A HREF="#auto_ptr::reset">reset</A></B>(Ty *ptr = 0);
+    };</PRE>
+
+<P>The class describes an object that stores a pointer to an allocated object
+<B><CODE>myptr</CODE></B> of type <CODE>Ty *</CODE>. The stored pointer must either be null or
+designate an object allocated by a
+<CODE>new</CODE> expression.
+An object constructed with a non-null pointer owns the pointer.
+It transfers ownership if its stored value is assigned to another
+object. (It replaces the stored value after a transfer with a null pointer.)
+The destructor for <CODE>auto_ptr&lt;Ty&gt;</CODE>
+deletes the allocated object if it owns it.
+Hence, an object of class <CODE>auto_ptr&lt;Ty&gt;</CODE>
+ensures that an allocated object is automatically deleted when
+control leaves a block, even via a thrown excepiton.
+You should not construct two <CODE>auto_ptr&lt;Ty&gt;</CODE> objects
+that own the same object.</P>
+
+<P>You can pass an <CODE>auto_ptr&lt;Ty&gt;</CODE> object by value as an
+argument to a function call. You can return such an object by value as well.
+(Both operations depend on the implicit construction of intermediate objects
+of class <CODE>auto_ptr_ref&lt;Ty&gt;</CODE>, by various
+subtle conversion rules.) You cannot, however, reliably manage a sequence of
+<CODE>auto_ptr&lt;Ty&gt;</CODE> objects with an STL
+<A HREF="lib_cont.html#Containers">container</A>.</P>
+
+<H3><A NAME="auto_ptr::auto_ptr"><CODE>auto_ptr::auto_ptr</CODE></A></H3>
+
+<PRE>explicit <B>auto_ptr</B>(Ty *ptr = 0) throw();
+<B>auto_ptr</B>(auto_ptr&lt;Ty&gt;&amp; right) throw();
+<B>auto_ptr</B>(auto_ptr_ref&lt;Ty&gt; right) throw();
+template&lt;class Other&gt;
+    <B>auto_ptr</B>(auto_ptr&lt;Other&gt;&amp; right) throw();</PRE>
+
+<P>The first constructor stores <CODE>ptr</CODE> in <CODE>myptr</CODE>,
+the stored pointer to the allocated object.
+The second constructor transfers ownership of the
+pointer stored in <CODE>right</CODE>, by storing
+<CODE>right.<A HREF="#auto_ptr::release">release</A>()</CODE>
+in <CODE>myptr</CODE>.
+The third constructor behaves the same as the second, except
+that it stores <CODE>right.ref.release()</CODE> in <CODE>myptr</CODE>, where <CODE>ref</CODE>
+is the reference stored in <CODE>right</CODE>.</P>
+
+<P>The template constructor behaves the same as the second constructor,
+provided that a pointer to <CODE>Other</CODE> can be implicitly converted
+to a pointer to <CODE>Ty</CODE>.</P>
+
+<H3><A NAME="auto_ptr::~auto_ptr"><CODE>auto_ptr::~auto_ptr</CODE></A></H3>
+
+<PRE><B>~auto_ptr</B>();</PRE>
+
+<P>The destructor evaluates the expression <CODE>delete myptr</CODE>
+to delete the object designated by the stored pointer.</P>
+
+<H3><A NAME="auto_ptr::element_type"><CODE>auto_ptr::element_type</CODE></A></H3>
+
+<PRE>typedef Ty <B>element_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Ty</CODE>.</P>
+
+<H3><A NAME="auto_ptr::get"><CODE>auto_ptr::get</CODE></A></H3>
+
+<PRE>Ty *<B>get</B>() const throw();</PRE>
+
+<P>The member function returns the stored pointer <CODE>myptr</CODE>.</P>
+
+<H3><A NAME="auto_ptr::operator="><CODE>auto_ptr::operator=</CODE></A></H3>
+
+<PRE>template&lt;class Other&gt;
+    auto_ptr&lt;Ty&gt;&amp; <B>operator=</B>(auto_ptr&lt;Other&gt;&amp; right) throw();
+auto_ptr&lt;Ty&gt;&amp; <B>operator=</B>(auto_ptr&lt;&gt;&amp; right) throw();</PRE>
+
+<P>The assignment evaluates the expression <CODE>delete myptr</CODE>,
+but only if the stored pointer <CODE>myptr</CODE>
+changes as a result of the assignment.
+It then transfers ownership of the pointer stored in <CODE>right</CODE>, by storing
+<CODE>right.<A HREF="#auto_ptr::release">release</A>()</CODE> in <CODE>myptr</CODE>.
+The function returns <CODE>*this</CODE>.</P>
+
+
+<H3><A NAME="auto_ptr::operator*"><CODE>auto_ptr::operator*</CODE></A></H3>
+
+<PRE>Ty&amp; <B>operator*</B>() const throw();</PRE>
+
+<P>The indirection operator returns
+<CODE>*<A HREF="#auto_ptr::get">get</A>()</CODE>.
+Hence, the stored pointer must not be null.</P>
+
+<H3><A NAME="auto_ptr::operator-&gt;"><CODE>auto_ptr::operator-&gt;</CODE></A></H3>
+
+<PRE>Ty *<B>operator-&gt;</B>() const throw();</PRE>
+
+<P>The selection operator returns
+<CODE><A HREF="#auto_ptr::get">get</A>()</CODE>,
+so that the expression <CODE>ap-&gt;member</CODE> behaves the same as
+<CODE>(ap.get())-&gt;member</CODE>, where <CODE>ap</CODE> is an object
+of class <CODE>auto_ptr&lt;Ty&gt;</CODE>.
+Hence, the stored pointer must not be null, and <CODE>Ty</CODE>
+must be a class, structure, or union type with a member <CODE>member</CODE>.</P>
+
+<H3><A NAME="auto_ptr::operator auto_ptr&lt;Other&gt;"><CODE>auto_ptr::operator auto_ptr&lt;Other&gt;</CODE></A></H3>
+
+<PRE>template&lt;class Other&gt;
+    <B>operator auto_ptr&lt;Other&gt;</B>() throw();</PRE>
+
+<P>The type cast operator returns
+<CODE>auto_ptr&lt;Other&gt;(*this)</CODE>.</P>
+
+<H3><A NAME="auto_ptr::operator auto_ptr_ref&lt;Other&gt;"><CODE>auto_ptr::operator auto_ptr_ref&lt;Other&gt;</CODE></A></H3>
+
+<PRE>template&lt;class Other&gt;
+    <B>operator auto_ptr_ref&lt;Other&gt;</B>() throw();</PRE>
+
+<P>The type cast operator returns
+<CODE><A HREF="#auto_ptr_ref">auto_ptr_ref</A>&lt;Other&gt;(*this)</CODE>.</P>
+
+<H3><A NAME="auto_ptr::release"><CODE>auto_ptr::release</CODE></A></H3>
+
+<PRE>Ty *<B>release</B>() throw();</PRE>
+
+<P>The member replaces the stored pointer <CODE>myptr</CODE> with a null pointer and
+returns the previously stored pointer.</P>
+
+<H3><A NAME="auto_ptr::reset"><CODE>auto_ptr::reset</CODE></A></H3>
+
+<PRE>void <B>reset</B>(Ty *ptr = 0);</PRE>
+
+<P>The member function evaluates the expression <CODE>delete myptr</CODE>,
+but only if the stored pointer value <CODE>myptr</CODE>
+changes as a result of function call.
+It then replaces the stored pointer with <CODE>ptr</CODE>.</P>
+
+<H2><A NAME="auto_ptr_ref"><CODE>auto_ptr_ref</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>auto_ptr_ref</B> {
+    auto_ptr_ref(auto_ptr&lt;Ty&gt;&amp; right);
+    };</PRE>
+
+<P>The class describes an object that stores a reference to an object of class
+<CODE><A HREF="#auto_ptr">auto_ptr</A>&lt;Ty&gt;</CODE>. It is used as a helper
+class for <CODE>auto_ptr&lt;Ty&gt;</CODE>. You should not have an occasion
+to construct an <CODE>auto_ptr_ref&lt;Ty&gt;</CODE> object directly.</P>
+
+<H2><A NAME="get_temporary_buffer"><CODE>get_temporary_buffer</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    pair&lt;Ty *, ptrdiff_t&gt;
+        <B>get_temporary_buffer</B>(ptrdiff_t count);</PRE>
+
+<P>The template function allocates storage for a sequence of at most
+<CODE>count</CODE> elements of type <CODE>Ty</CODE>, from an unspecified
+source (which may well be the standard heap used by
+<CODE>operator new</CODE>).
+It returns a value <CODE>pr</CODE>, of type
+<CODE><A HREF="utility.html#pair">pair</A>&lt;Ty *, ptrdiff_t&gt;</CODE>.
+If the function allocates storage,
+<CODE>pr.<A HREF="utility.html#pair::first">first</A></CODE> designates
+the allocated storage and
+<CODE>pr.<A HREF="utility.html#pair::second">second</A></CODE>
+is the number of elements in the longest sequence the storage can hold.
+Otherwise, <CODE>pr.first</CODE> is a null pointer.</P>
+
+<P>In this <A HREF="index.html#implementation">implementation</A>,
+if a translator does not support member template functions, the template:</P>
+
+<PRE>template&lt;class Ty&gt;
+    pair&lt;Ty *, ptrdiff_t&gt;
+        <B>get_temporary_buffer</B>(ptrdiff_t count);</PRE>
+
+<P>is replaced by:</P>
+
+<PRE>template&lt;class Ty&gt;
+    pair&lt;Ty *, ptrdiff_t&gt;
+        <B>get_temporary_buffer</B>(ptrdiff_t count, Ty *);</PRE>
+
+<H2><A NAME="operator!="><CODE>operator!=</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    bool <B>operator!=</B>(allocator&lt;Ty&gt;&amp; left,
+        allocator&lt;Ty&gt;&amp; right) throw();</PRE>
+
+<P>The template operator returns false.</P>
+
+<H2><A NAME="operator=="><CODE>operator==</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    bool <B>operator==</B>(allocator&lt;Ty&gt;&amp; left,
+        allocator&lt;Ty&gt;&amp; right) throw();</PRE>
+
+<P>The template operator returns true. (Two allocator objects should
+compare equal only if an object allocated through one can be deallocated
+through the other. If the value of one object is determined from another
+by assignment or by construction, the two object should compare equal.)</P>
+
+<H2><A NAME="raw_storage_iterator">
+<CODE>raw_storage_iterator</CODE></A></H2>
+
+<PRE>template&lt;class FwdIt, class Ty&gt;
+    class <B>raw_storage_iterator</B>
+         : public iterator&lt;output_iterator_tag,
+             void, void, void, void&gt; {
+public:
+    typedef FwdIt <B><A HREF="#raw_storage_iterator::iter_type">iter_type</A></B>;
+    typedef Ty <B><A HREF="#raw_storage_iterator::element_type">element_type</A></B>;
+    explicit <B><A HREF="#raw_storage_iterator::raw_storage_iterator">raw_storage_iterator</A></B>(FwdIt first);
+    raw_storage_iterator&lt;FwdIt, Ty&gt;&amp; <B><A HREF="#raw_storage_iterator::operator*">operator*</A></B>();
+    raw_storage_iterator&lt;FwdIt, Ty&gt;&amp;
+        <B><A HREF="#raw_storage_iterator::operator=">operator=</A></B>(const Ty&amp; val);
+    raw_storage_iterator&lt;FwdIt, Ty&gt;&amp; <B><A HREF="#raw_storage_iterator::operator++">operator++</A></B>();
+    raw_storage_iterator&lt;FwdIt, Ty&gt; <B><A HREF="#raw_storage_iterator::operator++">operator++</A></B>(int);
+    };</PRE>
+
+<P>The class describes an output iterator
+that constructs objects of type <CODE>Ty</CODE>
+in the sequence it generates. An object of class
+<CODE>raw_storage_iterator&lt;FwdIt, Ty&gt;</CODE>
+accesses storage through a forward iterator object,
+of class <CODE>FwdIt</CODE>, that you specify when you construct
+the object. For an object <CODE>first</CODE> of class <CODE>FwdIt</CODE>,
+the expression <CODE>&*first</CODE> must designate unconstructed storage for
+the next object (of type <CODE>Ty</CODE>) in the generated sequence.</P>
+
+<H3><A NAME="raw_storage_iterator::element_type">
+<CODE>raw_storage_iterator::element_type</CODE></A></H3>
+
+<PRE>typedef Ty <B><A HREF="#raw_storage_iterator::element_type">element_type</A></B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Ty</CODE>.</P>
+
+<H3><A NAME="raw_storage_iterator::iter_type">
+<CODE>raw_storage_iterator::iter_type</CODE></A></H3>
+
+<PRE>typedef FwdIt <B><A HREF="#raw_storage_iterator::iter_type">iter_type</A></B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>FwdIt</CODE>.</P>
+
+<H3><A NAME="raw_storage_iterator::operator*">
+<CODE>raw_storage_iterator::operator*</CODE></A></H3>
+
+<PRE>raw_storage_iterator&lt;FwdIt, Ty&gt;&amp; <B>operator*</B>();</PRE>
+
+<P>The indirection operator returns <CODE>*this</CODE> (so that
+<CODE><A HREF="#raw_storage_iterator::operator=">operator=</A>(const
+Ty&amp;)</CODE> can perform the actual store
+in an expression such as <CODE>*ptr = val</CODE>).</P>
+
+<H3><A NAME="raw_storage_iterator::operator=">
+<CODE>raw_storage_iterator::operator=</CODE></A></H3>
+
+<PRE>raw_storage_iterator&lt;FwdIt, Ty&gt;&amp; <B>operator=</B>(const Ty&amp; val);</PRE>
+
+<P>The assignment operator constructs the next object in the
+output sequence using the stored iterator value <CODE>first</CODE>,
+by evaluating the
+placement <CODE>new</CODE> expression
+<CODE>new ((void *)&amp;*first) Ty(val)</CODE>.
+The function returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="raw_storage_iterator::operator++">
+<CODE>raw_storage_iterator::operator++</CODE></A></H3>
+
+<PRE>raw_storage_iterator&lt;FwdIt, Ty&gt;&amp; <B>operator++</B>();
+raw_storage_iterator&lt;FwdIt, Ty&gt; <B>operator++</B>(int);</PRE>
+
+<P>The first (preincrement) operator increments the stored output iterator
+object, then returns <CODE>*this</CODE>.</P>
+
+<P>The second (postincrement) operator makes a copy of <CODE>*this</CODE>,
+increments the stored output iterator object, then returns
+the copy.</P>
+
+<H3><A NAME="raw_storage_iterator::raw_storage_iterator">
+<CODE>raw_storage_iterator::raw_storage_iterator</CODE></A></H3>
+
+<PRE>explicit <B>raw_storage_iterator</B>(FwdIt first);</PRE>
+
+<P>The constructor stores <CODE>first</CODE> as the output iterator
+object.</P>
+
+<H2><A NAME="return_temporary_buffer">
+<CODE>return_temporary_buffer</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    void <B>return_temporary_buffer</B>(Ty *pbuf);</PRE>
+
+<P>The template function frees the storage designated by <CODE>pbuf</CODE>,
+which must be earlier allocated by a call to
+<CODE><A HREF="#get_temporary_buffer">get_temporary_buffer</A></CODE>.</P>
+
+<H2><A NAME="uninitialized_copy"><CODE>uninitialized_copy</CODE></A></H2>
+
+<PRE>template&lt;class InIt, class FwdIt&gt;
+    FwdIt <B>uninitialized_copy</B>(InIt first, InIt last,
+        FwdIt dest);</PRE>
+
+<P>The template function effectively executes:</P>
+
+<PRE>while (first != last)
+    new ((void *)&amp;*dest++)
+        iterator_traits&lt;InIt&gt;::<A HREF="iterator.html#iterator_traits::value_type">value_type</A>(*first++);
+return first;</PRE>
+
+<P>unless the code throws an exception. In that case, all
+constructed objects are destroyed and the exception is rethrown.</P>
+
+<H2><A NAME="uninitialized_fill"><CODE>uninitialized_fill</CODE></A></H2>
+
+<PRE>template&lt;class FwdIt, class Ty&gt;
+    void <B>uninitialized_fill</B>(FwdIt first, FwdIt last,
+        const Ty&amp; val);</PRE>
+
+<P>The template function effectively executes:</P>
+
+<PRE>while (first != last)
+    new ((void *)&amp;*first++)
+        iterator_traits&lt;FwdIt&gt;::<A HREF="iterator.html#iterator_traits::value_type">value_type</A>(val);</PRE>
+
+<P>unless the code throws an exception. In that case, all
+constructed objects are destroyed and the exception is rethrown.</P>
+
+<H2><A NAME="uninitialized_fill_n"><CODE>uninitialized_fill_n</CODE></A></H2>
+
+<PRE>template&lt;class FwdIt, class Size, class Ty&gt;
+    void <B>uninitialized_fill_n</B>(FwdIt first, Size count,
+        const Ty&amp; val);</PRE>
+
+<P>The template function effectively executes:</P>
+
+<PRE>while (0 &lt; count--)
+    new ((void *)&amp;*first++)
+        iterator_traits&lt;FwdIt&gt;::<A HREF="iterator.html#iterator_traits::value_type">value_type</A>(val);</PRE>
+
+<P>unless the code throws an exception. In that case, all
+constructed objects are destroyed and the exception is rethrown.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1994-2002
+by P.J. Plauger. Portions derived from work
+<A HREF="crit_hp.html">copyright</A> &#169; 1994
+by Hewlett-Packard Company. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

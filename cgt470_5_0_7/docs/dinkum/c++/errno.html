@@ -1,0 +1,110 @@
+<HTML><HEAD><TITLE>&lt;errno.h&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;errno.h&gt;"><CODE>&lt;errno.h&gt;</CODE></A></H1><HR>
+
+<P>Include the standard header <B><CODE>&lt;errno.h&gt;</CODE></B>
+to test the value stored in
+<A HREF="#errno"><CODE>errno</CODE></A>
+by certain library functions. At program startup, the value stored
+is zero. Library functions store only values greater than zero.
+Any library function can alter the value stored, but
+only those cases where a library function is explicitly
+required to store a value are documented here.</P>
+
+<P>To test whether a library function stores a value in
+<A HREF="#errno"><CODE>errno</CODE></A>,
+the program should store the value zero there immediately before
+it calls the library function.</P>
+
+<PRE>#define <A HREF="#EDOM"><B>EDOM</B></A> <I>&lt;#if expression&gt;</I>
+#define <A HREF="#EILSEQ"><B>EILSEQ</B></A> <I>&lt;#if expression&gt;</I> <B>[added with Amendment 1]</B>
+#define <A HREF="#ERANGE"><B>ERANGE</B></A> <I>&lt;#if expression&gt;</I>
+#define <A HREF="#errno"><B>errno</B></A> <I>&lt;int modifiable lvalue&gt;</I></PRE>
+
+<P>An implementation can define additional
+macros in this standard header that you can test for equality with
+the value stored. All these additional macros have
+names that begin with <CODE>E</CODE>. The following macros, for example,
+are added by Posix:</P>
+
+<PRE>#define <A href="#E2BIG"><B>E2BIG</B></A> <I>[argument list too long]</I>
+#define <A href="#EACCES"><B>EACCES</B></A> <I>[process lacks access permission]</I>
+#define <A href="#EAGAIN"><B>EAGAIN</B></A> <I>[resource temporarily unavailable]</I>
+#define <A href="#EBADF"><B>EBADF</B></A> <I>[bad file descriptor]</I>
+#define <A href="#EBADMSG"><B>EBADMSG</B></A> <I>[bad message]</I>
+#define <A href="#EBUSY"><B>EBUSY</B></A> <I>[resource is busy]</I>
+#define <A href="#ECANCELED"><B>ECANCELED</B></A> <I>[operation canceled]</I>
+#define <A href="#ECHILD"><B>ECHILD</B></A> <I>[no child process present]</I>
+#define <A href="#EDEADLK"><B>EDEADLK</B></A> <I>[resource deadlock was avoided]</I>
+#define <A href="#EEXIST"><B>EEXIST</B></A> <I>[file already exists]</I>
+#define <A href="#EFAULT"><B>EFAULT</B></A> <I>[bad memory address]</I>
+#define <A href="#EFBIG"><B>EFBIG</B></A> <I>[file would become too big]</I>
+#define <A href="#EINPROGRESS"><B>EINPROGRESS</B></A> <I>[asynchronous operation not completed]</I>
+#define <A href="#EINTR"><B>EINTR</B></A> <I>[operation interrupted by a signal]</I>
+#define <A href="#EINVAL"><B>EINVAL</B></A> <I>[invalid argument]</I>
+#define <A href="#EIO"><B>EIO</B></A> <I>[input/output error]</I>
+#define <A href="#EISDIR"><B>EISDIR</B></A> <I>[can't write to a directory]</I>
+#define <A href="#EMFILE"><B>EMFILE</B></A> <I>[process has too many files open]</I>
+#define <A href="#EMLINK"><B>EMLINK</B></A> <I>[too many links to a file]</I>
+#define <A href="#EMSGSIZE"><B>EMSGSIZE</B></A> <I>[bad message buffer size]</I>
+#define <A href="#ENAMETOOLONG"><B>ENAMETOOLONG</B></A> <I>[file name too long]</I>
+#define <A href="#ENFILE"><B>ENFILE</B></A> <I>[system has too many files open]</I>
+#define <A href="#ENODEV"><B>ENODEV</B></A> <I>[invalid device operation]</I>
+#define <A href="#ENOENT"><B>ENOENT</B></A> <I>[bad file or directory name]</I>
+#define <A href="#ENOEXEC"><B>ENOEXEC</B></A> <I>[can't execute file]</I>
+#define <A href="#ENOLCK"><B>ENOLCK</B></A> <I>[too many locks on a file or record]</I>
+#define <A href="#ENOMEM"><B>ENOMEM</B></A> <I>[insufficient memory]</I>
+#define <A href="#ENOSPC"><B>ENOSPC</B></A> <I>[insufficient space on a device]</I>
+#define <A href="#ENOSYS"><B>ENOSYS</B></A> <I>[unimplemented function]</I>
+#define <A href="#ENOTDIR"><B>ENOTDIR</B></A> <I>[invalid directory name]</I>
+#define <A href="#ENOTEMPTY"><B>ENOTEMPTY</B></A> <I>[directory not empty]</I>
+#define <A href="#ENOTSUP"><B>ENOTSUP</B></A> <I>[unsupported feature[</I>
+#define <A href="#ENOTTY"><B>ENOTTY</B></A> <I>[bad I/O control operation]</I>
+#define <A href="#ENXIO"><B>ENXIO</B></A> <I>[bad device specifier]</I>
+#define <A href="#EPERM"><B>EPERM</B></A> <I>[process lacks permission]</I>
+#define <A href="#EPIPE"><B>EPIPE</B></A> <I>[write to a broken pipe]</I>
+#define <A href="#EROFS"><B>EROFS</B></A> <I>[write to a read-only file system]</I>
+#define <A href="#ESPIPE"><B>ESPIPE</B></A> <I>[seek on a pipe]</I>
+#define <A href="#ESRCH"><B>ESRCH</B></A> <I>[process search failed]</I>
+#define <A href="#ETIMEDOUT"><B>ETIMEDOUT</B></A> <I>[time limit expired]</I>
+#define <A href="#EXDEV"><B>EXDEV</B></A> <I>[link across file systems]</I></PRE>
+
+<H2><A NAME="EDOM"><CODE>EDOM</CODE></A></H2>
+
+<PRE>#define <B>EDOM</B> <I>&lt;#if expression&gt;</I></PRE>
+
+<P>The macro yields the value stored in
+<A HREF="#errno"><CODE>errno</CODE></A> on a domain error.</P>
+
+<H2><A NAME="EILSEQ"><CODE>EILSEQ</CODE></A></H2>
+
+<PRE>#define <B>EILSEQ</B> <I>&lt;#if expression&gt;</I> <B>[added with Amendment 1]</B></PRE>
+
+<P>The macro yields the value stored in
+<A HREF="#errno"><CODE>errno</CODE></A> on an invalid
+multibyte sequence.</P>
+
+<H2><A NAME="ERANGE"><CODE>ERANGE</CODE></A></H2>
+
+<PRE>#define <B>ERANGE</B> <I>&lt;#if expression&gt;</I></PRE>
+
+<P>The macro yields the value stored in
+<A HREF="#errno"><CODE>errno</CODE></A> on a range error.</P>
+
+<H2><A NAME="errno"><CODE>errno</CODE></A></H2>
+
+<PRE>#define <B>errno</B> <I>&lt;int modifiable lvalue&gt;</I></PRE>
+
+<P>The macro designates an object that is assigned a value greater
+than zero on certain library errors.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pb.html">Copyright</A> &#169; 1989-2002
+by P.J. Plauger and Jim Brodie. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

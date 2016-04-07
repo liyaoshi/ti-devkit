@@ -1,0 +1,56 @@
+<HTML><HEAD><TITLE>&lt;stdbool.h&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;stdbool.h&gt;"><CODE>&lt;stdbool.h&gt;</CODE></A></H1>
+
+<P>[Added with
+<A HREF="lib_over.html#C99">C99</A>]</P><HR>
+
+<P>Include the standard header <B><CODE>&lt;stdbool.h&gt;</CODE></B>
+to define a type and several macros suitable for writing Boolean tests.
+The standard header <CODE>&lt;stdbool.h&gt;</CODE> is available even in a
+<A HREF="lib_over.html#freestanding implementation">
+freestanding implementation</A>.</P>
+
+<PRE>    /* MACROS */
+#define <A HREF="#bool"><B>bool</B></A> _Bool <B>[keyword in C++]</B>
+#define <A HREF="#false"><B>false</B></A> 0 <B>[keyword in C++]</B>
+#define <A HREF="#true"><B>true</B></A> 1 <B>[keyword in C++]</B>
+#define <A HREF="#__bool_true_false_are_defined"><B>__bool_true_false_are_defined</B></A> 1
+
+    /* TYPES */
+typedef <I>i-type</I> <A HREF="#bool"><B>bool</B></A>; <B>[keyword in C++]</B></PRE>
+
+<H2><A NAME="__bool_true_false_are_defined"><CODE>__bool_true_false_are_defined</CODE></A></H2>
+
+<PRE>#define <B>__bool_true_false_are_defined</B> 1</PRE>
+
+<P>The macro yields the decimal constant <CODE>1</CODE>.</P>
+
+<H2><A NAME="bool"><CODE>bool</CODE></A></H2>
+
+<PRE>#define <B>bool</B> _Bool <B>[keyword in C++]</B></PRE>
+
+<P>The macro yields the type <B>_Bool</B>.</P>
+
+<H2><A NAME="false"><CODE>false</CODE></A></H2>
+
+<PRE>#define <B>false</B> 0 <B>[keyword in C++]</B></PRE>
+
+<P>The macro yields the decimal constant <CODE>0</CODE>.</P>
+
+<H2><A NAME="true"><CODE>true</CODE></A></H2>
+
+<PRE>#define <B>true</B> 1 <B>[keyword in C++]</B></PRE>
+
+<P>The macro yields the decimal constant <CODE>1</CODE>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pb.html">Copyright</A> &#169; 2000-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

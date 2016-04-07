@@ -1,0 +1,705 @@
+<HTML><HEAD><TITLE>&lt;functional&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;functional&gt;"><CODE>&lt;functional&gt;</CODE></A></H1><HR>
+
+<P><B><CODE><A HREF="#binary_function">binary_function</A>
+&#183; <A HREF="#binary_negate">binary_negate</A>
+&#183; <A HREF="#binder1st">binder1st</A>
+&#183; <A HREF="#binder2nd">binder2nd</A>
+&#183; <A HREF="#const_mem_fun_t">const_mem_fun_t</A>
+&#183; <A HREF="#const_mem_fun_ref_t">const_mem_fun_ref_t</A>
+&#183; <A HREF="#const_mem_fun1_t">const_mem_fun1_t</A>
+&#183; <A HREF="#const_mem_fun1_ref_t">const_mem_fun1_ref_t</A>
+&#183; <A HREF="#divides">divides</A>
+&#183; <A HREF="#equal_to">equal_to</A>
+&#183; <A HREF="#greater">greater</A>
+&#183; <A HREF="#greater_equal">greater_equal</A>
+&#183; <A HREF="#less">less</A>
+&#183; <A HREF="#less_equal">less_equal</A>
+&#183; <A HREF="#logical_and">logical_and</A>
+&#183; <A HREF="#logical_not">logical_not</A>
+&#183; <A HREF="#logical_or">logical_or</A>
+&#183; <A HREF="#mem_fun_t">mem_fun_t</A>
+&#183; <A HREF="#mem_fun_ref_t">mem_fun_ref_t</A>
+&#183; <A HREF="#mem_fun1_t">mem_fun1_t</A>
+&#183; <A HREF="#mem_fun1_ref_t">mem_fun1_ref_t</A>
+&#183; <A HREF="#minus">minus</A>
+&#183; <A HREF="#modulus">modulus</A>
+&#183; <A HREF="#multiplies">multiplies</A>
+&#183; <A HREF="#negate">negate</A>
+&#183; <A HREF="#not_equal_to">not_equal_to</A>
+&#183; <A HREF="#plus">plus</A>
+&#183; <A HREF="#pointer_to_binary_function">pointer_to_binary_function</A>
+&#183; <A HREF="#pointer_to_unary_function">pointer_to_unary_function</A>
+&#183; <A HREF="#unary_function">unary_function</A>
+&#183; <A HREF="#unary_negate">unary_negate</A>
+</CODE></B></P>
+
+<P><B><CODE><A HREF="#bind1st">bind1st</A>
+&#183; <A HREF="#bind2nd">bind2nd</A>
+&#183; <A HREF="#mem_fun">mem_fun</A>
+&#183; <A HREF="#mem_fun_ref">mem_fun_ref</A>
+&#183; <A HREF="#not1">not1</A>
+&#183; <A HREF="#not2">not2</A>
+&#183; <A HREF="#ptr_fun">ptr_fun</A>
+</CODE></B></P>
+<HR>
+
+<P>Include the <A HREF="index.html#STL">STL</A>
+standard header <B><CODE>&lt;functional&gt;</CODE></B>
+to define several templates that help construct
+<B><A NAME="function objects">function objects</A></B>,
+objects of a type that defines <CODE>operator()</CODE>.
+A function object can thus be a function pointer, but in
+the more general case the object can store additional information
+that can be used during a function call.</P>
+
+<PRE>namespace std {
+template&lt;class Arg, class Result&gt;
+    struct <B><A HREF="#unary_function">unary_function</A></B>;
+template&lt;class Arg1, class Arg2, class Result&gt;
+    struct <B><A HREF="#binary_function">binary_function</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#plus">plus</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#minus">minus</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#multiplies">multiplies</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#divides">divides</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#modulus">modulus</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#negate">negate</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#equal_to">equal_to</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#not_equal_to">not_equal_to</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#greater">greater</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#less">less</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#greater_equal">greater_equal</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#less_equal">less_equal</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#logical_and">logical_and</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#logical_or">logical_or</A></B>;
+template&lt;class Ty&gt;
+    struct <B><A HREF="#logical_not">logical_not</A></B>;
+template&lt;class Fn1&gt;
+    struct <B><A HREF="#unary_negate">unary_negate</A></B>;
+template&lt;class Fn2&gt;
+    struct <B><A HREF="#binary_negate">binary_negate</A></B>;
+template&lt;class Fn2&gt;
+    class <B><A HREF="#binder1st">binder1st</A></B>;
+template&lt;class Fn2&gt;
+    class <B><A HREF="#binder2nd">binder2nd</A></B>;
+template&lt;class Arg, class Result&gt;
+    class <B><A HREF="#pointer_to_unary_function">pointer_to_unary_function</A></B>;
+template&lt;class Arg1, class Arg2, class Result&gt;
+    class <B><A HREF="#pointer_to_binary_function">pointer_to_binary_function</A></B>;
+template&lt;class Result, class Ty&gt;
+    struct <B><A HREF="#mem_fun_t">mem_fun_t</A></B>;
+template&lt;class Result, class Ty, class Arg&gt;
+    struct <B><A HREF="#mem_fun1_t">mem_fun1_t</A></B>;
+template&lt;class Result, class Ty&gt;
+    struct <B><A HREF="#const_mem_fun_t">const_mem_fun_t</A></B>;
+template&lt;class Result, class Ty, class Arg&gt;
+    struct <B><A HREF="#const_mem_fun1_t">const_mem_fun1_t</A></B>;
+template&lt;class Result, class Ty&gt;
+    struct <B><A HREF="#mem_fun_ref_t">mem_fun_ref_t</A></B>;
+template&lt;class Result, class Ty, class Arg&gt;
+    struct <B><A HREF="#mem_fun1_ref_t">mem_fun1_ref_t</A></B>;
+template&lt;class Result, class Ty&gt;
+    struct <B><A HREF="#const_mem_fun_ref_t">const_mem_fun_ref_t</A></B>;
+template&lt;class Result, class Ty, class Arg&gt;
+    struct <B><A HREF="#const_mem_fun1_ref_t">const_mem_fun1_ref_t</A></B>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Fn1&gt;
+    unary_negate&lt;Fn1&gt; <B><A HREF="#not1">not1</A></B>(const Fn1&amp; func);
+template&lt;class Fn2&gt;
+    binary_negate&lt;Fn2&gt; <B><A HREF="#not2">not2</A></B>(const Fn2&amp; func);
+template&lt;class Fn2, class Ty&gt;
+    binder1st&lt;Fn2&gt; <B><A HREF="#bind1st">bind1st</A></B>(const Fn2&amp; func, const Ty&amp; left);
+template&lt;class Fn2, class Ty&gt;
+    binder2nd&lt;Fn2&gt; <B><A HREF="#bind2nd">bind2nd</A></B>(const Fn2&amp; func, const Ty&amp; right);
+template&lt;class Arg, class Result&gt;
+    pointer_to_unary_function&lt;Arg, Result&gt;
+        <B><A HREF="#ptr_fun">ptr_fun</A></B>(Result (*)(Arg));
+template&lt;class Arg1, class Arg2, class Result&gt;
+    pointer_to_binary_function&lt;Arg1, Arg2, Result&gt;
+        <B><A HREF="#ptr_fun">ptr_fun</A></B>(Result (*)(Arg1, Arg2));
+template&lt;class Result, class Ty&gt;
+    mem_fun_t&lt;Result, Ty&gt; <B><A HREF="#mem_fun">mem_fun</A></B>(Result (Ty::*pm)());
+template&lt;class Result, class Ty, class Arg&gt;
+    mem_fun1_t&lt;Result, Ty, Arg&gt; <B><A HREF="#mem_fun">mem_fun</A></B>(Result (Ty::*pm)(Arg left));
+template&lt;class Result, class Ty&gt;
+    const_mem_fun_t&lt;Result, Ty&gt; <B><A HREF="#mem_fun">mem_fun</A></B>(Result (Ty::*pm)() const);
+template&lt;class Result, class Ty, class Arg&gt;
+    const_mem_fun1_t&lt;Result, Ty, Arg&gt; <B><A HREF="#mem_fun">mem_fun</A></B>(Result (Ty::*pm)(Arg left) const);
+template&lt;class Result, class Ty&gt;
+    mem_fun_ref_t&lt;Result, Ty&gt; <B><A HREF="#mem_fun_ref">mem_fun_ref</A></B>(Result (Ty::*pm)());
+template&lt;class Result, class Ty, class Arg&gt;
+    mem_fun1_ref_t&lt;Result, Ty, Arg&gt;
+        <B><A HREF="#mem_fun_ref">mem_fun_ref</A></B>(Result (Ty::*pm)(Arg left));
+template&lt;class Result, class Ty&gt;
+    const_mem_fun_ref_t&lt;Result, Ty&gt; <B><A HREF="#mem_fun_ref">mem_fun_ref</A></B>(Result (Ty::*pm)() const);
+template&lt;class Result, class Ty, class Arg&gt;
+    const_mem_fun1_ref_t&lt;Result, Ty, Arg&gt;
+        <B><A HREF="#mem_fun_ref">mem_fun_ref</A></B>(Result (Ty::*pm)(Arg left) const);
+    };</PRE>
+
+<H2><A NAME="binary_function"><CODE>binary_function</CODE></A></H2>
+
+<PRE>template&lt;class Arg1, class Arg2, class Result&gt;
+    struct <B>binary_function</B> {
+    typedef Arg1 <B>first_argument_type</B>;
+    typedef Arg2 <B>second_argument_type</B>;
+    typedef Result <B>result_type</B>;
+    };</PRE>
+
+<P>The template class serves as a base for classes that define
+a member function of the form:</P>
+
+<PRE>result_type operator()(const first_argument_type&amp;,
+    const second_argument_type&amp;) const</PRE>
+
+<P>or a similar form taking two arguments.</P>
+
+<P>Hence, all such
+<B><A NAME="binary functions">binary functions</A></B>
+can refer to their first argument type as
+<B><A NAME="binary_function::first_argument_type">
+<CODE>first_argument_type</CODE></A></B>,
+their second argument type as
+<B><A NAME="binary_function::second_argument_type">
+<CODE>second_argument_type</CODE></A></B>,
+and their return type as
+<B><A NAME="binary_function::result_type">
+<CODE>result_type</CODE></A></B>.</P>
+
+<H2><A NAME="binary_negate"><CODE>binary_negate</CODE></A></H2>
+
+<PRE>template&lt;class Fn2&gt;
+    class <B>binary_negate</B>
+        : public <A HREF="#binary_function">binary_function</A>&lt;
+            typename Fn2::first_argument_type,
+            typename Fn2::second_argument_type, bool&gt; {
+public:
+    explicit <B>binary_negate</B>(const Fn2&amp; func);
+    bool <B>operator()</B>(
+        const typename Fn2::first_argument_type&amp; left,
+        const typename Fn2::second_argument_type&amp; right) const;
+    };</PRE>
+
+<P>The template class stores a copy of <CODE>func</CODE>, which
+must be a <A HREF="#binary functions">binary function</A> object.
+It defines its member function <B><CODE>operator()</CODE></B>
+as returning <CODE>!func(left, right)</CODE>.</P>
+
+<H2> <A NAME="bind1st"><CODE>bind1st</CODE></A></H2>
+
+<PRE>template&lt;class Fn2, class Ty&gt;
+    <A HREF="#binder1st">binder1st</A>&lt;Fn2&gt; <B>bind1st</B>(const Fn2amp; func, const Ty&amp; left);</PRE>
+
+<P>The function returns
+<CODE><A HREF="#binder1st">binder1st</A>&lt;Fn2&gt;(func,
+typename Fn2::first_argument_type(left))</CODE>.</P>
+
+<H2> <A NAME="bind2nd"><CODE>bind2nd</CODE></A></H2>
+
+<PRE>template&lt;class Fn2, class Ty&gt;
+    <A HREF="#binder2nd">binder2nd</A>&lt;Fn2&gt; <B>bind2nd</B>(const Fn2&amp; func, const Ty&amp; right);</PRE>
+
+<P>The function returns
+<CODE><A HREF="#binder2nd">binder2nd</A>&lt;Fn2&gt;(func,
+typename Fn2::second_argument_type(right))</CODE>.</P>
+
+<H2><A NAME="binder1st"><CODE>binder1st</CODE></A></H2>
+
+<PRE>template&lt;class Fn2&gt;
+    class <B>binder1st</B>
+        : public <A HREF="#unary_function">unary_function</A>&lt;
+            typename Fn2::second_argument_type,
+            typename Fn2::result_type&gt; {
+public:
+    typedef typename Fn2::second_argument_type argument_type;
+    typedef typename Fn2::result_type result_type;
+    <B>binder1st</B>(const Fn2&amp; func,
+        const typename Fn2::first_argument_type&amp; left);
+    result_type <B>operator()</B>(const argument_type&amp; right) const;
+protected:
+    Fn2 <B>op</B>;
+    typename Fn2::first_argument_type <B>value</B>;
+    };</PRE>
+
+<P>The template class stores a copy of <CODE>func</CODE>, which
+must be a <A HREF="#binary functions">binary function</A> object, in
+<B><A NAME="binder1st::op"><CODE>op</CODE></A></B>,
+and a copy of <CODE>left</CODE> in
+<B><A NAME="binder1st::value"><CODE>value</CODE></A></B>.
+It defines its member function <B><CODE>operator()</CODE></B>
+as returning <CODE>op(value, right)</CODE>.</P>
+
+<H2><A NAME="binder2nd"><CODE>binder2nd</CODE></A></H2>
+
+<PRE>template&lt;class Fn2&gt;
+    class <B>binder2nd</B>
+        : public <A HREF="#unary_function">unary_function</A>&lt;
+            typename Fn2::first_argument_type,
+            typename Fn2::result_type&gt; {
+public:
+    typedef typename Fn2::first_argument_type argument_type;
+    typedef typename Fn2::result_type result_type;
+    <B>binder2nd</B>(const Fn2&amp; func,
+        const typename Fn2::second_argument_type&amp; right);
+    result_type <B>operator()</B>(const argument_type&amp; left) const;
+protected:
+    Fn2 <B>op</B>;
+    typename Fn2::second_argument_type <B>value</B>;
+    };</PRE>
+
+<P>The template class stores a copy of <CODE>func</CODE>, which
+must be a <A HREF="#binary functions">binary function</A> object, in
+<B><A NAME="binder2nd::op"><CODE>op</CODE></A></B>,
+and a copy of <CODE>right</CODE> in
+<B><A NAME="binder2nd::value"><CODE>value</CODE></A></B>.
+It defines its member function <B><CODE>operator()</CODE></B>
+as returning <CODE>op(left, value)</CODE>.</P>
+
+<H2><A NAME="const_mem_fun_t"><CODE>const_mem_fun_t</CODE></A></H2>
+
+<PRE>template&lt;class Result, class Ty&gt;
+    struct <B>const_mem_fun_t</B>
+        : public <A HREF="#unary_function">unary_function</A>&lt;const Ty *, Result&gt; {
+    explicit <B>const_mem_fun_t</B>(Result (Ty::*pm)() const);
+    Result <B>operator()</B>(const Ty *pleft) const;
+    };</PRE>
+
+<P>The template class stores a copy of <CODE>pm</CODE>, which
+must be a pointer to a member function of class <CODE>Ty</CODE>, in
+a private member object.
+It defines its member function <B><CODE>operator()</CODE></B>
+as returning <CODE>(pleft-&gt;*pm)() const</CODE>.</P>
+
+<H2><A NAME="const_mem_fun_ref_t"><CODE>const_mem_fun_ref_t</CODE></A></H2>
+
+<PRE>template&lt;class Result, class Ty&gt;
+    struct <B>const_mem_fun_ref_t</B>
+        : public <A HREF="#unary_function">unary_function</A>&lt;Ty, Result&gt; {
+    explicit <B>const_mem_fun_t</B>(Result (Ty::*pm)() const);
+    Result <B>operator()</B>(const Ty&amp; left) const;
+    };</PRE>
+
+<P>The template class stores a copy of <CODE>pm</CODE>, which
+must be a pointer to a member function of class <CODE>Ty</CODE>, in
+a private member object.
+It defines its member function <B><CODE>operator()</CODE></B>
+as returning <CODE>(left.*pm)() const</CODE>.</P>
+
+<H2><A NAME="const_mem_fun1_t"><CODE>const_mem_fun1_t</CODE></A></H2>
+
+<PRE>template&lt;class Result, class Ty, class Arg&gt;
+    struct <B>const_mem_fun1_t</B>
+        : public <A HREF="#binary_function">binary_function</A>&lt;const Ty *, Arg, Result&gt; {
+    explicit <B>const_mem_fun1_t</B>(Result (Ty::*pm)(Arg) const);
+    Result <B>operator()</B>(const Ty *pleft, Arg right) const;
+    };</PRE>
+
+<P>The template class stores a copy of <CODE>pm</CODE>, which
+must be a pointer to a member function of class <CODE>Ty</CODE>, in
+a private member object.
+It defines its member function <B><CODE>operator()</CODE></B>
+as returning <CODE>(pleft-&gt;*pm)(right) const</CODE>.</P>
+
+<H2><A NAME="const_mem_fun1_ref_t"><CODE>const_mem_fun1_ref_t</CODE></A></H2>
+
+<PRE>template&lt;class Result, class Ty, class Arg&gt;
+    struct <B>const_mem_fun1_ref_t</B>
+        : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Arg, Result&gt; {
+    explicit <B>const_mem_fun1_ref_t</B>(Result (Ty::*pm)(Arg) const);
+    Result <B>operator()</B>(const Ty&amp; left, Arg right) const;
+    };</PRE>
+
+<P>The template class stores a copy of <CODE>pm</CODE>, which
+must be a pointer to a member function of class <CODE>Ty</CODE>, in
+a private member object.
+It defines its member function <B><CODE>operator()</CODE></B>
+as returning <CODE>(left.*pm)(right) const</CODE>.</P>
+
+<H2><A NAME="divides"><CODE>divides</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>divides</B> : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Ty, Ty&gt; {
+    Ty <B>operator()</B>(const Ty&amp; left, const Ty&amp; right) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>left / right</CODE>.</P>
+
+<H2><A NAME="equal_to"><CODE>equal_to</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>equal_to</B>
+        : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Ty, bool&gt; {
+    bool <B>operator()</B>(const Ty&amp; left, const Ty&amp; right) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>left == right</CODE>.</P>
+
+<H2><A NAME="greater"><CODE>greater</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>greater</B> : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Ty, bool&gt; {
+    bool <B>operator()</B>(const Ty&amp; left, const Ty&amp; right) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>left &gt; right</CODE>. The member function defines a
+<A HREF="utility.html#total ordering">total ordering</A>
+if <CODE>Ty</CODE> is an object pointer type. (It will compare two pointer values
+consistently even if they don't point into the same array.)</P>
+
+<H2><A NAME="greater_equal"><CODE>greater_equal</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>greater_equal</B>
+        : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Ty, bool&gt; {
+    bool <B>operator()</B>(const Ty&amp; left, const Ty&amp; right) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>left &gt;= right</CODE>. The member function defines a
+<A HREF="utility.html#total ordering">total ordering</A>
+if <CODE>Ty</CODE> is an object pointer type. (It will compare two pointer values
+consistently even if they don't point into the same array.)</P>
+
+<H2><A NAME="less"><CODE>less</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>less</B> : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Ty, bool&gt; {
+    bool <B>operator()</B>(const Ty&amp; left, const Ty&amp; right) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>left &lt; right</CODE>. The member function defines a
+<A HREF="utility.html#total ordering">total ordering</A>
+if <CODE>Ty</CODE> is an object pointer type. (It will compare two pointer values
+consistently even if they don't point into the same array.)</P>
+
+<H2><A NAME="less_equal"><CODE>less_equal</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>less_equal</B>
+        : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Ty, bool&gt; {
+    bool <B>operator()</B>(const Ty&amp; left, const Ty&amp; right) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>left &lt;= right</CODE>. The member function defines a
+<A HREF="utility.html#total ordering">total ordering</A>
+if <CODE>Ty</CODE> is an object pointer type. (It will compare two pointer values
+consistently even if they don't point into the same array.)</P>
+
+<H2><A NAME="logical_and"><CODE>logical_and</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>logical_and</B>
+        : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Ty, bool&gt; {
+    bool <B>operator()</B>(const Ty&amp; left, const Ty&amp; right) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>left &amp;&amp; right</CODE>.</P>
+
+<H2><A NAME="logical_not"><CODE>logical_not</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>logical_not</B> : public <A HREF="#unary_function">unary_function</A>&lt;Ty, bool&gt; {
+    bool <B>operator()</B>(const Ty&amp; left) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>!left</CODE>.</P>
+
+<H2><A NAME="logical_or"><CODE>logical_or</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>logical_or</B>
+        : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Ty, bool&gt; {
+    bool <B>operator()</B>(const Ty&amp; left, const Ty&amp; right) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>left || right</CODE>.</P>
+
+<H2><A NAME="mem_fun"><CODE>mem_fun</CODE></A></H2>
+
+<PRE>template&lt;class Result, class Ty&gt;
+    mem_fun_t&lt;Result, Ty&gt; <B>mem_fun</B>(Result (Ty::*pm)());
+template&lt;class Result, class Ty, class Arg&gt;
+    mem_fun1_t&lt;Result, Ty, Arg&gt; <B>mem_fun</B>(Result (Ty::*pm)(Arg));
+template&lt;class Result, class Ty&gt;
+    const_mem_fun_t&lt;Result, Ty&gt;
+        <B>mem_fun</B>(Result (Ty::*pm)() const);
+template&lt;class Result, class Ty, class Arg&gt;
+    const_mem_fun1_t&lt;Result, Ty, Arg&gt;
+        <B>mem_fun</B>(Result (Ty::*pm)(Arg) const);</PRE>
+
+<P>The template function returns <CODE>pm</CODE> cast to the return type.</P>
+
+<H2><A NAME="mem_fun_ref"><CODE>mem_fun_ref</CODE></A></H2>
+
+<PRE>template&lt;class Result, class Ty&gt;
+    mem_fun_ref_t&lt;Result, Ty&gt; <B>mem_fun_ref</B>(Result (Ty::*pm)());
+template&lt;class Result, class Ty, class Arg&gt;
+    mem_fun1_ref_t&lt;Result, Ty, Arg&gt; <B>mem_fun_ref</B>(Result (Ty::*pm)(Arg));
+template&lt;class Result, class Ty&gt;
+    const_mem_fun_ref_t&lt;Result, Ty&gt; <B>mem_fun_ref</B>(Result (Ty::*pm)() const);
+template&lt;class Result, class Ty, class Arg&gt;
+    const_mem_fun1_ref_t&lt;Result, Ty, Arg&gt; <B>mem_fun_ref</B>(Result (Ty::*pm)(Arg) const);</PRE>
+
+<P>The template function returns <CODE>pm</CODE> cast to the return type.</P>
+
+<H2><A NAME="mem_fun_t"><CODE>mem_fun_t</CODE></A></H2>
+
+<PRE>template&lt;class Result, class Ty&gt;
+    struct <B>mem_fun_t</B> : public <A HREF="#unary_function">unary_function</A>&lt;Ty *, Result&gt; {
+    explicit <B>mem_fun_t</B>(Result (Ty::*pm)());
+    Result <B>operator()</B>(Ty *pleft) const;
+    };</PRE>
+
+<P>The template class stores a copy of <CODE>pm</CODE>, which
+must be a pointer to a member function of class <CODE>Ty</CODE>, in
+a private member object.
+It defines its member function <B><CODE>operator()</CODE></B>
+as returning <CODE>(pleft-&gt;*pm)()</CODE>.</P>
+
+<H2><A NAME="mem_fun_ref_t"><CODE>mem_fun_ref_t</CODE></A></H2>
+
+<PRE>template&lt;class Result, class Ty&gt;
+    struct <B>mem_fun_ref_t</B>
+        : public <A HREF="#unary_function">unary_function</A>&lt;Ty, Result&gt; {
+    explicit <B>mem_fun_t</B>(Result (Ty::*pm)());
+    Result <B>operator()</B>(Ty&amp; left) const;
+    };</PRE>
+
+<P>The template class stores a copy of <CODE>pm</CODE>, which
+must be a pointer to a member function of class <CODE>Ty</CODE>, in
+a private member object.
+It defines its member function <B><CODE>operator()</CODE></B>
+as returning <CODE>(left.*pm)()</CODE>.</P>
+
+<H2><A NAME="mem_fun1_t"><CODE>mem_fun1_t</CODE></A></H2>
+
+<PRE>template&lt;class Result, class Ty, class Arg&gt;
+    struct <B>mem_fun1_t</B>
+        : public <A HREF="#binary_function">binary_function</A>&lt;Ty *, Arg, Result&gt; {
+    explicit <B>mem_fun1_t</B>(Result (Ty::*pm)(Arg));
+    Result <B>operator()</B>(Ty *pleft, Arg right) const;
+    };</PRE>
+
+<P>The template class stores a copy of <CODE>pm</CODE>, which
+must be a pointer to a member function of class <CODE>Ty</CODE>, in
+a private member object.
+It defines its member function <B><CODE>operator()</CODE></B>
+as returning <CODE>(pleft-&gt;*pm)(right)</CODE>.</P>
+
+<H2><A NAME="mem_fun1_ref_t"><CODE>mem_fun1_ref_t</CODE></A></H2>
+
+<PRE>template&lt;class Result, class Ty, class Arg&gt;
+    struct <B>mem_fun1_ref_t</B>
+        : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Arg, Result&gt; {
+    explicit <B>mem_fun1_ref_t</B>(Result (Ty::*pm)(Arg));
+    Result <B>operator()</B>(Ty&amp; left, Arg right) const;
+    };</PRE>
+
+<P>The template class stores a copy of <CODE>pm</CODE>, which
+must be a pointer to a member function of class <CODE>Ty</CODE>, in
+a private member object.
+It defines its member function <B><CODE>operator()</CODE></B>
+as returning <CODE>(left.*pm)(right)</CODE>.</P>
+
+<H2><A NAME="minus"><CODE>minus</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>minus</B> : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Ty, Ty&gt; {
+    Ty <B>operator()</B>(const Ty&amp; left, const Ty&amp; right) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>left - right</CODE>.</P>
+
+<H2><A NAME="modulus"><CODE>modulus</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>modulus</B> : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Ty, Ty&gt; {
+    Ty <B>operator()</B>(const Ty&amp; left, const Ty&amp; right) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>left % right</CODE>.</P>
+
+<H2><A NAME="multiplies"><CODE>multiplies</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>multiplies</B> : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Ty, Ty&gt; {
+    Ty <B>operator()</B>(const Ty&amp; left, const Ty&amp; right) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>left * right</CODE>.</P>
+
+<H2><A NAME="negate"><CODE>negate</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>negate</B> : public <A HREF="#unary_function">unary_function</A>&lt;Ty, Ty&gt; {
+    Ty <B>operator()</B>(const Ty&amp; left) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>-left</CODE>.</P>
+
+<H2><A NAME="not1"><CODE>not1</CODE></A></H2>
+
+<PRE>template&lt;class Fn1&gt;
+    <A HREF="#unary_negate">unary_negate</A>&lt;Fn1&gt; <B>not1</B>(const Fn1&amp; func);</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#unary_negate">unary_negate</A>&lt;Fn1&gt;(func)</CODE>.</P>
+
+<H2><A NAME="not2"><CODE>not2</CODE></A></H2>
+
+<PRE>template&lt;class Fn2&gt;
+    <A HREF="#binary_negate">binary_negate</A>&lt;Fn2&gt; <B>not2</B>(const Fn2&amp; func);</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#binary_negate">binary_negate</A>&lt;Fn2&gt;(func)</CODE>.</P>
+
+<H2><A NAME="not_equal_to"><CODE>not_equal_to</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>not_equal_to</B>
+        : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Ty, bool&gt; {
+    bool <B>operator()</B>(const Ty&amp; left, const Ty&amp; right) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>left != right</CODE>.</P>
+
+<H2><A NAME="plus"><CODE>plus</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    struct <B>plus</B> : public <A HREF="#binary_function">binary_function</A>&lt;Ty, Ty, Ty&gt; {
+    Ty <B>operator()</B>(const Ty&amp; left, const Ty&amp; right) const;
+    };</PRE>
+
+<P>The template class defines its member function as returning
+<CODE>left + right</CODE>.</P>
+
+<H2><A NAME="pointer_to_binary_function">
+<CODE>pointer_to_binary_function</CODE></A></H2>
+
+<PRE>template&lt;class Arg1, class Arg2, class Result&gt;
+    class <B>pointer_to_binary_function</B>
+        : public <A HREF="#binary_function">binary_function</A>&lt;Arg1, Arg2, Result&gt; {
+public:
+    explicit <B>pointer_to_binary_function</B>(
+        Result (*pfunc)(Arg1, Arg2));
+    Result <B>operator()</B>(const Arg1 left, const Arg2 right) const;
+    };</PRE>
+
+<P>The template class stores a copy of <CODE>pfunc</CODE>.
+It defines its member function <B><CODE>operator()</CODE></B>
+as returning <CODE>(*pfunc)(left, right)</CODE>.</P>
+
+<H2><A NAME="pointer_to_unary_function">
+<CODE>pointer_to_unary_function</CODE></A></H2>
+
+<PRE>template&lt;class Arg, class Result&gt;
+    class <B>pointer_to_unary_function</B>
+        : public <A HREF="#unary_function">unary_function</A>&lt;Arg, Result&gt; {
+public:
+    explicit <B>pointer_to_unary_function</B>(
+        Result (*pfunc)(Arg));
+    Result <B>operator()</B>(const Arg left) const;
+    };</PRE>
+
+<P>The template class stores a copy of <CODE>pfunc</CODE>.
+It defines its member function <B><CODE>operator()</CODE></B>
+as returning <CODE>(*pfunc)(left)</CODE>.</P>
+
+<H2><A NAME="ptr_fun"><CODE>ptr_fun</CODE></A></H2>
+
+<PRE>template&lt;class Arg, class Result&gt;
+    pointer_to_unary_function&lt;Arg, Result&gt;
+        <B>ptr_fun</B>(Result (*pfunc)(Arg));
+template&lt;class Arg1, class Arg2, class Result&gt;
+    pointer_to_binary_function&lt;Arg1, Arg2, Result&gt;
+        <B>ptr_fun</B>(Result (*pfunc)(Arg1, Arg2));</PRE>
+
+<P>The first template function returns
+<CODE><A HREF="#pointer_to_unary_function">pointer_to_unary_function</A>&lt;Arg, Result&gt;(pfunc)</CODE>.</P>
+
+<P>The second template function returns
+<CODE><A HREF="#pointer_to_binary_function">pointer_to_binary_function</A>&lt;Arg1, Arg2, Result&gt;(pfunc)</CODE>.</P>
+
+<H2><A NAME="unary_function"><CODE>unary_function</CODE></A></H2>
+
+<PRE>template&lt;class Arg, class Result&gt;
+    struct <B>unary_function</B> {
+    typedef Arg <B>argument_type</B>;
+    typedef Result <B>result_type</B>;
+    };</PRE>
+
+<P>The template class serves as a base for classes that define
+a member function of the form:</P>
+
+<PRE>result_type operator()(const argument_type&amp;) const</PRE>
+
+<P>or a similar form taking one argument.</P>
+
+<P>Hence, all such
+<B><A NAME="unary functions">unary functions</A></B>
+can refer to their sole argument type as
+<B><A NAME="unary_function::argument_type">
+<CODE>argument_type</CODE></A></B>
+and their return type as
+<B><A NAME="unary_function::result_type">
+<CODE>result_type</CODE></A></B>.</P>
+
+<H2><A NAME="unary_negate"><CODE>unary_negate</CODE></A></H2>
+
+<PRE>template&lt;class Fn1&gt;
+    class <B>unary_negate</B>
+        : public <A HREF="#unary_function">unary_function</A>&lt;
+            typename Fn1::argument_type,
+            bool&gt; {
+public:
+    explicit <B>unary_negate</B>(const Fn1&amp; Func);
+    bool <B>operator()</B>(
+        const typename Fn1::argument_type&amp; left) const;
+    };</PRE>
+
+<P>The template class stores a copy of <CODE>func</CODE>, which
+must be a <A HREF="#unary functions">unary function</A> object.
+It defines its member function <B><CODE>operator()</CODE></B>
+as returning <CODE>!func(left)</CODE>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1994-2002
+by P.J. Plauger. Portions derived from work
+<A HREF="crit_hp.html">copyright</A> &#169; 1994
+by Hewlett-Packard Company. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

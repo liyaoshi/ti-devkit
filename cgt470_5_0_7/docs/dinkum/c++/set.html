@@ -1,0 +1,1222 @@
+<HTML><HEAD><TITLE>&lt;set&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;set&gt;"><CODE>&lt;set&gt;</CODE></A></H1><HR>
+
+<P>Include the <A HREF="index.html#STL">STL</A>
+standard header <B><CODE>&lt;set&gt;</CODE></B> to define the
+<A HREF="lib_cont.html#Containers">container</A>
+template classes <CODE>set</CODE> and
+<CODE>multiset</CODE>, and their supporting
+templates.</P>
+
+<PRE>namespace std {
+template&lt;class Key, class Pr, class Alloc&gt;
+    class <B><A HREF="#set">set</A></B>;
+template&lt;class Key, class Pr, class Alloc&gt;
+    class <B><A HREF="#multiset">multiset</A></B>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B><A HREF="#operator==">operator==</A></B>(
+        const set&lt;Key, Pr, Alloc&gt;&amp; left,
+        const set&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B><A HREF="#operator==">operator==</A></B>(
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B><A HREF="#operator!=">operator!=</A></B>(
+        const set&lt;Key, Pr, Alloc&gt;&amp; left,
+        const set&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B><A HREF="#operator!=">operator!=</A></B>(
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B><A HREF="#operator&lt;">operator&lt;</A></B>(
+        const set&lt;Key, Pr, Alloc&gt;&amp; left,
+        const set&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B><A HREF="#operator&lt;">operator&lt;</A></B>(
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B><A HREF="#operator&gt;">operator&gt;</A></B>(
+        const set&lt;Key, Pr, Alloc&gt;&amp; left,
+        const set&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B><A HREF="#operator&gt;">operator&gt;</A></B>(
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B><A HREF="#operator&lt;=">operator&lt;=</A></B>(
+        const set&lt;Key, Pr, Alloc&gt;&amp; left,
+        const set&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B><A HREF="#operator&lt;=">operator&lt;=</A></B>(
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B><A HREF="#operator&gt;=">operator&gt;=</A></B>(
+        const set&lt;Key, Pr, Alloc&gt;&amp; left,
+        const set&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B><A HREF="#operator&gt;=">operator&gt;=</A></B>(
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    void <B><A HREF="#swap">swap</A></B>(
+        set&lt;Key, Pr, Alloc&gt;&amp; left,
+        set&lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    void <B><A HREF="#swap">swap</A></B>(
+        multiset&lt;Key, Pr, Alloc&gt;&amp; left,
+        multiset&lt;Key, Pr, Alloc&gt;&amp; right);
+    };</PRE>
+
+<H2><A NAME="multiset"><CODE>multiset</CODE></A></H2>
+
+<HR>
+<P><B><CODE><A HREF="#multiset::allocator_type">allocator_type</A>
+&#183; <A HREF="#multiset::begin">begin</A>
+&#183; <A HREF="#multiset::clear">clear</A>
+&#183; <A HREF="#multiset::const_iterator">const_iterator</A>
+&#183; <A HREF="#multiset::const_pointer">const_pointer</A>
+&#183; <A HREF="#multiset::const_reference">const_reference</A>
+&#183; <A HREF="#multiset::const_reverse_iterator">const_reverse_iterator</A>
+&#183; <A HREF="#multiset::count">count</A>
+&#183; <A HREF="#multiset::difference_type">difference_type</A>
+&#183; <A HREF="#multiset::empty">empty</A>
+&#183; <A HREF="#multiset::end">end</A>
+&#183; <A HREF="#multiset::equal_range">equal_range</A>
+&#183; <A HREF="#multiset::erase">erase</A>
+&#183; <A HREF="#multiset::find">find</A>
+&#183; <A HREF="#multiset::get_allocator">get_allocator</A>
+&#183; <A HREF="#multiset::insert">insert</A>
+&#183; <A HREF="#multiset::iterator">iterator</A>
+&#183; <A HREF="#multiset::key_comp">key_comp</A>
+&#183; <A HREF="#multiset::key_compare">key_compare</A>
+&#183; <A HREF="#multiset::key_type">key_type</A>
+&#183; <A HREF="#multiset::lower_bound">lower_bound</A>
+&#183; <A HREF="#multiset::max_size">max_size</A>
+&#183; <A HREF="#multiset::multiset">multiset</A>
+&#183; <A HREF="#multiset::pointer">pointer</A>
+&#183; <A HREF="#multiset::rbegin">rbegin</A>
+&#183; <A HREF="#multiset::reference">reference</A>
+&#183; <A HREF="#multiset::rend">rend</A>
+&#183; <A HREF="#multiset::reverse_iterator">reverse_iterator</A>
+&#183; <A HREF="#multiset::size">size</A>
+&#183; <A HREF="#multiset::size_type">size_type</A>
+&#183; <A HREF="#multiset::swap">swap</A>
+&#183; <A HREF="#multiset::upper_bound">upper_bound</A>
+&#183; <A HREF="#multiset::value_comp">value_comp</A>
+&#183; <A HREF="#multiset::value_compare">value_compare</A>
+&#183; <A HREF="#multiset::value_type">value_type</A>
+</CODE></B></P>
+<HR>
+
+<PRE>template&lt;class Key, class Pr = less&lt;Key&gt;,
+    class Alloc = allocator&lt;Key&gt; &gt;
+    class <B>multiset</B> {
+public:
+    typedef Key <B><A HREF="#multiset::key_type">key_type</A></B>;
+    typedef Pr <B><A HREF="#multiset::key_compare">key_compare</A></B>;
+    typedef Key <B><A HREF="#multiset::value_type">value_type</A></B>;
+    typedef Pr <B><A HREF="#multiset::value_compare">value_compare</A></B>;
+    typedef Allov <B><A HREF="#multiset::allocator_type">allocator_type</A></B>;
+    typedef Alloc::pointer <B><A HREF="#multiset::pointer">pointer</A></B>;
+    typedef Alloc::const_pointer <B><A HREF="#multiset::const_pointer">const_pointer</A></B>;
+    typedef Alloc::reference <B><A HREF="#multiset::reference">reference</A></B>;
+    typedef Alloc::const_reference <B><A HREF="#multiset::const_reference">const_reference</A></B>;
+    typedef T0 <B><A HREF="#multiset::iterator">iterator</A></B>;
+    typedef T1 <B><A HREF="#multiset::const_iterator">const_iterator</A></B>;
+    typedef T2 <B><A HREF="#multiset::size_type">size_type</A></B>;
+    typedef T3 <B><A HREF="#multiset::difference_type">difference_type</A></B>;
+    typedef reverse_iterator&lt;const_iterator&gt;
+        <B><A HREF="#multiset::const_reverse_iterator">const_reverse_iterator</A></B>;
+    typedef reverse_iterator&lt;iterator&gt; <B><A HREF="#multiset::reverse_iterator">reverse_iterator</A></B>;
+    <B><A HREF="#multiset::multiset">multiset</A></B>();
+    explicit <B><A HREF="#multiset::multiset">multiset</A></B>(const Pr&amp; pred);
+    <B><A HREF="#multiset::multiset">multiset</A></B>(const Pr&amp; pred, const Alloc&amp; al);
+    <B><A HREF="#multiset::multiset">multiset</A></B>(const multiset&amp; right);
+    template&lt;class InIt&gt;
+        <B><A HREF="#multiset::multiset">multiset</A></B>(InIt first, InIt last);
+    template&lt;class InIt&gt;
+        <B><A HREF="#multiset::multiset">multiset</A></B>(InIt first, InIt last,
+            const Pr&amp; pred);
+    template&lt;class InIt&gt;
+        <B><A HREF="#multiset::multiset">multiset</A></B>(InIt first, InIt last,
+            const Pr&amp; pred, const Alloc&amp; al);
+    iterator <B><A HREF="#multiset::begin">begin</A></B>();
+    const_iterator <B><A HREF="#multiset::begin">begin</A></B>() const;
+    iterator <B><A HREF="#multiset::end">end</A></B>();
+    const_iterator <B><A HREF="#multiset::end">end</A></B>() const;
+    reverse_iterator <B><A HREF="#multiset::rbegin">rbegin</A></B>();
+    const_reverse_iterator <B><A HREF="#multiset::rbegin">rbegin</A></B>() const;
+    reverse_iterator <B><A HREF="#multiset::rend">rend</A></B>();
+    const_reverse_iterator <B><A HREF="#multiset::rend">rend</A></B>() const;
+    size_type <B><A HREF="#multiset::max_size">max_size</A></B>() const;
+    bool <B><A HREF="#multiset::empty">empty</A></B>() const;
+    Alloc <B><A HREF="#multiset::get_allocator">get_allocator</A></B>() const;
+    iterator <B><A HREF="#multiset::insert">insert</A></B>(const value_type&amp; val);
+    iterator <B><A HREF="#multiset::insert">insert</A></B>(iterator where, const value_type&amp; val);
+    template&lt;class InIt&gt;
+        void <B><A HREF="#multiset::insert">insert</A></B>(InIt first, InIt last);
+    iterator <B><A HREF="#multiset::erase">erase</A></B>(iterator where);
+    iterator <B><A HREF="#multiset::erase">erase</A></B>(iterator first, iterator last);
+    size_type <B><A HREF="#multiset::erase">erase</A></B>(const Key&amp; keyval);
+    void <B><A HREF="#multiset::clear">clear</A></B>();
+    void <B><A HREF="#multiset::swap">swap</A></B>(multiset&amp; right);
+    key_compare <B><A HREF="#multiset::key_comp">key_comp</A></B>() const;
+    value_compare <B><A HREF="#multiset::value_comp">value_comp</A></B>() const;
+    iterator <B><A HREF="#multiset::find">find</A></B>(const Key&amp; keyval);
+    const_iterator <B><A HREF="#multiset::find">find</A></B>(const Key&amp; keyval) const;
+    size_type <B><A HREF="#multiset::count">count</A></B>(const Key&amp; keyval) const;
+    iterator <B><A HREF="#multiset::lower_bound">lower_bound</A></B>(const Key&amp; keyval);
+    const_iterator <B><A HREF="#multiset::lower_bound">lower_bound</A></B>(const Key&amp; keyval) const;
+    iterator <B><A HREF="#multiset::upper_bound">upper_bound</A></B>(const Key&amp; keyval);
+    const_iterator <B><A HREF="#multiset::upper_bound">upper_bound</A></B>(const Key&amp; keyval) const;
+    pair&lt;iterator, iterator&gt; <B><A HREF="#multiset::equal_range">equal_range</A></B>(const Key&amp; keyval);
+    pair&lt;const_iterator, const_iterator&gt;
+        <B><A HREF="#multiset::equal_range">equal_range</A></B>(const Key&amp; keyval) const;
+    };</PRE>
+
+<P>The template class describes an object that controls a
+varying-length sequence of elements of type
+<CODE>const Key</CODE>.
+The sequence is
+<A HREF="lib_stl.html#sequence ordering">ordered by</A> the predicate
+<CODE>Pr</CODE>.
+Each element serves as both a <B>sort key</B> and a <B>value</B>.
+The sequence is represented in a way that permits lookup, insertion,
+and removal of an arbitrary element with a number of operations
+proportional to the logarithm of the number of elements
+in the sequence (logarithmic time). Moreover, inserting an element
+invalidates no iterators, and removing an element
+invalidates only those iterators which point at the removed element.</P>
+
+<P>The object orders the sequence it controls by calling a
+stored <B>function object</B> of type <CODE>Pr</CODE>. You access
+this stored object by calling the member function
+<CODE><A HREF="#multiset::key_comp">key_comp</A>()</CODE>.
+Such a function object must impose a
+<A HREF="lib_stl.html#strict weak ordering">strict weak ordering</A>
+on sort keys of type <CODE>Key</CODE>.
+For any element <CODE>X</CODE> that precedes
+<CODE>Y</CODE> in the sequence,
+<CODE>key_comp()(Y, X)</CODE> is false. (For the default function object
+<CODE><A HREF="functio2.html#less">less</A>&lt;Key&gt;</CODE>,
+sort keys never decrease in value.)
+Unlike template class <CODE><A HREF="#set">set</A></CODE>,
+an object of template class <CODE>multiset</CODE> does not ensure that
+<CODE>key_comp()(X, Y)</CODE> is true.
+(Keys need not be unique.)</P>
+
+<P>The object allocates and frees storage for the sequence it controls
+through a stored <A HREF="memory.html#allocator object">allocator object</A>
+of class <CODE>Alloc</CODE>. Such an allocator object must have
+the same external interface as an object of template class
+<A HREF="memory.html#allocator"><CODE>allocator</CODE></A>.
+Note that the stored allocator object is <I>not</I> copied when the container
+object is assigned.</P>
+
+<H3><CODE><A NAME="multiset::allocator_type">multiset::allocator_type</A></CODE></H3>
+
+<PRE>typedef Alloc <B>allocator_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Alloc</CODE>.</P>
+
+<H3><CODE><A NAME="multiset::begin">multiset::begin</A></CODE></H3>
+
+<PRE>iterator <B>begin</B>();
+const_iterator <B>begin</B>() const;</PRE>
+
+<P>The member function returns a bidirectional iterator that points at
+the first element of the sequence (or just beyond the end of an empty
+sequence).</P>
+
+<H3><CODE><A NAME="multiset::clear">multiset::clear</A></CODE></H3>
+
+<PRE>void <B>clear</B>();</PRE>
+
+<P>The member function calls
+<CODE><A HREF="#multiset::erase">erase</A>(
+<A HREF="#multiset::begin">begin</A>(),
+<A HREF="#multiset::end">end</A>())</CODE>.</P>
+
+<H3><CODE><A NAME="multiset::const_iterator">multiset::const_iterator</A></CODE></H3>
+
+<PRE>typedef T1 <B>const_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant
+bidirectional iterator for the controlled sequence.
+It is described here as a
+synonym for the implementation-defined type <CODE>T1</CODE>.</P>
+
+<H3><CODE><A NAME="multiset::const_pointer">multiset::const_pointer</A></CODE></H3>
+
+<PRE>typedef Alloc::const_pointer <B>const_pointer</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant pointer
+to an element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="multiset::const_reference">multiset::const_reference</A></CODE></H3>
+
+<PRE>typedef Alloc::const_reference <B>const_reference</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant reference
+to an element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="multiset::const_reverse_iterator">multiset::const_reverse_iterator</A></CODE></H3>
+
+<PRE>typedef reverse_iterator&lt;const_iterator&gt;
+    <B>const_reverse_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant reverse
+bidirectional iterator for the controlled sequence.</P>
+
+<H3><CODE><A NAME="multiset::count">multiset::count</A></CODE></H3>
+
+<PRE>size_type <B>count</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns the number of elements
+in the range
+<CODE>[<A HREF="#multiset::lower_bound">lower_bound</A>(keyval),
+<A HREF="#multiset::upper_bound">upper_bound</A>(keyval)).</CODE></P>
+
+<H3><CODE><A NAME="multiset::difference_type">multiset::difference_type</A></CODE></H3>
+
+<PRE>typedef T3 <B>difference_type</B>;</PRE>
+
+<P>The signed integer type describes an object that can represent the
+difference between the addresses of any two elements in the controlled
+sequence. It is described here as a
+synonym for the implementation-defined type <CODE>T3</CODE>.</P>
+
+<H3><CODE><A NAME="multiset::empty">multiset::empty</A></CODE></H3>
+
+<PRE>bool <B>empty</B>() const;</PRE>
+
+<P>The member function returns true for an empty controlled sequence.</P>
+
+<H3><CODE><A NAME="multiset::end">multiset::end</A></CODE></H3>
+
+<PRE>iterator <B>end</B>();
+const_iterator <B>end</B>() const;</PRE>
+
+<P>The member function returns a bidirectional iterator that points
+just beyond the end of the sequence.</P>
+
+<H3><CODE><A NAME="multiset::equal_range">multiset::equal_range</A></CODE></H3>
+
+<PRE>pair&lt;iterator, iterator&gt;
+    <B>equal_range</B>(const Key&amp; keyval);
+pair&lt;const_iterator, const_iterator&gt;
+    <B>equal_range</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns a pair of iterators <CODE>X</CODE>
+such that <CODE>X.<A HREF="utility.html#pair::first">first</A> ==
+<A HREF="#multiset::lower_bound">lower_bound</A>(keyval)</CODE>
+and <CODE>X.<A HREF="utility.html#pair::second">second</A> ==
+<A HREF="#multiset::upper_bound">upper_bound</A>(keyval)</CODE>.</P>
+
+<H3><CODE><A NAME="multiset::erase">multiset::erase</A></CODE></H3>
+
+<PRE>iterator <B>erase</B>(iterator where);
+iterator <B>erase</B>(iterator first, iterator last);
+size_type <B>erase</B>(const Key&amp; keyval);</PRE>
+
+<P>The first member function removes the element of the controlled
+sequence pointed to by <CODE>where</CODE>.
+The second member function removes the elements
+in the range <CODE>[first, last)</CODE>.
+Both return an iterator that designates the first element remaining
+beyond any elements removed, or
+<CODE><A HREF="#multiset::end">end</A>()</CODE> if no such element exists.</P>
+
+<P>The third member removes
+the elements with sort keys in the range
+<CODE>[<A HREF="#multiset::lower_bound">lower_bound</A>(keyval),
+<A HREF="#multiset::upper_bound">upper_bound</A>(keyval)).</CODE>
+It returns the number of elements it removes.</P>
+
+<P>The member functions never throw an exception.</P>
+
+<H3><CODE><A NAME="multiset::find">multiset::find</A></CODE></H3>
+
+<PRE>iterator <B>find</B>(const Key&amp; keyval);
+const_iterator <B>find</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns an iterator that designates
+the earliest element in the controlled sequence whose sort key has
+<A HREF="lib_stl.html#equivalent ordering">equivalent ordering</A>
+to <CODE>keyval</CODE>. If no such element exists,
+the function returns
+<CODE><A HREF="#multiset::end">end</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="multiset::get_allocator">multiset::get_allocator</A></CODE></H3>
+
+<PRE>Alloc <B>get_allocator</B>() const;</PRE>
+
+<P>The member function returns the stored
+<A HREF="memory.html#allocator object">allocator object</A>.</P>
+
+<H3><CODE><A NAME="multiset::insert">multiset::insert</A></CODE></H3>
+
+<PRE>iterator <B>insert</B>(const value_type&amp; val);
+iterator <B>insert</B>(iterator where, const value_type&amp; val);
+template&lt;class InIt&gt;
+    void <B>insert</B>(InIt first, InIt last);</PRE>
+
+<P>The first member function inserts the element <CODE>val</CODE>
+in the controlled sequence, then returns
+the iterator that designates the inserted element.
+The second member function returns <CODE>insert(val)</CODE>,
+using <CODE>where</CODE> as a starting place within the controlled
+sequence to search for the insertion point. (Insertion can occur
+in amortized constant time, instead of logarithmic time, if the
+insertion point immediately precedes or follows <CODE>where</CODE>.)
+The third member function
+inserts the sequence of element values,
+for each <CODE>it</CODE> in the range <CODE>[first, last)</CODE>,
+by calling <CODE>insert(*where)</CODE>.</P>
+
+
+<P>If an exception is thrown during the
+insertion of a single element, the container is left unaltered
+and the exception is rethrown.
+If an exception is thrown during the
+insertion of multiple elements, the container is left in a stable
+but unspecified state and the exception is rethrown.</P>
+
+<H3><CODE><A NAME="multiset::iterator">multiset::iterator</A></CODE></H3>
+
+<PRE>typedef T0 <B>iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a bidirectional
+iterator for the controlled sequence.
+It is described here as a
+synonym for the implementation-defined type <CODE>T0</CODE>.</P>
+
+<H3><CODE><A NAME="multiset::key_comp">multiset::key_comp</A></CODE></H3>
+
+<PRE>key_compare <B>key_comp</B>() const;</PRE>
+
+<P>The member function returns the stored function object that
+determines the order of elements in the controlled sequence.
+The stored object defines the member function:</P>
+
+<PRE>bool operator(const Key&amp; left, const Key&amp; right);</PRE>
+
+<P>which returns true if <CODE>left</CODE> strictly
+precedes <CODE>right</CODE> in the sort order.</P>
+
+<H3><CODE><A NAME="multiset::key_compare">multiset::key_compare</A></CODE></H3>
+
+<PRE>typedef Pr <B>key_compare</B>;</PRE>
+
+<P>The type describes a function object that can compare two
+sort keys to determine the relative order of two
+elements in the controlled sequence.</P>
+
+<H3><CODE><A NAME="multiset::key_type">multiset::key_type</A></CODE></H3>
+
+<PRE>typedef Key <B>key_type</B>;</PRE>
+
+<P>The type describes the sort key object which constitutes each
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="multiset::lower_bound">multiset::lower_bound</A></CODE></H3>
+
+<PRE>iterator <B>lower_bound</B>(const Key&amp; keyval);
+const_iterator <B>lower_bound</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns an iterator that designates the
+earliest element <CODE>X</CODE> in the controlled sequence for which
+<CODE><A HREF="#multiset::key_comp">key_comp</A>()(X, keyval)</CODE> is
+false.</P> If no such element exists, the function returns
+<CODE><A HREF="#multiset::end">end</A>()</CODE>.
+
+<H3><CODE><A NAME="multiset::multiset">multiset::multiset</A></CODE></H3>
+
+<PRE><B>multiset</B>();
+explicit <B>multiset</B>(const Pr&amp; pred);
+<B>multiset</B>(const Pr&amp; pred, const Alloc&amp; al);
+<B>multiset</B>(const multiset&amp; right);
+template&lt;class InIt&gt;
+    <B>multiset</B>(InIt first, InIt last);
+template&lt;class InIt&gt;
+    <B>multiset</B>(InIt first, InIt last,
+        const Pr&amp; pred);
+template&lt;class InIt&gt;
+    <B>multiset</B>(InIt first, InIt last,
+        const Pr&amp; pred, const Alloc&amp; al);</PRE>
+
+<P>All constructors store an
+<A HREF="memory.html#allocator object">allocator object</A> and
+initialize the controlled sequence. The allocator object is the argument
+<CODE>al</CODE>, if present. For the copy constructor, it is
+<CODE>right.<A HREF="#multiset::get_allocator">get_allocator</A>()</CODE>.
+Otherwise, it is <CODE>Alloc()</CODE>.</P>
+
+<P>All constructors also store a function object that can later
+be returned by calling
+<CODE><A HREF="#multiset::key_comp">key_comp</A>()</CODE>.
+The function object is the argument <CODE>pred</CODE>, if present.
+For the copy constructor, it is
+<CODE>right.<A HREF="#multiset::key_comp">key_comp</A>()</CODE>).
+Otherwise, it is <CODE>Pr()</CODE>.</P>
+
+<P>The first three constructors specify an
+empty initial controlled sequence. The fourth constructor specifies
+a copy of the sequence controlled by <CODE>right</CODE>.
+The last three constructors specify the sequence of element values
+<CODE>[first, last)</CODE>.</P>
+
+
+<H3><CODE><A NAME="multiset::max_size">multiset::max_size</A></CODE></H3>
+
+<PRE>size_type <B>max_size</B>() const;</PRE>
+
+<P>The member function returns the length of the longest sequence that
+the object can control.</P>
+
+<H3><CODE><A NAME="multiset::pointer">multiset::pointer</A></CODE></H3>
+
+<PRE>typedef Alloc::pointer <B>pointer</B>;</PRE>
+
+<P>The type describes an object that can serve as a pointer to an
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="multiset::rbegin">multiset::rbegin</A></CODE></H3>
+
+<PRE>reverse_iterator <B>rbegin</B>();
+const_reverse_iterator <B>rbegin</B>() const;</PRE>
+
+<P>The member function returns a reverse bidirectional
+iterator that points just
+beyond the end of the controlled sequence. Hence, it designates the
+beginning of the reverse sequence.</P>
+
+<H3><CODE><A NAME="multiset::reference">multiset::reference</A></CODE></H3>
+
+<PRE>typedef Alloc::reference <B>reference</B>;</PRE>
+
+<P>The type describes an object that can serve as a reference to an
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="multiset::rend">multiset::rend</A></CODE></H3>
+
+<PRE>reverse_iterator <B>rend</B>();
+const_reverse_iterator <B>rend</B>() const;</PRE>
+
+<P>The member function returns a reverse bidirectional
+iterator that points at the
+first element of the sequence (or just beyond the end of an empty
+sequence). Hence, it designates the end of the reverse sequence.</P>
+
+<H3><CODE><A NAME="multiset::reverse_iterator">multiset::reverse_iterator</A></CODE></H3>
+
+<PRE>typedef reverse_iterator&lt;iterator&gt; <B>reverse_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a reverse
+bidirectional iterator for the controlled sequence.</P>
+
+<H3><CODE><A NAME="multiset::size">multiset::size</A></CODE></H3>
+
+<PRE>size_type <B>size</B>() const;</PRE>
+
+<P>The member function returns the length of the controlled sequence.</P>
+
+<H3><CODE><A NAME="multiset::size_type">multiset::size_type</A></CODE></H3>
+
+<PRE>typedef T2 <B>size_type</B>;</PRE>
+
+<P>The unsigned integer type describes an object that can represent the
+length of any controlled sequence. It is described here as a
+synonym for the implementation-defined type <CODE>T2</CODE>.</P>
+
+<H3><CODE><A NAME="multiset::swap">multiset::swap</A></CODE></H3>
+
+<PRE>void <B>swap</B>(multiset&amp; right);</PRE>
+
+<P>The member function swaps the controlled sequences between
+<CODE>*this</CODE> and <CODE>right</CODE>. If
+<CODE><A HREF="#multiset::get_allocator">get_allocator</A>()
+== right.get_allocator()</CODE>, it does so in constant time,
+it throws an exception only as a result of copying the stored
+function object of type <CODE>Pr</CODE>, and it invalidates no references, pointers,
+or iterators that designate elements in the two controlled sequences.
+Otherwise, it performs a number of element assignments and constructor calls
+proportional to the number of elements in the two controlled sequences.</P>
+
+<H3><CODE><A NAME="multiset::upper_bound">multiset::upper_bound</A></CODE></H3>
+
+<PRE>iterator <B>upper_bound</B>(const Key&amp; keyval)
+const_iterator <B>upper_bound</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns an iterator that designates the
+earliest element <CODE>X</CODE> in the controlled sequence for which
+<CODE><A HREF="#multiset::key_comp">key_comp</A>()(keyval, X)</CODE> is
+true.</P> If no such element exists, the function returns
+<CODE><A HREF="#multiset::end">end</A>()</CODE>.
+
+<H3><CODE><A NAME="multiset::value_comp">multiset::value_comp</A></CODE></H3>
+
+<PRE>value_compare <B>value_comp</B>() const;</PRE>
+
+<P>The member function returns a function object that
+determines the order of elements in the controlled sequence.</P>
+
+<H3><CODE><A NAME="multiset::value_compare">multiset::value_compare</A></CODE></H3>
+
+<PRE>typedef Pr <B>value_compare</B>;</PRE>
+
+<P>The type describes a function object that can compare two
+elements as sort keys to determine their relative order
+in the controlled sequence.</P>
+
+<H3><CODE><A NAME="multiset::value_type">multiset::value_type</A></CODE></H3>
+
+<PRE>typedef Key <B>value_type</B>;</PRE>
+
+<P>The type describes an element of the controlled sequence.</P>
+
+<H2><A NAME="operator!="><CODE>operator!=</CODE></A></H2>
+
+<PRE>template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B>operator!=</B>(
+        const set &lt;Key, Pr, Alloc&gt;&amp; left,
+        const set &lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B>operator!=</B>(
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(left == right)</CODE>.</P>
+
+<H2><A NAME="operator=="><CODE>operator==</CODE></A></H2>
+
+<PRE>template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B>operator==</B>(
+        const set &lt;Key, Pr, Alloc&gt;&amp; left,
+        const set &lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B>operator==</B>(
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; right);</PRE>
+
+<P>The first template function overloads <CODE>operator==</CODE>
+to compare two objects of template class
+<A HREF="#set"><CODE>set</CODE></A>.
+The second template function overloads <CODE>operator==</CODE>
+to compare two objects of template class
+<A HREF="#multiset"><CODE>multiset</CODE></A>.
+Both functions return
+<CODE>left.<A HREF="#multiset::size">size</A>() == right.size() &amp;&amp;
+<A HREF="algorith.html#equal">equal</A>(left.
+<A HREF="#multiset::begin">begin</A>(), left.
+<A HREF="#multiset::end">end</A>(), right.begin())</CODE>.</P>
+
+<H2><A NAME="operator&lt;"><CODE>operator&lt;</CODE></A></H2>
+
+<PRE>template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B>operator&lt;</B>(
+        const set &lt;Key, Pr, Alloc&gt;&amp; left,
+        const set &lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B>operator&lt;</B>(
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; right);</PRE>
+
+<P>The first template function overloads <CODE>operator&lt;</CODE>
+to compare two objects of template class
+<A HREF="#set"><CODE>set</CODE></A>.
+The second template function overloads <CODE>operator&lt;</CODE>
+to compare two objects of template class
+<A HREF="#multiset"><CODE>multiset</CODE></A>.
+Both functions return
+<CODE><A HREF="algorith.html#lexicographical_compare">lexicographical_compare</A>(left.
+<A HREF="#multiset::begin">begin</A>(), left.
+<A HREF="#multiset::end">end</A>(), right.begin(), right.end(),
+left.<A HREF="#multiset::value_comp">value_comp</A>())</CODE>.</P>
+
+<H2><A NAME="operator&lt;="><CODE>operator&lt;=</CODE></A></H2>
+
+<PRE>template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B>operator&lt;=</B>(
+        const set &lt;Key, Pr, Alloc&gt;&amp; left,
+        const set &lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B>operator&lt;=</B>(
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(right &lt; left)</CODE>.</P>
+
+<H2><A NAME="operator&gt;"><CODE>operator&gt;</CODE></A></H2>
+
+<PRE>template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B>operator&gt;</B>(
+        const set &lt;Key, Pr, Alloc&gt;&amp; left,
+        const set &lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B>operator&gt;</B>(
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>right &lt; left</CODE>.</P>
+
+<H2><A NAME="operator&gt;="><CODE>operator&gt;=</CODE></A></H2>
+
+<PRE>template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B>operator&gt;=</B>(
+        const set &lt;Key, Pr, Alloc&gt;&amp; left,
+        const set &lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    bool <B>operator&gt;=</B>(
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; left,
+        const multiset &lt;Key, Pr, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(left &lt; right)</CODE>.</P>
+
+<H2><A NAME="set"><CODE>set</CODE></A></H2>
+
+<HR>
+<P><B><CODE><A HREF="#set::allocator_type">allocator_type</A>
+&#183; <A HREF="#set::begin">begin</A>
+&#183; <A HREF="#set::clear">clear</A>
+&#183; <A HREF="#set::const_iterator">const_iterator</A>
+&#183; <A HREF="#set::const_pointer">const_pointer</A>
+&#183; <A HREF="#set::const_reference">const_reference</A>
+&#183; <A HREF="#set::const_reverse_iterator">const_reverse_iterator</A>
+&#183; <A HREF="#set::count">count</A>
+&#183; <A HREF="#set::difference_type">difference_type</A>
+&#183; <A HREF="#set::empty">empty</A>
+&#183; <A HREF="#set::end">end</A>
+&#183; <A HREF="#set::equal_range">equal_range</A>
+&#183; <A HREF="#set::erase">erase</A>
+&#183; <A HREF="#set::find">find</A>
+&#183; <A HREF="#set::get_allocator">get_allocator</A>
+&#183; <A HREF="#set::insert">insert</A>
+&#183; <A HREF="#set::iterator">iterator</A>
+&#183; <A HREF="#set::key_comp">key_comp</A>
+&#183; <A HREF="#set::key_compare">key_compare</A>
+&#183; <A HREF="#set::key_type">key_type</A>
+&#183; <A HREF="#set::lower_bound">lower_bound</A>
+&#183; <A HREF="#set::max_size">max_size</A>
+&#183; <A HREF="#set::pointer">pointer</A>
+&#183; <A HREF="#set::rbegin">rbegin</A>
+&#183; <A HREF="#set::reference">reference</A>
+&#183; <A HREF="#set::rend">rend</A>
+&#183; <A HREF="#set::reverse_iterator">reverse_iterator</A>
+&#183; <A HREF="#set::set">set</A>
+&#183; <A HREF="#set::size">size</A>
+&#183; <A HREF="#set::size_type">size_type</A>
+&#183; <A HREF="#set::swap">swap</A>
+&#183; <A HREF="#set::upper_bound">upper_bound</A>
+&#183; <A HREF="#set::value_comp">value_comp</A>
+&#183; <A HREF="#set::value_compare">value_compare</A>
+&#183; <A HREF="#set::value_type">value_type</A>
+</CODE></B></P>
+<HR>
+
+<PRE>template&lt;class Key, class Pr = less&lt;Key&gt;,
+    class Alloc = allocator&lt;Key&gt; &gt;
+    class <B>set</B> {
+public:
+    typedef Key <B><A HREF="#set::key_type">key_type</A></B>;
+    typedef Pr <B><A HREF="#set::key_compare">key_compare</A></B>;
+    typedef Key <B><A HREF="#set::value_type">value_type</A></B>;
+    typedef Pr <B><A HREF="#set::value_compare">value_compare</A></B>;
+    typedef Alloc <B><A HREF="#set::allocator_type">allocator_type</A></B>;
+    typedef Alloc::pointer <B><A HREF="#set::pointer">pointer</A></B>;
+    typedef Alloc::const_pointer <B><A HREF="#set::const_pointer">const_pointer</A></B>;
+    typedef Alloc::reference <B><A HREF="#set::reference">reference</A></B>;
+    typedef Alloc::const_reference <B><A HREF="#set::const_reference">const_reference</A></B>;
+    typedef T0 <B><A HREF="#set::iterator">iterator</A></B>;
+    typedef T1 <B><A HREF="#set::const_iterator">const_iterator</A></B>;
+    typedef T2 <B><A HREF="#set::size_type">size_type</A></B>;
+    typedef T3 <B><A HREF="#set::difference_type">difference_type</A></B>;
+    typedef reverse_iterator&lt;const_iterator&gt;
+        <B><A HREF="#set::const_reverse_iterator">const_reverse_iterator</A></B>;
+    typedef reverse_iterator&lt;iterator&gt; <B><A HREF="#set::reverse_iterator">reverse_iterator</A></B>;
+    <B><A HREF="#set::set">set</A></B>();
+    explicit <B><A HREF="#set::set">set</A></B>(const Pr&amp; pred);
+    <B><A HREF="#set::set">set</A></B>(const Pr&amp; pred, const Alloc&amp; al);
+    <B><A HREF="#set::set">set</A></B>(const set&amp; right);
+    template&lt;class InIt&gt;
+        <B><A HREF="#set::set">set</A></B>(InIt first, InIt last);
+    template&lt;class InIt&gt;
+        <B><A HREF="#set::set">set</A></B>(InIt first, InIt last,
+            const Pr&amp; pred);
+    template&lt;class InIt&gt;
+        <B><A HREF="#set::set">set</A></B>(InIt first, InIt last,
+            const Pr&amp; pred, const Alloc&amp; al);
+    iterator <B><A HREF="#set::begin">begin</A></B>();
+    const_iterator <B><A HREF="#set::begin">begin</A></B>() const;
+    iterator <B><A HREF="#set::end">end</A></B>();
+    const_iterator <B><A HREF="#set::end">end</A></B>() const;
+    reverse_iterator <B><A HREF="#set::rbegin">rbegin</A></B>();
+    const_reverse_iterator <B><A HREF="#set::rbegin">rbegin</A></B>() const;
+    reverse_iterator <B><A HREF="#set::rend">rend</A></B>();
+    const_reverse_iterator <B><A HREF="#set::rend">rend</A></B>() const;
+    size_type <B><A HREF="#set::max_size">max_size</A></B>() const;
+    bool <B><A HREF="#set::empty">empty</A></B>() const;
+    Alloc <B><A HREF="#set::get_allocator">get_allocator</A></B>() const;
+    pair&lt;iterator, bool&gt; <B><A HREF="#set::insert">insert</A></B>(const value_type&amp; val);
+    iterator <B><A HREF="#set::insert">insert</A></B>(iterator where, const value_type&amp; val);
+    template&lt;class InIt&gt;
+        void <B><A HREF="#set::insert">insert</A></B>(InIt first, InIt last);
+    iterator <B><A HREF="#set::erase">erase</A></B>(iterator where);
+    iterator <B><A HREF="#set::erase">erase</A></B>(iterator first, iterator last);
+    size_type <B><A HREF="#set::erase">erase</A></B>(const Key&amp; keyval);
+    void <B><A HREF="#set::clear">clear</A></B>();
+    void <B><A HREF="#set::swap">swap</A></B>(set&amp; right);
+    key_compare <B><A HREF="#set::key_comp">key_comp</A></B>() const;
+    value_compare <B><A HREF="#set::value_comp">value_comp</A></B>() const;
+    iterator <B><A HREF="#set::find">find</A></B>(const Key&amp; keyval);
+    const_iterator <B><A HREF="#set::find">find</A></B>(const Key&amp; keyval) const;
+    size_type <B><A HREF="#set::count">count</A></B>(const Key&amp; keyval) const;
+    iterator <B><A HREF="#set::lower_bound">lower_bound</A></B>(const Key&amp; keyval);
+    const_iterator <B><A HREF="#set::lower_bound">lower_bound</A></B>(const Key&amp; keyval) const;
+    iterator <B><A HREF="#set::upper_bound">upper_bound</A></B>(const Key&amp; keyval);
+    const_iterator <B><A HREF="#set::upper_bound">upper_bound</A></B>(const Key&amp; keyval) const;
+    pair&lt;iterator, iterator&gt; <B><A HREF="#set::equal_range">equal_range</A></B>(const Key&amp; keyval);
+    pair&lt;const_iterator, const_iterator&gt;
+        <B><A HREF="#set::equal_range">equal_range</A></B>(const Key&amp; keyval) const;
+    };</PRE>
+
+<P>The template class describes an object that controls a
+varying-length sequence of elements of type <CODE>const Key</CODE>.
+The sequence is
+<A HREF="lib_stl.html#sequence ordering">ordered by</A> the predicate
+<CODE>Pr</CODE>.
+Each element serves as both a <B>sort key</B> and a <B>value</B>.
+The sequence is represented in a way that permits lookup, insertion,
+and removal of an arbitrary element with a number of operations
+proportional to the logarithm of the number of elements
+in the sequence (logarithmic time). Moreover, inserting an element
+invalidates no iterators, and removing an element
+invalidates only those iterators which point at the removed element.</P>
+
+<P>The object orders the sequence it controls by calling a
+stored <B>function object</B> of type <CODE>Pr</CODE>. You access
+this stored object by calling the member function
+<CODE><A HREF="#set::key_comp">key_comp</A>()</CODE>.
+Such a function object must impose a
+<A HREF="lib_stl.html#strict weak ordering">strict weak ordering</A>
+on sort keys of type <CODE>Key</CODE>.
+For any element <CODE>X</CODE> that precedes
+<CODE>Y</CODE> in the sequence,
+<CODE>key_comp()(Y, X)</CODE> is false. (For the default function object
+<CODE><A HREF="functio2.html#less">less</A>&lt;Key&gt;</CODE>,
+sort keys never decrease in value.)
+Unlike template class <CODE><A HREF="#multiset">multiset</A></CODE>,
+an object of template class <CODE>set</CODE> ensures that
+<CODE>key_comp()(X, Y)</CODE> is true.
+(Each key is unique.)</P>
+
+<P>The object allocates and frees storage for the sequence it controls
+through a stored <A HREF="memory.html#allocator object">allocator object</A>
+of class <CODE>Alloc</CODE>. Such an allocator object must have
+the same external interface as an object of template class
+<A HREF="memory.html#allocator"><CODE>allocator</CODE></A>.
+Note that the stored allocator object is <I>not</I> copied when the container
+object is assigned.</P>
+
+<H3><CODE><A NAME="set::allocator_type">set::allocator_type</A></CODE></H3>
+
+<PRE>typedef Alloc <B>allocator_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Alloc</CODE>.</P>
+
+<H3><CODE><A NAME="set::begin">set::begin</A></CODE></H3>
+
+<PRE>iterator <B>begin</B>();
+const_iterator <B>begin</B>() const;</PRE>
+
+<P>The member function returns a bidirectional iterator that points at
+the first element of the sequence (or just beyond the end of an empty
+sequence).</P>
+
+<H3><CODE><A NAME="set::clear">set::clear</A></CODE></H3>
+
+<PRE>void <B>clear</B>();</PRE>
+
+<P>The member function calls
+<CODE><A HREF="#set::erase">erase</A>(
+<A HREF="#set::begin">begin</A>(),
+<A HREF="#set::end">end</A>())</CODE>.</P>
+
+<H3><CODE><A NAME="set::const_iterator">set::const_iterator</A></CODE></H3>
+
+<PRE>typedef T1 <B>const_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant
+bidirectional iterator for the controlled sequence.
+It is described here as a
+synonym for the implementation-defined type <CODE>T1</CODE>.</P>
+
+<H3><CODE><A NAME="set::const_pointer">set::const_pointer</A></CODE></H3>
+
+<PRE>typedef Alloc::const_pointer <B>const_pointer</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant pointer
+to an element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="set::const_reference">set::const_reference</A></CODE></H3>
+
+<PRE>typedef Alloc::const_reference <B>const_reference</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant reference
+to an element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="set::const_reverse_iterator">set::const_reverse_iterator</A></CODE></H3>
+
+<PRE>typedef reverse_iterator&lt;const_iterator&gt;
+    <B>const_reverse_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant reverse
+bidirectional iterator for the controlled sequence.</P>
+
+<H3><CODE><A NAME="set::count">set::count</A></CODE></H3>
+
+<PRE>size_type <B>count</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns the number of elements
+in the range
+<CODE>[<A HREF="#set::lower_bound">lower_bound</A>(keyval),
+<A HREF="#set::upper_bound">upper_bound</A>(keyval)).</CODE></P>
+
+<H3><CODE><A NAME="set::difference_type">set::difference_type</A></CODE></H3>
+
+<PRE>typedef T3 <B>difference_type</B>;</PRE>
+
+<P>The signed integer type describes an object that can represent the
+difference between the addresses of any two elements in the controlled
+sequence. It is described here as a
+synonym for the implementation-defined type <CODE>T3</CODE>.</P>
+
+<H3><CODE><A NAME="set::empty">set::empty</A></CODE></H3>
+
+<PRE>bool <B>empty</B>() const;</PRE>
+
+<P>The member function returns true for an empty controlled sequence.</P>
+
+<H3><CODE><A NAME="set::end">set::end</A></CODE></H3>
+
+<PRE>iterator <B>end</B>();
+const_iterator <B>end</B>() const;</PRE>
+
+<P>The member function returns a bidirectional iterator that points
+just beyond the end of the sequence.</P>
+
+<H3><CODE><A NAME="set::equal_range">set::equal_range</A></CODE></H3>
+
+<PRE>pair&lt;iterator, iterator&gt;
+    <B>equal_range</B>(const Key&amp; keyval);
+pair&lt;const_iterator, const_iterator&gt;
+    <B>equal_range</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns a pair of iterators <CODE>X</CODE>
+such that <CODE>X.<A HREF="utility.html#pair::first">first</A> ==
+<A HREF="#set::lower_bound">lower_bound</A>(keyval)</CODE>
+and <CODE>X.<A HREF="utility.html#pair::second">second</A> ==
+<A HREF="#set::upper_bound">upper_bound</A>(keyval)</CODE>.</P>
+
+<H3><CODE><A NAME="set::erase">set::erase</A></CODE></H3>
+
+<PRE>iterator <B>erase</B>(iterator where);
+iterator <B>erase</B>(iterator first, iterator last);
+size_type <B>erase</B>(const Key&amp; keyval);</PRE>
+
+<P>The first member function removes the element of the controlled
+sequence pointed to by <CODE>where</CODE>.
+The second member function removes the elements
+in the range <CODE>[first, last)</CODE>.
+Both return an iterator that designates the first element remaining
+beyond any elements removed, or
+<CODE><A HREF="#set::end">end</A>()</CODE> if no such element exists.</P>
+
+<P>The third member removes
+the elements with sort keys in the range
+<CODE>[<A HREF="#set::lower_bound">lower_bound</A>(keyval),
+<A HREF="#set::upper_bound">upper_bound</A>(keyval)).</CODE>
+It returns the number of elements it removes.</P>
+
+<P>The member functions never throw an exception.</P>
+
+<H3><CODE><A NAME="set::find">set::find</A></CODE></H3>
+
+<PRE>iterator <B>find</B>(const Key&amp; keyval);
+const_iterator <B>find</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns an iterator that designates
+the element in the controlled sequence whose sort key has
+<A HREF="lib_stl.html#equivalent ordering">equivalent ordering</A>
+to <CODE>keyval</CODE>. If no such element exists,
+the function returns
+<CODE><A HREF="#set::end">end</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="set::get_allocator">set::get_allocator</A></CODE></H3>
+
+<PRE>Alloc <B>get_allocator</B>() const;</PRE>
+
+<P>The member function returns the stored
+<A HREF="memory.html#allocator object">allocator object</A>.</P>
+
+<H3><CODE><A NAME="set::insert">set::insert</A></CODE></H3>
+
+<PRE>pair&lt;iterator, bool&gt; <B>insert</B>(const value_type&amp; val);
+iterator <B>insert</B>(iterator where, const value_type&amp; val);
+template&lt;class InIt&gt;
+    void <B>insert</B>(InIt first, InIt last);</PRE>
+
+<P>The first member function determines whether an element <CODE>X</CODE>
+exists in the sequence whose key has
+<A HREF="lib_stl.html#equivalent ordering">equivalent ordering</A>
+to that of <CODE>val</CODE>. If not, it creates such
+an element <CODE>X</CODE> and initializes it with <CODE>val</CODE>.
+The function then determines the iterator <CODE>where</CODE> that
+designates <CODE>X</CODE>. If an insertion occurred, the function
+returns <CODE><A HREF="utility.html#pair">pair</A>(where, true)</CODE>.
+Otherwise, it returns <CODE>pair(where, false)</CODE>.</P>
+
+<P>The second member function returns <CODE>insert(val).first</CODE>,
+using <CODE>where</CODE> as a starting place within the controlled
+sequence to search for the insertion point. (Insertion can occur
+in amortized constant time, instead of logarithmic time, if the
+insertion point immediately precedes or follows <CODE>where</CODE>.)
+The third member function
+inserts the sequence of element values,
+for each <CODE>where</CODE> in the range <CODE>[first, last)</CODE>,
+by calling <CODE>insert(*where)</CODE>.</P>
+
+
+<P>If an exception is thrown during the
+insertion of a single element, the container is left unaltered
+and the exception is rethrown.
+If an exception is thrown during the
+insertion of multiple elements, the container is left in a stable
+but unspecified state and the exception is rethrown.</P>
+
+<H3><CODE><A NAME="set::iterator">set::iterator</A></CODE></H3>
+
+<PRE>typedef T0 <B>iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a bidirectional
+iterator for the controlled sequence.
+It is described here as a
+synonym for the implementation-defined type <CODE>T0</CODE>.</P>
+
+<H3><CODE><A NAME="set::key_comp">set::key_comp</A></CODE></H3>
+
+<PRE>key_compare <B>key_comp</B>() const;</PRE>
+
+<P>The member function returns the stored function object that
+determines the order of elements in the controlled sequence.
+The stored object defines the member function:</P>
+
+<PRE>bool operator(const Key&amp; left, const Key&amp; right);</PRE>
+
+<P>which returns true if <CODE>left</CODE> strictly
+precedes <CODE>right</CODE> in the sort order.</P>
+
+<H3><CODE><A NAME="set::key_compare">set::key_compare</A></CODE></H3>
+
+<PRE>typedef Pr <B>key_compare</B>;</PRE>
+
+<P>The type describes a function object that can compare two
+sort keys to determine the relative order of two
+elements in the controlled sequence.</P>
+
+<H3><CODE><A NAME="set::key_type">set::key_type</A></CODE></H3>
+
+<PRE>typedef Key <B>key_type</B>;</PRE>
+
+<P>The type describes the sort key object which constitutes each
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="set::lower_bound">set::lower_bound</A></CODE></H3>
+
+<PRE>iterator <B>lower_bound</B>(const Key&amp; keyval);
+const_iterator <B>lower_bound</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns an iterator that designates the
+earliest element <CODE>X</CODE> in the controlled sequence for which
+<CODE><A HREF="#set::key_comp">key_comp</A>()(X, keyval)</CODE> is
+false.</P> If no such element exists, the function returns
+<CODE><A HREF="#set::end">end</A>()</CODE>.
+
+<H3><CODE><A NAME="set::max_size">set::max_size</A></CODE></H3>
+
+<PRE>size_type <B>max_size</B>() const;</PRE>
+
+<P>The member function returns the length of the longest sequence that
+the object can control.</P>
+
+<H3><CODE><A NAME="set::pointer">set::pointer</A></CODE></H3>
+
+<PRE>typedef Alloc::pointer <B>pointer</B>;</PRE>
+
+<P>The type describes an object that can serve as a pointer to an
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="set::rbegin">set::rbegin</A></CODE></H3>
+
+<PRE>reverse_iterator <B>rbegin</B>();
+const_reverse_iterator <B>rbegin</B>() const;</PRE>
+
+<P>The member function returns a reverse bidirectional
+iterator that points just
+beyond the end of the controlled sequence. Hence, it designates the
+beginning of the reverse sequence.</P>
+
+<H3><CODE><A NAME="set::reference">set::reference</A></CODE></H3>
+
+<PRE>typedef Alloc::const_reference <B>const_reference</B>;</PRE>
+
+<P>The type describes an object that can serve as a reference to an
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="set::rend">set::rend</A></CODE></H3>
+
+<PRE>reverse_iterator <B>rend</B>();
+const_reverse_iterator <B>rend</B>() const;</PRE>
+
+<P>The member function returns a reverse bidirectional
+iterator that points at the
+first element of the sequence (or just beyond the end of an empty
+sequence). Hence, it designates the end of the reverse sequence.</P>
+
+<H3><CODE><A NAME="set::reverse_iterator">set::reverse_iterator</A></CODE></H3>
+
+<PRE>typedef reverse_iterator&lt;iterator&gt; <B>reverse_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a reverse
+bidirectional iterator for the controlled sequence.</P>
+
+<H3><CODE><A NAME="set::set">set::set</A></CODE></H3>
+
+<PRE><B>set</B>();
+explicit <B>set</B>(const Pr&amp; pred);
+<B>set</B>(const Pr&amp; pred, const Alloc&amp; al);
+<B>set</B>(const set&amp; right);
+template&lt;class InIt&gt;
+    <B>set</B>(InIt first, InIt last);
+template&lt;class InIt&gt;
+    <B>set</B>(InIt first, InIt last,
+        const Pr&amp; pred);
+template&lt;class InIt&gt;
+    <B>set</B>(InIt first, InIt last,
+        const Pr&amp; pred, const Alloc&amp; al);</PRE>
+
+<P>All constructors store an
+<A HREF="memory.html#allocator object">allocator object</A> and
+initialize the controlled sequence. The allocator object is the argument
+<CODE>al</CODE>, if present. For the copy constructor, it is
+<CODE>right.<A HREF="#set::get_allocator">get_allocator</A>()</CODE>.
+Otherwise, it is <CODE>Alloc()</CODE>.</P>
+
+<P>All constructors also store a function object that can later
+be returned by calling
+<CODE><A HREF="#set::key_comp">key_comp</A>()</CODE>.
+The function object is the argument <CODE>pred</CODE>, if present.
+For the copy constructor, it is
+<CODE>right.<A HREF="#set::key_comp">key_comp</A>()</CODE>).
+Otherwise, it is <CODE>Pr()</CODE>.</P>
+
+<P>The first three constructors specify an
+empty initial controlled sequence. The fourth constructor specifies
+a copy of the sequence controlled by <CODE>right</CODE>.
+The last three constructors specify the sequence of element values
+<CODE>[first, last)</CODE>.</P>
+
+
+<H3><CODE><A NAME="set::size">set::size</A></CODE></H3>
+
+<PRE>size_type <B>size</B>() const;</PRE>
+
+<P>The member function returns the length of the controlled sequence.</P>
+
+<H3><CODE><A NAME="set::size_type">set::size_type</A></CODE></H3>
+
+<PRE>typedef T2 <B>size_type</B>;</PRE>
+
+<P>The unsigned integer type describes an object that can represent the
+length of any controlled sequence. It is described here as a
+synonym for the implementation-defined type <CODE>T2</CODE>.</P>
+
+<H3><CODE><A NAME="set::swap">set::swap</A></CODE></H3>
+
+<PRE>void <B>swap</B>(set&amp; right);</PRE>
+
+<P>The member function swaps the controlled sequences between
+<CODE>*this</CODE> and <CODE>right</CODE>. If
+<CODE><A HREF="#set::get_allocator">get_allocator</A>()
+== right.get_allocator()</CODE>, it does so in constant time,
+it throws an exception only as a result of copying the stored
+function object of type <CODE>Pr</CODE>, and it invalidates no references, pointers,
+or iterators that designate elements in the two controlled sequences.
+Otherwise, it performs a number of element assignments and constructor calls
+proportional to the number of elements in the two controlled sequences.</P>
+
+<H3><CODE><A NAME="set::upper_bound">set::upper_bound</A></CODE></H3>
+
+<PRE>iterator <B>upper_bound</B>(const Key&amp; keyval)
+const_iterator <B>upper_bound</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns an iterator that designates the
+earliest element <CODE>X</CODE> in the controlled sequence for which
+<CODE><A HREF="#set::key_comp">key_comp</A>()(keyval, X)</CODE> is
+true.</P> If no such element exists, the function returns
+<CODE><A HREF="#set::end">end</A>()</CODE>.
+
+<H3><CODE><A NAME="set::value_comp">set::value_comp</A></CODE></H3>
+
+<PRE>value_compare <B>value_comp</B>() const;</PRE>
+
+<P>The member function returns a function object that
+determines the order of elements in the controlled sequence.</P>
+
+<H3><CODE><A NAME="set::value_compare">set::value_compare</A></CODE></H3>
+
+<PRE>typedef Pr <B>value_compare</B>;</PRE>
+
+<P>The type describes a function object that can compare two
+elements as sort keys to determine their relative order
+in the controlled sequence.</P>
+
+<H3><CODE><A NAME="set::value_type">set::value_type</A></CODE></H3>
+
+<PRE>typedef Key <B>value_type</B>;</PRE>
+
+<P>The type describes an element of the controlled sequence.</P>
+
+<H2><A NAME="swap"><CODE>swap</CODE></A></H2>
+
+<PRE>template&lt;class Key, class Pr, class Alloc&gt;
+    void <B>swap</B>(
+        multiset &lt;Key, Pr, Alloc&gt;&amp; left,
+        multiset &lt;Key, Pr, Alloc&gt;&amp; right);
+template&lt;class Key, class Pr, class Alloc&gt;
+    void <B>swap</B>(
+        set &lt;Key, Pr, Alloc&gt;&amp; left,
+        set &lt;Key, Pr, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function executes
+<CODE>left.<A HREF="#set::swap">swap</A>(right)</CODE>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1994-2002
+by P.J. Plauger. Portions derived from work
+<A HREF="crit_hp.html">copyright</A> &#169; 1994
+by Hewlett-Packard Company. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

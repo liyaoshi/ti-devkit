@@ -1,0 +1,179 @@
+<HTML><HEAD><TITLE>&lt;exception&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;exception&gt;"><CODE>&lt;exception&gt;</CODE></A></H1><HR>
+
+<P>Include the standard header <B><CODE>&lt;exception&gt;</CODE></B>
+to define several types and functions related to the handling
+of exceptions.</P>
+
+<PRE>        // DECLARATIONS
+class <B><A HREF="#exception">exception</A></B>;
+class <B><A HREF="#bad_exception">bad_exception</A></B>;
+
+        // FUNCTIONS
+typedef void (*<B><A HREF="#terminate_handler">terminate_handler</A></B>)();
+typedef void (*<B><A HREF="#unexpected_handler">unexpected_handler</A></B>)();
+terminate_handler
+    <B><A HREF="#set_terminate">set_terminate</A></B>(terminate_handler pnew) throw();
+unexpected_handler
+    <B><A HREF="#set_unexpected">set_unexpected</A></B>(unexpected_handler pnew) throw();
+void <B><A HREF="#terminate">terminate</A></B>();
+void <B><A HREF="#unexpected">unexpected</A></B>();
+bool <B><A HREF="#uncaught_exception">uncaught_exception</A></B>();
+        // END OF DECLARATIONS</PRE>
+
+<H2><A NAME="bad_exception"><CODE>bad_exception</CODE></A></H2>
+
+<PRE>class <B>bad_exception</B>
+    : public <A HREF="#exception">exception</A> {
+    };</PRE>
+
+<P>The class describes an exception that can be thrown from an
+<A HREF="#unexpected handler">unexpected handler</A>.
+The value returned by
+<CODE><A HREF="#exception::what">what</A>()</CODE>
+is an implementation-defined
+<A HREF="lib_over.html#C string">C string</A>.
+None of the member functions throw any exceptions.</P>
+
+<H2><A NAME="exception"><CODE>exception</CODE></A></H2>
+
+<PRE>class <B>exception</B> {
+public:
+    <B>exception</B>() throw();
+    <B>exception</B>(const exception&amp; right) throw();
+    exception&amp; <B>operator=</B>(const exception&amp; right) throw();
+    virtual <B>~exception</B>() throw();
+    virtual const char *<B>what</B>() const throw();
+    };</PRE>
+
+<P>The class serves as the base class for all exceptions thrown
+by certain expressions and by the Standard C++ library. The
+<A HREF="lib_over.html#C string">C string</A> value returned by
+<B><CODE><A NAME="exception::what">what</A>()</CODE></B>
+is left unspecified by the default constructor,
+but may be defined by the constructors for certain derived classes
+as an implementation-defined
+<A HREF="lib_over.html#C string">C string</A>.</P>
+
+<P>None of the member functions throw any exceptions.</P>
+
+<H2><A NAME="set_terminate"><CODE>set_terminate</CODE></A></H2>
+
+<PRE>terminate_handler
+    <B>set_terminate</B>(terminate_handler pnew) throw();</PRE>
+
+<P>The function establishes a new
+<A HREF="#terminate handler">terminate handler</A>
+as the function <CODE>*pnew</CODE>. Thus, <CODE>pnew</CODE> must
+not be a null pointer. The function returns the address of the
+previous terminate handler.</P>
+
+<H2><A NAME="set_unexpected"><CODE>set_unexpected</CODE></A></H2>
+
+<PRE>unexpected_handler
+    <B>set_unexpected</B>(unexpected_handler pnew) throw();</PRE>
+
+<P>The function establishes a new
+<A HREF="#unexpected handler">unexpected handler</A>
+as the function <CODE>*pnew</CODE>. Thus, <CODE>pnew</CODE> must
+not be a null pointer. The function returns the address of the
+previous unexpected handler.</P>
+
+<H2><A NAME="terminate"><CODE>terminate</CODE></A></H2>
+
+<PRE>void <B>terminate</B>();</PRE>
+
+<P>The function calls a
+<B><A NAME="terminate handler">terminate handler</A></B>,
+a function of type <CODE>void ()</CODE>.
+If <CODE>terminate</CODE> is called directly by the program,
+the terminate handler is the one most recently set by a call to
+<CODE><A HREF="#set_terminate">set_terminate</A></CODE>.
+If <CODE>terminate</CODE> is called for any of several other
+reasons during evaluation of a throw expression,
+the terminate handler is the one in effect immediately after
+evaluating the throw expression.</P>
+
+<P>A terminate handler may not return to its caller. At
+<A HREF="lib_over.html#program startup">program startup</A>,
+the terminate handler is a function that calls
+<CODE><A HREF="stdlib.html#abort">abort</A>()</CODE>.</P>
+
+<H2><A NAME="terminate_handler"><CODE>terminate_handler</CODE></A></H2>
+
+<PRE>typedef void (*<B>terminate_handler</B>)();</PRE>
+
+<P>The type describes a pointer to a function suitable for use as a
+<A HREF="#terminate handler">terminate handler</A>.</P>
+
+<H2><A NAME="uncaught_exception"><CODE>uncaught_exception</CODE></A></H2>
+
+<PRE>bool <B>uncaught_exception</B>();</PRE>
+
+<P>The function returns true only if a thrown exception is being currently
+processed. Specifically, it returns true after completing evaluation of a
+throw expression and before completing initialization of the exception
+declaration in the matching handler or calling
+<CODE><A HREF="#unexpected">unexpected</A></CODE> as a result of the
+throw expression.</P>
+
+<H2><A NAME="unexpected"><CODE>unexpected</CODE></A></H2>
+
+<PRE>void <B>unexpected</B>();</PRE>
+
+<P>The function calls an
+<B><A NAME="unexpected handler">unexpected handler</A></B>,
+a function of type <CODE>void ()</CODE>.
+If <CODE>unexpected</CODE> is called directly by the program,
+the unexpected handler is the one most recently set by a call to
+<CODE><A HREF="#set_unexpected">set_unexpected</A></CODE>.
+If <CODE>unexpected</CODE> is called when control
+leaves a function by a thrown exception of a type not permitted by an
+<B><A NAME="exception specification">exception specification</A></B>
+for the function, as in:</P>
+
+<PRE>void func() throw()   // function may throw no exceptions
+    {throw "bad"; }   // throw calls unexpected()</PRE>
+
+<P>the unexpected handler is the one in effect immediately after
+evaluating the throw expression.</P>
+
+<P>An unexpected handler may not return to its caller. It may
+terminate execution by:</P>
+
+<UL>
+<LI>throwing an object of a type listed in the exception specification
+(or an object of any type if the unexpected handler is called directly
+by the program)</LI>
+
+<LI>throwing an object of type
+<A HREF="#bad_exception"><CODE>bad_exception</CODE></A></LI>
+
+<LI>calling
+<CODE><A HREF="#terminate">terminate</A>()</CODE>,
+<CODE><A HREF="stdlib.html#abort">abort</A>()</CODE>, or
+<CODE><A HREF="stdlib.html#exit">exit</A>(int)</CODE></LI>
+</UL>
+
+<P>At <A HREF="lib_over.html#program startup">program startup</A>,
+the unexpected handler is a function that calls
+<CODE><A HREF="#terminate">terminate</A>()</CODE>.</P>
+
+<H2><A NAME="unexpected_handler"><CODE>unexpected_handler</CODE></A></H2>
+
+<PRE>typedef void (*<B>unexpected_handler</B>)();</PRE>
+
+<P>The type describes a pointer to a function suitable for use as an
+<A HREF="#unexpected handler">unexpected handler</A>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1992-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

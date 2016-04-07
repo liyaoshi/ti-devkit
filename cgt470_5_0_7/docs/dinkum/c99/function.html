@@ -1,0 +1,141 @@
+<HTML><HEAD><TITLE>Functions</TITLE></HEAD><BODY>
+
+<H1><A NAME="Functions">Functions</A></H1><HR>
+
+<P>You write functions to specify all the actions that a program
+performs when it executes. The type of a function tells you the type
+of result it returns (if any). It can also tell you the types of any
+arguments that the function expects when you call it from within an
+expression.</P>
+
+<P>This document describes briefly just those aspect
+of functions most relevant to the use of the Standard C library:</P>
+
+<P><B><A NAME="argument promotion">Argument promotion</A></B>
+occurs when the type of the function fails to provide any information
+about an argument. Promotion occurs if the function declaration
+is not a function prototype or if the argument is one of
+the unnamed arguments in a
+<A HREF="stdarg.html#varying number of arguments">varying number
+of arguments</A>. In this instance, the argument must be an
+<A HREF="express.html#rvalue expression">rvalue expression</A>. Hence:</P>
+
+<UL>
+<LI>An integer argument type is promoted.</LI>
+
+<LI>An lvalue of type array of <CODE>Ty</CODE> becomes an rvalue of type
+pointer to <CODE>Ty</CODE>.</LI>
+
+<LI>A function designator of type function returning <CODE>Ty</CODE> becomes
+an rvalue of type pointer to function returning <CODE>Ty</CODE>.
+
+<LI>An argument of type <I>float</I> is converted to <I>double.</I>
+</UL>
+
+<P>A <B><A NAME="Do Statement"><I>do</I> statement</A></B>
+executes a statement one or more times, while its
+<A HREF="#test-context expression">test-context expression</A>
+has a nonzero value:</P>
+
+<PRE>    do
+        <I>statement</I>
+        while (<I>test</I>);</PRE>
+
+<P>An <B><A NAME="Expression Statement"><I>expression</I> statement</A></B>
+evaluates an expression in a
+<A HREF="#side-effects context">side-effects context</A>:</P>
+
+<PRE>    printf("hello\n");            <B>call a function</B>
+    y = m * x + b;                <B>store a value</B>
+    ++count;                      <B>alter a stored value</B></PRE>
+
+<P>A <B><A NAME="For Statement"><I>for</I> statement</A></B>
+executes a statement zero or more times, while the optional
+<A HREF="#test-context expression">test-context expression</A>
+<CODE><I>test</I></CODE> has a nonzero value.
+You can also write two expressions, <CODE><I>se-1</I></CODE>
+and <CODE><I>se-2</I></CODE>, in a <I>for</I> statement that are each in a
+<A HREF="#side-effects context">side-effects context</A>:</P>
+
+<PRE>    for (<I>se-1</I>; <I>test</I>; <I>se-2</I>)
+        <I>statement</I></PRE>
+
+<P>An <B><A NAME="If Statement"><I>if</I> statement</A></B>
+executes a statement only if the
+<A HREF="#test-context expression">test-context expression</A>
+has a nonzero value:</P>
+
+<PRE>    if (<I>test</I>)
+        <I>statement</I></PRE>
+
+<P>An <B><A NAME="If-Else Statement"><I>if-else</I> statement</A></B>
+executes one of two statements, depending on whether the
+<A HREF="#test-context expression">test-context expression</A>
+has a nonzero value:
+<PRE>    if (<I>test</I>)
+        <I>statement-1</I>
+    else
+        <I>statement-2</I></PRE>
+
+<P>A <B><A NAME="Return Statement"><I>return</I> statement</A></B>
+terminates execution of the function and transfers control
+to the expression that called the function. If you write the optional
+<A HREF="express.html#rvalue expression">rvalue expression</A>
+within the <I>return</I> statement,
+the result must be assignment-compatible with the type returned
+by the function. The program converts the value of the expression
+to the type returned and returns it as the value of the function call:</P>
+
+<PRE>    return <I>expression</I>;</PRE>
+
+<P>An expression that occurs in a
+<B><A NAME="side-effects context">side-effects context</A></B>
+specifies no value and designates no object or function.
+Hence, it can have type <I>void.</I>
+You typically evaluate such an expression for its
+<B><A NAME="side effects">side effects</A></B>
+-- any change in the state of the program that occurs when evaluating
+an expression. Side effects occur when the program
+stores a value in an object, accesses a value from an object
+of <I>volatile</I> qualified type, or alters the state of a file.</P>
+
+<P>A <B><A NAME="Switch Statement"><I>switch</I> statement</A></B>
+jumps to a place within a controlled statement, depending
+on the value of an integer expression:</P>
+
+<PRE>    switch (<I>expr</I>)
+        {
+    case <I>val-1</I>:
+        <I>stat-1</I>;
+        break;
+    case <I>val-2</I>:
+        <I>stat-2</I>;            <B>falls through to next</B>
+    default:
+        <I>stat-n</I>
+    }</PRE>
+
+<P>In a
+<B><A NAME="test-context expression">test-context expression</A></B>
+the value of an expression causes control
+to flow one way within the statement if the computed value is nonzero
+or another way if the computed value is zero. You can write only an
+expression that has a scalar rvalue result, because only scalars can
+be compared with zero.</P>
+
+<P>A <B><A NAME="While Statement"><I>while</I> statement</A></B>
+executes a statement zero or more times, while the test-context
+expression has a nonzero value:</P>
+
+<PRE>    while (<I>test</I>)
+        <I>statement</I></PRE>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pb.html">Copyright</A> &#169; 1989-2002
+by P.J. Plauger and Jim Brodie. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

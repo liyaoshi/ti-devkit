@@ -1,0 +1,579 @@
+<HTML><HEAD><TITLE>&lt;ostream&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;ostream&gt;"><CODE>&lt;ostream&gt;</CODE></A></H1><HR>
+
+<PRE>        // DECLARATIONS
+class <B><A HREF="#ostream">ostream</A></B>;
+
+        // INSERTERS
+ostream&amp;
+    <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(ostream&amp; ostr, const char *str);
+ostream&amp;
+    <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(ostream&amp; ostr, char ch);
+ostream&amp;
+    <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(ostream&amp; ostr, const signed char *str);
+ostream&amp;
+    <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(ostream&amp; ostr, signed char ch);
+ostream&amp;
+    <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(ostream&amp; ostr, const unsigned char *str);
+ostream&amp;
+    <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(ostream&amp; ostr, unsigned char ch);
+
+        // MANIPULATORS
+ostream&amp; <B><A HREF="#endl">endl</A></B>(ostream&amp; ostr);
+ostream&amp; <B><A HREF="#ends">ends</A></B>(ostream&amp; ostr);
+ostream&amp; <B><A HREF="#flush">flush</A></B>(ostream&amp; ostr);
+        // END OF DECLARATIONS</PRE>
+
+<P>Include the <A HREF="lib_cpp.html#iostreams">iostreams</A>
+standard header <B><CODE>&lt;ostream&gt;</CODE></B> to define
+class <CODE><A HREF="#ostream">ostream</A></CODE>,
+which mediates insertions for the iostreams.
+The header also defines several related
+<A HREF="ios.html#manipulators">manipulators</A>.
+(This header is typically included for you by another
+of the iostreams headers. You seldom have occasion to include it
+directly.)</P>
+
+<H2><A NAME="ostream"><CODE>ostream</CODE></A></H2>
+
+<HR>
+<P><B><CODE><A HREF="#ostream::ostream">ostream</A>
+&#183; <A HREF="#ostream::flush">flush</A>
+&#183; <A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A>
+&#183; <A HREF="#ostream::put">put</A>
+&#183; <A HREF="#ostream::seekp">seekp</A>
+&#183; <A HREF="#ostream::sentry">sentry</A>
+&#183; <A HREF="#ostream::tellp">tellp</A>
+&#183; <A HREF="#ostream::write">write</A>
+</CODE></B></P>
+<HR>
+
+<PRE>class <B>ostream</B> : public ios {
+public:
+    explicit <B><A HREF="#ostream::ostream">ostream</A></B>(streambuf *strbuf);
+    class <B><A HREF="#ostream::sentry">sentry</A></B>;
+    virtual <B>~ostream</B>();
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(
+        ostream&amp; (*pfn)(ostream&amp;));
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(
+        ios_base;&amp; (*pfn)(ios_base&amp;));
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(
+        ios&amp; (*pfn)(ios&amp;));
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(
+        streambuf *strbuf);
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(bool val);
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(short val);
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(unsigned short val);
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(int val);
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(unsigned int val);
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(long val);
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(unsigned long val);
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(float val);
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(double val);
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(long double val);
+    ostream&amp; <B><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></B>(const void *val);
+    ostream&amp; <B><A HREF="#ostream::put">put</A></B>(char_type ch);
+    ostream&amp; <B><A HREF="#ostream::write">write</A></B>(char_type *str, streamsize count);
+    ostream&amp; <B><A HREF="#ostream::flush">flush</A></B>();
+    pos_type <B><A HREF="#ostream::tellp">tellp</A></B>();
+    ostream&amp; <B><A HREF="#ostream::seekp">seekp</A></B>(pos_type pos);
+    ostream&amp; <B><A HREF="#ostream::seekp">seekp</A></B>(off_type off,
+        ios_base::seek_dir way);
+    };</PRE>
+
+<P>The class describes an object that controls
+insertion of elements and encoded objects into a
+<A HREF="streambu.html#stream buffer">stream buffer</A>
+with elements of type <I>char,</I> also known as
+<CODE><A HREF="ios.html#ios::char_type">char_type</A></CODE>, whose
+<A HREF="string2.html#character traits">character traits</A> are determined by the
+class <CODE><A HREF="string2.html#char_traits">char_traits</A></CODE>,
+also known as
+<CODE><A HREF="ios.html#ios::traits_type">traits_type</A></CODE>.</P>
+
+<P>Most of the member functions that overload
+<CODE><A HREF="#ostream::operator&lt;&lt;">operator&lt;&lt;</A></CODE>
+are <B><A NAME="formatted output functions">formatted output functions</A></B>.
+They follow the pattern:</P>
+
+<PRE>    iostate state = goodbit;
+    const sentry ok(*this);
+    if (ok)
+        {try
+            {&lt;convert and insert elements
+            accumulate flags in state&gt; }
+        catch (...)
+            {try
+                {setstate(badbit); }
+            catch (...)
+                {}
+            if ((exceptions() &amp; badbit) != 0)
+                throw; }}
+    width(0);    // except for operator&lt;&lt;(Elem)
+    setstate(state);
+    return (*this);</PRE>
+
+<P>Two other member functions are
+<B><A NAME="unformatted output functions">unformatted output functions</A></B>.
+They follow the pattern:</P>
+
+<PRE>    iostate state = goodbit;
+    const sentry ok(*this);
+    if (!ok)
+        state |= badbit;
+    else
+        {try
+            {&lt;obtain and insert elements
+            accumulate flags in state&gt; }
+        catch (...)
+            {try
+                {setstate(badbit); }
+            catch (...)
+                {}
+            if ((exceptions() &amp; badbit) != 0)
+                throw; }}
+    setstate(state);
+    return (*this);</PRE>
+
+<P>Both groups of functions call
+<CODE><A HREF="ios.html#ios::setstate">setstate</A>(badbit)</CODE>
+if they encounter a failure while inserting elements.</P>
+
+<P>An object of class <CODE>ostream</CODE> stores only
+a public base object of class
+<B><CODE><A HREF="ios.html#ios">ios</A></CODE></B></P>
+
+<H3><A NAME="ostream::ostream"><CODE>ostream::ostream</CODE></A></H3>
+
+<PRE>explicit <B>ostream</B>(streambuf *strbuf);</PRE>
+
+<P>The constructor initializes the base class by calling
+<CODE><A HREF="ios.html#ios::init">init</A>(strbuf)</CODE>.</P>
+
+<H3><A NAME="ostream::flush"><CODE>ostream::flush</CODE></A></H3>
+
+<PRE>ostream&amp; <B>flush</B>();</PRE>
+
+<P>If <CODE><A HREF="ios.html#ios::rdbuf">rdbuf</A>()</CODE> is
+not a null pointer, the function calls
+<CODE>rdbuf()-&gt;<A HREF="streambu.html#streambuf::pubsync">pubsync</A>()</CODE>.
+If that returns -1, the function calls
+<CODE><A HREF="ios.html#ios::setstate">setstate</A>(badbit)</CODE>.
+It returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="ostream::operator&lt;&lt;"><CODE>ostream::operator&lt;&lt;</CODE></A></H3>
+
+<PRE>ostream&amp; <B>operator&lt;&lt;</B>(
+    ostream&amp; (*pfn)(ostream&amp;));
+ostream&amp; <B>operator&lt;&lt;</B>(
+    ios_base&amp; (*pfn)(ios_base&amp;));
+ostream&amp; <B>operator&lt;&lt;</B>(
+    ios&amp; (*pfn)(ios&amp;));
+ostream&amp; <B>operator&lt;&lt;</B>(
+    streambuf *strbuf);
+ostream&amp; <B>operator&lt;&lt;</B>(bool val);
+ostream&amp; <B>operator&lt;&lt;</B>(short val);
+ostream&amp; <B>operator&lt;&lt;</B>(unsigned short val);
+ostream&amp; <B>operator&lt;&lt;</B>(int val);
+ostream&amp; <B>operator&lt;&lt;</B>(unsigned int val);
+ostream&amp; <B>operator&lt;&lt;</B>(long val);
+ostream&amp; <B>operator&lt;&lt;</B>(unsigned long val);
+ostream&amp; <B>operator&lt;&lt;</B>(float val);
+ostream&amp; <B>operator&lt;&lt;</B>(double val);
+ostream&amp; <B>operator&lt;&lt;</B>(long double val);
+ostream&amp; <B>operator&lt;&lt;</B>(const void *val);</PRE>
+
+<P>The first member function ensures that an expression of the
+form <CODE>ostr &lt;&lt; endl</CODE> calls
+<CODE><A HREF="#endl">endl</A>(ostr)</CODE>, then returns <CODE>*this</CODE>.
+The second and third functions ensure that other
+<A HREF="ios.html#manipulators">manipulators</A>,
+such as <CODE><A HREF="ios.html#hex">hex</A></CODE> behave
+similarly. The remaining functions are all
+<A HREF="#formatted output functions">formatted output functions</A>.</P>
+
+<P>The function:</P>
+
+<PRE>ostream&amp; <B>operator&lt;&lt;</B>(
+    streambuf *strbuf);</PRE>
+
+<P>extracts elements from <CODE>strbuf</CODE>,
+if <CODE>strbuf</CODE> is not a null pointer, and inserts them.
+If <CODE>strbuf</CODE> is a null pointer, the function calls
+<CODE><A HREF="ios.html#ios::setstate">setstate</A>(badbit)</CODE>.
+Otherwise, extraction stops on end-of-file,
+or if an extraction throws an exception (which is rethrown).
+It also stops, without extracting the element in question,
+if an insertion fails. If the function inserts no elements, or
+if an extraction throws an exception, the function calls
+<CODE><A HREF="ios.html#ios::setstate">setstate</A>(failbit)</CODE>.
+In any case, the function returns <CODE>*this</CODE>.</P>
+
+<P>All the remaining functions generate an output field and insert it.
+The output output field is generated by the same rules used by the
+<A HREF="lib_prin.html#Print Functions">print functions</A>
+for generating a series of <I>char</I> elements to a file.
+Where a print function pads a field with either spaces or the digit
+<CODE>0</CODE>, however, the function instead uses
+<CODE><A HREF="ios.html#ios::fill">fill</A></CODE>.
+The equivalent
+<A HREF="lib_prin.html#print conversion specification">print conversion
+specification</A> is determined as described for each function below.</P>
+
+<P><B><A NAME="padding">Padding</A></B> occurs only if
+the minimum number of elements <CODE>N</CODE> required to
+specify the output field is less than
+<CODE><A HREF="ios.html#ios_base::width">width</A>()</CODE>.
+Such padding consists of a sequence of <CODE>N - width()</CODE> copies of
+<CODE>fill()</CODE>.
+Padding then occurs as follows:</P>
+
+<UL>
+<LI>If <CODE><A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+ios_base::<A HREF="ios.html#ios_base::adjustfield">adjustfield</A> ==
+ios_base::<A HREF="ios.html#ios_base::left">left</A></CODE>,
+the flag <CODE>-</CODE> is prepended to the conversion specification.
+(Padding occurs after the generated text.)
+</LI>
+
+<LI>If <CODE>flags() &amp; ios_base::adjustfield ==
+ios_base::<A HREF="ios.html#ios_base::internal">internal</A></CODE>,
+the flag <CODE>0</CODE> is prepended. (For a numeric output field,
+padding occurs where the print functions pad with <CODE>0</CODE>.)</LI>
+
+<LI>Otherwise, no additional flag is prepended.
+(Padding occurs before the generated sequence.)
+</UL>
+
+<P>The function:</P>
+
+<PRE>ostream&amp; <B>operator&lt;&lt;</B>(bool val);</PRE>
+
+<P>converts <CODE>val</CODE> to a
+<B><A NAME="boolean output field">boolean output field</A></B>
+and inserts it as an array of <I>char,</I> with
+a conversion specifier of <CODE>s</CODE>.</P>
+
+<P>A boolean output field takes one of two forms.
+If <CODE><A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+ios_base::<A HREF="ios.html#ios_base::boolalpha">boolalpha</A></CODE>
+is false, the generated sequence is either <CODE>0</CODE> (for false)
+or <CODE>1</CODE> (for true).
+Otherwise, the generated sequence is either
+<CODE>false</CODE> (for false), or
+<CODE>true</CODE> (for true). The
+function then calls <CODE>width(0)</CODE> to reset the
+field width to zero.
+The function returns <CODE>*this</CODE>.</P>
+
+
+<P>The functions:</P>
+
+<PRE>ostream&amp; <B>operator&lt;&lt;</B>(short val);
+ostream&amp; <B>operator&lt;&lt;</B>(unsigned short val);
+ostream&amp; <B>operator&lt;&lt;</B>(int val);
+ostream&amp; <B>operator&lt;&lt;</B>(unsigned int val);
+ostream&amp; <B>operator&lt;&lt;</B>(long val);
+ostream&amp; <B>operator&lt;&lt;</B>(unsigned long val);
+ostream&amp; <B>operator&lt;&lt;</B>(const void *val);</PRE>
+
+<P>each convert <CODE>val</CODE> to an
+<B><A NAME="integer output field">integer output field</A></B>
+and inserts it. The equivalent
+<A HREF="lib_prin.html#print conversion specification">print conversion
+specification</A> is determined as follows:</P>
+
+<UL>
+<LI>If <CODE><A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+ios_base::<A HREF="ios.html#ios_base::basefield">basefield</A> ==
+ios_base::<A HREF="ios.html#ios_base::oct">oct</A></CODE>, the
+conversion specification is <CODE>lo</CODE> and the converted value is
+<CODE>(long)val</CODE>.</LI>
+
+<LI>If <CODE>flags() &amp; ios_base::basefield ==
+ios_base::<A HREF="ios.html#ios_base::hex">hex</A></CODE>, the
+conversion specification is <CODE>lx</CODE> and the converted value is
+<CODE>(unsigned long)val</CODE>.</LI>
+
+<LI>Otherwise, the conversion specification is <CODE>ld</CODE>
+and the converted value is <CODE>(long)val</CODE>.</LI>
+</UL>
+
+<P>If <CODE><A HREF="ios.html#ios_base::width">width</A>()</CODE>
+is nonzero, a field width of this value is prepended. The
+function then calls <CODE>width(0)</CODE> to reset the
+field width to zero.</P>
+
+<P>Finally:</P>
+
+<UL>
+<LI>If <CODE>flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::showpos">showpos</A></CODE>
+is nonzero, the flag <CODE>+</CODE> is prepended to the conversion
+specification.</LI>
+
+<LI>If <CODE>flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::showbase">showbase</A></CODE>
+is nonzero, the flag <CODE>#</CODE> is prepended to the conversion
+specification.</LI>
+</UL>
+
+<P>The function returns <CODE>*this</CODE>.</P>
+
+<P>The functions:</P>
+
+<PRE>ostream&amp; <B>operator&lt;&lt;</B>(float val);
+ostream&amp; <B>operator&lt;&lt;</B>(double val);
+ostream&amp; <B>operator&lt;&lt;</B>(long double val);</PRE>
+
+<P>each convert <CODE>val</CODE> to a
+<B><A NAME="floating-point output field">floating-point output field</A></B>
+and insert it.
+A period (<CODE>.</CODE>) separates the integer digits from the
+fraction digits.
+The equivalent print conversion specification is determined as follows:</P>
+
+<UL>
+<LI>If <CODE><A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+ios_base::<A HREF="ios.html#ios_base::floatfield">floatfield</A> ==
+ios_base::<A HREF="ios.html#ios_base::fixed">fixed</A></CODE>, the
+conversion specification is <CODE>f</CODE>.</LI>
+
+<LI>If <CODE>flags() &amp; ios_base::floatfield ==
+ios_base::<A HREF="ios.html#ios_base::scientific">scientific</A></CODE>, the
+conversion specification is <CODE>e</CODE>.
+If <CODE>flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::uppercase">uppercase</A></CODE>
+is nonzero, <CODE>e</CODE> is replaced with <CODE>E</CODE>.</LI>
+
+<LI>Otherwise, the conversion specification is <CODE>g</CODE>.
+If <CODE>flags() &amp; ios_base::uppercase</CODE>
+is nonzero, <CODE>g</CODE> is replaced with <CODE>G</CODE>.</LI>
+</UL>
+
+<P>If <CODE>val</CODE> has type <I>double,</I> the function prepends <CODE>l</CODE>
+to the conversion specification. If <CODE>val</CODE> has type <I>long double,</I>
+it prepends <CODE>L</CODE> to the conversion specification.</P>
+
+<P>If <CODE>flags() &amp; ios_base::fixed</CODE> is nonzero, or if
+<CODE><A HREF="ios.html#ios_base::precision">precision</A>()</CODE>
+is greater than zero, a precision with the value
+<CODE>precision()</CODE> is prepended to the conversion specification.
+Any <A HREF="#padding">padding</A> behaves the same
+as for an integer output field.
+
+<P>If <CODE><A HREF="ios.html#ios_base::width">width</A>()</CODE>
+is nonzero, a field width of this value is prepended. The
+function then calls <CODE>width(0)</CODE> to reset the
+field width to zero. Finally:</P>
+
+<UL>
+<LI>If <CODE>flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::showpos">showpos</A></CODE>
+is nonzero, the flag <CODE>+</CODE> is prepended to the conversion
+specification.</LI>
+
+<LI>If <CODE>flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::showpoint">showpoint</A></CODE>
+is nonzero, the flag <CODE>#</CODE> is prepended to the conversion
+specification.</LI>
+</UL>
+
+<H3><A NAME="ostream::put"><CODE>ostream::put</CODE></A></H3>
+
+<PRE>ostream&amp; <B><A HREF="#ostream::put">put</A></B>(char_type ch);</PRE>
+
+<P>The <A HREF="#unformatted output functions">unformatted output function</A>
+inserts the element <CODE>ch</CODE>. It returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="ostream::seekp"><CODE>ostream::seekp</CODE></A></H3>
+
+<PRE>ostream&amp; <B>seekp</B>(pos_type pos);
+ostream&amp; <B>seekp</B>(off_type off,
+    ios_base::seek_dir way);</PRE>
+
+<P>If <CODE><A HREF="ios.html#ios::fail">fail</A>()</CODE> is false,
+the first member function calls
+<CODE>newpos = <A HREF="ios.html#ios::rdbuf">rdbuf</A>()-&gt;
+<A HREF="streambu.html#streambuf::pubseekpos">pubseekpos</A>(pos,
+<A HREF="ios.html#ios_base::out">out</A>)</CODE>,
+for some <CODE>pos_type</CODE> temporary object <CODE>newpos</CODE>.
+If <CODE>fail()</CODE> is false, the second function calls
+<CODE>newpos = rdbuf()-&gt;
+<A HREF="streambu.html#streambuf::pubseekoff">pubseekoff</A>(off, way,
+<A HREF="ios.html#ios_base::out">out</A>)</CODE>.
+In either case, if <CODE>(off_type)newpos == (off_type)(-1)</CODE>
+(the positioning operation fails) the function calls
+<CODE>istr.<A HREF="ios.html#ios::setstate">setstate</A>(failbit)</CODE>.
+Both functions return <CODE>*this</CODE>.</P>
+
+<H3><A NAME="ostream::sentry"><CODE>ostream::sentry</CODE></A></H3>
+
+<PRE>class <B>sentry</B> {
+public:
+    explicit <B>sentry</B>(ostream&amp; ostr);
+    <B>operator bool</B>() const;
+    <B>~sentry</B>();
+private:
+    <B>sentry</B>(const sentry&amp;);  // not defined
+    sentry&amp; <B>operator=</B>(const sentry&amp;);  // not defined
+    bool <B>status</B>;
+    };</PRE>
+
+<P>The nested class describes an object whose declaration structures the
+<A HREF="#formatted output functions">formatted output functions</A>
+and the
+<A HREF="#unformatted output functions">unformatted output functions</A>.
+If <CODE>ostr.<A HREF="ios.html#ios::good">good</A>()</CODE> is true, and
+<CODE>ostr.<A HREF="ios.html#ios::tie">tie</A>()</CODE> is not
+a null pointer, the constructor calls
+<CODE>ostr.tie-&gt;<A HREF="#ostream::flush">flush</A>()</CODE>.
+The constructor then stores the value returned by <CODE>ostr.good()</CODE>
+in <B>status</B>.
+A later call to <CODE>operator bool()</CODE> delivers this stored value.</P>
+
+<P>If
+<CODE><A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+<A HREF="ios.html#ios_base::unitbuf">unitbuf</A></CODE> is nonzero,
+the destructor calls
+<CODE><A HREF="#ostream::flush">flush</A>()</CODE>.</P>
+
+<H3><A NAME="ostream::tellp"><CODE>ostream::tellp</CODE></A></H3>
+
+<PRE>pos_type <B>tellp</B>();</PRE>
+
+<P>If <CODE><A HREF="ios.html#ios::fail">fail</A>()</CODE> is false,
+the member function returns
+<CODE><A HREF="ios.html#ios::rdbuf">rdbuf</A>()-&gt;
+<A HREF="streambu.html#streambuf::pubseekoff">pubseekoff</A>(0,
+<A HREF="ios.html#ios_base::cur">cur</A>,
+<A HREF="ios.html#ios_base::in">in</A>)</CODE>.
+Otherwise, it returns <CODE>pos_type(-1)</CODE>.</P>
+
+<H3><A NAME="ostream::write"><CODE>ostream::write</CODE></A></H3>
+
+<PRE>ostream&amp; <B>write</B>(const char_type *str, streamsize count);</PRE>
+
+<P>The <A HREF="#unformatted output functions">unformatted output function</A>
+inserts the sequence of <CODE>count</CODE> elements
+beginning at <CODE>str</CODE>.</P>
+
+<H2><A NAME="endl"><CODE>endl</CODE></A></H2>
+
+<PRE>ostream <B>endl</B>(ostream&amp; ostr);</PRE>
+
+<P>The manipulator calls
+<CODE>ostr.<A HREF="#ostream::put">put</A>(ostr.
+<A HREF="ios.html#ios::widen">widen</A>('\n'))</CODE>,
+then calls
+<CODE>ostr.<A HREF="#ostream::flush">flush</A>()</CODE>.
+It returns <CODE>ostr</CODE>.</P>
+
+<H2><A NAME="ends"><CODE>ends</CODE></A></H2>
+
+<PRE>ostream&amp; <B>ends</B>(ostream&amp; ostr);</PRE>
+
+<P>The manipulator calls
+<CODE>ostr.<A HREF="#ostream::put">put</A>(Elem('\0'))</CODE>.
+It returns <CODE>ostr</CODE>.</P>
+
+<H2><A NAME="flush"><CODE>flush</CODE></A></H2>
+
+<PRE>ostream&amp; <B>flush</B>(ostream&amp; ostr);</PRE>
+
+<P>The manipulator calls
+<CODE>ostr.<A HREF="#ostream::flush">flush</A>()</CODE>.
+It returns <CODE>ostr</CODE>.</P>
+
+<H2><A NAME="operator&lt;&lt;"><CODE>operator&lt;&lt;</CODE></A></H2>
+
+<PRE>ostream&amp;
+    <B>operator&lt;&lt;</B>(ostream&amp; ostr, const char *str);
+ostream&amp;
+    <B>operator&lt;&lt;</B>(ostream&amp; ostr, char ch);
+ostream&amp;
+    <B>operator&lt;&lt;</B>(ostream&amp; ostr, const signed char *str);
+ostream&amp;
+    <B>operator&lt;&lt;</B>(ostream&amp; ostr, signed char ch);
+ostream&amp;
+    <B>operator&lt;&lt;</B>(ostream&amp; ostr, const unsigned char *str);
+ostream&amp;
+    <B>operator&lt;&lt;</B>(ostream&amp; ostr, unsigned char ch);</PRE>
+
+<P>All of these functions are
+<A HREF="#formatted output functions">formatted output functions</A>.
+The function:</P>
+
+<PRE>ostream&amp;
+    <B>operator&lt;&lt;</B>(ostream&amp; ostr, const char *str);</PRE>
+
+<P>determines the length <CODE>N =
+traits_type::<A HREF="string2.html#char_traits::length">length</A>(str)</CODE>
+of the sequence beginning at <CODE>str</CODE>, and inserts the sequence. If
+<CODE>N &lt; ostr.<A HREF="ios.html#ios_base::width">width</A>()</CODE>,
+then the function also inserts a repetition of <CODE>ostr.width() - N</CODE>
+<A HREF="ios.html#fill character">fill characters</A>.
+The repetition precedes the sequence if
+<CODE>(ostr.<A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+<A HREF="ios.html#ios_base::adjustfield">adjustfield</A> !=
+<A HREF="ios.html#ios_base::left">left</A></CODE>.
+Otherwise, the repetition follows the sequence.
+The function returns <CODE>ostr</CODE>.</P>
+
+<P>The function:</P>
+
+<PRE>ostream&amp;
+    <B>operator&lt;&lt;</B>(ostream&amp; ostr, char ch);</PRE>
+
+<P>inserts the element <CODE>ch</CODE>. If
+<CODE>1 &lt; ostr.<A HREF="ios.html#ios_base::width">width</A>()</CODE>,
+then the function also inserts a repetition of <CODE>ostr.width() - 1</CODE>
+<A HREF="ios.html#fill character">fill characters</A>.
+The repetition precedes the sequence if
+<CODE>(ostr.<A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+<A HREF="ios.html#ios_base::adjustfield">adjustfield</A> !=
+<A HREF="ios.html#ios_base::left">left</A></CODE>.
+Otherwise, the repetition follows the sequence.
+It returns <CODE>ostr</CODE>.</P>
+
+<P>The function:</P>
+
+<PRE>ostream&amp;
+    <B>operator&lt;&lt;</B>(ostream&amp; ostr, const signed char *str);</PRE>
+
+<P>returns <CODE>ostr &lt;&lt; (const char *)str</CODE>.</P>
+
+<P>The function:</P>
+
+<PRE>ostream&amp;
+    <B>operator&lt;&lt;</B>(ostream&amp; ostr, signed char ch);</PRE>
+
+<P>returns <CODE>ostr &lt;&lt; (char)ch</CODE>.</P>
+
+<P>The function:</P>
+
+<PRE>ostream&amp;
+    <B>operator&lt;&lt;</B>(ostream&amp; ostr, const unsigned char *str);</PRE>
+
+<P>returns <CODE>ostr &lt;&lt; (const char *)str</CODE>.</P>
+
+<P>The function:</P>
+
+<PRE>ostream&amp;
+    <B>operator&lt;&lt;</B>(ostream&amp; ostr, unsigned char ch);</PRE>
+
+<P>returns <CODE>ostr &lt;&lt; (char)ch</CODE>.</P>
+
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1992-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>
+

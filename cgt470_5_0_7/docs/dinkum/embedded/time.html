@@ -1,0 +1,360 @@
+<HTML><HEAD><TITLE>&lt;time.h&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;time.h&gt;"><CODE>&lt;time.h&gt;</CODE></A></H1><HR>
+
+<P>Include the standard header <B><CODE>&lt;time.h&gt;</CODE></B> to declare several
+functions that help you manipulate times. The diagram
+summarizes the functions and the object types that they convert
+between.</P>
+
+<P><IMG SRC="time.gif"></P>
+
+<P>The functions share two static-duration objects that hold values
+computed by the functions:</P>
+
+<UL>
+<LI>a <B><A NAME="time string">time string</A></B>
+of type array of <I>char</I>
+
+<LI>a <B><A NAME="time structure">time structure</A></B>
+of type <CODE>struct tm</CODE>
+</UL>
+
+<P>A call to one of these functions can alter the value that was
+stored earlier in a static-duration object by another of these functions.</P>
+
+<PRE>    /* MACROS */
+#define <A HREF="#CLOCKS_PER_SEC"><B>CLOCKS_PER_SEC</B></A> <I>&lt;integer constant expression &gt; 0&gt;</I>
+#define <A HREF="#NULL"><B>NULL</B></A> <I>&lt;either 0, 0L, or (void *)0&gt;</I> <B>[0 in C++]</B>
+
+    /* TYPES */
+typedef <I>a-type</I> <A HREF="#clock_t"><B>clock_t</B></A>;
+typedef <I>ui-type</I> <A HREF="#size_t"><B>size_t</B></A>;
+typedef <I>a-type</I> <A HREF="#time_t"><B>time_t</B></A>;
+struct <A HREF="#tm"><B>tm</B></A>;
+
+    /* FUNCTIONS */
+char *<A HREF="#asctime"><B>asctime</B></A>(const struct tm *tptr);
+clock_t <A HREF="#clock"><B>clock</B></A>(void);
+char *<A HREF="#ctime"><B>ctime</B></A>(const time_t *tod);
+double <A HREF="#difftime"><B>difftime</B></A>(time_t t1, time_t t0);
+struct tm *<A HREF="#gmtime"><B>gmtime</B></A>(const time_t *tod);
+struct tm *<A HREF="#localtime"><B>localtime</B></A>(const time_t *tod);
+time_t <A HREF="#mktime"><B>mktime</B></A>(struct tm *tptr);
+size_t <A HREF="#strftime"><B>strftime</B></A>(char *s, size_t n,
+    const char *format, const struct tm *tptr);
+time_t <A HREF="#time"><B>time</B></A>(time_t *tod);</PRE>
+
+<H2><A NAME="asctime"><CODE>asctime</CODE></A></H2>
+
+<PRE>char *<B>asctime</B>(const struct tm *tptr);</PRE>
+
+<P>The function stores in the static-duration time string a 26-character
+English-language representation of the time encoded in <CODE>*tptr</CODE>.
+It returns the address of the static-duration
+<A HREF="#time string">time string</A>. The text
+representation takes the form:</P>
+
+<PRE>Sun Dec  2 06:55:15 1979\n\0</PRE>
+
+<H2><A NAME="clock"><CODE>clock</CODE></A></H2>
+
+<PRE>clock_t <B>clock</B>(void);</PRE>
+
+<P>The function returns the number of clock ticks of elapsed processor
+time, counting from a time related to
+<A HREF="lib_over.html#program startup">program startup</A>, or it returns
+-1 if the target environment cannot measure elapsed processor
+time.</P>
+
+<H2><A NAME="CLOCKS_PER_SEC"><CODE>CLOCKS_PER_SEC</CODE></A></H2>
+
+<PRE>#define <B>CLOCKS_PER_SEC</B> <I>&lt;integer constant expression &gt; 0&gt;</I></PRE>
+
+<P>The macro yields the number of clock ticks,
+returned by <CODE>clock</CODE>, in one second.</P>
+
+<H2><A NAME="clock_t"><CODE>clock_t</CODE></A></H2>
+
+<PRE>typedef <I>a-type</I> <B>clock_t</B>;</PRE>
+
+<P>The type is the arithmetic type <CODE><I>a-type</I></CODE>
+of an object that you declare to hold the value returned by
+<A HREF="#clock"><CODE>clock</CODE></A>, representing
+elapsed processor time.</P>
+
+<H2><A NAME="ctime"><CODE>ctime</CODE></A></H2>
+
+<PRE>char *<B>ctime</B>(const time_t *tod);</PRE>
+
+<P>The function converts the calendar time in <CODE>*tod</CODE> to a
+text representation of the local time in the static-duration
+<A HREF="#time string">time string</A>.
+It returns the address of that string. It is equivalent to
+<CODE><A HREF="#asctime">asctime</A>(localtime(tod))</CODE>.</P>
+
+<H2><A NAME="difftime"><CODE>difftime</CODE></A></H2>
+
+<PRE>double <B>difftime</B>(time_t t1, time_t t0);</PRE>
+
+<P>The function returns the difference <CODE>t1 - t0</CODE>, in seconds,
+between the calendar time <CODE>t0</CODE>
+and the calendar time <CODE>t1</CODE>.</P>
+
+<H2><A NAME="gmtime"><CODE>gmtime</CODE></A></H2>
+
+<PRE>struct tm *<B>gmtime</B>(const time_t *tod);</PRE>
+
+<P>The function stores in the static-duration
+<A HREF="#time structure">time structure</A> an
+encoding of the calendar time in <CODE>*tod</CODE>, expressed as
+<B><A NAME="Coordinated Universal Time">
+Coordinated Universal Time</A></B>, or UTC [sic].
+(UTC was formerly Greenwich Mean Time, or GMT).
+It returns the address of that structure, or
+[added with <A HREF="lib_over.html#C99">C99</A>] a null pointer if
+it cannot generate the encoding.</P>
+
+<H2><A NAME="localtime"><CODE>localtime</CODE></A></H2>
+
+<PRE>struct tm *<B>localtime</B>(const time_t *tod);</PRE>
+
+<P>The function stores in the static-duration
+<A HREF="#time structure">time structure</A> an
+encoding of the calendar time in <CODE>*tod</CODE>, expressed as local time.
+It returns the address of that structure, or
+[added with <A HREF="lib_over.html#C99">C99</A>] a null pointer if
+it cannot generate the encoding.</P>
+
+<H2><A NAME="mktime"><CODE>mktime</CODE></A></H2>
+
+<PRE>time_t <B>mktime</B>(struct tm *tptr);</PRE>
+
+<P>The function alters the values stored in <CODE>*tptr</CODE> to represent
+an equivalent encoded local time, but with the values of all members
+within their normal ranges.
+It then determines the values <CODE>tptr-&gt;wday</CODE>
+and <CODE>tptr-&gt;yday</CODE> from the values of the other members.
+It returns the calendar time equivalent to the encoded time, or it returns a
+value of -1 if the calendar time cannot be represented.</P>
+
+<H2><A NAME="NULL"><CODE>NULL</CODE></A></H2>
+
+<PRE>#define <B>NULL</B> <I>&lt;either 0, 0L, or (void *)0&gt;</I> <B>[0 in C++]</B></PRE>
+
+<P>The macro yields a null pointer constant that is usable as an
+<A HREF="express.html#address constant expression">
+address constant expression</A>.</P>
+
+<H2><A NAME="size_t"><CODE>size_t</CODE></A></H2>
+
+<PRE>typedef <I>ui-type</I> <B>size_t</B>;</PRE>
+
+<P>The type is the unsigned integer type <CODE><I>ui-type</I></CODE>
+of an object that you declare to store the result of the
+<A HREF="express.html#sizeof operator"><I>sizeof</I></A> operator.</P>
+
+<H2><A NAME="strftime"><CODE>strftime</CODE></A></H2>
+
+<PRE>size_t <B>strftime</B>(char *s, size_t n,
+    const char *format, const struct tm *tptr);</PRE>
+
+<P>The function generates formatted text, under the control of
+the format <CODE>format</CODE> and the values stored in the time structure
+<CODE>*tptr</CODE>. It stores each generated character
+in successive locations of the array object of size
+<CODE>n</CODE> whose first element has the address <CODE>s</CODE>.
+The function then stores a null character in the next location
+of the array. It returns <CODE>x</CODE>, the number of characters generated,
+if <CODE>x &lt; n</CODE>; otherwise, it returns zero, and the
+values stored in the array are indeterminate.</P>
+
+<P>For each multibyte character other than <CODE>%</CODE> in the format,
+the function stores that multibyte character in the array object.
+Each occurrence of <CODE>%</CODE> followed by an optional qualifier and
+another character in the format is a
+<B><A NAME="conversion specifier">conversion specifier</A></B>.
+The optional qualifiers
+[added with <A HREF="lib_over.html#C99">C99</A>] are:</P>
+
+<UL>
+<LI><CODE>E</CODE>, to represent times in terms of a locale-specific
+<B><A NAME="era">era</A></B>
+(such as <CODE>1 BC</CODE> instead of <CODE>0000</CODE>).</LI>
+
+<LI><CODE>O</CODE>, to represent numeric values with a set of locale-specific
+<B><A NAME="alternate digits">alternate digits</A></B>
+(such as <CODE>first</CODE> instead of <CODE>1</CODE>).</LI>
+</UL>
+
+<P>For each conversion specifier, the
+function stores a replacement character sequence.</P>
+
+<P>The following table lists all conversion specifiers
+defined for <CODE>strftime</CODE>.
+The fields used in <CODE>*tptr</CODE> follow.
+Example replacement character sequences
+in parentheses follow each description. All examples are for the
+<A HREF="locale.html#C locale"><CODE>"C"</CODE></A> locale,
+which ignores any optional qualifier,
+using the date and time Sunday, 2 December 1979 at 06:55:15 AM EST.</P>
+
+<P>For a Sunday week of the year, week 1 begins with the first Sunday on
+or after 1 January. For a Monday week of the year, week 1 begins with the
+first Monday on or after 1 January. An ISO 8601 week of the year is the
+same as a Monday week of the year, with the following exceptions:</P>
+
+<UL>
+<LI>If 1 January is a Tuesday, Wednesday, or Thursday, the week number is
+one greater. Moreover, days back to and including the immediately preceding
+Monday in the preceding year are included in week 1 of the current year.</LI>
+
+<LI>If 1 January is a Friday, Saturday, or Sunday, days up to but not
+including the immediately following Monday in the current year are included
+in the last week (52 or 53) of the preceding year.</LI>
+</UL>
+
+<P>Conversion specifications marked with a
+<CODE>+</CODE> in the table below are all
+added with <A HREF="lib_over.html#C99">C99</A>:</P>
+
+<PRE>
+<B>SPECIFIER   FIELDS   DESCRIPTION (EXAMPLE)</B>
+    %a      tm_wday  <B>abbreviated weekday name (Sun)</B>
+    %A      tm_wday  <B>full weekday name (Sunday)</B>
+    %b      tm_mon   <B>abbreviated month name (Dec)</B>
+    %B      tm_mon   <B>full month name (December)</B>
+    %c       [all]   <B>date and time (Sun Dec  2 06:55:15 1979)</B>
+    %Ec      [all]   + <B>era-specific date and time</B>
+    %C      tm_year  + <B>year/100 (19)</B>
+    %EC     tm_mday  + <B>era specific era name</B>
+            tm_mon
+            tm_year
+    %d      tm_mday  <B>day of the month (02)</B>
+    %D      tm_mday  + <B>month/day/year from 01/01/00 (12/02/79)</B>
+            tm_mon
+            tm_year
+    %e      tm_mday  + <B>day of the month, leading space for zero ( 2)</B>
+    %F      tm_mday  + <B>year-month-day (1979-12-02)</B>
+            tm_mon
+            tm_year
+    %g      tm_wday  + <B>year for ISO 8601 week, from 00 (79)</B>
+            tm_yday
+            tm_year
+    %G      tm_wday  + <B>year for ISO 8601 week, from 0000 (1979)</B>
+            tm_yday
+            tm_year
+    %h      tm_mon   + <B>same as %b (Dec)</B>
+    %H      tm_hour  <B>hour of the 24-hour day, from 00 (06)</B>
+    %I      tm_hour  <B>hour of the 12-hour day, from 01 (06)</B>
+    %j      tm_yday  <B>day of the year, from 001 (336)</B>
+    %m      tm_mon   <B>month of the year, from 01 (12)</B>
+    %M      tm_min   <B>minutes after the hour (55)</B>
+    %n               + <B>newline character \n</B>
+    %p      tm_hour  <B>AM/PM indicator (AM)</B>
+    %r      tm_sec   + <B>12-hour time, from 01:00:00 AM (06:55:15 AM)</B>
+            tm_min
+            tm_hour
+    %Er     tm_sec   + <B>era-specific date and 12-hour time</B>
+            tm_min
+            tm_hour
+            tm_mday
+            tm_mon
+            tm_year
+    %R      tm_min   + <B>hour:minute, from 01:00 (06:55)</B>
+            tm_hour
+    %S      tm_sec   <B>seconds after the minute (15)</B>
+    %t               + <B>horizontal tab character \t</B>
+    %T      tm_sec   + <B>24-hour time, from 00:00:00 (06:55:15)</B>
+            tm_min
+            tm_hour
+    %u      tm_wday  + <B>ISO 8601 day of the week, to 7 for Sunday (7)</B>
+    %U      tm_wday  <B>Sunday week of the year, from 00 (48)</B>
+            tm_yday
+    %V      tm_wday  + <B>ISO 8601 week of the year, from 01 (48)</B>
+            tm_yday
+            tm_year
+    %w      tm_wday  <B>day of the week, from 0 for Sunday (0)</B>
+    %W      tm_wday  <B>Monday week of the year, from 00 (48)</B>
+            tm_yday
+    %x       [all]   <B>date (02/12/79)</B>
+    %Ex      [all]   + <B>era-specific date</B>
+    %X       [all]   <B>time, from 00:00:00 (06:55:15)</B>
+    %EX      [all]   + <B>era-specific time</B>
+    %y      tm_year  <B>year of the century, from 00 (79)</B>
+    %Ey     tm_mday  + <B>year of the era</B>
+            tm_mon
+            tm_year
+    %Y      tm_year  <B>year (1979)</B>
+    %EY     tm_mday  + <B>era-specific era name and year of the era</B>
+            tm_mon
+            tm_year
+    %z      tm_isdst + <B>time zone (hours east*100 + minutes), if any (-0500)</B>
+    %Z      tm_isdst <B>time zone name, if any (EST)</B>
+    %%               <B>percent character %</B>
+</PRE>
+
+<P>The current
+<A HREF="locale.html#locale category">locale category</A>
+<A HREF="locale.html#LC_TIME"><CODE>LC_TIME</CODE></A> can affect these
+replacement character sequences.</P>
+
+<H2><A NAME="time"><CODE>time</CODE></A></H2>
+
+<PRE>time_t <B>time</B>(time_t *tod);</PRE>
+
+<P>If <CODE>tod</CODE> is not a null pointer, the function stores the
+current calendar time in <CODE>*tod</CODE>. The function returns the current
+calendar time, if the target environment can determine it; otherwise,
+it returns -1.</P>
+
+<H2><A NAME="time_t"><CODE>time_t</CODE></A></H2>
+
+<PRE>typedef <I>a-type</I> <B>time_t</B>;</PRE>
+
+<P>The type is the arithmetic type <CODE><I>a-type</I></CODE>
+of an object that you declare to hold
+the value returned by <CODE>time</CODE>.
+The value represents calendar time.</P>
+
+<H2><A NAME="tm"><CODE>tm</CODE></A></H2>
+
+<PRE>struct <B>tm</B> {
+    int tm_sec;        <B>seconds after the minute (from 0)</B>
+    int tm_min;        <B>minutes after the hour (from 0)</B>
+    int tm_hour;       <B>hour of the day (from 0)</B>
+    int tm_mday;       <B>day of the month (from 1)</B>
+    int tm_mon;        <B>month of the year (from 0)</B>
+    int tm_year;       <B>years since 1900 (from 0)</B>
+    int tm_wday;       <B>days since Sunday (from 0)</B>
+    int tm_yday;       <B>day of the year (from 0)</B>
+    int tm_isdst;      <B>Daylight Saving Time flag</B>
+    };</PRE>
+
+<P><CODE>struct tm</CODE> contains members that describe various
+properties of the calendar time. The members shown above can occur
+in any order, interspersed with additional members. The comment following
+each member briefly describes its meaning.</P>
+
+<P>The member <CODE>tm_isdst</CODE> contains:</P>
+
+<UL>
+<LI>a positive value if
+<B><A NAME="Daylight Saving Time">Daylight Saving Time</A></B> is in effect
+
+<LI>zero if Daylight Saving Time is not in effect
+
+<LI>a negative value if the status of Daylight Saving Time is not
+known (so the target environment should attempt to determine its status)
+</UL>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pb.html">Copyright</A> &#169; 1989-2002
+by P.J. Plauger and Jim Brodie. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

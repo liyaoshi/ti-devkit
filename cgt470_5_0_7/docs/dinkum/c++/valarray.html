@@ -1,0 +1,1711 @@
+<HTML><HEAD><TITLE>&lt;valarray&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;valarray&gt;"><CODE>&lt;valarray&gt;</CODE></A></H1><HR>
+
+<P><B><CODE><A HREF="#gslice">gslice</A>
+&#183; <A HREF="#gslice_array">gslice_array</A>
+&#183; <A HREF="#indirect_array">indirect_array</A>
+&#183; <A HREF="#mask_array">mask_array</A>
+&#183; <A HREF="#slice">slice</A>
+&#183; <A HREF="#slice_array">slice_array</A>
+&#183; <A HREF="#valarray">valarray</A>
+&#183; <A HREF="#valarray&lt;bool&gt;">valarray&lt;bool&gt;</A>
+</CODE></B></P>
+
+<P><B><CODE><A HREF="#abs">abs</A>
+&#183; <A HREF="#acos">acos</A>
+&#183; <A HREF="#asin">asin</A>
+&#183; <A HREF="#atan">atan</A>
+&#183; <A HREF="#atan2">atan2</A>
+&#183; <A HREF="#cos">cos</A>
+&#183; <A HREF="#cosh">cosh</A>
+&#183; <A HREF="#exp">exp</A>
+&#183; <A HREF="#log">log</A>
+&#183; <A HREF="#log10">log10</A>
+&#183; <A HREF="#operator!=">operator!=</A>
+&#183; <A HREF="#operator%">operator%</A>
+&#183; <A HREF="#operator&amp;">operator&amp;</A>
+&#183; <A HREF="#operator&amp;&amp;">operator&amp;&amp;</A>
+&#183; <A HREF="#operator&gt;">operator&gt;</A>
+&#183; <A HREF="#operator&gt;&gt;">operator&gt;&gt;</A>
+&#183; <A HREF="#operator&gt;=">operator&gt;=</A>
+&#183; <A HREF="#operator&lt;">operator&lt;</A>
+&#183; <A HREF="#operator&lt;&lt;">operator&lt;&lt;</A>
+&#183; <A HREF="#operator&lt;=">operator&lt;=</A>
+&#183; <A HREF="#operator*">operator*</A>
+&#183; <A HREF="#operator+">operator+</A>
+&#183; <A HREF="#operator-">operator-</A>
+&#183; <A HREF="#operator/">operator/</A>
+&#183; <A HREF="#operator==">operator==</A>
+&#183; <A HREF="#operator^">operator^</A>
+&#183; <A HREF="#operator|">operator|</A>
+&#183; <A HREF="#operator||">operator||</A>
+&#183; <A HREF="#pow">pow</A>
+&#183; <A HREF="#sin">sin</A>
+&#183; <A HREF="#sinh">sinh</A>
+&#183; <A HREF="#sqrt">sqrt</A>
+&#183; <A HREF="#tan">tan</A>
+&#183; <A HREF="#tanh">tanh</A>
+</CODE></B></P>
+<HR>
+
+<P>Include the standard header <B><CODE>&lt;valarray&gt;</CODE></B>
+to define the template class
+<CODE><A HREF="#valarray">valarray</A></CODE> and numerous
+supporting template classes and functions. These template classes and functions
+are permitted unusual latitude, in the interest of improved performance.
+Specifically, any function described here as
+returning <CODE>valarray&lt;Ty&gt;</CODE> may actually return
+an object of some other type <CODE>Other</CODE>. In that case, any other
+function described here that
+accepts one or more arguments of type <CODE>valarray&lt;Ty&gt;</CODE> must have
+overloads that accept arbitrary combinations of those arguments,
+each replaced with an argument of type <CODE>Other</CODE>. (Put simply,
+the only way you can detect such a substitution is to go looking for it.)</P>
+
+<PRE>namespace std {
+class <B><A HREF="#slice">slice</A></B>;
+class <B><A HREF="#gslice">gslice</A></B>;
+
+        // TEMPLATE CLASSES
+template&lt;class Ty&gt;
+    class <B><A HREF="#valarray">valarray</A></B>;
+template&lt;class Ty&gt;
+    class <B><A HREF="#slice_array">slice_array</A></B>;
+template&lt;class Ty&gt;
+    class <B><A HREF="#gslice_array">gslice_array</A></B>;
+template&lt;class Ty&gt;
+    class <B><A HREF="#mask_array">mask_array</A></B>;
+template&lt;class Ty&gt;
+    class <B><A HREF="#indirect_array">indirect_array</A></B>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator*">operator*</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator*">operator*</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator*">operator*</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator/">operator/</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator/">operator/</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator/">operator/</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator%">operator%</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const vararray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator%">operator%</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator%">operator%</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator+">operator+</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator+">operator+</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator+">operator+</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator-">operator-</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator-">operator-</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator-">operator-</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator^">operator^</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator^">operator^</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator^">operator^</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator&amp;">operator&amp;</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator&amp;">operator&amp;</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator&amp;">operator&amp;</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator|">operator|</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator|">operator|</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator|">operator|</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator&lt;&lt;">operator&lt;&lt;</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator&gt;&gt;">operator&gt;&gt;</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator&gt;&gt;">operator&gt;&gt;</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#operator&gt;&gt;">operator&gt;&gt;</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&amp;&amp;">operator&amp;&amp;</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&amp;&amp;">operator&amp;&amp;</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&amp;&amp;">operator&amp;&amp;</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator||">operator||</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator||">operator||</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator||">operator||</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator==">operator==</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator==">operator==</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator==">operator==</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator!=">operator!=</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator!=">operator!=</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator!=">operator!=</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&lt;">operator&lt;</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&lt;">operator&lt;</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&lt;">operator&lt;</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&gt;=">operator&gt;=</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&gt;=">operator&gt;=</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&gt;=">operator&gt;=</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&gt;">operator&gt;</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&gt;">operator&gt;</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&gt;">operator&gt;</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&lt;=">operator&lt;=</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&lt;=">operator&lt;=</A></B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B><A HREF="#operator&lt;=">operator&lt;=</A></B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#abs">abs</A></B>(const valarray&lt;Ty&gt;&amp; left);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#acos">acos</A></B>(const valarray&lt;Ty&gt;&amp; left);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#asin">asin</A></B>(const valarray&lt;Ty&gt;&amp; left);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#atan">atan</A></B>(const valarray&lt;Ty&gt;&amp; left);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#atan2">atan2</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#atan2">atan2</A></B>(const valarray&lt;Ty&gt; left, const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#atan2">atan2</A></B>(const Ty&amp; left, const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#cos">cos</A></B>(const valarray&lt;Ty&gt;&amp; left);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#cosh">cosh</A></B>(const valarray&lt;Ty&gt;&amp; left);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#exp">exp</A></B>(const valarray&lt;Ty&gt;&amp; left);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#log">log</A></B>(const valarray&lt;Ty&gt;&amp; left);
+template&lt;class Ty&gt;
+    valarray&tt;Ty&gt; <B><A HREF="#log10">log10</A></B>(const valarray&lt;Ty&gt;&amp; left);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#pow">pow</A></B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#pow">pow</A></B>(const valarray&lt;Ty&gt; left, const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#pow">pow</A></B>(const Ty&amp; left, const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#sin">sin</A></B>(const valarray&lt;Ty&gt;&amp; left);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#sinh">sinh</A></B>(const valarray&lt;Ty&gt;&amp; left);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#sqrt">sqrt</A></B>(const valarray&lt;Ty&gt;&amp; left);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#tan">tan</A></B>(const valarray&lt;Ty&gt;&amp; left);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B><A HREF="#tanh">tanh</A></B>(const valarray&lt;Ty&gt;&amp; left);
+    };</PRE>
+
+<H2><A NAME="abs"><CODE>abs</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>abs</B>(const valarray&lt;Ty&gt;&amp; left);</PRE>
+
+<P>The template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the absolute value of <CODE>left[I]</CODE>.</P>
+
+<H2><A NAME="acos"><CODE>acos</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>acos</B>(const valarray&lt;Ty&gt;&amp; left);</PRE>
+
+<P>The template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the arccosine of <CODE>left[I]</CODE>.</P>
+
+<H2><A NAME="asin"><CODE>asin</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>asin</B>(const valarray&lt;Ty&gt;&amp; left);</PRE>
+
+<P>The template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the arcsine of <CODE>left[I]</CODE>.</P>
+
+<H2><A NAME="atan"><CODE>atan</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>atan</B>(const valarray&lt;Ty&gt;&amp; left);</PRE>
+
+<P>The template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the arctangent of <CODE>left[I]</CODE>.</P>
+
+<H2><A NAME="atan2"><CODE>atan2</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>atan2</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>atan2</B>(const valarray&lt;Ty&gt; left, const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>atan2</B>(const Ty&amp; left, const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the arctangent of <CODE>left[I] / right[I]</CODE>.
+The second template function stores in element <CODE>I</CODE>
+the arctangent of <CODE>left[I] / right</CODE>.
+The third template function stores in element <CODE>I</CODE>
+the arctangent of <CODE>left / right[I]</CODE>.</P>
+
+<H2><A NAME="cos"><CODE>cos</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>cos</B>(const valarray&lt;Ty&gt;&amp; left);</PRE>
+
+<P>The template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the cosine of <CODE>left[I]</CODE>.</P>
+
+<H2><A NAME="cosh"><CODE>cosh</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>cosh</B>(const valarray&lt;Ty&gt;&amp; left);</PRE>
+
+<P>The template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the hyperbolic cosine of <CODE>left[I]</CODE>.</P>
+
+<H2><A NAME="exp"><CODE>exp</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>exp</B>(const valarray&lt;Ty&gt;&amp; left);</PRE>
+
+<P>The template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the exponential of <CODE>left[I]</CODE>.</P>
+
+<H2><A NAME="gslice"><CODE>gslice</CODE></A></H2>
+
+<PRE>class <B>gslice</B> {
+public:
+    <B><A HREF="#gslice::gslice">gslice</A></B>();
+    <B><A HREF="#gslice::gslice">gslice</A></B>(size_t off,
+        const valarray&lt;size_t&gt; lenarr,
+        const valarray&lt;size_t&gt; incarr);
+    size_t <B><A HREF="#gslice::start">start</A></B>() const;
+    const valarray&lt;size_t&gt; <B><A HREF="#gslice::size">size</A></B>() const;
+    const valarray&lt;size_t&gt; <B><A HREF="#gslice::stride">stride</A></B>() const;
+    };</PRE>
+
+<P>The class stores the parameters that characterize a
+<CODE><A HREF="#gslice_array">gslice_array</A></CODE> when an
+object of class <CODE>gslice</CODE> appears as a subscript
+for an object of class
+<CODE><A HREF="#valarray::operator[]">valarray</A>&lt;Ty&gt;</CODE>.
+The stored values include:</P>
+
+<UL>
+<LI>a <B>starting index</B></LI>
+
+<LI>a <B>length vector</B> of class <CODE>valarray&lt;size_t&gt;</CODE></LI>
+
+<LI>a <B>stride vector</B> of class <CODE>valarray&lt;size_t&gt;</CODE></LI>
+</UL>
+
+<P>The two vectors must have the same length.</P>
+
+<H3><A NAME="gslice::gslice"><CODE>gslice::gslice</CODE></A></H3>
+
+<PRE><B>gslice</B>();
+<B>gslice</B>(size_t off,
+    const valarray&lt;size_t&gt; lenarr,
+    const valarray&lt;size_t&gt; incarr);</PRE>
+
+<P>The default constructor stores zero for the starting index,
+and zero-length vectors for the length and stride vectors.
+The second constructor stores <CODE>off</CODE>
+for the starting index, <CODE>lenarr</CODE> for the length vector,
+and <CODE>incarr</CODE> for the stride vector.</P>
+
+<H3><A NAME="gslice::size"><CODE>gslice::size</CODE></A></H3>
+
+<PRE>const valarray&lt;size_t&gt; <B>size</B>() const;</PRE>
+
+<P>The member function returns the stored length vector.</P>
+
+<H3><A NAME="gslice::start"><CODE>gslice::start</CODE></A></H3>
+
+<PRE>size_t <B>start</B>() const;</PRE>
+
+<P>The member function returns the stored starting index.</P>
+
+<H3><A NAME="gslice::stride"><CODE>gslice::stride</CODE></A></H3>
+
+<PRE>const valarray&lt;size_t&gt; <B>stride</B>() const;</PRE>
+
+<P>The member function returns the stored stride vector.</P>
+
+<H2><A NAME="gslice_array"><CODE>gslice_array</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    class <B>gslice_array</B> {
+public:
+    typedef Ty <B><A NAME="gslice_array::value_type">value_type</A></B>;
+    void <B><A NAME="gslice_array::operator=">operator=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="#gslice_array::operator=">operator=</A></B>(const Ty&amp; right) const;
+    void <B><A NAME="gslice_array::operator*=">operator*=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="gslice_array::operator/=">operator/=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="gslice_array::operator%=">operator%=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="gslice_array::operator+=">operator+=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="gslice_array::operator-=">operator-=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="gslice_array::operator^=">operator^=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="gslice_array::operator&amp;=">operator&amp;=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="gslice_array::operator|=">operator|=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="gslice_array::operator&lt;&lt;=">operator&lt;&lt;=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="gslice_array::operator&gt;&gt;=">operator&gt;&gt;=</A></B>(const valarray&lt;Ty&gt; right) const;
+private:
+    void <B>gslice_array</B>();  // not defined
+    void <B>gslice_array</B>(
+        const gslice_array&amp;);  // not defined
+    gslice_array&amp; <B>operator=</B>(
+        const gslice_array&amp;);  // not defined
+    };</PRE>
+
+<P>The class describes an object that
+stores a reference to an object <CODE>va</CODE> of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>,
+along with an object <CODE>gs</CODE> of class
+<CODE><A HREF="#gslice">gslice</A></CODE> which
+describes the sequence of elements to select from the
+<CODE>valarray&lt;Ty&gt;</CODE> object.</P>
+
+<P>You construct a <CODE>gslice_array&lt;Ty&gt;</CODE> object only
+by writing an expression of the form
+<CODE><A HREF="#valarray::operator[]">va[gs]</A></CODE>.
+The member functions of class <CODE>gslice_array</CODE> then
+behave like the corresponding function signatures defined
+for <CODE>valarray&lt;Ty&gt;</CODE>, except that only the sequence
+of selected elements is affected.</P>
+
+<P>The sequence is determined as follows. For a length vector
+<CODE>gs.<A HREF="#gslice::size">size</A>()</CODE>
+of length <CODE>N</CODE>, construct the index
+vector <CODE>valarray&lt;size_t&gt; idx(0, N)</CODE>. This
+designates the initial element of the sequence, whose index
+<CODE>K</CODE> within <CODE>va</CODE> is given by the mapping:</P>
+
+<PRE>K = gs.start();
+for (size_t I = 0; I &lt; N; ++I)
+    K += idx[I] * gs.stride()[I];</PRE>
+
+<P>The successor to an index vector value is given by:</P>
+
+<PRE>for (size_t I = N; 0 &lt; I--; )
+    if (++idx[I] &lt; gs.size()[I])
+        break;
+    else
+        idx[I] = 0;</PRE>
+
+<P>For example:</P>
+
+<PRE>const size_t lv[] = {2, 3};
+const size_t dv[] = {7, 2};
+const valarray&lt;size_t&gt; len(lv, 2), str(dv, 2);
+// va[gslice(3, len, str)] selects elements with
+//   indices 3, 5, 7, 10, 12, 14</PRE>
+
+<H2><A NAME="indirect_array"><CODE>indirect_array</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    class <B>indirect_array</B> {
+public:
+    typedef Ty <B><A NAME="indirect_array::value_type">value_type</A></B>;
+    void <B><A NAME="indirect_array::operator=">operator=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="#indirect_array::operator=">operator=</A></B>(const Ty&amp; right) const;
+    void <B><A NAME="indirect_array::operator*=">operator*=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="indirect_array::operator/=">operator/=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="indirect_array::operator%=">operator%=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="indirect_array::operator+=">operator+=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="indirect_array::operator-=">operator-=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="indirect_array::operator^=">operator^=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="indirect_array::operator&amp;=">operator&amp;=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="indirect_array::operator|=">operator|=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="indirect_array::operator&lt;&lt;=">operator&lt;&lt;=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="indirect_array::operator&gt;&gt;=">operator&gt;&gt;=</A></B>(const valarray&lt;Ty&gt; right) const;
+private:
+private:
+    void <B>indirect_array</B>();  // not defined
+    void <B>indirect_array</B>(
+        const indirect_array&amp;);  // not defined
+    indirect_array&amp; <B>operator=</B>(
+        const indirect_array&amp;);  // not defined
+    };</PRE>
+
+<P>The class describes an object that
+stores a reference to an object <CODE>va</CODE> of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>,
+along with an object <CODE>xa</CODE> of class
+<CODE>valarray&lt;size_t&gt;</CODE> which
+describes the sequence of elements to select from the
+<CODE>valarray&lt;Ty&gt;</CODE> object.</P>
+
+<P>You construct an <CODE>indirect_array&lt;Ty&gt;</CODE> object only
+by writing an expression of the form
+<CODE><A HREF="#valarray::operator[]">va[xa]</A></CODE>.
+The member functions of class <CODE>indirect_array</CODE> then
+behave like the corresponding function signatures defined
+for <CODE>valarray&lt;Ty&gt;</CODE>, except that only the sequence
+of selected elements is affected.</P>
+
+<P>The sequence consists of
+<CODE>xa.<A HREF="#valarray::size">size</A>()</CODE>
+elements, where element <CODE>I</CODE> becomes the index
+<CODE>xa[I]</CODE> within <CODE>va</CODE>. For example:</P>
+
+<PRE>const size_t vi[] = {7, 5, 2, 3, 8};
+// va[valarray&lt;size_t&gt;(vi, 5)] selects elements with
+//   indices 7, 5, 2, 3, 8</PRE>
+
+<H2><A NAME="log"><CODE>log</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>log</B>(const valarray&lt;Ty&gt;&amp; left);</PRE>
+
+<P>The template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the natural logarithm of <CODE>left[I]</CODE>.</P>
+
+<H2><A NAME="log10"><CODE>log10</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>log10</B>(const valarray&lt;Ty&gt;&amp; left);</PRE>
+
+<P>The template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the base-10 logarithm of <CODE>left[I]</CODE>.</P>
+
+<H2><A NAME="mask_array"><CODE>mask_array</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    class <B>mask_array</B> {
+public:
+    typedef Ty <B><A NAME="mask_array::value_type">value_type</A></B>;
+    void <B><A NAME="mask_array::operator=">operator=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="#mask_array::operator=">operator=</A></B>(const Ty&amp; right) const;
+    void <B><A NAME="mask_array::operator*=">operator*=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="mask_array::operator/=">operator/=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="mask_array::operator%=">operator%=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="mask_array::operator+=">operator+=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="mask_array::operator-=">operator-=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="mask_array::operator^=">operator^=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="mask_array::operator&amp;=">operator&amp;=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="mask_array::operator|=">operator|=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="mask_array::operator&lt;&lt;=">operator&lt;&lt;=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="mask_array::operator&gt;&gt;=">operator&gt;&gt;=</A></B>(const valarray&lt;Ty&gt; right) const;
+private:
+    void <B>mask_array</B>();  // not defined
+    void <B>mask_array</B>(
+        const mask_array&amp;);  // not defined
+    gslice_array&amp; <B>operator=</B>(
+        const mask_array&amp;);  // not defined
+    };</PRE>
+
+<P>The class describes an object that
+stores a reference to an object <CODE>va</CODE> of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>,
+along with an object <CODE>ba</CODE> of class
+<CODE><A HREF="#valarray&lt;bool&gt;">valarray&lt;bool&gt;</A></CODE> which
+describes the sequence of elements to select from the
+<CODE>valarray&lt;Ty&gt;</CODE> object.</P>
+
+<P>You construct a <CODE>mask_array&lt;Ty&gt;</CODE> object only
+by writing an expression of the form
+<CODE><A HREF="#valarray::operator[]">va[ba]</A></CODE>.
+The member functions of class <CODE>mask_array</CODE> then
+behave like the corresponding function signatures defined
+for <CODE>valarray&lt;Ty&gt;</CODE>, except that only the sequence
+of selected elements is affected.</P>
+
+<P>The sequence consists of at most
+<CODE>ba.<A HREF="#valarray::size">size</A>()</CODE>
+elements. An element <CODE>J</CODE> is included only if <CODE>ba[J]</CODE>
+is true. Thus, there are as many elements in the sequence as there are
+true elements in <CODE>ba</CODE>.
+If <CODE>I</CODE> is the index of the lowest true element
+in <CODE>ba</CODE>, then <CODE>va[I]</CODE> is element zero in the
+selected sequence. For example:</P>
+
+<PRE>const bool vb[] = {false, false, true, true, false, true};
+// va[valarray&lt;bool&gt;(vb, 56] selects elements with
+//   indices 2, 3, 5</PRE>
+
+<H2><A NAME="operator!="><CODE>operator!=</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator!=</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator!=</B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator!=</B>(const Ty&amp; left,
+       const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray&lt;bool&gt;">valarray&lt;bool&gt;</A></CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] != right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] != right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left != right[I]</CODE>.</P>
+
+<H2><A NAME="operator%"><CODE>operator%</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator%</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator%</B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator%</B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] % right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] % right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left % right[I]</CODE>.</P>
+
+<H2><A NAME="operator&amp;"><CODE>operator&amp;</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator&amp;</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator&amp;</B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator&amp;</B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] &amp; right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] &amp; right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left &amp; right[I]</CODE>.</P>
+
+<H2><A NAME="operator&amp;&amp;"><CODE>operator&amp;&amp;</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&amp;&amp;</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&amp;&amp;</B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&amp;&amp;</B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;bool&gt;</CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] &amp;&amp; right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] &amp;&amp; right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left &amp;&amp; right[I]</CODE>.</P>
+
+<H2><A NAME="operator&gt;"><CODE>operator&gt;</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&gt;</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&gt;</B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&gt;</B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray&lt;bool&gt;">valarray&lt;bool&gt;</A></CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] &gt; right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] &gt; right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left &gt; right[I]</CODE>.</P>
+
+<H2><A NAME="operator&gt;&gt;"><CODE>operator&gt;&gt;</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator&gt;&gt;</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator&gt;&gt;</B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator&gt;&gt;</B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] &gt;&gt; right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] &gt;&gt; right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left &gt;&gt; right[I]</CODE>.</P>
+
+<H2><A NAME="operator&gt;="><CODE>operator&gt;=</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&gt;=</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&gt;=</B>(const valarray&lt;Ty&gt; left, const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&gt;=</B>(const Ty&amp; left, const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray&lt;bool&gt;">valarray&lt;bool&gt;</A></CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] &gt;= right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] &gt;= right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left &gt;= right[I]</CODE>.</P>
+
+<H2><A NAME="operator&lt;"><CODE>operator&lt;</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&lt;</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&lt;</B>(const valarray&lt;Ty&gt; left, const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&lt;</B>(const Ty&amp; left, const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray&lt;bool&gt;">valarray&lt;bool&gt;</A></CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] &lt; right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] &lt; right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left &lt; right[I]</CODE>.</P>
+
+<H2><A NAME="operator&lt;&lt;"><CODE>operator&lt;&lt;</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator&lt;&lt;</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator&lt;&lt;</B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator&lt;&lt;</B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] &lt;&lt; right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] &lt;&lt; right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left &lt;&lt; right[I]</CODE>.</P>
+
+<H2><A NAME="operator&lt;="><CODE>operator&lt;=</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&lt;=</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&lt;=</B>(const valarray&lt;Ty&gt; left, const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator&lt;=</B>(const Ty&amp; left, const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator retrrns an object of class
+<CODE><A HREF="#valarray&lt;bool&gt;">valarray&lt;bool&gt;</A></CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] &lt;= right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] &lt;= right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left &lt;= right[I]</CODE>.</P>
+
+<H2><A NAME="operator*"><CODE>operator*</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator*</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator*</B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator*</B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] * right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] * right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left * right[I]</CODE>.</P>
+
+<H2><A NAME="operator+"><CODE>operator+</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator+</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator+</B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator+</B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] + right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] + right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left + right[I]</CODE>.</P>
+
+<H2><A NAME="operator-"><CODE>operator-</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator-</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator-</B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator-</B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] - right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] - right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left - right[I]</CODE>.</P>
+
+<H2><A NAME="operator/"><CODE>operator/</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator/</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator/</B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator/</B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] / right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] / right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left / right[I]</CODE>.</P>
+
+<H2><A NAME="operator=="><CODE>operator==</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator==</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator==</B>(const valarray&lt;Ty&gt; left, const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator==</B>(const Ty&amp; left  const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray&lt;bool&gt;">valarray&lt;bool&gt;</A></CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] == right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] == right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left == right[I]</CODE>.</P>
+
+<H2><A NAME="operator^"><CODE>operator^</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator^</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator^</B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator^</B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] ^ right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] ^ right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left ^ right[I]</CODE>.</P>
+
+<H2><A NAME="operator|"><CODE>operator|</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator|</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator|</B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>operator|</B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] | right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] | right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left | right[I]</CODE>.</P>
+
+<H2><A NAME="operator||"><CODE>operator||</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator||</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator||</B>(const valarray&lt;Ty&gt; left,
+        const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;bool&gt; <B>operator||</B>(const Ty&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;bool&gt;</CODE>,
+each of whose
+elements <CODE>I</CODE> is <CODE>left[I] || right[I]</CODE>.
+The second template operator stores in element <CODE>I</CODE>
+<CODE>left[I] || right</CODE>.
+The third template operator stores in element <CODE>I</CODE>
+<CODE>left || right[I]</CODE>.</P>
+
+<H2><A NAME="pow"><CODE>pow</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>pow</B>(const valarray&lt;Ty&gt;&amp; left,
+        const valarray&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>pow</B>(const valarray&lt;Ty&gt; left, const Ty&amp; right);
+template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>pow</B>(const Ty&amp; left, const valarray&lt;Ty&gt;&amp; right);</PRE>
+
+<P>The first template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is <CODE>left[I]</CODE> raised to the
+<CODE>right[I]</CODE> power.
+The second template function stores in element <CODE>I</CODE>
+<CODE>left[I]</CODE> raised to the <CODE>right</CODE> power.
+The third template function stores in element <CODE>I</CODE>
+<CODE>left</CODE> raised to the <CODE>right[I]</CODE> power.</P>
+
+<H2><A NAME="sin"><CODE>sin</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>sin</B>(const valarray&lt;Ty&gt;&amp; left);</PRE>
+
+<P>The template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the sine of <CODE>left[I]</CODE>.</P>
+
+<H2><A NAME="sinh"><CODE>sinh</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>sinh</B>(const valarray&lt;Ty&gt;&amp; left);</PRE>
+
+<P>The template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the hyperbolic sine of <CODE>left[I]</CODE>.</P>
+
+<H2><A NAME="slice"><CODE>slice</CODE></A></H2>
+
+<PRE>class <B>slice</B> {
+public:
+    <B><A HREF="#slice::slice">slice</A></B>();
+    <B><A HREF="#slice::slice">slice</A></B>(size_t st, size_t len, size_t str);
+    size_t <B><A HREF="#slice::start">start</A></B>() const;
+    size_t <B><A HREF="#slice::size">size</A></B>() const;
+    size_t <B><A HREF="#slice::stride">stride</A></B>() const;
+    };</PRE>
+
+<P>The class stores the parameters that characterize a
+<CODE><A HREF="#slice_array">slice_array</A></CODE> when an
+object of class <CODE>slice</CODE> appears as a subscript
+for an object of class
+<CODE><A HREF="#valarray::operator[]">valarray</A>&lt;Ty&gt;</CODE>.
+The stored values include:</P>
+
+<UL>
+<LI>a <B>starting index</B></LI>
+
+<LI>a <B>total length</B></LI>
+
+<LI>a <B>stride</B>, or distance between subsequent indices</LI>
+</UL>
+
+<H3><A NAME="slice::slice"><CODE>slice::slice</CODE></A></H3>
+
+<PRE><B>slice</B>();
+<B>slice</B>(size_t st,
+        const valarray&lt;size_t&gt; len, const valarray&lt;size_t&gt; str);</PRE>
+
+<P>The default constructor stores zeros for the starting index,
+total length, and stride. The second constructor stores <CODE>st</CODE>
+for the starting index, <CODE>len</CODE> for the total length,
+and <CODE>str</CODE> for the stride.</P>
+
+<H3><A NAME="slice::size"><CODE>slice::size</CODE></A></H3>
+
+<PRE>size_t <B>size</B>() const;</PRE>
+
+<P>The member function returns the stored total length.</P>
+
+<H3><A NAME="slice::start"><CODE>slice::start</CODE></A></H3>
+
+<PRE>size_t <B>start</B>() const;</PRE>
+
+<P>The member function returns the stored starting index.</P>
+
+<H3><A NAME="slice::stride"><CODE>slice::stride</CODE></A></H3>
+
+<PRE>size_t <B>stride</B>() const;</PRE>
+
+<P>The member function returns the stored stride.</P>
+
+<H2><A NAME="slice_array"><CODE>slice_array</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    class <B>slice_array</B> {
+public:
+    typedef Ty <B><A NAME="slice_array::value_type">value_type</A></B>;
+    void <B><A NAME="slice_array::operator=">operator=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="#slice_array::operator=">operator=</A></B>(const Ty&amp; right) const;
+    void <B><A NAME="slice_array::operator*=">operator*=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="slice_array::operator/=">operator/=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="slice_array::operator%=">operator%=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="slice_array::operator+=">operator+=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="slice_array::operator-=">operator-=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="slice_array::operator^=">operator^=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="slice_array::operator&amp;=">operator&amp;=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="slice_array::operator|=">operator|=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="slice_array::operator&lt;&lt;=">operator&lt;&lt;=</A></B>(const valarray&lt;Ty&gt; right) const;
+    void <B><A NAME="slice_array::operator&gt;&gt;=">operator&gt;&gt;=</A></B>(const valarray&lt;Ty&gt; right) const;
+private:
+    void <B>slice_array</B>();  // not defined
+    void <B>slice_array</B>(
+        const slice_array&amp;);  // not defined
+    slice_array&amp; <B>operator=</B>(
+        const slice_array&amp;);  // not defined
+    };</PRE>
+
+<P>The class describes an object that
+stores a reference to an object <CODE>va</CODE> of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>,
+along with an object <CODE>sl</CODE> of class
+<CODE><A HREF="#slice">slice</A></CODE> which
+describes the sequence of elements to select from the
+<CODE>valarray&lt;Ty&gt;</CODE> object.</P>
+
+<P>You construct a <CODE>slice_array&lt;Ty&gt;</CODE> object only
+by writing an expression of the form
+<CODE><A HREF="#valarray::operator[]">va[sl]</A></CODE>.
+The member functions of class <CODE>slice_array</CODE> then
+behave like the corresponding function signatures defined
+for <CODE>valarray&lt;Ty&gt;</CODE>, except that only the sequence
+of selected elements is affected.</P>
+
+<P>The sequence consists of
+<CODE>sl.<A HREF="#slice::size">size</A>()</CODE>
+elements, where element <CODE>I</CODE> becomes the index
+<CODE>sl.<A HREF="#slice::start">start</A>() + I *
+sl.<A HREF="#slice::stride">stride</A>()</CODE> within <CODE>va</CODE>.
+For example:</P>
+
+<PRE>// va[slice(2, 5, 3)] selects elements with
+//   indices 2, 5, 8, 11, 14</PRE>
+
+<H2><A NAME="sqrt"><CODE>sqrt</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>sqrt</B>(const valarray&lt;Ty&gt;&amp; left);</PRE>
+
+<P>The template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the square root of <CODE>left[I]</CODE>.</P>
+
+<H2><A NAME="tan"><CODE>tan</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>tan</B>(const valarray&lt;Ty&gt;&amp; left);</PRE>
+
+<P>The template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the tangent of <CODE>left[I]</CODE>.</P>
+
+<H2><A NAME="tanh"><CODE>tanh</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    valarray&lt;Ty&gt; <B>tanh</B>(const valarray&lt;Ty&gt;&amp; left);</PRE>
+
+<P>The template function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, each of whose
+elements <CODE>I</CODE> is the hyperbolic tangent of <CODE>left[I]</CODE>.</P>
+
+<H2><A NAME="valarray"><CODE>valarray</CODE></A></H2>
+
+<HR>
+<P><B><CODE><A HREF="#valarray::apply">apply</A>
+&#183; <A HREF="#valarray::cshift">cshift</A>
+&#183; <A HREF="#valarray::max">max</A>
+&#183; <A HREF="#valarray::min">min</A>
+&#183; <A HREF="#valarray::operator!">operator!</A>
+&#183; <A HREF="#valarray::operator%=">operator%=</A>
+&#183; <A HREF="#valarray::operator&amp;=">operator&amp;=</A>
+&#183; <A HREF="#valarray::operator&gt;&gt;=">operator&gt;&gt;=</A>
+&#183; <A HREF="#valarray::operator&lt;&lt;=">operator&lt;&lt;=</A>
+&#183; <A HREF="#valarray::operator*=">operator*=</A>
+&#183; <A HREF="#valarray::operator+">operator+</A>
+&#183; <A HREF="#valarray::operator+=">operator+=</A>
+&#183; <A HREF="#valarray::operator-">operator-</A>
+&#183; <A HREF="#valarray::operator-=">operator-=</A>
+&#183; <A HREF="#valarray::operator/=">operator/=</A>
+&#183; <A HREF="#valarray::operator=">operator=</A>
+&#183; <A HREF="#valarray::operator[]">operator[]</A>
+&#183; <A HREF="#valarray::operator^=">operator^=</A>
+&#183; <A HREF="#valarray::operator|=">operator|=</A>
+&#183; <A HREF="#valarray::operator~">operator~</A>
+&#183; <A HREF="#valarray::resize">resize</A>
+&#183; <A HREF="#valarray::shift">shift</A>
+&#183; <A HREF="#valarray::size">size</A>
+&#183; <A HREF="#valarray::sum">sum</A>
+&#183; <A HREF="#valarray::valarray">valarray</A>
+&#183; <A HREF="#valarray::value_type">value_type</A>
+</CODE></B></P>
+<HR>
+
+<PRE>template&lt;class Ty&gt;
+    class <B>valarray</B> {
+public:
+    typedef Ty <B><A HREF="#valarray::value_type">value_type</A></B>;
+
+    <B><A HREF="#valarray::valarray">valarray</A></B>();
+    explicit <B><A HREF="#valarray::valarray">valarray</A></B>(size_t count);
+    <B><A HREF="#valarray::valarray">valarray</A></B>(const Ty&amp; val, size_t count));
+    <B><A HREF="#valarray::valarray">valarray</A></B>(const Ty *ptr, size_t count);
+    <B><A HREF="#valarray::valarray">valarray</A></B>(const slice_array&lt;Ty&gt;&amp; slicearr);
+    <B><A HREF="#valarray::valarray">valarray</A></B>(const gslice_array&lt;Ty&gt;&amp; gslicearr);
+    <B><A HREF="#valarray::valarray">valarray</A></B>(const mask_array&lt;Ty&gt;&amp; maskarr);
+    <B><A HREF="#valarray::valarray">valarray</A></B>(const indirect_array&lt;Ty&gt;&amp; indarr);
+
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator=">operator=</A></B>(const valarray&lt;Ty&gt;&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator=">operator=</A></B>(const Ty&amp; val);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator=">operator=</A></B>(const slice_array&lt;Ty&gt;&amp; slicearr);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator=">operator=</A></B>(const gslice_array&lt;Ty&gt;&amp; gslicearr);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator=">operator=</A></B>(const mask_array&lt;Ty&gt;&amp; maskarr);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator=">operator=</A></B>(const indirect_array&lt;Ty&gt;&amp; indarr);
+
+    Ty&amp; <B><A HREF="#valarray::operator[]">operator[]</A></B>(size_t off);
+    slice_array&lt;Ty&gt; <B><A HREF="#valarray::operator[]">operator[]</A></B>(slice slicearr);
+    gslice_array&lt;Ty&gt; <B><A HREF="#valarray::operator[]">operator[]</A></B>(const gslice&amp; gslicearr);
+    mask_array&lt;Ty&gt; <B><A HREF="#valarray::operator[]">operator[]</A></B>(const valarray&lt;bool&gt;&amp; boolarr);
+    indirect_array&lt;Ty&gt;
+        <B><A HREF="#valarray::operator[]">operator[]</A></B>(const valarray&lt;size_t&gt;&amp; indarr);
+
+    Ty <B><A HREF="#valarray::operator[]">operator[]</A></B>(size_t off) const;
+    valarray&lt;Ty&gt; <B><A HREF="#valarray::operator[]">operator[]</A></B>(slice slicearr) const;
+    valarray&lt;Ty&gt; <B><A HREF="#valarray::operator[]">operator[]</A></B>(const gslice&amp; gslicearr) const;
+    valarray&lt;Ty&gt;
+        <B><A HREF="#valarray::operator[]">operator[]</A></B>(const valarray&lt;bool&gt;&amp; boolarr) const;
+    valarray&lt;Ty&gt;
+        <B><A HREF="#valarray::operator[]">operator[]</A></B>(const valarray&lt;size_t&gt;&amp; indarr) const;
+
+    valarray&lt;Ty&gt; <B><A HREF="#valarray::operator+">operator+</A></B>() const;
+    valarray&lt;Ty&gt; <B><A HREF="#valarray::operator-">operator-</A></B>() const;
+    valarray&lt;Ty&gt; <B><A HREF="#valarray::operator~">operator~</A></B>() const;
+    valarray&lt;bool&gt; <B><A HREF="#valarray::operator!">operator!</A></B>() const;
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator*=">operator*=</A></B>(const valarray&lt;Ty&gt;&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator*=">operator*=</A></B>(const Ty&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator/=">operator/=</A></B>(const valarray&lt;Ty&gt;&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator/=">operator/=</A></B>(const Ty&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator%=">operator%=</A></B>(const valarray&lt;Ty&gt;&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator%=">operator%=</A></B>(const Ty&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator+=">operator+=</A></B>(const valarray&lt;Ty&gt;&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator+=">operator+=</A></B>(const Ty&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator-=">operator-=</A></B>(const valarray&lt;Ty&gt;&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator-=">operator-=</A></B>(const Ty&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator^=">operator^=</A></B>(const valarray&lt;Ty&gt;&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator^=">operator^=</A></B>(const Ty&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator&amp;=">operator&amp;=</A></B>(const valarray&lt;Ty&gt;&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator&amp;=">operator&amp;=</A></B>(const Ty&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator|=">operator|=</A></B>(const valarray&lt;Ty&gt;&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator|=">operator|=</A></B>(const Ty&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator&lt;&lt;=">operator&lt;&lt;=</A></B>(const valarray&lt;Ty&gt;&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator&lt;&lt;=">operator&lt;&lt;=</A></B>(const Ty&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator&gt;&gt;=">operator&gt;&gt;=</A></B>(const valarray&lt;Ty&gt;&amp; right);
+    valarray&lt;Ty&gt;&amp; <B><A HREF="#valarray::operator&gt;&gt;=">operator&gt;&gt;=</A></B>(const Ty&amp; right);
+
+    size_t <B><A HREF="#valarray::size">size</A></B>() const;
+    Ty <B><A HREF="#valarray::sum">sum</A></B>() const;
+    Ty <B><A HREF="#valarray::max">max</A></B>() const;
+    Ty <B><A HREF="#valarray::min">min</A></B>() const;
+    valarray&lt;Ty&gt; <B><A HREF="#valarray::shift">shift</A></B>(int count) const;
+    valarray&lt;Ty&gt; <B><A HREF="#valarray::cshift">cshift</A></B>(int count) const;
+    valarray&lt;Ty&gt; <B><A HREF="#valarray::apply">apply</A></B>(Ty func(Ty)) const;
+    valarray&lt;Ty&gt; <B><A HREF="#valarray::apply">apply</A></B>(Ty func(const Ty&amp;)) const;
+    void <B><A HREF="#valarray::resize">resize</A></B>(size_t newsize);
+    void <B><A HREF="#valarray::resize">resize</A></B>(size_t newsize, const Ty&amp; val);
+   };</PRE>
+
+<P>The template class describes an object that controls a
+varying-length sequence of elements of type <CODE>Ty</CODE>.
+The sequence is stored as an array of <CODE>Ty</CODE>.
+It differs from template class
+<CODE><A HREF="vector.html#vector">vector</A></CODE> in two important
+ways:</P>
+
+<UL>
+<LI>It defines numerous arithmetic operations between corresponding
+elements of <CODE>valarray&lt;Ty&gt;</CODE> objects of the same
+type and length, such as <CODE>xarr = cos(yarr) + sin(zarr)</CODE>.</LI>
+
+<LI>It defines a variety of interesting ways to subscript a
+<CODE>valarray&lt;Ty&gt;</CODE> object, by overloading
+<CODE><A HREF="#valarray::operator[]">operator[]</A></CODE>.</LI>
+</UL>
+
+<P>An object of class <CODE>Ty</CODE>:</P>
+
+<UL>
+<LI>has a public default constructor, destructor,
+copy constructor, and assignment operator -- with
+conventional behavior</LI>
+
+<LI>defines the arithmetic operators and math functions, as needed,
+that are defined for the floating-point
+types -- with conventional behavior</LI>
+</UL>
+
+<P>In particular, no subtle differences may exist between copy construction
+and default construction followed by assignment. And none of the operations
+on objects of class <CODE>Ty</CODE> may throw exceptions.</P>
+
+<H3><A NAME="valarray::apply"><CODE>valarray::apply</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt; <B>apply</B>(Ty func(Ty)) const;
+valarray&lt;Ty&gt; <B>apply</B>(Ty func(const Ty&amp;)) const;</PRE>
+
+<P>The member function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, of length
+<CODE><A HREF="#valarray::size">size</A>()</CODE>, each of whose
+elements <CODE>I</CODE> is <CODE>func((*this)[I])</CODE>.</P>
+
+<H3><A NAME="valarray::cshift"><CODE>valarray::cshift</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt; <B>cshift</B>(int count) const;</PRE>
+
+<P>The member function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, of length
+<CODE><A HREF="#valarray::size">size</A>()</CODE>, each of whose
+elements <CODE>I</CODE> is <CODE>(*this)[(I + count) % size()]</CODE>.
+Thus, if element zero is taken as the leftmost element, a positive
+value of <CODE>count</CODE> shifts the elements circularly left <CODE>count</CODE>
+places.</P>
+
+<H3><A NAME="valarray::max"><CODE>valarray::max</CODE></A></H3>
+
+<PRE>Ty <B>max</B>() const;</PRE>
+
+<P>The member function returns the value of the largest element
+of <CODE>*this</CODE>, which must have nonzero length.
+If the length is greater than one, it compares values
+by applying <CODE>operator&lt;</CODE>
+between pairs of corresponding elements of class <CODE>Ty</CODE>.</P>
+
+<H3><A NAME="valarray::min"><CODE>valarray::min</CODE></A></H3>
+
+<PRE>Ty <B>min</B>() const;</PRE>
+
+<P>The member function returns the value of the smallest element
+of <CODE>*this</CODE>, which must have nonzero length.
+If the length is greater than one, it compares values
+by applying <CODE>operator&lt;</CODE>
+between pairs of elements of class <CODE>Ty</CODE>.</P>
+
+<H3><A NAME="valarray::operator!"><CODE>valarray::operator!</CODE></A></H3>
+
+<PRE>valarray&lt;bool&gt; <B>operator!</B>() const;</PRE>
+
+<P>The member operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;bool&gt;</CODE>, of length
+<CODE><A HREF="#valarray::size">size</A>()</CODE>, each of whose
+elements <CODE>I</CODE> is <CODE>!(*this)</CODE>.</P>
+
+<H3><A NAME="valarray::operator%="><CODE>valarray::operator%=</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt;&amp; <B>operator%=</B>(const valarray&lt;Ty&gt;&amp; right);
+valarray&lt;Ty&gt;&amp; <B>operator%=</B>(const Ty&amp; right);</PRE>
+
+<P>The member operator replaces each element <CODE>I</CODE>
+of <CODE>*this</CODE> with <CODE>(*this)[I] % right[I]</CODE>.
+It returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="valarray::operator&amp;="><CODE>valarray::operator&amp;=</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt;&amp; <B>operator&amp;=</B>(const valarray&lt;Ty&gt;&amp; right);
+valarray&lt;Ty&gt;&amp; <B>operator&amp;=</B>(const Ty&amp; right);</PRE>
+
+<P>The member operator replaces each element <CODE>I</CODE>
+of <CODE>*this</CODE> with <CODE>(*this)[I] &amp; right[I]</CODE>.
+It returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="valarray::operator&gt;&gt;="><CODE>valarray::operator&gt;&gt;=</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt;&amp; <B>operator&gt;&gt;=</B>(const valarray&lt;Ty&gt;&amp; right);
+valarray&lt;Ty&gt;&amp; <B>operator&gt;&gt;=</B>(const Ty&amp; right);</PRE>
+
+<P>The member operator replaces each element <CODE>I</CODE>
+of <CODE>*this</CODE> with <CODE>(*this)[I] &gt;&gt; right[I]</CODE>.
+It returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="valarray::operator&lt;&lt;="><CODE>valarray::operator&lt;&lt;=</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt;&amp; <B>operator&lt;&lt;=</B>(const valarray&lt;Ty&gt;&amp; right);
+valarray&lt;Ty&gt;&amp; <B>operator&lt;&lt;=</B>(const Ty&amp; right);</PRE>
+
+<P>The member operator replaces each element <CODE>I</CODE>
+of <CODE>*this</CODE> with <CODE>(*this)[I] &lt;&lt; right[I]</CODE>.
+It returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="valarray::operator*="><CODE>valarray::operator*=</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt;&amp; <B>operator*=</B>(const valarray&lt;Ty&gt;&amp; right);
+valarray&lt;Ty&gt;&amp; <B>operator*=</B>(const Ty&amp; right);</PRE>
+
+<P>The member operator replaces each element <CODE>I</CODE>
+of <CODE>*this</CODE> with <CODE>(*this)[I] * right[I]</CODE>.
+It returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="valarray::operator+"><CODE>valarray::operator+</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt; <B>operator+</B>() const;</PRE>
+
+<P>The member operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, of length
+<CODE><A HREF="#valarray::size">size</A>()</CODE>, each of whose
+elements <CODE>I</CODE> is <CODE>(*this)[I]</CODE>.</P>
+
+<H3><A NAME="valarray::operator+="><CODE>valarray::operator+=</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt;&amp; <B>operator+=</B>(const valarray&lt;Ty&gt;&amp; right);
+valarray&lt;Ty&gt;&amp; <B>operator+=</B>(const Ty&amp; right);</PRE>
+
+<P>The member operator replaces each element <CODE>I</CODE>
+of <CODE>*this</CODE> with <CODE>(*this)[I] + right[I]</CODE>.
+It returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="valarray::operator-"><CODE>valarray::operator-</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt; <B>operator-</B>() const;</PRE>
+
+<P>The member operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, of length
+<CODE><A HREF="#valarray::size">size</A>()</CODE>, each of whose
+elements <CODE>I</CODE> is <CODE>-(*this)[I]</CODE>.</P>
+
+<H3><A NAME="valarray::operator-="><CODE>valarray::operator-=</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt;&amp; <B>operator-=</B>(const valarray&lt;Ty&gt;&amp; right);
+valarray&lt;Ty&gt;&amp; <B>operator-=</B>(const Ty&amp; right);</PRE>
+
+<P>The member operator replaces each element <CODE>I</CODE>
+of <CODE>*this</CODE> with <CODE>(*this)[I] - right[I]</CODE>.
+It returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="valarray::operator/="><CODE>valarray::operator/=</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt;&amp; <B>operator/=</B>(const valarray&lt;Ty&gt;&amp; right);
+valarray&lt;Ty&gt;&amp; <B>operator/=</B>(const Ty&amp; right);</PRE>
+
+<P>The member operator replaces each element <CODE>I</CODE>
+of <CODE>*this</CODE> with <CODE>(*this)[I] / right[I]</CODE>.
+It returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="valarray::operator="><CODE>valarray::operator=</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt;&amp; <B>operator=</B>(const valarray&lt;Ty&gt;&amp; right);
+    valarray&lt;Ty&gt;&amp; <B>operator=</B>(const Ty&amp; val);
+valarray&lt;Ty&gt;&amp; <B>operator=</B>(const slice_array&lt;Ty&gt;&amp; slicearr);
+valarray&lt;Ty&gt;&amp; <B>operator=</B>(const gslice_array&lt;Ty&gt;&amp; gslicearr);
+valarray&lt;Ty&gt;&amp; <B>operator=</B>(const mask_array&lt;Ty&gt;&amp; maskarr);
+valarray&lt;Ty&gt;&amp; <B>operator=</B>(const indirect_array&lt;Ty&gt;&amp; indarr);</PRE>
+
+<P>The first member operator replaces the controlled sequence with
+a copy of the sequence controlled by <CODE>right</CODE>.
+The second member operator replaces each element of the controlled
+sequence with a copy of <CODE>val</CODE>.
+The remaining member operators replace those elements of the controlled
+sequence selected by their arguments, which are generated only by
+<CODE><A HREF="#valarray::operator[]">operator[]</A></CODE>.
+If the value of a member in the replacement controlled sequence
+depends on a member in the initial controlled sequence, the result
+is undefined.</P>
+
+<P>If the length of the controlled sequence changes, the result is
+generally undefined. In this
+<A HREF="index.html#implementation">implementation</A>, however,
+the effect is merely to invalidate any pointers or references to
+elements in the controlled sequence.</P>
+
+<H3><A NAME="valarray::operator[]"><CODE>valarray::operator[]</CODE></A></H3>
+
+<PRE>Ty&amp; <B>operator[]</B>(size_t off);
+slice_array&lt;Ty&gt; <B>operator[]</B>(slice slicearr);
+gslice_array&lt;Ty&gt; <B>operator[]</B>(const gslice&amp; gslicearr);
+mask_array&lt;Ty&gt; <B>operator[]</B>(const valarray&lt;bool&gt;&amp; boolarr);
+indirect_array&lt;Ty&gt; <B>operator[]</B>(const valarray&lt;size_t&gt;&amp; indarr);
+
+Ty <B>operator[]</B>(size_t off) const;
+valarray&lt;Ty&gt; <B>operator[]</B>(slice slicearr) const;
+valarray&lt;Ty&gt; <B>operator[]</B>(const gslice&amp; gslicearr) const;
+valarray&lt;Ty&gt; <B>operator[]</B>(const valarray&lt;bool&gt;&amp; boolarr) const;
+valarray&lt;Ty&gt; <B>operator[]</B>(const valarray&lt;size_t&gt;&amp; indarr) const;</PRE>
+
+<P>The member operator is overloaded to provide several ways to select
+sequences of elements from among those controlled by <CODE>*this</CODE>.
+The first group of five member operators work in conjunction with
+various overloads of
+<CODE><A HREF="#valarray::operator=">operator=</A></CODE>
+(and other assigning operators) to allow selective replacement
+(slicing) of the controlled sequence. The selected elements must
+exist.</P>
+
+<P>The first member operator selects element <CODE>off</CODE>.
+For example:</P>
+
+<PRE>valarray&lt;char&gt; v0("abcdefghijklmnop", 16);
+v0[3] = 'A';
+// v0 == valarray&lt;char&gt;("abcAefghijklmnop", 16)</PRE>
+
+<P>The second member operator selects those elements of the controlled
+sequence designated by <CODE>slicearr</CODE>. For example:</P>
+
+<PRE>valarray&lt;char&gt; v0("abcdefghijklmnop", 16);
+valarray&lt;char&gt; v1("ABCDE", 5);
+v0[slice(2, 5, 3)] = v1;
+// v0 == valarray&lt;char&gt;("abAdeBghCjkDmnEp", 16)</PRE>
+
+<P>The third member operator selects those elements of the controlled
+sequence designated by <CODE>gslicearr</CODE>. For example:</P>
+
+<PRE>valarray&lt;char&gt; v0("abcdefghijklmnop", 16);
+valarray&lt;char&gt; v1("ABCDEF", 6);
+const size_t lv[] = {2, 3};
+const size_t dv[] = {7, 2};
+const valarray&lt;size_t&gt; len(lv, 2), str(dv, 2);
+v0[gslice(3, len, str)] = v1;
+// v0 == valarray&lt;char&gt;("abcAeBgCijDlEnFp", 16)</PRE>
+
+<P>The fourth member operator selects those elements of the controlled
+sequence designated by <CODE>boolarr</CODE>. For example:</P>
+
+<PRE>valarray&lt;char&gt; v0("abcdefghijklmnop", 16);
+valarray&lt;char&gt; v1("ABC", 3);
+const bool vb[] = {false, false, true, true, false, true};
+v0[valarray&lt;bool&gt;(vb, 6)] = v1;
+// v0 == valarray&lt;char&gt;("abABeCghijklmnop", 16)</PRE>
+
+<P>The fifth member operator selects those elements of the controlled
+sequence designated by <CODE>indarr</CODE>. For example:</P>
+
+<PRE>valarray&lt;char&gt; v0("abcdefghijklmnop", 16);
+valarray&lt;char&gt; v1("ABCDE", 5);
+const size_t vi[] = {7, 5, 2, 3, 8};
+v0[valarray&lt;size_t&gt;(vi, 5)] = v1;
+// v0 == valarray&lt;char&gt;("abCDeBgAEjklmnop", 16)</PRE>
+
+<P>The second group of five member operators each construct an object
+that represents the value(s) selected. The selected elements must
+exist.</P>
+
+<P>The sixth member operator returns the value of element <CODE>off</CODE>.
+For example:</P>
+
+<PRE>valarray&lt;char&gt; v0("abcdefghijklmnop", 16);
+// v0[3] returns 'd'</PRE>
+
+<P>The seventh member operator returns an object of class
+<CODE>valarray&lt;Ty&gt;</CODE> containing those elements of the controlled
+sequence designated by <CODE>slicearr</CODE>. For example:</P>
+
+<PRE>valarray&lt;char&gt; v0("abcdefghijklmnop", 16);
+// v0[slice(2, 5, 3)] returns valarray&lt;char&gt;("cfilo", 5)</PRE>
+
+<P>The eighth member operator selects those elements of the controlled
+sequence designated by <CODE>gslicearr</CODE>. For example:</P>
+
+<PRE>valarray&lt;char&gt; v0("abcdefghijklmnop", 16);
+const size_t lv[] = {2, 3};
+const size_t dv[] = {7, 2};
+const valarray&lt;size_t&gt; len(lv, 2), str(dv, 2);
+// v0[gslice(3, len, str)] returns
+//    valarray&lt;char&gt;("dfhkmo", 6)</PRE>
+
+<P>The ninth member operator selects those elements of the controlled
+sequence designated by <CODE>boolarr</CODE>. For example:</P>
+
+<PRE>valarray&lt;char&gt; v0("abcdefghijklmnop", 16);
+const bool vb[] = {false, false, true, true, false, true};
+// v0[valarray&lt;bool&gt;(vb, 6)] returns
+//    valarray&lt;char&gt;("cdf", 3)</PRE>
+
+<P>The last member operator selects those elements of the controlled
+sequence designated by <CODE>indarr</CODE>. For example:</P>
+
+<PRE>valarray&lt;char&gt; v0("abcdefghijklmnop", 16);
+const size_t vi[] = {7, 5, 2, 3, 8};
+// v0[valarray&lt;size_t&gt;(vi, 5)] returns
+//    valarray&lt;char&gt;("hfcdi", 5)</PRE>
+
+<H3><A NAME="valarray::operator^="><CODE>valarray::operator^=</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt;&amp; <B>operator^=</B>(const valarray&lt;Ty&gt;&amp; right);
+valarray&lt;Ty&gt;&amp; <B>operator^=</B>(const Ty&amp; right);</PRE>
+
+<P>The member operator replaces each element <CODE>I</CODE>
+of <CODE>*this</CODE> with <CODE>(*this)[I] ^ right[I]</CODE>.
+It returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="valarray::operator|="><CODE>valarray::operator|=</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt;&amp; <B>operator|=</B>(const valarray&lt;Ty&gt;&amp; right);
+valarray&lt;Ty&gt;&amp; <B>operator|=</B>(const Ty&amp; right);</PRE>
+
+<P>The member operator replaces each element <CODE>I</CODE>
+of <CODE>*this</CODE> with <CODE>(*this)[I] | right[I]</CODE>.
+It returns <CODE>*this</CODE>.</P>
+
+<H3><A NAME="valarray::operator~"><CODE>valarray::operator~</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt; <B>operator~</B>() const;</PRE>
+
+<P>The member operator returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, of length
+<CODE><A HREF="#valarray::size">size</A>()</CODE>, each of whose
+elements <CODE>I</CODE> is <CODE>~(*this)[I]</CODE>.</P>
+
+<H3><A NAME="valarray::resize"><CODE>valarray::resize</CODE></A></H3>
+
+<PRE>void <B>resize</B>(size_t newsize);
+void <B>resize</B>(size_t newsize, const Ty&amp; val);</PRE>
+
+<P>The member functions both ensure that
+<CODE><A HREF="#valarray::size">size</A>()</CODE> henceforth
+returns <CODE>newsize</CODE>. If it must make the controlled sequence longer,
+the first member function appends elements with value <CODE>Ty()</CODE>,
+while the second member function appends elements with value <CODE>val</CODE>.
+To make the controlled sequence shorter, both member functions remove and
+delete elements with subscripts in the range
+<CODE>[newsize, <A HREF="#valarray::size">size</A>())</CODE>.
+Any pointers or references to
+elements in the controlled sequence are invalidated.</P>
+
+<H3><A NAME="valarray::shift"><CODE>valarray::shift</CODE></A></H3>
+
+<PRE>valarray&lt;Ty&gt; <B>shift</B>(int count) const;</PRE>
+
+<P>The member function returns an object of class
+<CODE><A HREF="#valarray">valarray</A>&lt;Ty&gt;</CODE>, of length
+<CODE><A HREF="#valarray::size">size</A>()</CODE>, each of whose
+elements <CODE>I</CODE> is either <CODE>(*this)[I + count]</CODE>,
+if <CODE>I + count</CODE> is a valid subscript, or <CODE>Ty()</CODE>.
+Thus, if element zero is taken as the leftmost element, a positive
+value of <CODE>count</CODE> shifts the elements left <CODE>count</CODE>
+places, with zero fill.</P>
+
+<H3><A NAME="valarray::size"><CODE>valarray::size</CODE></A></H3>
+
+<PRE>size_t <B>size</B>() const;</PRE>
+
+<P>The member function returns the number of elements
+in the array.</P>
+
+<H3><A NAME="valarray::sum"><CODE>valarray::sum</CODE></A></H3>
+
+<PRE>Ty <B>sum</B>() const;</PRE>
+
+<P>The member function returns the sum of all elements of <CODE>*this</CODE>,
+which must have nonzero length. If the length is greater than one,
+it adds values to the sum by applying
+<CODE>operator+=</CODE> between pairs of elements
+of class <CODE>Ty</CODE>.</P>
+
+<H3><A NAME="valarray::valarray"><CODE>valarray::valarray</CODE></A></H3>
+
+<PRE><B>valarray</B>();
+explicit <B>valarray</B>(size_t count);
+<B>valarray</B>(const Ty&amp; val, size_t count));
+<B>valarray</B>(const Ty *ptr, size_t count);
+<B>valarray</B>(const slice_array&lt;Ty&gt;&amp; slicearr);
+<B>valarray</B>(const gslice_array&lt;Ty&gt;&amp; gslicearr);
+<B>valarray</B>(const mask_array&lt;Ty&gt;&amp; maskarr);
+<B>valarray</B>(const indirect_array&lt;Ty&gt;&amp; indarr);</PRE>
+
+<P>The first (default) constructor initializes the object to an empty
+array. The next three constructors each initialize the object to an array
+of <CODE>count</CODE> elements as follows:</P>
+
+<UL>
+<LI>For <CODE>explicit valarray(size_t count)</CODE>,
+each element is initialized with the default constructor.</LI>
+
+<LI>For <CODE>valarray(const Ty&amp; val, size_t count))</CODE>,
+each element is initialized with <CODE>val</CODE>.</LI>
+
+<LI>For <CODE>valarray(const Ty *ptr, size_t count)</CODE>,
+the element at position <CODE>I</CODE> is initialized with
+<CODE>p[I]</CODE>.</LI>
+</UL>
+
+<P>Each of the remaining constructors initializes the object to a
+<CODE>valarray&lt;Ty&gt;</CODE> object determined by the argument.</P>
+
+<H3><A NAME="valarray::value_type"><CODE>valarray::value_type</CODE></A></H3>
+
+<PRE>typedef Ty <B>value_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Ty</CODE>.</P>
+
+<H2><A NAME="valarray&lt;bool&gt;"><CODE>valarray&lt;bool&gt;</CODE></A></H2>
+
+<PRE>class <B>valarray</B>&lt;bool&gt;</PRE>
+
+<P>The type is a specialization of template class
+<CODE><A HREF="#valarray">valarray</A></CODE>, for elements
+of type <CODE>bool</CODE>.</P>
+
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1994-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

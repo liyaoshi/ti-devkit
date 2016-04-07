@@ -1,0 +1,113 @@
+<HTML><HEAD><TITLE>&lt;iomanip&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;iomanip&gt;"><CODE>&lt;iomanip&gt;</CODE></A></H1><HR>
+
+<P>Include the <A HREF="lib_cpp.html#iostreams">iostreams</A>
+standard header <B><CODE>&lt;iomanip&gt;</CODE></B>
+to define several <A HREF="ios.html#manipulators">manipulators</A>
+that each take a single argument. Each of these manipulators returns
+an unspecified type, called <CODE>T1</CODE> through <CODE>T6</CODE>
+here, that overloads both
+<CODE>basic_istream&lt;Elem,
+Tr&gt;::<A HREF="istream.html#basic_istream::operator&gt;&gt;">operator&gt;&gt;</A></CODE>
+and
+<CODE>basic_ostream&lt;Elem,
+Tr&gt;::<A HREF="ostream.html#basic_ostream::operator&lt;&lt;">operator&lt;&lt;</A></CODE>.
+Thus, you can write extractors and inserters such as:</P>
+
+<PRE>cin &gt;&gt; setbase(8);
+cout &lt;&lt; setbase(8);</PRE>
+
+<PRE>namespace std {
+T1 <B><A HREF="#resetiosflags">resetiosflags</A></B>(ios_base::fmtflags mask);
+T2 <B><A HREF="#setiosflags">setiosflags</A></B>(ios_base::fmtflags mask);
+T3 <B><A HREF="#setbase">setbase</A></B>(int base);
+template&lt;class Elem&gt;
+    T4 <B><A HREF="#setfill">setfill</A></B>(Elem ch);
+T5 <B><A HREF="#setprecision">setprecision</A></B>(streamsize prec);
+T6 <B><A HREF="#setw">setw</A></B>(streamsize wide);
+    };</PRE>
+
+<H2><A NAME="resetiosflags"><CODE>resetiosflags</CODE></A></H2>
+
+<PRE>T1 <B>resetiosflags</B>(ios_base::fmtflags mask);</PRE>
+
+<P>The manipulator returns an object that, when extracted from or
+inserted into the stream <CODE>str</CODE>, calls
+<CODE>str.<A HREF="ios.html#ios_base::setf">setf</A>(ios_base::
+<A HREF="ios.html#ios_base::fmtflags">fmtflags</A>(), mask)</CODE>,
+then returns <CODE>str</CODE>.</P>
+
+<H2><A NAME="setbase"><CODE>setbase</CODE></A></H2>
+
+<PRE>T3 <B>setbase</B>(int base);</PRE>
+
+<P>The manipulator returns an object that, when extracted from or
+inserted into the stream <CODE>str</CODE>, calls
+<CODE>str.<A HREF="ios.html#ios_base::setf">setf</A>(mask,
+ios_base::<A HREF="ios.html#ios_base::basefield">basefield</A>)</CODE>,
+then returns <CODE>str</CODE>. Here, <CODE>mask</CODE> is determined
+as follows:</P>
+
+<UL>
+<LI>If <CODE>base</CODE> is 8, then <CODE>mask</CODE> is
+<CODE>ios_base::<A HREF="ios.html#ios_base::oct">oct</A></CODE></LI>
+
+<LI>If <CODE>base</CODE> is 10, then <CODE>mask</CODE> is
+<CODE>ios_base::<A HREF="ios.html#ios_base::dec">dec</A></CODE></LI>
+
+<LI>If <CODE>base</CODE> is 16, then <CODE>mask</CODE> is
+<CODE>ios_base::<A HREF="ios.html#ios_base::hex">hex</A></CODE></LI>
+
+<LI>If <CODE>base</CODE> is any other value, then <CODE>mask</CODE> is
+<CODE>ios_base::<A HREF="ios.html#ios_base::fmtflags">fmtflags</A>(0)</CODE></LI>
+</UL>
+
+<H2><A NAME="setfill"><CODE>setfill</CODE></A></H2>
+
+<PRE>template&lt;class Elem&gt;
+    T4 <B>setfill</B>(Elem ch);</PRE>
+
+<P>The template manipulator returns an object that, when extracted from or
+inserted into the stream <CODE>str</CODE>, calls
+<CODE>str.<A HREF="ios.html#basic_ios::fill">fill</A>(ch)</CODE>,
+then returns <CODE>str</CODE>. The type <CODE>Elem</CODE> must be the
+same as the element type for the stream <CODE>str</CODE>.</P>
+
+<H2><A NAME="setiosflags"><CODE>setiosflags</CODE></A></H2>
+
+<PRE>T2 <B>setiosflags</B>(ios_base::fmtflags mask);</PRE>
+
+<P>The manipulator returns an object that, when extracted from or
+inserted into the stream <CODE>str</CODE>, calls
+<CODE>str.<A HREF="ios.html#ios_base::setf">setf</A>(mask)</CODE>,
+then returns <CODE>str</CODE>.</P>
+
+<H2><A NAME="setprecision"><CODE>setprecision</CODE></A></H2>
+
+<PRE>T5 <B>setprecision</B>(streamsize prec);</PRE>
+
+<P>The manipulator returns an object that, when extracted from or
+inserted into the stream <CODE>str</CODE>, calls
+<CODE>str.<A HREF="ios.html#ios_base::precision">precision</A>(prec)</CODE>,
+then returns <CODE>str</CODE>.</P>
+
+<H2><A NAME="setw"><CODE>setw</CODE></A></H2>
+
+<PRE>T6 <B>setw</B>(streamsize wide);</PRE>
+
+<P>The manipulator returns an object that, when extracted from or
+inserted into the stream <CODE>str</CODE>, calls
+<CODE>str.<A HREF="ios.html#ios_base::width">width</A>(wide)</CODE>,
+then returns <CODE>str</CODE>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1992-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

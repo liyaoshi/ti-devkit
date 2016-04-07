@@ -1,0 +1,151 @@
+<HTML><HEAD><TITLE>Dinkum C99 Library</TITLE></HEAD><BODY>
+
+<H1><A NAME="Dinkum C99 Library">Dinkum C99</A>
+<A NAME="Standard C Library">Library</A></H1>
+
+<P><B>
+Use of this Dinkum C99 Library
+Reference is subject to limitations. See the
+<A HREF="crit_pb.html">Copyright Notice</A>
+for detailed restrictions.
+</B></P><HR>
+
+<P>A C program can call on a large number of functions from the 
+<B>Dinkum C99 Library</B>, a conforming implementation of the
+<B>Standard C library</B>, as revised in 1999.
+These functions perform essential services 
+such as input and output. They also provide efficient implementations 
+of frequently used operations. Numerous macro and type definitions 
+accompany these functions to help you to make better use of the library.
+Most of the information about the Standard C library can be
+found in the descriptions of the
+<B><A HREF="lib_over.html#standard headers">standard headers</A></B>
+that declare or define library entities for the program.</P>
+
+<H2><A NAME="Table of Contents">Table of Contents</A></H2>
+
+<P><B><CODE><A HREF="assert.html">&lt;assert.h&gt;</A>
+&#183; <A HREF="complex2.html">&lt;complex.h&gt;</A>
+&#183; <A HREF="ctype.html">&lt;ctype.h&gt;</A>
+&#183; <A HREF="errno.html">&lt;errno.h&gt;</A>
+&#183; <A HREF="fenv.html">&lt;fenv.h&gt;</A>
+&#183; <A HREF="float.html">&lt;float.h&gt;</A>
+&#183; <A HREF="inttypes.html">&lt;inttypes.h&gt;</A>
+&#183; <A HREF="iso646.html">&lt;iso646.h&gt;</A>
+&#183; <A HREF="limits.html">&lt;limits.h&gt;</A>
+&#183; <A HREF="locale.html">&lt;locale.h&gt;</A>
+&#183; <A HREF="math.html">&lt;math.h&gt;</A>
+&#183; <A HREF="setjmp.html">&lt;setjmp.h&gt;</A>
+&#183; <A HREF="signal.html">&lt;signal.h&gt;</A>
+&#183; <A HREF="stdarg.html">&lt;stdarg.h&gt;</A>
+&#183; <A HREF="stdbool.html">&lt;stdbool.h&gt;</A>
+&#183; <A HREF="stddef.html">&lt;stddef.h&gt;</A>
+&#183; <A HREF="stdint.html">&lt;stdint.h&gt;</A>
+&#183; <A HREF="stdio.html">&lt;stdio.h&gt;</A>
+&#183; <A HREF="stdlib.html">&lt;stdlib.h&gt;</A>
+&#183; <A HREF="string.html">&lt;string.h&gt;</A>
+&#183; <A HREF="tgmath.html">&lt;tgmath.h&gt;</A>
+&#183; <A HREF="time.html">&lt;time.h&gt;</A>
+&#183; <A HREF="wchar.html">&lt;wchar.h&gt;</A>
+&#183; <A HREF="wctype.html">&lt;wctype.h&gt;</A>
+</CODE></B></P>
+
+<P><B><CODE><A HREF="lib_over.html">C Library Overview</A>
+&#183; <A HREF="charset.html">Characters</A>
+&#183; <A HREF="lib_file.html">Files and Streams</A>
+&#183; <A HREF="lib_prin.html">Formatted Output</A>
+&#183; <A HREF="lib_scan.html">Formatted Input</A>
+</CODE></B></P>
+<HR>
+
+<P>The standard headers are:</P>
+
+<P><CODE><A HREF="assert.html">&lt;assert.h&gt;</A></CODE>
+-- for enforcing assertions when functions execute<BR>
+<CODE><A HREF="complex2.html">&lt;complex.h&gt;</A></CODE>
+-- for performing complex arithmetic<BR>
+<CODE><A HREF="ctype.html">&lt;ctype.h&gt;</A></CODE>
+-- for classifying characters<BR>
+<CODE><A HREF="errno.html">&lt;errno.h&gt;</A></CODE>
+-- for testing error codes reported by library functions<BR>
+<CODE><A HREF="fenv.html">&lt;fenv.h&gt;</A></CODE>
+-- for controlling IEEE-style floating-point arithmetic<BR>
+<CODE><A HREF="float.html">&lt;float.h&gt;</A></CODE>
+-- for testing floating-point type properties<BR>
+<CODE><A HREF="inttypes.html">&lt;inttypes.h&gt;</A></CODE>
+-- for converting various integer types<BR>
+<CODE><A HREF="iso646.html">&lt;iso646.h&gt;</A></CODE>
+-- for programming in ISO 646 variant character sets<BR>
+<CODE><A HREF="limits.html">&lt;limits.h&gt;</A></CODE>
+-- for testing integer type properties<BR>
+<CODE><A HREF="locale.html">&lt;locale.h&gt;</A></CODE>
+-- for adapting to different cultural conventions<BR>
+<CODE><A HREF="math.html">&lt;math.h&gt;</A></CODE>
+-- for computing common mathematical functions<BR>
+<CODE><A HREF="setjmp.html">&lt;setjmp.h&gt;</A></CODE>
+-- for executing nonlocal <I>goto</I> statements<BR>
+<CODE><A HREF="signal.html">&lt;signal.h&gt;</A></CODE>
+-- for controlling various exceptional conditions<BR>
+<CODE><A HREF="stdarg.html">&lt;stdarg.h&gt;</A></CODE>
+-- for accessing a varying number of arguments<BR>
+<CODE><A HREF="stdbool.html">&lt;stdbool.h&gt;</A></CODE>
+-- for defining a convenient Boolean type name and constants<BR>
+<CODE><A HREF="stddef.html">&lt;stddef.h&gt;</A></CODE>
+-- for defining several useful types and macros<BR>
+<CODE><A HREF="stdint.html">&lt;stdint.h&gt;</A></CODE>
+-- for defining various integer types with size constraints<BR>
+<CODE><A HREF="stdio.html">&lt;stdio.h&gt;</A></CODE>
+-- for performing input and output<BR>
+<CODE><A HREF="stdlib.html">&lt;stdlib.h&gt;</A></CODE>
+-- for performing a variety of operations<BR>
+<CODE><A HREF="string.html">&lt;string.h&gt;</A></CODE>
+-- for manipulating several kinds of strings<BR>
+<CODE><A HREF="tgmath.html">&lt;tgmath.h&gt;</A></CODE>
+-- for declaring various type-generic math functions<BR>
+<CODE><A HREF="time.html">&lt;time.h&gt;</A></CODE>
+-- for converting between various time and date formats<BR>
+<CODE><A HREF="wchar.html">&lt;wchar.h&gt;</A></CODE>
+-- for manipulating
+<A HREF="lib_file.html#wide stream">wide streams</A> and
+several kinds of strings<BR>
+<CODE><A HREF="wctype.html">&lt;wctype.h&gt;</A></CODE>
+-- for classifying
+<A HREF="charset.html#Wide-Character Encoding">wide characters</A></P>
+
+<P>Other information on the Standard C library includes:</P>
+
+<P><B><A HREF="lib_over.html">C Library Overview</A></B> --
+how to use the library, including what happens at
+<A HREF="lib_over.html#program startup">program startup</A> and at
+<A HREF="lib_over.html#program termination">program termination</A>
+<BR>
+<B><A HREF="charset.html">Characters</A></B> --
+how to write
+<A HREF="charset.html#character constant">character constants</A> and
+<A HREF="charset.html#string literal">string literals</A>, and how to
+convert between
+<A HREF="charset.html#Multibyte Characters">multibyte characters</A> and
+<A HREF="charset.html#Wide-Character Encoding">wide characters</A>
+<BR>
+<B><A HREF="lib_file.html">Files and Streams</A></B> -- 
+how to read and write data between the program and
+<A HREF="lib_file.html#files">files</A>
+<BR>
+<B><A HREF="lib_prin.html">Formatted Output</A></B> -- 
+how to generate text under control of a
+<A HREF="lib_prin.html#format string">format string</A>
+<BR>
+<B><A HREF="lib_scan.html">Formatted Input</A></B> -- 
+how to scan and parse text under control of a
+<A HREF="lib_prin.html#format string">format string</A>
+</P>
+
+<HR>
+<P>See also the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pb.html">Copyright</A> &#169; 1989-2002
+by P.J. Plauger and Jim Brodie. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

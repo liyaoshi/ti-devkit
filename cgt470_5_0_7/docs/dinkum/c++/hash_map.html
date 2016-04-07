@@ -1,0 +1,1399 @@
+<HTML><HEAD><TITLE>&lt;hash_map&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;hash_map&gt;"><CODE>&lt;hash_map&gt;</CODE></A></H1><HR>
+
+<P>Include the <A HREF="index.html#STL">STL</A>
+standard header <B><CODE>&lt;hash_map&gt;</CODE></B> to define the
+<A HREF="lib_cont.html#Containers">container</A>
+template classes <CODE>hash_map</CODE> and
+<CODE>hash_multimap</CODE>, and their supporting
+templates.</P>
+
+<PRE>namespace std {
+template&lt;class Key, class Pr&gt;
+    class <B><A HREF="#hash_compare">hash_compare</A></B>;
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    class <B><A HREF="#hash_map">hash_map</A></B>;
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    class <B><A HREF="#hash_multimap">hash_multimap</A></B>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B><A HREF="#operator==">operator==</A></B>(
+        const hash_map&lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_map&lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B><A HREF="#operator==">operator==</A></B>(
+        const hash_multimap&lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_multimap&lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B><A HREF="#operator!=">operator!=</A></B>(
+        const hash_map&lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_map&lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B><A HREF="#operator!=">operator!=</A></B>(
+        const hash_multimap&lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_multimap&lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B><A HREF="#operator&lt;">operator&lt;</A></B>(
+        const hash_map&lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_map&lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B><A HREF="#operator&lt;">operator&lt;</A></B>(
+        const hash_multimap&lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_multimap&lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B><A HREF="#operator&gt;">operator&gt;</A></B>(
+        const hash_map&lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_map&lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B><A HREF="#operator&gt;">operator&gt;</A></B>(
+        const hash_multimap&lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_multimap&lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B><A HREF="#operator&lt;=">operator&lt;=</A></B>(
+        const hash_map&lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_map&lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B><A HREF="#operator&lt;=">operator&lt;=</A></B>(
+        const hash_multimap&lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_multimap&lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B><A HREF="#operator&gt;=">operator&gt;=</A></B>(
+        const hash_map&lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_map&lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B><A HREF="#operator&gt;=">operator&gt;=</A></B>(
+        const hash_multimap&lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_multimap&lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    void <B><A HREF="#swap">swap</A></B>(
+        hash_map&lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        hash_map&lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    void <B><A HREF="#swap">swap</A></B>(
+        hash_multimap&lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        hash_multimap&lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+    };</PRE>
+
+<H2><A NAME="hash_compare"><CODE>hash_compare</CODE></A></H2>
+
+<PRE>template&lt;class Key,
+    class Pr = less&lt;Key&gt; &gt;
+    class <B>hash_compare</B> {
+    Pr <B>comp</B>;
+public:
+    const size_t <B>bucket_size</B> = 4;
+    const size_t <B>min_buckets</B> = 8;
+    <B>hash_compare</B>();
+    <B>hash_compare</B>(Pr pred);
+    size_t <B>operator()</B>(const Key&amp; Key) const;
+    bool <B>operator()</B>(const Key&amp; keyval1,
+        const Key&amp; keyval2) const;
+    };</PRE>
+
+<P>The template class describes an object that can be used by
+any of the containers
+<CODE><A HREF="#hash_map">hash_map</A></CODE>,
+<CODE><A HREF="#hash_multimap">hash_multimap</A></CODE>,
+<CODE><A HREF="hash_set.html#hash_set">hash_set</A></CODE>, or
+<CODE><A HREF="hash_set.html#hash_multiset">hash_multiset</A></CODE> as a
+<B><A NAME="hash traits">hash traits</A></B> object
+to order the sequence it controls.
+Each of these stores hash traits object of type <CODE>Tr</CODE>
+(a template parameter). You can derive a class from a specialization of
+<CODE>hash_compare</CODE>, to selectively override certain functions
+and objects. Or you can supply your own version of this class,
+provided you meet certain minimum requirements.
+Specifically, for an object <CODE>hash_comp</CODE> of type
+<CODE>hash_compare&lt;Key, Pr&gt;</CODE>,
+the following behavior is required by the above containers:</P>
+
+<UL>
+<LI>For all values <CODE>keyval</CODE> of type <CODE>Key</CODE>,
+the call <CODE>hash_comp(keyval)</CODE> serves as a
+<B><A NAME="hash function">hash function</A></B>,
+which yields a distribution of values of type <CODE>size_t</CODE>.
+The function supplied by <CODE>hash_compare</CODE> simply
+returns <CODE>keyval</CODE>.</LI>
+
+<LI>For any value <CODE>keyval1</CODE> of
+type <CODE>Key</CODE> that precedes <CODE>keyval2</CODE> in the sequence
+and has the same hash value (value returned by the hash function),
+<CODE>hash_comp(keyval2, keyval1)</CODE> is false. The function must impose a
+<A HREF="lib_stl.html#strict weak ordering">strict weak ordering</A>
+on values of type <CODE>Key</CODE>.
+The function supplied by <CODE>hash_compare</CODE> returns
+<CODE>comp(keyval1, keyval2)</CODE> where <CODE>comp</CODE> is a stored
+object of type <CODE>Pr</CODE> that you can specify when you construct
+the object <CODE>hash_comp</CODE>. For the default <CODE>Pr</CODE> parameter type
+<CODE><A HREF="functio2.html#less">less</A>&lt;Key&gt;</CODE>,
+sort keys never decrease in value.</LI>
+
+<LI>The integer constant
+<CODE><A NAME="hash_compare::bucket_size">bucket_size</A></CODE>
+specifies the mean number of elements per ``bucket'' (hash-table
+entry) that the container should endeavor not to exceed. It must
+be greater than zero. The value supplied by
+<CODE>hash_compare</CODE> is 4.</LI>
+
+<LI>The integer constant
+<CODE><A NAME="hash_compare::min_buckets">min_buckets</A></CODE>
+specifies the minimum number of buckets to maintain in the hash table.
+It must be a power of two and greater than zero. The value supplied by
+<CODE>hash_compare</CODE> is 8.</LI>
+</UL>
+
+<H2><A NAME="hash_map"><CODE>hash_map</CODE></A></H2>
+
+<HR>
+<P><B><CODE><A HREF="#hash_map::allocator_type">allocator_type</A>
+&#183; <A HREF="#hash_map::begin">begin</A>
+&#183; <A HREF="#hash_map::clear">clear</A>
+&#183; <A HREF="#hash_map::const_iterator">const_iterator</A>
+&#183; <A HREF="#hash_map::const_pointer">const_pointer</A>
+&#183; <A HREF="#hash_map::const_reference">const_reference</A>
+&#183; <A HREF="#hash_map::const_reverse_iterator">const_reverse_iterator</A>
+&#183; <A HREF="#hash_map::count">count</A>
+&#183; <A HREF="#hash_map::difference_type">difference_type</A>
+&#183; <A HREF="#hash_map::empty">empty</A>
+&#183; <A HREF="#hash_map::end">end</A>
+&#183; <A HREF="#hash_map::equal_range">equal_range</A>
+&#183; <A HREF="#hash_map::erase">erase</A>
+&#183; <A HREF="#hash_map::find">find</A>
+&#183; <A HREF="#hash_map::get_allocator">get_allocator</A>
+&#183; <A HREF="#hash_map::insert">insert</A>
+&#183; <A HREF="#hash_map::iterator">iterator</A>
+&#183; <A HREF="#hash_map::key_comp">key_comp</A>
+&#183; <A HREF="#hash_map::key_compare">key_compare</A>
+&#183; <A HREF="#hash_map::key_type">key_type</A>
+&#183; <A HREF="#hash_map::lower_bound">lower_bound</A>
+&#183; <A HREF="#hash_map::hash_map">hash_map</A>
+&#183; <A HREF="#hash_map::mapped_type">mapped_type</A>
+&#183; <A HREF="#hash_map::max_size">max_size</A>
+&#183; <A HREF="#hash_map::operator[]">operator[]</A>
+&#183; <A HREF="#hash_map::pointer">pointer</A>
+&#183; <A HREF="#hash_map::rbegin">rbegin</A>
+&#183; <A HREF="#hash_map::reference">reference</A>
+&#183; <A HREF="#hash_map::rend">rend</A>
+&#183; <A HREF="#hash_map::reverse_iterator">reverse_iterator</A>
+&#183; <A HREF="#hash_map::size">size</A>
+&#183; <A HREF="#hash_map::size_type">size_type</A>
+&#183; <A HREF="#hash_map::swap">swap</A>
+&#183; <A HREF="#hash_map::upper_bound">upper_bound</A>
+&#183; <A HREF="#hash_map::value_comp">value_comp</A>
+&#183; <A HREF="#hash_map::value_compare">value_compare</A>
+&#183; <A HREF="#hash_map::value_type">value_type</A>
+</CODE></B></P>
+<HR>
+
+<PRE>template&lt;class Key, class Ty,
+    class Tr = hash_compare&lt;Key, less&lt;Key&gt; &gt;,
+    class Alloc = allocator&lt;pair&lt;const Key, Ty&gt; &gt; &gt;
+    class <B>hash_map</B> {
+public:
+    typedef Key <B><A HREF="#hash_map::key_type">key_type</A></B>;
+    typedef Ty <B><A HREF="#hash_map::mapped_type">mapped_type</A></B>;
+    typedef Tr <B><A HREF="#hash_map::key_compare">key_compare</A></B>;
+    typedef Alloc <B><A HREF="#hash_map::allocator_type">allocator_type</A></B>;
+    typedef pair&lt;const Key, Ty&gt; <B><A HREF="#hash_map::value_type">value_type</A></B>;
+    class <B><A HREF="#hash_map::value_compare">value_compare</A></B>;
+    typedef Alloc::pointer <B><A HREF="#hash_map::pointer">pointer</A></B>;
+    typedef Alloc::const_pointer <B><A HREF="#hash_map::const_pointer">const_pointer</A></B>;
+    typedef Alloc::reference <B><A HREF="#hash_map::reference">reference</A></B>;
+    typedef Alloc::const_reference <B><A HREF="#hash_map::const_reference">const_reference</A></B>;
+    typedef T0 <B><A HREF="#hash_map::iterator">iterator</A></B>;
+    typedef T1 <B><A HREF="#hash_map::const_iterator">const_iterator</A></B>;
+    typedef T2 <B><A HREF="#hash_map::size_type">size_type</A></B>;
+    typedef T3 <B><A HREF="#hash_map::difference_type">difference_type</A></B>;
+    typedef reverse_iterator&lt;const_iterator&gt;
+        <B><A HREF="#hash_map::const_reverse_iterator">const_reverse_iterator</A></B>;
+    typedef reverse_iterator&lt;iterator&gt; <B><A HREF="#hash_map::reverse_iterator">reverse_iterator</A></B>;
+    <B><A HREF="#hash_map::hash_map">hash_map</A></B>();
+    explicit <B><A HREF="#hash_map::hash_map">hash_map</A></B>(const Tr&amp; traits);
+    <B><A HREF="#hash_map::hash_map">hash_map</A></B>(const Tr&amp; traits, const Alloc&amp; al);
+    <B><A HREF="#hash_map::hash_map">hash_map</A></B>(const hash_map&amp; right);
+    template&lt;class InIt&gt;
+        <B><A HREF="#hash_map::hash_map">hash_map</A></B>(InIt first, InIt last);
+    template&lt;class InIt&gt;
+        <B><A HREF="#hash_map::hash_map">hash_map</A></B>(InIt first, InIt last,
+            const Tr&amp; traits);
+    template&lt;class InIt&gt;
+        <B><A HREF="#hash_map::hash_map">hash_map</A></B>(InIt first, InIt last,
+            const Tr&amp; traits, const Alloc&amp; al);
+    iterator <B><A HREF="#hash_map::begin">begin</A></B>();
+    const_iterator <B><A HREF="#hash_map::begin">begin</A></B>() const;
+    iterator <B><A HREF="#hash_map::end">end</A></B>();
+    const_iterator <B><A HREF="#hash_map::end">end</A></B>() const;
+    reverse_iterator <B><A HREF="#hash_map::rbegin">rbegin</A></B>();
+    const_reverse_iterator <B><A HREF="#hash_map::rbegin">rbegin</A></B>() const;
+    reverse_iterator <B><A HREF="#hash_map::rend">rend</A></B>();
+    const_reverse_iterator <B><A HREF="#hash_map::rend">rend</A></B>() const;
+    size_type <B><A HREF="#hash_map::size">size</A></B>() const;
+    size_type <B><A HREF="#hash_map::max_size">max_size</A></B>() const;
+    bool <B><A HREF="#hash_map::empty">empty</A></B>() const;
+    Alloc <B><A HREF="#hash_map::get_allocator">get_allocator</A></B>() const;
+    mapped_type <B><A HREF="#hash_map::operator[]">operator[]</A></B>(const Key&amp; keyval);
+    pair&lt;iterator, bool&gt; <B><A HREF="#hash_map::insert">insert</A></B>(const value_type&amp; val);
+    iterator <B><A HREF="#hash_map::insert">insert</A></B>(iterator where, const value_type&amp; val);
+    template&lt;class InIt&gt;
+        void <B><A HREF="#hash_map::insert">insert</A></B>(InIt first, InIt last);
+    iterator <B><A HREF="#hash_map::erase">erase</A></B>(iterator where);
+    iterator <B><A HREF="#hash_map::erase">erase</A></B>(iterator first, iterator last);
+    size_type <B><A HREF="#hash_map::erase">erase</A></B>(const Key&amp; keyval);
+    void <B><A HREF="#hash_map::clear">clear</A></B>();
+    void <B><A HREF="#hash_map::swap">swap</A></B>(hash_map&amp; right);
+    key_compare <B><A HREF="#hash_map::key_comp">key_comp</A></B>() const;
+    value_compare <B><A HREF="#hash_map::value_comp">value_comp</A></B>() const;
+    iterator <B><A HREF="#hash_map::find">find</A></B>(const Key&amp; keyval);
+    const_iterator <B><A HREF="#hash_map::find">find</A></B>(const Key&amp; keyval) const;
+    size_type <B><A HREF="#hash_map::count">count</A></B>(const Key&amp; keyval) const;
+    iterator <B><A HREF="#hash_map::lower_bound">lower_bound</A></B>(const Key&amp; keyval);
+    const_iterator <B><A HREF="#hash_map::lower_bound">lower_bound</A></B>(const Key&amp; keyval) const;
+    iterator <B><A HREF="#hash_map::upper_bound">upper_bound</A></B>(const Key&amp; keyval);
+    const_iterator <B><A HREF="#hash_map::upper_bound">upper_bound</A></B>(const Key&amp; keyval) const;
+    pair&lt;iterator, iterator&gt; <B><A HREF="#hash_map::equal_range">equal_range</A></B>(const Key&amp; keyval);
+    pair&lt;const_iterator, const_iterator&gt;
+        <B><A HREF="#hash_map::equal_range">equal_range</A></B>(const Key&amp; keyval) const;
+    };</PRE>
+
+<P>The template class describes an object that controls a
+varying-length sequence of elements of type
+<CODE><A HREF="utility.html#pair">pair</A>&lt;const Key, Ty&gt;</CODE>.
+The sequence is
+<A HREF="lib_stl.html#sequence ordering">ordered by</A> the
+<A HREF="#hash traits">hash traits</A> object
+<CODE>Tr</CODE>, which includes both a two-operand function for imposing a
+<A HREF="lib_stl.html#strict weak ordering">strict weak ordering</A>
+and a one-operand <A HREF="#hash function">hash function</A>.
+The first element of each pair is the <B>sort key</B> and the
+second is its associated <B>value</B>.
+The sequence is represented in a way that permits lookup, insertion,
+and removal of an arbitrary element with a number of operations that can be
+independent of the number of elements in the sequence (constant time).
+In the worst case, the number of operations is
+proportional to the number of elements
+in the sequence (linear time). Moreover, inserting an element
+invalidates no iterators, and removing an element
+invalidates only those iterators which point at the removed element.</P>
+
+<P>The object orders the sequence it controls by calling a stored
+<A HREF="#hash traits">hash traits</A> object of type <CODE>Tr</CODE>.
+You access this stored object by calling the member function
+<CODE><A HREF="#hash_map::key_comp">key_comp</A>()</CODE>.
+Such a traits object must behave the same as an object of class
+<CODE><A HREF="#hash_compare">hash_compare</A>&lt;Key, Pr&gt;</CODE>.
+Specifically, for all values <CODE>keyval</CODE> of type <CODE>Key</CODE>,
+the call <CODE>key_comp()(keyval)</CODE> yields a distribution
+of values of type <CODE>size_t</CODE>.
+Moreover, class <CODE>Pr</CODE> imposes a
+<A HREF="lib_stl.html#strict weak ordering">strict weak ordering</A>
+on sort keys of type <CODE>Key</CODE>.
+For any element <CODE>X</CODE> that precedes
+<CODE>Y</CODE> in the sequence and has the same hash value,
+<CODE>key_comp()(Y.<A HREF="utility.html#pair::first">first</A>,
+X.first)</CODE> is false. (For the default function object
+<CODE><A HREF="functio2.html#less">less</A>&lt;Key&gt;</CODE>,
+sort keys never decrease in value.)
+Unlike template class <CODE><A HREF="#hash_multimap">hash_multimap</A></CODE>,
+an object of template class <CODE>hash_map</CODE> ensures that
+<CODE>key_comp()(X.first, Y.first)</CODE> is true.
+(Each key is unique.)</P>
+
+<P>The actual order of elements in the controlled sequence depends on the
+hash function, the ordering function, and the current size of the hash
+table stored in the container object. You cannot determine the current size
+of the hash table, so you cannot in general predict the order of elements
+in the controlled sequence.</P>
+
+<P>The object allocates and frees storage for the sequence it controls
+through a stored <A HREF="memory.html#allocator object">allocator object</A>
+of class <CODE>Alloc</CODE>. Such an allocator object must have
+the same external interface as an object of template class
+<A HREF="memory.html#allocator"><CODE>allocator</CODE></A>.
+Note that the stored allocator object is <I>not</I> copied when the container
+object is assigned.</P>
+
+<H3><CODE><A NAME="hash_map::allocator_type">hash_map::allocator_type</A></CODE></H3>
+
+<PRE>typedef Alloc <B>allocator_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Alloc</CODE>.</P>
+
+<H3><CODE><A NAME="hash_map::begin">hash_map::begin</A></CODE></H3>
+
+<PRE>const_iterator <B>begin</B>() const;
+iterator <B>begin</B>();</PRE>
+
+<P>The member function returns a bidirectional iterator that points at
+the first element of the sequence (or just beyond the end of an empty
+sequence).</P>
+
+<H3><CODE><A NAME="hash_map::clear">hash_map::clear</A></CODE></H3>
+
+<PRE>void <B>clear</B>();</PRE>
+
+<P>The member function calls
+<CODE><A HREF="#hash_map::erase">erase</A>(
+<A HREF="#hash_map::begin">begin</A>(),
+<A HREF="#hash_map::end">end</A>())</CODE>.</P>
+
+<H3><CODE><A NAME="hash_map::const_iterator">hash_map::const_iterator</A></CODE></H3>
+
+<PRE>typedef T1 <B>const_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant
+bidirectional iterator for the controlled sequence.
+It is described here as a
+synonym for the implementation-defined type <CODE>T1</CODE>.</P>
+
+<H3><CODE><A NAME="hash_map::const_pointer">hash_map::const_pointer</A></CODE></H3>
+
+<PRE>typedef Alloc::const_pointer <B>const_pointer</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant pointer
+to an element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_map::const_reference">hash_map::const_reference</A></CODE></H3>
+
+<PRE>typedef Alloc::const_reference <B>const_reference</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant reference
+to an element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_map::const_reverse_iterator">hash_map::const_reverse_iterator</A></CODE></H3>
+
+<PRE>typedef reverse_iterator&lt;const_iterator&gt;
+    <B>const_reverse_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant reverse
+bidirectional iterator for the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_map::count">hash_map::count</A></CODE></H3>
+
+<PRE>size_type <B>count</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns the number of elements in the range
+<CODE>[<A HREF="#hash_map::lower_bound">lower_bound</A>(keyval),
+<A HREF="#hash_map::upper_bound">upper_bound</A>(keyval)).</CODE></P>
+
+<H3><CODE><A NAME="hash_map::difference_type">hash_map::difference_type</A></CODE></H3>
+
+<PRE>typedef T3 <B>difference_type</B>;</PRE>
+
+<P>The signed integer type describes an object that can represent the
+difference between the addresses of any two elements in the controlled
+sequence. It is described here as a
+synonym for the implementation-defined type <CODE>T3</CODE>.</P>
+
+<H3><CODE><A NAME="hash_map::empty">hash_map::empty</A></CODE></H3>
+
+<PRE>bool <B>empty</B>() const;</PRE>
+
+<P>The member function returns true for an empty controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_map::end">hash_map::end</A></CODE></H3>
+
+<PRE>const_iterator <B>end</B>() const;
+iterator <B>end</B>();</PRE>
+
+<P>The member function returns a bidirectional iterator that points
+just beyond the end of the sequence.</P>
+
+<H3><CODE><A NAME="hash_map::equal_range">hash_map::equal_range</A></CODE></H3>
+
+<PRE>pair&lt;iterator, iterator&gt; <B>equal_range</B>(const Key&amp; keyval);
+pair&lt;const_iterator, const_iterator&gt;
+    <B>equal_range</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns a pair of iterators <CODE>X</CODE>
+such that <CODE>X.<A HREF="utility.html#pair::first">first</A> ==
+<A HREF="#hash_map::lower_bound">lower_bound</A>(keyval)</CODE>
+and <CODE>X.<A HREF="utility.html#pair::second">second</A> ==
+<A HREF="#hash_map::upper_bound">upper_bound</A>(keyval)</CODE>.</P>
+
+<H3><CODE><A NAME="hash_map::erase">hash_map::erase</A></CODE></H3>
+
+<PRE>iterator <B>erase</B>(iterator where);
+iterator <B>erase</B>(iterator first, iterator last);
+size_type <B>erase</B>(const Key&amp; keyval);</PRE>
+
+<P>The first member function removes the element of the controlled
+sequence pointed to by <CODE>where</CODE>.
+The second member function removes the elements
+in the interval <CODE>[first, last)</CODE>.
+Both return an iterator that designates the first element remaining
+beyond any elements removed, or
+<CODE><A HREF="#hash_map::end">end</A>()</CODE> if no such element exists.</P>
+
+<P>The third member function removes
+the elements with sort keys in the range
+<CODE>[<A HREF="#hash_map::lower_bound">lower_bound</A>(keyval),
+<A HREF="#hash_map::upper_bound">upper_bound</A>(keyval)).</CODE>
+It returns the number of elements it removes.</P>
+
+<P>The member functions never throw an exception.</P>
+
+<H3><CODE><A NAME="hash_map::find">hash_map::find</A></CODE></H3>
+
+<PRE>iterator <B>find</B>(const Key&amp; keyval);
+const_iterator <B>find</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#hash_map::lower_bound">lower_bound</A>(keyval)</CODE>.</P>
+
+<H3><CODE><A NAME="hash_map::get_allocator">hash_map::get_allocator</A></CODE></H3>
+
+<PRE>Alloc <B>get_allocator</B>() const;</PRE>
+
+<P>The member function returns the stored
+<A HREF="memory.html#allocator object">allocator object</A>.</P>
+
+<H3><CODE><A NAME="hash_map::hash_map">hash_map::hash_map</A></CODE></H3>
+
+<PRE><B>hash_map</B>();
+explicit <B>hash_map</B>(const Tr&amp; traits);
+<B>hash_map</B>(const Tr&amp; traits, const Alloc&amp; al);
+<B>hash_map</B>(const hash_map&amp; right);
+template&lt;class InIt&gt;
+    <B>hash_map</B>(InIt first, InIt last);
+template&lt;class InIt&gt;
+    <B>hash_map</B>(InIt first, InIt last,
+        const Tr&amp; traits);
+template&lt;class InIt&gt;
+    <B>hash_map</B>(InIt first, InIt last,
+        const Tr&amp; traits, const Alloc&amp; al);</PRE>
+
+<P>All constructors store an
+<A HREF="memory.html#allocator object">allocator object</A> and
+initialize the controlled sequence. The allocator object is the argument
+<CODE>al</CODE>, if present. For the copy constructor, it is
+<CODE>right.<A HREF="#hash_map::get_allocator">get_allocator</A>()</CODE>.
+Otherwise, it is <CODE>Alloc()</CODE>.</P>
+
+<P>All constructors also store a
+<A HREF="#hash traits">hash traits</A> object that can later
+be returned by calling
+<CODE><A HREF="#hash_map::key_comp">key_comp</A>()</CODE>.
+The hash traits object is the argument <CODE>traits</CODE>, if present.
+For the copy constructor, it is
+<CODE>right.<A HREF="#hash_map::key_comp">key_comp</A>()</CODE>).
+Otherwise, it is <CODE>Tr()</CODE>.</P>
+
+<P>The first three constructors specify an
+empty initial controlled sequence. The fourth constructor specifies
+a copy of the sequence controlled by <CODE>right</CODE>.
+The last three constructors specify the sequence of element values
+<CODE>[first, last)</CODE>.</P>
+
+
+<H3><CODE><A NAME="hash_map::insert">hash_map::insert</A></CODE></H3>
+
+<PRE>pair&lt;iterator, bool&gt; <B>insert</B>(const value_type&amp; val);
+iterator <B>insert</B>(iterator where, const value_type&amp; val);
+template&lt;class InIt&gt;
+    void <B>insert</B>(InIt first, InIt last);</PRE>
+
+<P>The first member function determines whether an element <CODE>X</CODE>
+exists in the sequence whose key has
+<A HREF="lib_stl.html#equivalent ordering">equivalent ordering</A>
+to that of <CODE>val</CODE>. If not, it creates such
+an element <CODE>X</CODE> and initializes it with <CODE>val</CODE>.
+The function then determines the iterator <CODE>where</CODE> that
+designates <CODE>X</CODE>. If an insertion occurred, the function
+returns <CODE><A HREF="utility.html#pair">pair</A>(iter, true)</CODE>.
+Otherwise, it returns <CODE>pair(where, false)</CODE>.</P>
+
+<P>The second member function returns <CODE>insert(val).first</CODE>,
+using <CODE>where</CODE> as a starting place within the controlled
+sequence to search for the insertion point. (Insertion can
+possibly occur somewhat faster, if the
+insertion point immediately precedes or follows <CODE>where</CODE>.)
+The third member function
+inserts the sequence of element values,
+for each <CODE>where</CODE> in the range <CODE>[first, last)</CODE>,
+by calling <CODE>insert(*where)</CODE>.</P>
+
+
+<P>If an exception is thrown during the
+insertion of a single element, the container is left unaltered
+and the exception is rethrown.
+If an exception is thrown during the
+insertion of multiple elements, the container is left in a stable
+but unspecified state and the exception is rethrown.</P>
+
+<H3><CODE><A NAME="hash_map::iterator">hash_map::iterator</A></CODE></H3>
+
+<PRE>typedef T0 <B>iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a bidirectional
+iterator for the controlled sequence.
+It is described here as a
+synonym for the implementation-defined type <CODE>T0</CODE>.</P>
+
+<H3><CODE><A NAME="hash_map::key_comp">hash_map::key_comp</A></CODE></H3>
+
+<PRE>key_compare <B>key_comp</B>() const;</PRE>
+
+<P>The member function returns the stored
+<A HREF="#hash traits">hash traits</A> object that
+determines the order of elements in the controlled sequence.
+In particular, the stored object defines the member function:</P>
+
+<PRE>bool operator()(const Key&amp; left, const Key&amp; right);</PRE>
+
+<P>which returns true if <CODE>left</CODE> strictly
+precedes <CODE>right</CODE> in the sort order.</P>
+
+<H3><CODE><A NAME="hash_map::key_compare">hash_map::key_compare</A></CODE></H3>
+
+<PRE>typedef Tr <B>key_compare</B>;</PRE>
+
+<P>The type describes a traits object that behaves much like an object of class
+<CODE><A HREF="#hash_compare">hash_compare</A>&lt;Key, Pr&gt;</CODE>.
+In particular, it can compare two
+sort keys to determine the relative order of two
+elements in the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_map::key_type">hash_map::key_type</A></CODE></H3>
+
+<PRE>typedef Key <B>key_type</B>;</PRE>
+
+<P>The type describes the sort key object stored in each
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_map::lower_bound">hash_map::lower_bound</A></CODE></H3>
+
+<PRE>iterator <B>lower_bound</B>(const Key&amp; keyval);
+const_iterator <B>lower_bound</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns an iterator that designates the
+earliest element <CODE>X</CODE> in the controlled sequence
+for which <CODE>X.<A HREF="utility.html#pair::first">first</A></CODE> has
+<A HREF="lib_stl.html#equivalent ordering">equivalent ordering</A>
+to <CODE>keyval</CODE>.
+If no such element exists, the function returns
+<CODE><A HREF="#hash_map::end">end</A>()</CODE>.
+
+<H3><CODE><A NAME="hash_map::mapped_type">hash_map::mapped_type</A></CODE></H3>
+
+<PRE>typedef Ty <B>mapped_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Ty</CODE>.</P>
+
+<H3><CODE><A NAME="hash_map::max_size">hash_map::max_size</A></CODE></H3>
+
+<PRE>size_type <B>max_size</B>() const;</PRE>
+
+<P>The member function returns the length of the longest sequence that
+the object can control.</P>
+
+<H3><CODE><A NAME="hash_map::operator[]">hash_map::operator[]</A></CODE></H3>
+
+<PRE>Ty&amp; <B>operator[]</B>(const Key&amp; keyval);</PRE>
+
+<P>The member function determines the iterator <CODE>where</CODE>
+as the return value of
+<CODE><A HREF="#hash_map::insert">insert</A>(
+<A HREF="#hash_map::value_type">value_type</A>(keyval, Ty())</CODE>.
+(It inserts an element with the specified key if no such element
+exists.) It then returns a reference to
+<CODE>(*where).<A HREF="utility.html#pair::second">second</A></CODE>.</P>
+
+<H3><CODE><A NAME="hash_map::pointer">hash_map::pointer</A></CODE></H3>
+
+<PRE>typedef Alloc::pointer <B>pointer</B>;</PRE>
+
+<P>The type describes an object that can serve as a pointer to an
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_map::rbegin">hash_map::rbegin</A></CODE></H3>
+
+<PRE>const_reverse_iterator <B>rbegin</B>() const;
+reverse_iterator <B>rbegin</B>();</PRE>
+
+<P>The member function returns a reverse bidirectional
+iterator that points just
+beyond the end of the controlled sequence. Hence, it designates the
+beginning of the reverse sequence.</P>
+
+<H3><CODE><A NAME="hash_map::reference">hash_map::reference</A></CODE></H3>
+
+<PRE>typedef Alloc::reference <B>reference</B>;</PRE>
+
+<P>The type describes an object that can serve as a reference to an
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_map::rend">hash_map::rend</A></CODE></H3>
+
+<PRE>const_reverse_iterator <B>rend</B>() const;
+reverse_iterator <B>rend</B>();</PRE>
+
+<P>The member function returns a reverse bidirectional
+iterator that points at the
+first element of the sequence (or just beyond the end of an empty
+sequence). Hence, it designates the end of the reverse sequence.</P>
+
+<H3><CODE><A NAME="hash_map::reverse_iterator">hash_map::reverse_iterator</A></CODE></H3>
+
+<PRE>typedef reverse_iterator&lt;iterator&gt; <B>reverse_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a reverse
+bidirectional iterator for the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_map::size">hash_map::size</A></CODE></H3>
+
+<PRE>size_type <B>size</B>() const;</PRE>
+
+<P>The member function returns the length of the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_map::size_type">hash_map::size_type</A></CODE></H3>
+
+<PRE>typedef T2 <B>size_type</B>;</PRE>
+
+<P>The unsigned integer type describes an object that can represent the
+length of any controlled sequence. It is described here as a
+synonym for the implementation-defined type <CODE>T2</CODE>.</P>
+
+<H3><CODE><A NAME="hash_map::swap">hash_map::swap</A></CODE></H3>
+
+<PRE>void <B>swap</B>(hash_map&amp; right);</PRE>
+
+<P>The member function swaps the controlled sequences between
+<CODE>*this</CODE> and <CODE>right</CODE>. If
+<CODE><A HREF="#hash_map::get_allocator">get_allocator</A>()
+== right.get_allocator()</CODE>, it does so in constant time,
+it throws an exception only as a result of copying the stored
+traits object of type <CODE>Tr</CODE>, and it invalidates no references, pointers,
+or iterators that designate elements in the two controlled sequences.
+Otherwise, it performs a number of element assignments and constructor calls
+proportional to the number of elements in the two controlled sequences.</P>
+
+<H3><CODE><A NAME="hash_map::upper_bound">hash_map::upper_bound</A></CODE></H3>
+
+<PRE>iterator <B>upper_bound</B>(const Key&amp; keyval);
+const_iterator <B>upper_bound</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns an iterator
+just beyond the iterator that designates the
+latest element <CODE>X</CODE> in the controlled sequence
+for which <CODE>X.<A HREF="utility.html#pair::first">first</A></CODE> has
+<A HREF="lib_stl.html#equivalent ordering">equivalent ordering</A>
+to <CODE>keyval</CODE>.
+If no such element exists, the function returns
+<CODE><A HREF="#hash_map::end">end</A>()</CODE>.
+
+<H3><CODE><A NAME="hash_map::value_comp">hash_map::value_comp</A></CODE></H3>
+
+<PRE>value_compare <B>value_comp</B>() const;</PRE>
+
+<P>The member function returns a function object that
+determines the order of elements in the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_map::value_compare">hash_map::value_compare</A></CODE></H3>
+
+<PRE>class <B>value_compare</B>
+    : public <A HREF="functio2.html#binary_function">binary_function</A>&lt;value_type, value_type,
+        bool&gt; {
+public:
+    bool operator()(const value_type&amp; left,
+        const value_type&amp; right) const
+        {return (comp(left.first, right.first)); }
+protected:
+    value_compare(key_compare pr)
+        : comp(pr) {}
+    key_compare comp;
+    };</PRE>
+
+<P>The type describes a function object that can compare the
+sort keys in two elements to determine their relative order
+in the controlled sequence. The function object stores an object
+<B><CODE><A NAME="hash_map::value_compare::comp">comp</A></CODE></B>
+of type <CODE><A HREF="#hash_map::key_type">key_type</A></CODE>.
+The member function <B><CODE>operator()</CODE></B> uses this
+object to compare the sort-key components of two element.</P>
+
+<H3><CODE><A NAME="hash_map::value_type">hash_map::value_type</A></CODE></H3>
+
+<PRE>typedef <A HREF="utility.html#pair">pair</A>&lt;const Key, Ty&gt; <B>value_type</B>;</PRE>
+
+<P>The type describes an element of the controlled sequence.</P>
+
+<H2><A NAME="hash_multimap"><CODE>hash_multimap</CODE></A></H2>
+
+<HR>
+<P><B><CODE><A HREF="#hash_multimap::allocator_type">allocator_type</A>
+&#183; <A HREF="#hash_multimap::begin">begin</A>
+&#183; <A HREF="#hash_multimap::clear">clear</A>
+&#183; <A HREF="#hash_multimap::const_iterator">const_iterator</A>
+&#183; <A HREF="#hash_multimap::const_pointer">const_pointer</A>
+&#183; <A HREF="#hash_multimap::const_reference">const_reference</A>
+&#183; <A HREF="#hash_multimap::const_reverse_iterator">const_reverse_iterator</A>
+&#183; <A HREF="#hash_multimap::count">count</A>
+&#183; <A HREF="#hash_multimap::difference_type">difference_type</A>
+&#183; <A HREF="#hash_multimap::empty">empty</A>
+&#183; <A HREF="#hash_multimap::end">end</A>
+&#183; <A HREF="#hash_multimap::equal_range">equal_range</A>
+&#183; <A HREF="#hash_multimap::erase">erase</A>
+&#183; <A HREF="#hash_multimap::find">find</A>
+&#183; <A HREF="#hash_multimap::get_allocator">get_allocator</A>
+&#183; <A HREF="#hash_multimap::insert">insert</A>
+&#183; <A HREF="#hash_multimap::iterator">iterator</A>
+&#183; <A HREF="#hash_multimap::key_comp">key_comp</A>
+&#183; <A HREF="#hash_multimap::key_compare">key_compare</A>
+&#183; <A HREF="#hash_multimap::key_type">key_type</A>
+&#183; <A HREF="#hash_multimap::lower_bound">lower_bound</A>
+&#183; <A HREF="#hash_multimap::mapped_type">mapped_type</A>
+&#183; <A HREF="#hash_multimap::max_size">max_size</A>
+&#183; <A HREF="#hash_multimap::hash_multimap">hash_multimap</A>
+&#183; <A HREF="#hash_multimap::rbegin">rbegin</A>
+&#183; <A HREF="#hash_multimap::reference">reference</A>
+&#183; <A HREF="#hash_multimap::rend">rend</A>
+&#183; <A HREF="#hash_multimap::reverse_iterator">reverse_iterator</A>
+&#183; <A HREF="#hash_multimap::size">size</A>
+&#183; <A HREF="#hash_multimap::size_type">size_type</A>
+&#183; <A HREF="#hash_multimap::swap">swap</A>
+&#183; <A HREF="#hash_multimap::upper_bound">upper_bound</A>
+&#183; <A HREF="#hash_multimap::value_comp">value_comp</A>
+&#183; <A HREF="#hash_multimap::value_compare">value_compare</A>
+&#183; <A HREF="#hash_multimap::value_type">value_type</A>
+</CODE></B></P>
+<HR>
+
+<PRE>template&lt;class Key, class Ty,
+    class Tr = hash_compare&lt;Key, less&lt;Key&gt; &gt;,
+    class Alloc = allocator&lt;pair&lt;const Key, Ty&gt; &gt; &gt;
+    class <B>hash_multimap</B> {
+public:
+    typedef Key <B><A HREF="#hash_multimap::key_type">key_type</A></B>;
+    typedef Ty <B><A HREF="#hash_multimap::mapped_type">mapped_type</A></B>;
+    typedef Tr <B><A HREF="#hash_multimap::key_compare">key_compare</A></B>;
+    typedef Alloc <B><A HREF="#hash_multimap::allocator_type">allocator_type</A></B>;
+    typedef pair&lt;const Key, Ty&gt; <B><A HREF="#hash_multimap::value_type">value_type</A></B>;
+    class <B><A HREF="#hash_multimap::value_compare">value_compare</A></B>;
+    typedef Alloc::pointer <B><A HREF="#hash_multimap::pointer">pointer</A></B>;
+    typedef Alloc::const_pointer <B><A HREF="#hash_multimap::const_pointer">const_pointer</A></B>;
+    typedef Alloc::reference <B><A HREF="#hash_multimap::reference">reference</A></B>;
+    typedef Alloc::const_reference <B><A HREF="#hash_multimap::const_reference">const_reference</A></B>;
+    typedef T0 <B><A HREF="#hash_multimap::iterator">iterator</A></B>;
+    typedef T1 <B><A HREF="#hash_multimap::const_iterator">const_iterator</A></B>;
+    typedef T2 <B><A HREF="#hash_multimap::size_type">size_type</A></B>;
+    typedef T3 <B><A HREF="#hash_multimap::difference_type">difference_type</A></B>;
+    typedef reverse_iterator&lt;const_iterator&gt;
+        <B><A HREF="#hash_multimap::const_reverse_iterator">const_reverse_iterator</A></B>;
+    typedef reverse_iterator&lt;iterator&gt; <B><A HREF="#hash_multimap::reverse_iterator">reverse_iterator</A></B>;
+    <B><A HREF="#hash_multimap::hash_multimap">hash_multimap</A></B>();
+    explicit <B><A HREF="#hash_multimap::hash_multimap">hash_multimap</A></B>(const Tr&amp; traits);
+    <B><A HREF="#hash_multimap::hash_multimap">hash_multimap</A></B>(const Tr&amp; traits, const Alloc&amp; al);
+    <B><A HREF="#hash_multimap::hash_multimap">hash_multimap</A></B>(const hash_multimap&amp; right);
+    template&lt;class InIt&gt;
+        <B><A HREF="#hash_multimap::hash_multimap">hash_multimap</A></B>(InIt first, InIt last);
+    template&lt;class InIt&gt;
+        <B><A HREF="#hash_multimap::hash_multimap">hash_multimap</A></B>(InIt first, InIt last,
+            const Tr&amp; traits);
+    template&lt;class InIt&gt;
+        <B><A HREF="#hash_multimap::hash_multimap">hash_multimap</A></B>(InIt first, InIt last,
+            const Tr&amp; traits, const Alloc&amp; al);
+    iterator <B><A HREF="#hash_multimap::begin">begin</A></B>();
+    const_iterator <B><A HREF="#hash_multimap::begin">begin</A></B>() const;
+    iterator <B><A HREF="#hash_multimap::end">end</A></B>();
+    const_iterator <B><A HREF="#hash_multimap::end">end</A></B>() const;
+    reverse_iterator <B><A HREF="#hash_multimap::rbegin">rbegin</A></B>();
+    const_reverse_iterator <B><A HREF="#hash_multimap::rbegin">rbegin</A></B>() const;
+    reverse_iterator <B><A HREF="#hash_multimap::rend">rend</A></B>();
+    const_reverse_iterator <B><A HREF="#hash_multimap::rend">rend</A></B>() const;
+    size_type <B><A HREF="#hash_multimap::size">size</A></B>() const;
+    size_type <B><A HREF="#hash_multimap::max_size">max_size</A></B>() const;
+    bool <B><A HREF="#hash_multimap::empty">empty</A></B>() const;
+    Alloc <B><A HREF="#hash_multimap::get_allocator">get_allocator</A></B>() const;
+    iterator <B><A HREF="#hash_multimap::insert">insert</A></B>(const value_type&amp; val);
+    iterator <B><A HREF="#hash_multimap::insert">insert</A></B>(iterator where, const value_type&amp; val);
+    template&lt;class InIt&gt;
+        void <B><A HREF="#hash_multimap::insert">insert</A></B>(InIt first, InIt last);
+    iterator <B><A HREF="#hash_multimap::erase">erase</A></B>(iterator where);
+    iterator <B><A HREF="#hash_multimap::erase">erase</A></B>(iterator first, iterator last);
+    size_type <B><A HREF="#hash_multimap::erase">erase</A></B>(const Key&amp; keyval);
+    void <B><A HREF="#hash_multimap::clear">clear</A></B>();
+    void <B><A HREF="#hash_multimap::swap">swap</A></B>(hash_multimap&amp; right);
+    key_compare <B><A HREF="#hash_multimap::key_comp">key_comp</A></B>() const;
+    value_compare <B><A HREF="#hash_multimap::value_comp">value_comp</A></B>() const;
+    iterator <B><A HREF="#hash_multimap::find">find</A></B>(const Key&amp; keyval);
+    const_iterator <B><A HREF="#hash_multimap::find">find</A></B>(const Key&amp; keyval) const;
+    size_type <B><A HREF="#hash_multimap::count">count</A></B>(const Key&amp; keyval) const;
+    iterator <B><A HREF="#hash_multimap::lower_bound">lower_bound</A></B>(const Key&amp; keyval);
+    const_iterator <B><A HREF="#hash_multimap::lower_bound">lower_bound</A></B>(const Key&amp; keyval) const;
+    iterator <B><A HREF="#hash_multimap::upper_bound">upper_bound</A></B>(const Key&amp; keyval);
+    const_iterator <B><A HREF="#hash_multimap::upper_bound">upper_bound</A></B>(const Key&amp; keyval) const;
+    pair&lt;iterator, iterator&gt; <B><A HREF="#hash_multimap::equal_range">equal_range</A></B>(const Key&amp; keyval);
+    pair&lt;const_iterator, const_iterator&gt;
+        <B><A HREF="#hash_multimap::equal_range">equal_range</A></B>(const Key&amp; keyval) const;
+    };</PRE>
+
+<P>The template class describes an object that controls a
+varying-length sequence of elements of type
+<CODE><A HREF="utility.html#pair">pair</A>&lt;const Key, Ty&gt;</CODE>.
+The sequence is
+<A HREF="lib_stl.html#sequence ordering">ordered by</A> the
+<A HREF="#hash traits">hash traits</A> object
+<CODE>Tr</CODE>, which includes both a two-operand function for imposing a
+<A HREF="lib_stl.html#strict weak ordering">strict weak ordering</A>
+and a one-operand <A HREF="#hash function">hash function</A>.
+The first element of each pair is the <B>sort key</B> and the
+second is its associated <B>value</B>.
+The sequence is represented in a way that permits lookup, insertion,
+and removal of an arbitrary element with a number of operations that can be
+independent of the number of elements in the sequence (constant time).
+In the worst case, the number of operations is
+proportional to the number of elements
+in the sequence (linear time). Moreover, inserting an element
+invalidates no iterators, and removing an element
+invalidates only those iterators which point at the removed element.</P>
+
+<P>The object orders the sequence it controls by calling a stored
+<A HREF="#hash traits">hash traits</A> object of type <CODE>Tr</CODE>.
+You access this stored object by calling the member function
+<CODE><A HREF="#hash_multimap::key_comp">key_comp</A>()</CODE>.
+Such a traits object must behave the same as an object of class
+<CODE><A HREF="#hash_compare">hash_compare</A>&lt;Key, Pr&gt;</CODE>.
+Specifically, for all values <CODE>keyval</CODE> of type <CODE>Key</CODE>,
+the call <CODE>key_comp()(keyval)</CODE> yields a distribution
+of values of type <CODE>size_t</CODE>.
+Moreover, class <CODE>Pr</CODE> imposes a
+<A HREF="lib_stl.html#strict weak ordering">strict weak ordering</A>
+on sort keys of type <CODE>Key</CODE>.
+For any element <CODE>X</CODE> that precedes
+<CODE>Y</CODE> in the sequence and has the same hash value,
+<CODE>key_comp()(Y.<A HREF="utility.html#pair::first">first</A>,
+X.first)</CODE> is false. (For the default function object
+<CODE><A HREF="functio2.html#less">less</A>&lt;Key&gt;</CODE>,
+sort keys never decrease in value.)
+Unlike template class <CODE><A HREF="#hash_map">hash_map</A></CODE>,
+an object of template class <CODE>hash_multimap</CODE> does not ensure that
+<CODE>key_comp()(X.first, Y.first)</CODE> is true.
+(Keys need not be unique.)</P>
+
+<P>The actual order of elements in the controlled sequence depends on the
+hash function, the ordering function, and the current size of the hash
+table stored in the container object. You cannot determine the current size
+of the hash table, so you cannot in general predict the order of elements
+in the controlled sequence. You can always be assured, however, that any
+subset of elements that have
+<A HREF="lib_stl.html#equivalent ordering">equivalent ordering</A>
+are adjacent in the controlled sequence.</P>
+
+<P>The object allocates and frees storage for the sequence it controls
+through a stored <A HREF="memory.html#allocator object">allocator object</A>
+of class <CODE>Alloc</CODE>. Such an allocator object must have
+the same external interface as an object of template class
+<A HREF="memory.html#allocator"><CODE>allocator</CODE></A>.
+Note that the stored allocator object is <I>not</I> copied when the container
+object is assigned.</P>
+
+<H3><CODE><A NAME="hash_multimap::allocator_type">hash_multimap::allocator_type</A></CODE></H3>
+
+<PRE>typedef Alloc <B>allocator_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Alloc</CODE>.</P>
+
+<H3><CODE><A NAME="hash_multimap::begin">hash_multimap::begin</A></CODE></H3>
+
+<PRE>const_iterator <B>begin</B>() const;
+iterator <B>begin</B>();</PRE>
+
+<P>The member function returns a bidirectional iterator that points at
+the first element of the sequence (or just beyond the end of an empty
+sequence).</P>
+
+<H3><CODE><A NAME="hash_multimap::clear">hash_multimap::clear</A></CODE></H3>
+
+<PRE>void <B>clear</B>();</PRE>
+
+<P>The member function calls
+<CODE><A HREF="#hash_multimap::erase">erase</A>(
+<A HREF="#hash_multimap::begin">begin</A>(),
+<A HREF="#hash_multimap::end">end</A>())</CODE>.</P>
+
+<H3><CODE><A NAME="hash_multimap::const_iterator">hash_multimap::const_iterator</A></CODE></H3>
+
+<PRE>typedef T1 <B>const_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant
+bidirectional iterator for the controlled sequence.
+It is described here as a
+synonym for the implementation-defined type <CODE>T1</CODE>.</P>
+
+<H3><CODE><A NAME="hash_multimap::const_pointer">hash_multimap::const_pointer</A></CODE></H3>
+
+<PRE>typedef Alloc::const_pointer <B>const_pointer</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant pointer
+to an element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_multimap::const_reference">hash_multimap::const_reference</A></CODE></H3>
+
+<PRE>typedef Alloc::const_reference <B>const_reference</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant reference
+to an element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_multimap::const_reverse_iterator">hash_multimap::const_reverse_iterator</A></CODE></H3>
+
+<PRE>typedef reverse_iterator&lt;const_iterator&gt;
+    <B>const_reverse_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant reverse
+bidirectional iterator for the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_multimap::count">hash_multimap::count</A></CODE></H3>
+
+<PRE>size_type <B>count</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns the number of elements in the range
+<CODE>[<A HREF="#hash_multimap::lower_bound">lower_bound</A>(keyval),
+<A HREF="#hash_multimap::upper_bound">upper_bound</A>(keyval)).</CODE></P>
+
+<H3><CODE><A NAME="hash_multimap::difference_type">hash_multimap::difference_type</A></CODE></H3>
+
+<PRE>typedef T3 <B>difference_type</B>;</PRE>
+
+<P>The signed integer type describes an object that can represent the
+difference between the addresses of any two elements in the controlled
+sequence. It is described here as a
+synonym for the implementation-defined type <CODE>T3</CODE>.</P>
+
+<H3><CODE><A NAME="hash_multimap::empty">hash_multimap::empty</A></CODE></H3>
+
+<PRE>bool <B>empty</B>() const;</PRE>
+
+<P>The member function returns true for an empty controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_multimap::end">hash_multimap::end</A></CODE></H3>
+
+<PRE>const_iterator <B>end</B>() const;
+iterator <B>end</B>();</PRE>
+
+<P>The member function returns a bidirectional iterator that points
+just beyond the end of the sequence.</P>
+
+<H3><CODE><A NAME="hash_multimap::equal_range">hash_multimap::equal_range</A></CODE></H3>
+
+<PRE>pair&lt;iterator, iterator&gt; <B>equal_range</B>(const Key&amp; keyval);
+pair&lt;const_iterator, const_iterator&gt;
+    <B>equal_range</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns a pair of iterators <CODE>X</CODE>
+such that <CODE>X.<A HREF="utility.html#pair::first">first</A> ==
+<A HREF="#hash_multimap::lower_bound">lower_bound</A>(keyval)</CODE>
+and <CODE>X.<A HREF="utility.html#pair::second">second</A> ==
+<A HREF="#hash_multimap::upper_bound">upper_bound</A>(keyval)</CODE>.</P>
+
+<H3><CODE><A NAME="hash_multimap::erase">hash_multimap::erase</A></CODE></H3>
+
+<PRE>iterator <B>erase</B>(iterator where);
+iterator <B>erase</B>(iterator first, iterator last);
+size_type <B>erase</B>(const Key&amp; keyval);</PRE>
+
+<P>The first member function removes the element of the controlled
+sequence pointed to by <CODE>where</CODE>.
+The second member function removes the elements
+in the range <CODE>[first, last)</CODE>.
+Both return an iterator that designates the first element remaining
+beyond any elements removed, or
+<CODE><A HREF="#hash_multimap::end">end</A>()</CODE> if no such element exists.</P>
+
+<P>The third member removes
+the elements with sort keys in the range
+<CODE>[<A HREF="#hash_multimap::lower_bound">lower_bound</A>(keyval),
+<A HREF="#hash_multimap::upper_bound">upper_bound</A>(keyval)).</CODE>
+It returns the number of elements it removes.</P>
+
+<P>The member functions never throw an exception.</P>
+
+<H3><CODE><A NAME="hash_multimap::find">hash_multimap::find</A></CODE></H3>
+
+<PRE>iterator <B>find</B>(const Key&amp; keyval);
+const_iterator <B>find</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#hash_multimap::lower_bound">lower_bound</A>(keyval)</CODE>.</P>
+
+<H3><CODE><A NAME="hash_multimap::get_allocator">hash_multimap::get_allocator</A></CODE></H3>
+
+<PRE>Alloc <B>get_allocator</B>() const;</PRE>
+
+<P>The member function returns the stored
+<A HREF="memory.html#allocator object">allocator object</A>.</P>
+
+<H3><CODE><A NAME="hash_multimap::hash_multimap">hash_multimap::hash_multimap</A></CODE></H3>
+
+<PRE><B>hash_multimap</B>();
+explicit <B>hash_multimap</B>(const Tr&amp; traits);
+<B>hash_multimap</B>(const Tr&amp; traits, const Alloc&amp; al);
+<B>hash_multimap</B>(const hash_multimap&amp; right);
+template&lt;class InIt&gt;
+    <B>hash_multimap</B>(InIt first, InIt last);
+template&lt;class InIt&gt;
+    <B>hash_multimap</B>(InIt first, InIt last,
+        const Tr&amp; traits);
+template&lt;class InIt&gt;
+    <B>hash_multimap</B>(InIt first, InIt last,
+        const Tr&amp; traits, const Alloc&amp; al);</PRE>
+
+<P>All constructors store an
+<A HREF="memory.html#allocator object">allocator object</A> and
+initialize the controlled sequence. The allocator object is the argument
+<CODE>al</CODE>, if present. For the copy constructor, it is
+<CODE>right.<A HREF="#hash_multimap::get_allocator">get_allocator</A>()</CODE>.
+Otherwise, it is <CODE>Alloc()</CODE>.</P>
+
+<P>All constructors also store a
+<A HREF="#hash traits">hash traits</A> object that can later
+be returned by calling
+<CODE><A HREF="#hash_multimap::key_comp">key_comp</A>()</CODE>.
+The hash traits object is the argument <CODE>traits</CODE>, if present.
+For the copy constructor, it is
+<CODE>right.<A HREF="#hash_multimap::key_comp">key_comp</A>()</CODE>).
+Otherwise, it is <CODE>Tr()</CODE>.</P>
+
+<P>The first three constructors specify an
+empty initial controlled sequence. The fourth constructor specifies
+a copy of the sequence controlled by <CODE>right</CODE>.
+The last three constructors specify the sequence of element values
+<CODE>[first, last)</CODE>.</P>
+
+
+<H3><CODE><A NAME="hash_multimap::insert">hash_multimap::insert</A></CODE></H3>
+
+<PRE>iterator <B>insert</B>(const value_type&amp; val);
+iterator <B>insert</B>(iterator where, const value_type&amp; val);
+template&lt;class InIt&gt;
+    void <B>insert</B>(InIt first, InIt last);</PRE>
+
+<P>The first member function inserts the element <CODE>val</CODE>
+in the controlled sequence, then returns
+the iterator that designates the inserted element.
+The second member function returns <CODE>insert(val)</CODE>,
+using <CODE>where</CODE> as a starting place within the controlled
+sequence to search for the insertion point. (Insertion can
+possibly occur somewhat faster, if the
+insertion point immediately precedes or follows <CODE>where</CODE>.)
+The third member function
+inserts the sequence of element values,
+for each <CODE>where</CODE> in the range <CODE>[first, last)</CODE>,
+by calling <CODE>insert(*where)</CODE>.</P>
+
+
+<P>If an exception is thrown during the
+insertion of a single element, the container is left unaltered
+and the exception is rethrown.
+If an exception is thrown during the
+insertion of multiple elements, the container is left in a stable
+but unspecified state and the exception is rethrown.</P>
+
+<H3><CODE><A NAME="hash_multimap::iterator">hash_multimap::iterator</A></CODE></H3>
+
+<PRE>typedef T0 <B>iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a bidirectional
+iterator for the controlled sequence.
+It is described here as a
+synonym for the implementation-defined type <CODE>T0</CODE>.</P>
+
+<H3><CODE><A NAME="hash_multimap::key_comp">hash_multimap::key_comp</A></CODE></H3>
+
+<PRE>key_compare <B>key_comp</B>() const;</PRE>
+
+<P>The member function returns the stored
+<A HREF="#hash traits">hash traits</A> object that
+determines the order of elements in the controlled sequence.
+In particular, the stored object defines the member function:</P>
+
+<PRE>bool operator()(const Key&amp; left, const Key&amp; right);</PRE>
+
+<P>which returns true if <CODE>left</CODE> strictly
+precedes <CODE>right</CODE> in the sort order.</P>
+
+<H3><CODE><A NAME="hash_multimap::key_compare">hash_multimap::key_compare</A></CODE></H3>
+
+<PRE>typedef Tr <B>key_compare</B>;</PRE>
+
+<P>The type describes a traits object that behaves much like an object of class
+<CODE><A HREF="#hash_compare">hash_compare</A>&lt;Key, Pr&gt;</CODE>.
+In particular, it can compare two
+sort keys to determine the relative order of two
+elements in the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_multimap::key_type">hash_multimap::key_type</A></CODE></H3>
+
+<PRE>typedef Key <B>key_type</B>;</PRE>
+
+<P>The type describes the sort key object stored in each
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_multimap::lower_bound">hash_multimap::lower_bound</A></CODE></H3>
+
+<PRE>iterator <B>lower_bound</B>(const Key&amp; keyval);
+const_iterator <B>lower_bound</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns an iterator that designates the
+earliest element <CODE>X</CODE> in the controlled sequence for which
+<CODE><A HREF="#hash_multimap::key_comp">key_comp</A>()(X.
+<A HREF="utility.html#pair::first">first</A>, keyval)</CODE> is
+false.</P> If no such element exists, the function returns
+<CODE><A HREF="#hash_multimap::end">end</A>()</CODE>.
+
+<H3><CODE><A NAME="hash_multimap::mapped_type">hash_multimap::mapped_type</A></CODE></H3>
+
+<PRE>typedef Ty <B>mapped_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Ty</CODE>.</P>
+
+<H3><CODE><A NAME="hash_multimap::max_size">hash_multimap::max_size</A></CODE></H3>
+
+<PRE>size_type <B>max_size</B>() const;</PRE>
+
+<P>The member function returns the length of the longest sequence that
+the object can control.</P>
+
+<H3><CODE><A NAME="hash_multimap::pointer">hash_multimap::pointer</A></CODE></H3>
+
+<PRE>typedef Alloc::pointer <B>pointer</B>;</PRE>
+
+<P>The type describes an object that can serve as a pointer to an
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_multimap::rbegin">hash_multimap::rbegin</A></CODE></H3>
+
+<PRE>const_reverse_iterator <B>rbegin</B>() const;
+reverse_iterator <B>rbegin</B>();</PRE>
+
+<P>The member function returns a reverse bidirectional
+iterator that points just
+beyond the end of the controlled sequence. Hence, it designates the
+beginning of the reverse sequence.</P>
+
+<H3><CODE><A NAME="hash_multimap::reference">hash_multimap::reference</A></CODE></H3>
+
+<PRE>typedef Alloc::reference <B>reference</B>;</PRE>
+
+<P>The type describes an object that can serve as a reference to an
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_multimap::rend">hash_multimap::rend</A></CODE></H3>
+
+<PRE>const_reverse_iterator <B>rend</B>() const;
+reverse_iterator <B>rend</B>();</PRE>
+
+<P>The member function returns a reverse bidirectional
+iterator that points at the
+first element of the sequence (or just beyond the end of an empty
+sequence). Hence, it designates the end of the reverse sequence.</P>
+
+<H3><CODE><A NAME="hash_multimap::reverse_iterator">hash_multimap::reverse_iterator</A></CODE></H3>
+
+<PRE>typedef reverse_iterator&lt;iterator&gt; <B>reverse_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a reverse
+bidirectional iterator for the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_multimap::size">hash_multimap::size</A></CODE></H3>
+
+<PRE>size_type <B>size</B>() const;</PRE>
+
+<P>The member function returns the length of the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_multimap::size_type">hash_multimap::size_type</A></CODE></H3>
+
+<PRE>typedef T2 <B>size_type</B>;</PRE>
+
+<P>The unsigned integer type describes an object that can represent the
+length of any controlled sequence. It is described here as a
+synonym for the implementation-defined type <CODE>T2</CODE>.</P>
+
+<H3><CODE><A NAME="hash_multimap::swap">hash_multimap::swap</A></CODE></H3>
+
+<PRE>void <B>swap</B>(hash_multimap&amp; right);</PRE>
+
+<P>The member function swaps the controlled sequences between
+<CODE>*this</CODE> and <CODE>right</CODE>. If
+<CODE><A HREF="#hash_multimap::get_allocator">get_allocator</A>()
+== right.get_allocator()</CODE>, it does so in constant time,
+it throws an exception only as a result of copying the stored
+traits object of type <CODE>Tr</CODE>, and it invalidates no references, pointers,
+or iterators that designate elements in the two controlled sequences.
+Otherwise, it performs a number of element assignments and constructor calls
+proportional to the number of elements in the two controlled sequences.</P>
+
+<H3><CODE><A NAME="hash_multimap::upper_bound">hash_multimap::upper_bound</A></CODE></H3>
+
+<PRE>iterator <B>upper_bound</B>(const Key&amp; keyval);
+const_iterator <B>upper_bound</B>(const Key&amp; keyval) const;</PRE>
+
+<P>The member function returns an iterator
+just beyond the iterator that designates the
+latest element <CODE>X</CODE> in the controlled sequence
+for which <CODE>X.<A HREF="utility.html#pair::first">first</A></CODE> has
+<A HREF="lib_stl.html#equivalent ordering">equivalent ordering</A>
+to <CODE>keyval</CODE>.
+If no such element exists, the function returns
+<CODE><A HREF="#hash_multimap::end">end</A>()</CODE>.
+
+<H3><CODE><A NAME="hash_multimap::value_comp">hash_multimap::value_comp</A></CODE></H3>
+
+<PRE>value_compare <B>value_comp</B>() const;</PRE>
+
+<P>The member function returns a function object that
+determines the order of elements in the controlled sequence.</P>
+
+<H3><CODE><A NAME="hash_multimap::value_compare">hash_multimap::value_compare</A></CODE></H3>
+
+<PRE>class <B>value_compare</B>
+    : public <A HREF="functio2.html#binary_function">binary_function</A>&lt;value_type, value_type,
+        bool&gt; {
+public:
+    bool operator()(const value_type&amp; left,
+        const value_type&amp; right) const
+        {return (comp(left.first, right.first)); }
+protected:
+    value_compare(key_compare pr)
+        : comp(pr) {}
+    key_compare comp;
+    };</PRE>
+
+<P>The type describes a function object that can compare the
+sort keys in two elements to determine their relative order
+in the controlled sequence. The function object stores an object
+<B><CODE><A NAME="hash_multimap::value_compare::comp">comp</A></CODE></B>
+of type <CODE><A HREF="#hash_multimap::key_type">key_type</A></CODE>.
+The member function <B><CODE>operator()</CODE></B> uses this
+object to compare the sort-key components of two element.</P>
+
+<H3><CODE><A NAME="hash_multimap::value_type">hash_multimap::value_type</A></CODE></H3>
+
+<PRE>typedef <A HREF="utility.html#pair">pair</A>&lt;const Key, Ty&gt; <B>value_type</B>;
+</PRE>
+
+<P>The type describes an element of the controlled sequence.</P>
+
+<H2><A NAME="operator!="><CODE>operator!=</CODE></A></H2>
+
+<PRE>template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B>operator!=</B>(
+        const hash_map &lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_map &lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B>operator!=</B>(
+        const hash_multimap &lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_multimap &lt;Key, Ty, Tr, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(left == right)</CODE>.</P>
+
+<H2><A NAME="operator=="><CODE>operator==</CODE></A></H2>
+
+<PRE>template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B>operator==</B>(
+        const hash_map &lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_map &lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B>operator==</B>(
+        const hash_multimap &lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_multimap &lt;Key, Ty, Tr, Alloc&gt;&amp; right);</PRE>
+
+<P>The first template function overloads <CODE>operator==</CODE>
+to compare two objects of template class
+<A HREF="#hash_map"><CODE>hash_map</CODE></A>.
+The second template function overloads <CODE>operator==</CODE>
+to compare two objects of template class
+<A HREF="#hash_multimap"><CODE>hash_multimap</CODE></A>.
+Both functions return
+<CODE>left.<A HREF="#hash_multimap::size">size</A>() == right.size() &amp;&amp;
+<A HREF="algorith.html#equal">equal</A>(left.
+<A HREF="#hash_multimap::begin">begin</A>(), left.
+<A HREF="#hash_multimap::end">end</A>(), right.begin())</CODE>.</P>
+
+<H2><A NAME="operator&lt;"><CODE>operator&lt;</CODE></A></H2>
+
+<PRE>template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B>operator&lt;</B>(
+        const hash_map &lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_map &lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B>operator&lt;</B>(
+        const hash_multimap &lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_multimap &lt;Key, Ty, Tr, Alloc&gt;&amp; right);</PRE>
+
+<P>The first template function overloads <CODE>operator&lt;</CODE>
+to compare two objects of template class
+<A HREF="#hash_map"><CODE>hash_map</CODE></A>.
+The second template function overloads <CODE>operator&lt;</CODE>
+to compare two objects of template class
+<A HREF="#hash_multimap"><CODE>hash_multimap</CODE></A>.
+Both functions return
+<CODE><A HREF="algorith.html#lexicographical_compare">lexicographical_compare</A>(left.
+<A HREF="#hash_multimap::begin">begin</A>(), left.
+<A HREF="#hash_multimap::end">end</A>(), right.begin(), right.end(),
+left.<A HREF="#hash_multimap::value_comp">value_comp</A>())</CODE>.</P>
+
+<H2><A NAME="operator&lt;="><CODE>operator&lt;=</CODE></A></H2>
+
+<PRE>template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B>operator&lt;=</B>(
+        const hash_map &lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_map &lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B>operator&lt;=</B>(
+        const hash_multimap &lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_multimap &lt;Key, Ty, Tr, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(right &lt; left)</CODE>.</P>
+
+<H2><A NAME="operator&gt;"><CODE>operator&gt;</CODE></A></H2>
+
+<PRE>template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B>operator&gt;</B>(
+        const hash_map &lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_map &lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B>operator&gt;</B>(
+        const hash_multimap &lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_multimap &lt;Key, Ty, Tr, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>right &lt; left</CODE>.</P>
+
+<H2><A NAME="operator&gt;="><CODE>operator&gt;=</CODE></A></H2>
+
+<PRE>template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B>operator&gt;=</B>(
+        const hash_map &lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_map &lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    bool <B>operator!=</B>(
+        const hash_multimap &lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        const hash_multimap &lt;Key, Ty, Tr, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(left &lt; right)</CODE>.</P>
+
+<H2><A NAME="swap"><CODE>swap</CODE></A></H2>
+
+<PRE>template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    void <B>swap</B>(
+        hash_map &lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        hash_map &lt;Key, Ty, Tr, Alloc&gt;&amp; right);
+template&lt;class Key, class Ty, class Tr, class Alloc&gt;
+    void <B>swap</B>(
+        hash_multimap &lt;Key, Ty, Tr, Alloc&gt;&amp; left,
+        hash_multimap &lt;Key, Ty, Tr, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function executes
+<CODE>left.<A HREF="#hash_map::swap">swap</A>(right)</CODE>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1998-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

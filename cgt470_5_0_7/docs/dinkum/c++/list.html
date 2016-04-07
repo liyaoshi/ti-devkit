@@ -1,0 +1,790 @@
+<HTML><HEAD><TITLE>&lt;list&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;list&gt;"><CODE>&lt;list&gt;</CODE></A></H1><HR>
+
+<P>Include the <A HREF="index.html#STL">STL</A>
+standard header <B><CODE>&lt;list&gt;</CODE></B> to define the
+<A HREF="lib_cont.html#Containers">container</A>
+template class <CODE>list</CODE> and several supporting
+templates.</P>
+
+<PRE>namespace std {
+template&lt;class Ty, class Alloc&gt;
+    class <B><A HREF="#list">list</A></B>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Ty, class Alloc&gt;
+    bool <B><A HREF="#operator==">operator==</A></B>(
+        const list&lt;Ty, Alloc&gt;&amp; left,
+        const list&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <B><A HREF="#operator!=">operator!=</A></B>(
+        const list&lt;Ty, Alloc&gt;&amp; left,
+        const list&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <B><A HREF="#operator&lt;">operator&lt;</A></B>(
+        const list&lt;Ty, Alloc&gt;&amp; left,
+        const list&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <B><A HREF="#operator&gt;">operator&gt;</A></B>(
+        const list&lt;Ty, Alloc&gt;&amp; left,
+        const list&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <B><A HREF="#operator&lt;=">operator&lt;=</A></B>(
+        const list&lt;Ty, Alloc&gt;&amp; left,
+        const list&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <B><A HREF="#operator&gt;=">operator&gt;=</A></B>(
+        const list&lt;Ty, Alloc&gt;&amp; left,
+        const list&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    void <B><A HREF="#swap">swap</A></B>(
+        list&lt;Ty, Alloc&gt;&amp; left,
+        list&lt;Ty, Alloc&gt;&amp; right);
+    };</PRE>
+
+<H2><A NAME="list"><CODE>list</CODE></A></H2>
+
+<HR>
+<P><B><CODE><A HREF="#list::allocator_type">allocator_type</A>
+&#183; <A HREF="#list::assign">assign</A>
+&#183; <A HREF="#list::back">back</A>
+&#183; <A HREF="#list::begin">begin</A>
+&#183; <A HREF="#list::clear">clear</A>
+&#183; <A HREF="#list::const_iterator">const_iterator</A>
+&#183; <A HREF="#list::const_pointer">const_pointer</A>
+&#183; <A HREF="#list::const_reference">const_reference</A>
+&#183; <A HREF="#list::const_reverse_iterator">const_reverse_iterator</A>
+&#183; <A HREF="#list::difference_type">difference_type</A>
+&#183; <A HREF="#list::empty">empty</A>
+&#183; <A HREF="#list::end">end</A>
+&#183; <A HREF="#list::erase">erase</A>
+&#183; <A HREF="#list::front">front</A>
+&#183; <A HREF="#list::get_allocator">get_allocator</A>
+&#183; <A HREF="#list::insert">insert</A>
+&#183; <A HREF="#list::iterator">iterator</A>
+&#183; <A HREF="#list::list">list</A>
+&#183; <A HREF="#list::max_size">max_size</A>
+&#183; <A HREF="#list::merge">merge</A>
+&#183; <A HREF="#list::pointer">pointer</A>
+&#183; <A HREF="#list::pop_back">pop_back</A>
+&#183; <A HREF="#list::pop_front">pop_front</A>
+&#183; <A HREF="#list::push_back">push_back</A>
+&#183; <A HREF="#list::push_front">push_front</A>
+&#183; <A HREF="#list::rbegin">rbegin</A>
+&#183; <A HREF="#list::reference">reference</A>
+&#183; <A HREF="#list::remove">remove</A>
+&#183; <A HREF="#list::remove_if">remove_if</A>
+&#183; <A HREF="#list::rend">rend</A>
+&#183; <A HREF="#list::resize">resize</A>
+&#183; <A HREF="#list::reverse">reverse</A>
+&#183; <A HREF="#list::reverse_iterator">reverse_iterator</A>
+&#183; <A HREF="#list::size">size</A>
+&#183; <A HREF="#list::size_type">size_type</A>
+&#183; <A HREF="#list::sort">sort</A>
+&#183; <A HREF="#list::splice">splice</A>
+&#183; <A HREF="#list::swap">swap</A>
+&#183; <A HREF="#list::unique">unique</A>
+&#183; <A HREF="#list::value_type">value_type</A>
+</CODE></B></P>
+<HR>
+
+<PRE>template&lt;class Ty, class Alloc = allocator&lt;Ty&gt; &gt;
+    class <B>list</B> {
+public:
+    typedef Alloc <B><A HREF="#list::allocator_type">allocator_type</A></B>;
+    typedef typename Alloc::pointer <B><A HREF="#list::pointer">pointer</A></B>;
+    typedef typename Alloc::const_pointer
+        <B><A HREF="#list::const_pointer">const_pointer</A></B>;
+    typedef typename Alloc::reference <B><A HREF="#list::reference">reference</A></B>;
+    typedef typename Alloc::const_reference <B><A HREF="#list::const_reference">const_reference</A></B>;
+    typedef typename Alloc::value_type <B><A HREF="#list::value_type">value_type</A></B>;
+    typedef T0 <B><A HREF="#list::iterator">iterator</A></B>;
+    typedef T1 <B><A HREF="#list::const_iterator">const_iterator</A></B>;
+    typedef T2 <B><A HREF="#list::size_type">size_type</A></B>;
+    typedef T3 <B><A HREF="#list::difference_type">difference_type</A></B>;
+    typedef reverse_iterator&lt;const_iterator&gt;
+        <B><A HREF="#list::const_reverse_iterator">const_reverse_iterator</A></B>;
+    typedef reverse_iterator&lt;iterator&gt;
+        <B><A HREF="#list::reverse_iterator">reverse_iterator</A></B>;
+    <B><A HREF="#list::list">list</A></B>();
+    explicit <B><A HREF="#list::list">list</A></B>(const Alloc&amp; al);
+    explicit <B><A HREF="#list::list">list</A></B>(size_type count);
+    <B><A HREF="#list::list">list</A></B>(size_type count, const Ty&amp; val);
+    <B><A HREF="#list::list">list</A></B>(size_type count, const Ty&amp; val, const Alloc&amp; al);
+    <B><A HREF="#list::list">list</A></B>(const list&amp; right);
+    template&lt;class InIt&gt;
+        <B><A HREF="#list::list">list</A></B>(InIt first, InIt last);
+    template&lt;class InIt&gt;
+        <B><A HREF="#list::list">list</A></B>(InIt first, InIt last, const Alloc&amp; al);
+    iterator <B><A HREF="#list::begin">begin</A></B>();
+    const_iterator <B><A HREF="#list::begin">begin</A></B>() const;
+    iterator <B><A HREF="#list::end">end</A></B>();
+    const_iterator <B><A HREF="#list::end">end</A></B>() const;
+    reverse_iterator <B><A HREF="#list::rbegin">rbegin</A></B>();
+    const_reverse_iterator <B><A HREF="#list::rbegin">rbegin</A></B>() const;
+    reverse_iterator <B><A HREF="#list::rend">rend</A></B>();
+    const_reverse_iterator <B><A HREF="#list::rend">rend</A></B>() const;
+    void <B><A HREF="#list::resize">resize</A></B>(size_type newsize);
+    void <B><A HREF="#list::resize">resize</A></B>(size_type newsize, Ty val);
+    size_type <B><A HREF="#list::size">size</A></B>() const;
+    size_type <B><A HREF="#list::max_size">max_size</A></B>() const;
+    bool <B><A HREF="#list::empty">empty</A></B>() const;
+    Alloc <B><A HREF="#list::get_allocator">get_allocator</A></B>() const;
+    reference <B><A HREF="#list::front">front</A></B>();
+    const_reference <B><A HREF="#list::front">front</A></B>() const;
+    reference <B><A HREF="#list::back">back</A></B>();
+    const_reference <B><A HREF="#list::back">back</A></B>() const;
+    void <B><A HREF="#list::push_front">push_front</A></B>(const Ty&amp; val);
+    void <B><A HREF="#list::pop_front">pop_front</A></B>();
+    void <B><A HREF="#list::push_back">push_back</A></B>(const Ty&amp; val);
+    void <B><A HREF="#list::pop_back">pop_back</A></B>();
+    template&lt;class InIt&gt;
+        void <B><A HREF="#list::assign">assign</A></B>(InIt first, InIt last);
+    void <B><A HREF="#list::assign">assign</A></B>(size_type count, const Ty&amp; val);
+    iterator <B><A HREF="#list::insert">insert</A></B>(iterator where, const Ty&amp; val);
+    void <B><A HREF="#list::insert">insert</A></B>(iterator where, size_type count, const Ty&amp; val);
+    template&lt;class InIt&gt;
+        void <B><A HREF="#list::insert">insert</A></B>(iterator where, InIt first, InIt last);
+    iterator <B><A HREF="#list::erase">erase</A></B>(iterator where);
+    iterator <B><A HREF="#list::erase">erase</A></B>(iterator first, iterator last);
+    void <B><A HREF="#list::clear">clear</A></B>();
+    void <B><A HREF="#list::swap">swap</A></B>(list&amp; right);
+    void <B><A HREF="#list::splice">splice</A></B>(iterator where, list&amp; right);
+    void <B><A HREF="#list::splice">splice</A></B>(iterator where, list&amp; right, iterator first);
+    void <B><A HREF="#list::splice">splice</A></B>(iterator where, list&amp; right, iterator first,
+        iterator last);
+    void <B><A HREF="#list::remove">remove</A></B>(const Ty&amp; val);
+    templace&lt;class Pr1&gt;
+        void <B><A HREF="#list::remove_if">remove_if</A></B>(Pr1 pred);
+    void <B><A HREF="#list::unique">unique</A></B>();
+    template&lt;class Pr2&gt;
+        void <B><A HREF="#list::unique">unique</A></B>(Pr2 pred);
+    void <B><A HREF="#list::merge">merge</A></B>(list&amp; right);
+    template&lt;class Pr3&gt;
+        void <B><A HREF="#list::merge">merge</A></B>(list&amp; right, Pr3 pred);
+    void <B><A HREF="#list::sort">sort</A></B>();
+    template&lt;class Pr3&gt;
+        void <B><A HREF="#list::sort">sort</A></B>(Pr3 pred);
+    void <B><A HREF="#list::reverse">reverse</A></B>();
+    };</PRE>
+
+<P>The template class describes an object that controls a
+varying-length sequence of elements of type <CODE>Ty</CODE>.
+The sequence is stored as a bidirectional linked list of elements,
+each containing a member of type <CODE>Ty</CODE>.</P>
+
+<P>The object allocates and frees storage for the sequence it controls
+through a stored <A HREF="memory.html#allocator object">allocator object</A>
+of class <CODE>Alloc</CODE>. Such an allocator object must have
+the same external interface as an object of template class
+<A HREF="memory.html#allocator"><CODE>allocator</CODE></A>.
+Note that the stored allocator object is <I>not</I> copied when the container
+object is assigned.</P>
+
+<P><B><A NAME="list reallocation">List reallocation</A></B>
+occurs when a member function must insert, erase, or splice elements of
+the controlled sequence. In all such cases, only iterators
+or references that designate erased or spliced elemets
+of the controlled sequence become
+<B><A NAME="invalid list iterators">invalid</A></B>.</P>
+
+<P>All additions to the controlled sequence occur as if by calls to
+<CODE><A HREF="#list::insert">insert</A></CODE>, which is the
+only member function that calls the constructor
+<CODE>Ty(const Ty&amp;)</CODE>. If such an expression throws
+an exception, the container object inserts no new elements and rethrows
+the exception. Thus, an object of template class <CODE>list</CODE>
+is left in a known state when such exceptions occur.</P>
+
+<H3><CODE><A NAME="list::allocator_type">list::allocator_type</A></CODE></H3>
+
+<PRE>typedef Alloc <B>allocator_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Alloc</CODE>.</P>
+
+<H3><CODE><A NAME="list::assign">list::assign</A></CODE></H3>
+
+<PRE>template&lt;class InIt&gt;
+    void <B>assign</B>(InIt first, InIt last);
+void <B>assign</B>(size_type count, const Ty&amp; val);</PRE>
+
+<P>If <CODE>InIt</CODE> is an integer type, the first member
+function behaves the same as <CODE>assign((size_type)first, (Ty)last)</CODE>.
+Otherwise, the
+first member function replaces the sequence
+controlled by <CODE>*this</CODE> with the sequence
+<CODE>[first, last)</CODE>, which must <I>not</I> overlap
+the initial controlled sequence.
+The second member function replaces the sequence
+controlled by <CODE>*this</CODE> with a repetition of <CODE>count</CODE>
+elements of value <CODE>val</CODE>.</P>
+
+
+<H3><CODE><A NAME="list::back">list::back</A></CODE></H3>
+
+<PRE>reference <B>back</B>();
+const_reference <B>back</B>() const;</PRE>
+
+<P>The member function returns a reference to the last element of the
+controlled sequence, which must be non-empty.</P>
+
+<H3><CODE><A NAME="list::begin">list::begin</A></CODE></H3>
+
+<PRE>const_iterator <B>begin</B>() const;
+iterator <B>begin</B>();</PRE>
+
+<P>The member function returns a bidirectional iterator that points at
+the first element of the sequence (or just beyond the end of an empty
+sequence).</P>
+
+<H3><CODE><A NAME="list::clear">list::clear</A></CODE></H3>
+
+<PRE>void <B>clear</B>();</PRE>
+
+<P>The member function calls
+<CODE><A HREF="#list::erase">erase</A>(
+<A HREF="#list::begin">begin</A>(),
+<A HREF="#list::end">end</A>())</CODE>.</P>
+
+<H3><CODE><A NAME="list::const_iterator">list::const_iterator</A></CODE></H3>
+
+<PRE>typedef T1 <B>const_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant
+bidirectional iterator for the controlled sequence.
+It is described here as a
+synonym for the implementation-defined type <CODE>T1</CODE>.</P>
+
+<H3><CODE><A NAME="list::const_pointer">list::const_pointer</A></CODE></H3>
+
+<PRE>typedef typename Alloc::const_pointer
+    <B>const_pointer</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant pointer
+to an element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="list::const_reference">list::const_reference</A></CODE></H3>
+
+<PRE>typedef typename Alloc::const_reference <B>const_reference</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant reference
+to an element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="list::const_reverse_iterator">list::const_reverse_iterator</A></CODE></H3>
+
+<PRE>typedef reverse_iterator&lt;const_iterator&gt;
+    <B>const_reverse_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant reverse
+bidirectional iterator for the controlled sequence.</P>
+
+<H3><CODE><A NAME="list::difference_type">list::difference_type</A></CODE></H3>
+
+<PRE>typedef T3 <B>difference_type</B>;</PRE>
+
+<P>The signed integer type describes an object that can represent the
+difference between the addresses of any two elements in the controlled
+sequence. It is described here as a
+synonym for the implementation-defined type <CODE>T3</CODE>.</P>
+
+<H3><CODE><A NAME="list::empty">list::empty</A></CODE></H3>
+
+<PRE>bool <B>empty</B>() const;</PRE>
+
+<P>The member function returns true for an empty controlled sequence.</P>
+
+<H3><CODE><A NAME="list::end">list::end</A></CODE></H3>
+
+<PRE>const_iterator <B>end</B>() const;
+iterator <B>end</B>();</PRE>
+
+<P>The member function returns a bidirectional iterator that points
+just beyond the end of the sequence.</P>
+
+<H3><CODE><A NAME="list::erase">list::erase</A></CODE></H3>
+
+<PRE>iterator <B>erase</B>(iterator where);
+iterator <B>erase</B>(iterator first, iterator last);</PRE>
+
+<P>The first member function removes the element of the controlled
+sequence pointed to by <CODE>where</CODE>. The second member function
+removes the elements of the controlled sequence
+in the range <CODE>[first, last)</CODE>.
+Both return an iterator that designates the first element remaining
+beyond any elements removed, or
+<CODE><A HREF="#list::end">end</A>()</CODE> if no such element exists.</P>
+
+<P>Erasing <CODE>N</CODE> elements causes
+<CODE>N</CODE> destructor calls.
+<A HREF="#list reallocation">Reallocation</A> occurs,
+so iterators and references become
+<A HREF="#invalid list iterators">invalid</A> for the erased
+elements.</P>
+
+<P>The member functions never throw an exception.</P>
+
+<H3><CODE><A NAME="list::front">list::front</A></CODE></H3>
+
+<PRE>reference <B>front</B>();
+const_reference <B>front</B>() const;</PRE>
+
+<P>The member function returns a reference to the first element of the
+controlled sequence, which must be non-empty.</P>
+
+<H3><CODE><A NAME="list::get_allocator">list::get_allocator</A></CODE></H3>
+
+<PRE>Alloc <B>get_allocator</B>() const;</PRE>
+
+<P>The member function returns the stored
+<A HREF="memory.html#allocator object">allocator object</A>.</P>
+
+<H3><CODE><A NAME="list::insert">list::insert</A></CODE></H3>
+
+<PRE>iterator <B>insert</B>(iterator where, const Ty&amp; val);
+void <B>insert</B>(iterator where, size_type count, const Ty&amp; val);
+template&lt;class InIt&gt;
+    void <B>insert</B>(iterator where, InIt first, InIt last);</PRE>
+
+<P>Each of the member functions inserts, before the element pointed to
+by <CODE>where</CODE> in the controlled sequence, a sequence
+specified by the remaining operands.
+The first member function inserts
+a single element with value <CODE>val</CODE> and returns an iterator
+that designates the newly inserted element. The second member function
+inserts a repetition of <CODE>count</CODE> elements of value <CODE>val</CODE>.</P>
+
+<P>If <CODE>InIt</CODE> is an integer type, the last member
+function behaves the same as <CODE>insert(where, (size_type)first, (Ty)last)</CODE>.
+Otherwise, the last member function inserts the sequence
+<CODE>[first, last)</CODE>, which must <I>not</I> overlap
+the initial controlled sequence.</P>
+
+
+<P>Inserting <CODE>N</CODE> elements causes <CODE>N</CODE>
+constructor calls.
+<A HREF="#list reallocation">Reallocation</A> occurs,
+but no iterators or references become
+<A HREF="#invalid list iterators">invalid</A>.</P>
+
+<P>If an exception is thrown during the
+insertion of one or more elements, the container is left unaltered
+and the exception is rethrown.</P>
+
+<H3><CODE><A NAME="list::iterator">list::iterator</A></CODE></H3>
+
+<PRE>typedef T0 <B>iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a bidirectional
+iterator for the controlled sequence.
+It is described here as a
+synonym for the implementation-defined type <CODE>T0</CODE>.</P>
+
+<H3><CODE><A NAME="list::list">list::list</A></CODE></H3>
+
+<PRE><B>list</B>();
+explicit <B>list</B>(const Alloc&amp; al);
+explicit <B>list</B>(size_type count);
+<B>list</B>(size_type count, const Ty&amp; val);
+<B>list</B>(size_type count, const Ty&amp; val,
+    const Alloc&amp; al);
+<B>list</B>(const list&amp; right);
+template&lt;class InIt&gt;
+    <B>list</B>(InIt first, InIt last);
+template&lt;class InIt&gt;
+    <B>list</B>(InIt first, InIt last, const Alloc&amp; al);</PRE>
+
+<P>All constructors store an
+<A HREF="memory.html#allocator object">allocator object</A> and
+initialize the controlled sequence. The allocator object is the argument
+<CODE>al</CODE>, if present. For the copy constructor, it is
+<CODE>right.<A HREF="#list::get_allocator">get_allocator</A>()</CODE>.
+Otherwise, it is <CODE>Alloc()</CODE>.</P>
+
+<P>The first two constructors specify an
+empty initial controlled sequence. The third constructor specifies
+a repetition of <CODE>count</CODE> elements of value <CODE>Ty()</CODE>.
+The fourth and fifth constructors specify
+a repetition of <CODE>count</CODE> elements of value <CODE>val</CODE>.
+The sixth constructor specifies a copy of the sequence controlled by
+<CODE>right</CODE>.
+If <CODE>InIt</CODE> is an integer type, the last two constructors
+specify a repetition of <CODE>(size_type)first</CODE> elements of value
+<CODE>(Ty)last</CODE>. Otherwise, the
+last two constructors specify the sequence
+<CODE>[first, last)</CODE>.</P>
+
+
+<H3><CODE><A NAME="list::max_size">list::max_size</A></CODE></H3>
+
+<PRE>size_type <B>max_size</B>() const;</PRE>
+
+<P>The member function returns the length of the longest sequence that
+the object can control.</P>
+
+<H3><CODE><A NAME="list::merge">list::merge</A></CODE></H3>
+
+<PRE>void <B>merge</B>(list&amp; right);
+template&lt;class Pr3&gt;
+    void <B>merge</B>(list&amp; right, Pre3 pred);</PRE>
+
+<P>Both member functions remove all elements from the sequence
+controlled by <CODE>right</CODE> and insert them in the controlled
+sequence. Both sequences must be
+<A HREF="lib_stl.html#sequence ordering">ordered by</A> the same predicate,
+described below. The resulting sequence is also ordered by that
+predicate.</P>
+
+<P>For the iterators <CODE>Pi</CODE> and <CODE>Pj</CODE>
+designating elements at positions <CODE>I</CODE>
+and <CODE>J</CODE>, the first member function imposes the
+order <CODE>!(*Pj &lt; *Pi)</CODE> whenever <CODE>I &lt; J</CODE>.
+(The elements are sorted in <I>ascending</I> order.)
+The second member function imposes the order
+<CODE>!pred(*Pj, *Pi)</CODE> whenever <CODE>I &lt; J</CODE>.</P>
+
+<P>No pairs of elements in the original controlled sequence
+are reversed in the resulting controlled sequence. If a pair
+of elements in the resulting controlled sequence has
+<A HREF="lib_stl.html#equivalent ordering">equivalent ordering</A>
+(<CODE>!(*Pi &lt; *Pj) &amp;&amp; !(*Pj &lt; *Pi)</CODE>),
+an element from the original controlled sequence appears before
+an element from the sequence controlled by <CODE>right</CODE>.</P>
+
+
+<P>An exception occurs only if <CODE>pred</CODE> throws an exception.
+In that case, the controlled sequence is left in unspecified order
+and the exception is rethrown.</P>
+
+<H3><CODE><A NAME="list::pointer">list::pointer</A></CODE></H3>
+
+<PRE>typedef typename Alloc::pointer <B>pointer</B>;</PRE>
+
+<P>The type describes an object that can serve as a pointer to an
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="list::pop_back">list::pop_back</A></CODE></H3>
+
+<PRE>void <B>pop_back</B>();</PRE>
+
+<P>The member function removes the last element of the
+controlled sequence, which must be non-empty.</P>
+
+<P>The member function never throws an exception.</P>
+
+<H3><CODE><A NAME="list::pop_front">list::pop_front</A></CODE></H3>
+
+<PRE>void <B>pop_front</B>();</PRE>
+
+<P>The member function removes the first element of the
+controlled sequence, which must be non-empty.</P>
+
+<P>The member function never throws an exception.</P>
+
+<H3><CODE><A NAME="list::push_back">list::push_back</A></CODE></H3>
+
+<PRE>void <B>push_back</B>(const Ty&amp; val);</PRE>
+
+<P>The member function inserts an element with value <CODE>val</CODE>
+at the end of the controlled sequence.</P>
+
+<P>If an exception is thrown, the container is left unaltered
+and the exception is rethrown.</P>
+
+<H3><CODE><A NAME="list::push_front">list::push_front</A></CODE></H3>
+
+<PRE>void <B>push_front</B>(const Ty&amp; val);</PRE>
+
+<P>The member function inserts an element with value <CODE>val</CODE>
+at the beginning of the controlled sequence.</P>
+
+<P>If an exception is thrown, the container is left unaltered
+and the exception is rethrown.</P>
+
+<H3><CODE><A NAME="list::rbegin">list::rbegin</A></CODE></H3>
+
+<PRE>const_reverse_iterator <B>rbegin</B>() const;
+reverse_iterator <B>rbegin</B>();</PRE>
+
+<P>The member function returns a reverse bidirectional
+iterator that points just
+beyond the end of the controlled sequence. Hence, it designates the
+beginning of the reverse sequence.</P>
+
+<H3><CODE><A NAME="list::reference">list::reference</A></CODE></H3>
+
+<PRE>typedef typename Alloc::reference <B>reference</B>;</PRE>
+
+<P>The type describes an object that can serve as a reference to an
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="list::remove">list::remove</A></CODE></H3>
+
+<PRE>void <B>remove</B>(const Ty&amp; val);</PRE>
+
+<P>The member function removes from the controlled sequence
+all elements, designated by the iterator <CODE>where</CODE>, for which
+<CODE>*where == val</CODE>.</P>
+
+<P>The member function never throws an exception.</P>
+
+<H3><CODE><A NAME="list::remove_if">list::remove_if</A></CODE></H3>
+
+<PRE>templace&lt;class Pr1&gt;
+    void <B>remove_if</B>(Pr1 pred);</PRE>
+
+<P>The member function removes from the controlled sequence
+all elements, designated by the iterator <CODE>where</CODE>, for which
+<CODE>pred(*where)</CODE> is true.</P>
+
+
+<P>An exception occurs only if <CODE>pred</CODE> throws an exception.
+In that case, the controlled sequence is left in an unspecified state
+and the exception is rethrown.</P>
+
+<H3><CODE><A NAME="list::rend">list::rend</A></CODE></H3>
+
+<PRE>const_reverse_iterator <B>rend</B>() const;
+reverse_iterator <B>rend</B>();</PRE>
+
+<P>The member function returns a reverse bidirectional
+iterator that points at the
+first element of the sequence (or just beyond the end of an empty
+sequence). Hence, it designates the end of the reverse sequence.</P>
+
+<H3><CODE><A NAME="list::resize">list::resize</A></CODE></H3>
+
+<PRE>void <B>resize</B>(size_type newsize);
+void <B>resize</B>(size_type newsize, Ty val);</PRE>
+
+<P>The member functions both ensure that
+<CODE><A HREF="#list::size">size</A>()</CODE> henceforth
+returns <CODE>newsize</CODE>. If it must make the controlled sequence longer,
+the first member function
+appends elements with value <CODE>Ty()</CODE>, while the second member function
+appends elements with value <CODE>val</CODE>.
+To make the controlled sequence shorter, both member functions call
+<CODE><A HREF="#list::erase">erase</A>(begin() + newsize, end())</CODE>.</P>
+
+<H3><CODE><A NAME="list::reverse">list::reverse</A></CODE></H3>
+
+<PRE>void <B>reverse</B>();</PRE>
+
+<P>The member function reverses the order in which elements appear
+in the controlled sequence.</P>
+
+<H3><CODE><A NAME="list::reverse_iterator">list::reverse_iterator</A></CODE></H3>
+
+<PRE>typedef reverse_iterator&lt;iterator&gt;
+    <B>reverse_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a reverse
+bidirectional iterator for the controlled sequence.</P>
+
+<H3><CODE><A NAME="list::size">list::size</A></CODE></H3>
+
+<PRE>size_type <B>size</B>() const;</PRE>
+
+<P>The member function returns the length of the controlled sequence.</P>
+
+<H3><CODE><A NAME="list::size_type">list::size_type</A></CODE></H3>
+
+<PRE>typedef T2 <B>size_type</B>;</PRE>
+
+<P>The unsigned integer type describes an object that can represent the
+length of any controlled sequence. It is described here as a
+synonym for the implementation-defined type <CODE>T2</CODE>.</P>
+
+<H3><CODE><A NAME="list::sort">list::sort</A></CODE></H3>
+
+<PRE>void <B>sort</B>();
+template&lt;class Pr3&gt;
+    void <B>sort</B>(Pr3 pred);</PRE>
+
+<P>Both member functions order the elements in the controlled
+sequence by a predicate, described below.</P>
+
+<P>For the iterators <CODE>Pi</CODE> and <CODE>Pj</CODE>
+designating elements at positions <CODE>I</CODE>
+and <CODE>J</CODE>, the first member function imposes the
+order <CODE>!(*Pj &lt; *Pi)</CODE> whenever <CODE>I &lt; J</CODE>.
+(The elements are sorted in <I>ascending</I> order.)
+The member template function imposes the order
+<CODE>!pred(*Pj, *Pi)</CODE> whenever <CODE>I &lt; J</CODE>.
+No ordered pairs of elements in the original controlled sequence
+are reversed in the resulting controlled sequence.
+(The sort is stable.)</P>
+
+
+<P>An exception occurs only if <CODE>pred</CODE> throws an exception.
+In that case, the controlled sequence is left in unspecified order
+and the exception is rethrown.</P>
+
+<H3><CODE><A NAME="list::splice">list::splice</A></CODE></H3>
+
+<PRE>void <B>splice</B>(iterator where, list&amp; right);
+void <B>splice</B>(iterator where, list&amp; right, iterator first);
+void <B>splice</B>(iterator where, list&amp; right, iterator first,
+    iterator last);</PRE>
+
+<P>The first member function inserts the sequence controlled
+by <CODE>right</CODE> before the element in the controlled sequence
+pointed to by <CODE>where</CODE>. It also removes all elements from
+<CODE>right</CODE>. (<CODE>&amp;right</CODE> must not equal <CODE>this</CODE>.)</P>
+
+<P>The second member function removes the element pointed to by
+<CODE>first</CODE> in the sequence controlled by <CODE>right</CODE> and
+inserts it before the element in the controlled sequence
+pointed to by <CODE>where</CODE>. (If <CODE>where == first || where == ++first</CODE>,
+no change occurs.)</P>
+
+<P>The third member function inserts the subrange
+designated by <CODE>[first, last)</CODE> from the sequence
+controlled by <CODE>right</CODE>
+before the element in the controlled sequence pointed to by <CODE>where</CODE>.
+It also removes the original subrange from the sequence controlled
+by <CODE>right</CODE>. (If <CODE>&amp;right == this</CODE>,
+the range <CODE>[first, last)</CODE> must not include the element
+pointed to by <CODE>where</CODE>.)</P>
+
+<P>If the third member function inserts
+<CODE>N</CODE> elements, and <CODE>&amp;right != this</CODE>, an object of class
+<CODE><A HREF="#list::iterator">iterator</A></CODE> is
+incremented <CODE>N</CODE> times.
+For all <CODE>splice</CODE> member functions, If
+<CODE><A HREF="#list::get_allocator">get_allocator</A>()
+== str.get_allocator()</CODE>, no exception occurs.
+Otherwise, a copy and a destructor call also
+occur for each inserted element.</P>
+
+<P>Only iterators or references that designate spliced elements become
+<B><A NAME="invalid list iterators">invalid</A></B>.</P>
+
+<H3><CODE><A NAME="list::swap">list::swap</A></CODE></H3>
+
+<PRE>void <B>swap</B>(list&amp; right);</PRE>
+
+<P>The member function swaps the controlled sequences between
+<CODE>*this</CODE> and <CODE>where</CODE>. If
+<CODE><A HREF="#list::get_allocator">get_allocator</A>()
+== where.get_allocator()</CODE>, it does so in constant time,
+it throws no exceptions, and it invalidates no references, pointers,
+or iterators that designate elements in the two controlled sequences.
+Otherwise, it performs a number of element assignments and constructor calls
+proportional to the number of elements in the two controlled sequences.</P>
+
+<H3><CODE><A NAME="list::unique">list::unique</A></CODE></H3>
+
+<PRE>void <B>unique</B>();
+template&lt;class Pr2&gt;
+    void <B><A HREF="#list::unique">unique</A></B>(Pr2 pred);</PRE>
+
+<P>The first member function removes from the controlled sequence
+every element that compares equal to its preceding element.
+For the iterators <CODE>Pi</CODE> and <CODE>Pj</CODE>
+designating elements at positions <CODE>I</CODE>
+and <CODE>J</CODE>, the second member function removes every
+element for which <CODE>I + 1 == J &amp;&amp; pred(*Pi, *Pj)</CODE>.</P>
+
+
+<P>For a controlled sequence of length <CODE>N</CODE>
+(&gt; 0), the predicate <CODE>pred(*Pi, *Pj)</CODE>
+is evaluated <CODE>N - 1</CODE> times.</P>
+
+<P>An exception occurs only if <CODE>pred</CODE> throws an exception.
+In that case, the controlled sequence is left in an unspecified state
+and the exception is rethrown.</P>
+
+<H3><CODE><A NAME="list::value_type">list::value_type</A></CODE></H3>
+
+<PRE>typedef typename Alloc::value_type <B>value_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Ty</CODE>.</P>
+
+<H2><A NAME="operator!="><CODE>operator!=</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Alloc&gt;
+    bool <B>operator!=</B>(
+        const list &lt;Ty, Alloc&gt;&amp; left,
+        const list &lt;Ty, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(left == right)</CODE>.</P>
+
+<H2><A NAME="operator=="><CODE>operator==</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Alloc&gt;
+    bool <B>operator==</B>(
+        const list &lt;Ty, Alloc&gt;&amp; left,
+        const list &lt;Ty, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function overloads <CODE>operator==</CODE> to compare
+two objects of template class
+<A HREF="#list"><CODE>list</CODE></A>. The function returns
+<CODE>left.<A HREF="#list::size">size</A>() == right.size() &amp;&amp;
+<A HREF="algorith.html#equal">equal</A>(left.
+<A HREF="#list::begin">begin</A>(), left.
+<A HREF="#list::end">end</A>(), right.begin())</CODE>.</P>
+
+<H2><A NAME="operator&lt;"><CODE>operator&lt;</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Alloc&gt;
+    bool <B>operator&lt;</B>(
+        const list &lt;Ty, Alloc&gt;&amp; left,
+        const list &lt;Ty, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function overloads <CODE>operator&lt;</CODE> to compare
+two objects of template class
+<A HREF="#list"><CODE>list</CODE></A>. The function returns
+<CODE><A HREF="algorith.html#lexicographical_compare">lexicographical_compare</A>(left.
+<A HREF="#list::begin">begin</A>(), left.
+<A HREF="#list::end">end</A>(), right.begin(), right.end())</CODE>.</P>
+
+<H2><A NAME="operator&lt;="><CODE>operator&lt;=</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Alloc&gt;
+    bool <B>operator&lt;=</B>(
+        const list &lt;Ty, Alloc&gt;&amp; left,
+        const list &lt;Ty, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(right &lt; left)</CODE>.</P>
+
+<H2><A NAME="operator&gt;"><CODE>operator&gt;</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Alloc&gt;
+    bool <B>operator&gt;</B>(
+        const list &lt;Ty, Alloc&gt;&amp; left,
+        const list &lt;Ty, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>right &lt; left</CODE>.</P>
+
+<H2><A NAME="operator&gt;="><CODE>operator&gt;=</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Alloc&gt;
+    bool <B>operator&gt;=</B>(
+        const list &lt;Ty, Alloc&gt;&amp; left,
+        const list &lt;Ty, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(left &lt; right)</CODE>.</P>
+
+<H2><A NAME="swap"><CODE>swap</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Alloc&gt;
+    void <B>swap</B>(
+        list &lt;Ty, Alloc&gt;&amp; left,
+        list &lt;Ty, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function executes
+<CODE>left.<A HREF="#list::swap">swap</A>(right)</CODE>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1994-2002
+by P.J. Plauger. Portions derived from work
+<A HREF="crit_hp.html">copyright</A> &#169; 1994
+by Hewlett-Packard Company. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

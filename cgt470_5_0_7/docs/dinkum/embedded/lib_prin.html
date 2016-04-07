@@ -1,0 +1,371 @@
+<HTML><HEAD><TITLE>Formatted Output</TITLE></HEAD><BODY>
+<H1><A NAME="Formatted Output">Formatted Output</A></H1><HR>
+
+<P><B><A HREF="#Print Formats">Print Formats</A>
+&#183; <A HREF="#Print Functions">Print Functions</A>
+&#183; <A HREF="#Print Conversion Specifiers">Print Conversion Specifiers</A>
+</B></P>
+<HR>
+
+<P>Several library functions help you convert data values from
+encoded internal representations to text sequences that are
+generally readable by people. You provide a
+<A HREF="#format string">format string</A> as the value of the
+<CODE>format</CODE> argument to each of these functions, hence
+the term <B>formatted output</B>.
+The functions
+(declared in
+<A HREF="stdio.html#&lt;stdio.h&gt;"><CODE>&lt;stdio.h&gt;</CODE></A>)
+convert internal representations to sequences of type <I>char,</I>
+and help you compose such sequences for display:
+<A HREF="stdio.html#fprintf">fprintf</A>,
+<A HREF="stdio.html#printf">printf</A>,
+<A HREF="stdio.html#sprintf">sprintf</A>,
+<A HREF="stdio.html#vfprintf">vfprintf</A>,
+<A HREF="stdio.html#vprintf">vprintf</A>, and
+<A HREF="stdio.html#vsprintf">vsprintf</A>.
+For these function, a format string is a
+<A HREF="lib_over.html#multibyte string">multibyte string</A>
+that begins and ends in the
+<A HREF="charset.html#initial shift state">initial shift state</A>.</P>
+
+
+<H2><A NAME="Print Formats">Print Formats</A></H2>
+
+<P>A <B><A NAME="format string">format string</A></B> has the same
+syntax for both the print functions and the
+<A HREF="lib_scan.html#Formatted Input">scan functions</A>,
+as shown in the diagram.</P>
+
+<P><IMG SRC="format.gif"></P>
+
+<P>A format string consists of zero or more
+<B><A NAME="conversion specification">conversion specifications</A></B>
+interspersed with literal text and
+<B><A NAME="white space">white space</A></B>.
+White space is a sequence of one or more
+characters <CODE>c</CODE> for which the call
+<CODE><A HREF="ctype.html#isspace">isspace</A>(c)</CODE> returns nonzero.
+(The characters defined as white space can change when you change the
+<A HREF="locale.html#LC_CTYPE"><CODE>LC_CTYPE</CODE></A>
+<A HREF="locale.html#locale category">locale category</A>.)
+For the print functions, a conversion specification is one of the
+<A HREF="#print conversion specification">
+print conversion specifications</A> described below.</P>
+
+<P>A print function scans the format string once from beginning
+to end to determine what conversions to perform. Every print
+function accepts a
+<A HREF="stdarg.html#varying number of arguments">varying number
+of arguments</A>, either directly or under control of an argument of type
+<A HREF="stdarg.html#va_list"><CODE>va_list</CODE></A>.
+Some print conversion specifications
+in the format string use the next argument in the list.
+A print function uses each successive argument no more than
+once. Trailing arguments can be left unused.</P>
+
+<P>In the description that follows:</P>
+
+<UL>
+<LI><B><A NAME="integer conversions">integer conversions</A></B> are the
+<B><A NAME="conversion specifiers">conversion specifiers</A></B> that
+end in <CODE>d</CODE>, <CODE>i</CODE>, <CODE>o</CODE>, <CODE>u</CODE>,
+<CODE>x</CODE>, or <CODE>X</CODE></LI>
+
+<LI><B><A NAME="floating-point conversions">
+floating-point conversions</A></B>
+are the conversion specifiers
+that end in <CODE>e</CODE>, <CODE>E</CODE>, <CODE>f</CODE>,
+<CODE>g</CODE>, or <CODE>G</CODE></LI>
+</UL>
+
+<H2><A NAME="Print Functions">Print Functions</A></H2>
+
+<P>For the print functions, literal text or
+<A HREF="#white space">white space</A> in a format
+string generates characters that match the characters in the format
+string. A
+<B><A NAME="print conversion specification">
+print conversion specification</A></B> typically generates characters
+by converting the next argument value to a corresponding text sequence.
+A print conversion specification has the format:</P>
+
+<P><IMG SRC="print.gif"></P>
+
+<P><B>Boldface</B> indicates a feature added with
+<A HREF="lib_over.html#C99">C99</A>.</P>
+
+<P>Following the percent character (<B><CODE>%</CODE></B>)
+in the format string, you can write zero or more
+<B><A NAME="format flag">format flags</A></B>:</P>
+
+<UL>
+<LI><B><CODE>-</CODE></B>
+-- to left-justify a conversion</LI>
+
+<LI><B><CODE>+</CODE></B>
+-- to generate a plus sign for signed values that
+are positive</LI>
+
+<LI><B><CODE><I>space</I></CODE></B>
+-- to generate a <CODE><I>space</I></CODE> for signed values
+that have neither a plus nor a minus sign</LI>
+
+<LI><B><CODE>#</CODE></B>
+-- to prefix <CODE>0</CODE> on an <CODE>o</CODE> conversion,
+to prefix <CODE>0x</CODE> on an <CODE>x</CODE> conversion,
+to prefix <CODE>0X</CODE> on an <CODE>X</CODE> conversion,
+or to generate a decimal point and fraction
+digits that are otherwise suppressed on a floating-point conversion</LI>
+
+<LI><B><CODE>0</CODE></B>
+-- to pad a conversion with leading zeros after
+any sign or prefix, in the absence of a minus (<CODE>-</CODE>)
+format flag or a specified precision</LI>
+</UL>
+
+<P>Following any format flags, you can write a
+<B><A NAME="print field width">field width</A></B> that
+specifies the minimum number of characters to generate for the conversion.
+Unless altered by a format flag,
+the default behavior is to pad a short conversion
+on the left with <CODE><I>space</I></CODE> characters.
+If you write an asterisk (<B><CODE>*</CODE></B>)
+instead of a decimal number for a field width, then a print
+function takes the value of the next argument (which must be of type
+<I>int</I>) as the field width. If the argument value is negative,
+it supplies a <CODE>-</CODE> format flag
+and its magnitude is the field width.</P>
+
+<P>Following any field width, you can write a dot (<B><CODE>.</CODE></B>)
+followed by a
+<B><A NAME="precision">precision</A></B>
+that specifies one of the following:
+the minimum number of digits to generate on an integer conversion;
+the number of fraction digits to generate on an <CODE>e</CODE>,
+<CODE>E</CODE>, or <CODE>f</CODE> conversion;
+the maximum number of significant digits to generate
+on a <CODE>g</CODE> or <CODE>G</CODE> conversion; or the maximum number
+of characters to generate from a
+<A HREF="lib_over.html#C string">C string</A>
+on an <CODE>s</CODE> conversion.</P>
+
+<P>If you write an <B><CODE>*</CODE></B> instead of
+a decimal number for a precision,
+a print function takes the value of the next argument (which must
+be of type <I>int</I>) as the precision. If the argument value is
+negative, the default precision applies. If you do not write either
+an <CODE>*</CODE> or a decimal number following the dot, the precision
+is zero.</P>
+
+<H2><A NAME="Print Conversion Specifiers">
+Print Conversion Specifiers</A></H2>
+
+<P>Following any
+<A HREF="#precision">precision</A>,
+you must write a one-character <B>print conversion specifier</B>,
+possibly preceded by a one- or two-character qualifier.
+Each combination determines the type required of the
+next argument (if any) and how the library functions alter the argument
+value before converting it to a text sequence.
+The <A HREF="#integer conversions">integer</A> and
+<A HREF="#floating-point conversions">
+floating-point conversions</A> also determine
+what base to use for the text representation.
+If a conversion specifier requires a precision <I>p</I> and you do
+not provide one in the format, then the conversion specifier chooses
+a default value for the precision. The following table
+lists all defined combinations and their properties.</P>
+
+<PRE>
+<B>Conversion</B>  <B>Argument</B>        <B>Converted</B>          <B>Default  Pre-</B>
+ <B>Specifier</B>    <B>Type</B>            <B>Value</B>              <B>Base</B>  <B>cision</B>
+
+   %c       int x          (unsigned char)x
+
+   %d       int x          (int)x                 10     1
+  %hd       int x          (short)x               10     1
+  %ld       long x         (long)x                10     1
+
+   %e       double x       (double)x              10     6
+  %Le       long double x  (long double)x         10     6
+   %E       double x       (double)x              10     6
+  %LE       long double x  (long double)x         10     6
+
+   %f       double x       (double)x              10     6
+  %Lf       long double x  (long double)x         10     6
+
+   %g       double x       (double)x              10     6
+  %Lg       long double x  (long double)x         10     6
+   %G       double x       (double)x              10     6
+  %LG       long double x  (long double)x         10     6
+
+   %i       int x          (int)x                 10     1
+  %hi       int x          (short)x               10     1
+  %li       long x         (long)x                10     1
+
+   %n       int *x
+  %hn       short *x
+  %ln       long *x
+
+   %o       int x          (unsigned int)x         8     1
+  %ho       int x          (unsigned short)x       8     1
+  %lo       long x         (unsigned long)x        8     1
+
+   %p       void *x        (void *)x
+
+   %s       char x[]       x[0]...                     <B>large</B>
+
+   %u       int x          (unsigned int)x        10     1
+  %hu       int x          (unsigned short)x      10     1
+  %lu       long x         (unsigned long)x       10     1
+
+   %x       int x          (unsigned int)x        16     1
+  %hx       int x          (unsigned short)x      16     1
+  %lx       long x         (unsigned long)x       16     1
+
+   %X       int x          (unsigned int)x        16     1
+  %hX       int x          (unsigned short)x      16     1
+  %lX       long x         (unsigned long)x       16     1
+
+   %%       <B>none</B>           '%'</PRE>
+
+<P>The print conversion specifier determines any behavior not summarized
+in this table. For all floating-point conversions:</P>
+
+<UL>
+<LI>Positive infinity prints as <CODE>inf</CODE> or <CODE>INF</CODE>.</LI>
+
+<LI>Negative infinity prints as <CODE>-inf</CODE> or <CODE>-INF</CODE>.</LI>
+
+<LI>Not-a-number (NaN) prints as <CODE>nan</CODE> or <CODE>NAN</CODE>.</LI>
+</UL>
+
+<P>The upper-case version prints only for an upper-case conversion specifier,
+such as <CODE>%E</CODE> but not <CODE>%Lg</CODE>.</P>
+
+<P>In the following descriptions, <I>p</I> is the precision.
+Examples follow each of the print conversion specifiers.
+A single conversion can generate up to 509 characters.</P>
+
+<P>You write <B><A NAME="%c"><CODE>%c</CODE></A></B>
+to generate a single character from the converted
+value.</P>
+
+<PRE>    printf("%c", 'a')               <B>generates a</B>
+    printf("&lt;%3c|%-3c&gt;", 'a', 'b')  <B>generates &lt;  a|b  &gt;</B></PRE>
+
+
+<P>You write <B><A NAME="%d"><CODE>%d</CODE></A></B>,
+<B><A NAME="%i"><CODE>%i</CODE></A></B>,
+<B><A NAME="%o"><CODE>%o</CODE></A></B>,
+<B><A NAME="%u"><CODE>%u</CODE></A></B>,
+<B><A NAME="%x"><CODE>%x</CODE></A></B>, or
+<B><A NAME="%X"><CODE>%X</CODE></A></B> to generate
+a possibly signed integer representation. <CODE>%d</CODE> or <CODE>%i</CODE>
+specifies signed decimal representation, <CODE>%o</CODE>
+unsigned octal, <CODE>%u</CODE> unsigned decimal,
+<CODE>%x</CODE> unsigned hexadecimal using the digits <CODE>0-9</CODE>
+and <CODE>a-f</CODE>, and <CODE>%X</CODE> unsigned
+hexadecimal using the digits <CODE>0-9</CODE> and <CODE>A-F</CODE>.
+The conversion generates at least <I>p</I> digits
+to represent the converted value. If <I>p</I> is zero,
+a converted value of zero generates no digits.</P>
+
+<PRE>    printf("%d %o %x", 31, 31, 31)  <B>generates 31 37 1f</B>
+    printf("%hu", 0xffff)           <B>generates 65535</B>
+    printf("%#X %+d", 31, 31)       <B>generates 0X1F +31</B></PRE>
+
+<P>You write <B><A NAME="%e"><CODE>%e</CODE></A></B> or
+<B><A NAME="%E"><CODE>%E</CODE></A></B> to generate
+a signed decimal fractional representation with
+a decimal power-of-ten exponent. The generated text takes the form
+<I>&#177;d.dddE&#177;dd,</I> where <I>&#177;</I> is either a plus or
+minus sign, <I>d</I> is a decimal digit, the decimal point (<I>.</I>)
+is the decimal point for the current
+<A HREF="locale.html#locale">locale</A>,
+and <I>E</I> is either <CODE>e</CODE> (for <CODE>%e</CODE> conversion)
+or <CODE>E</CODE> (for <CODE>%E</CODE> conversion).
+The generated text has one integer digit,
+a decimal point if <I>p</I> is nonzero or if you specify the <CODE>#</CODE>
+format flag, <I>p</I> fraction digits, and at least two exponent digits.
+The result is rounded. The value zero has a zero exponent.</P>
+
+<PRE>    printf("%e", 31.4)              <B>generates 3.140000e+01</B>
+    printf("%.2E", 31.4)            <B>generates 3.14E+01</B></PRE>
+
+<P>You write <B><A NAME="%f"><CODE>%f</CODE></A></B>
+to generate a signed decimal fractional representation
+with no exponent. The generated text takes the form <I>&#177;d.ddd,</I>
+where <I>&#177;</I> is either a plus or minus sign,
+<I>d</I> is a decimal digit, and the decimal point (<I>.</I>)
+is the decimal point for the current
+<A HREF="locale.html#locale">locale</A>.
+The generated text has at least one integer digit,
+a decimal point if <I>p</I> is nonzero or if you specify
+the <CODE>#</CODE> format flag, and <I>p</I> fraction digits.
+The result is rounded.</P>
+
+<PRE>    printf("%f", 31.4)              <B>generates 31.400000</B>
+    printf("%.0f %#.0f", 31.0, 31.0)<B>generates 31 31.</B></PRE>
+
+<P>You write <B><A NAME="%g"><CODE>%g</CODE></A></B> or
+<B><A NAME="%G"><CODE>%G</CODE></A></B> to generate
+a signed decimal fractional
+representation with or without a decimal power-of-ten exponent, as appropriate.
+For <CODE>%g</CODE> conversion, the generated text
+takes the same form as either <CODE>%e</CODE>
+or <CODE>%f</CODE> conversion. For <CODE>%G</CODE> conversion,
+it takes the same form as either
+<CODE>%E</CODE> or
+<CODE>%f</CODE>
+conversion.
+The precision <I>p</I> specifies the number
+of significant digits generated. (If <I>p</I> is zero, it is changed
+to 1.) If <CODE>%e</CODE> conversion would yield an exponent in the range
+[-4, <I>p</I>), then <CODE>%f</CODE> conversion occurs instead.
+The generated text has no trailing zeros
+in any fraction and has a decimal point
+only if there are nonzero fraction digits, unless you specify the
+<CODE>#</CODE> format flag.</P>
+
+<PRE>    printf("%.6g", 31.4)            <B>generates 31.4</B>
+    printf("%.1g", 31.4)            <B>generates 3.14e+01</B></PRE>
+
+<P>You write <B><A NAME="%n"><CODE>%n</CODE></A></B>
+to store the number of characters generated
+(up to this point in the format) in an integer object
+whose address is the value of the next successive argument.</P>
+
+<PRE>    printf("abc%n", &amp;x)                   <B>stores 3</B></PRE>
+
+<P>You write <B><A NAME="%p"><CODE>%p</CODE></A></B>
+to generate an external representation of a <I>pointer to void.</I>
+The conversion is implementation defined.</P>
+
+<PRE>    printf("%p", (void *)&amp;x)        <B>generates, e.g. F4C0</B></PRE>
+
+<P>You write <B><A NAME="%s"><CODE>%s</CODE></A></B>
+to generate a sequence of characters from
+the values stored in the argument
+<A HREF="lib_over.html#C string">C string</A>.</P>
+
+<PRE>    printf("%s", "hello")           <B>generates hello</B>
+    printf("%.2s", "hello")         <B>generates he</B></PRE>
+
+
+<P>You write <B><A NAME="%%"><CODE>%%</CODE></A></B> to generate
+the percent character (<CODE>%</CODE>).</P>
+
+<PRE>    printf("%%")                    <B>generates %</B></PRE>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pb.html">Copyright</A> &#169; 1989-2002
+by P.J. Plauger and Jim Brodie. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

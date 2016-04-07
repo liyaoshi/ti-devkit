@@ -1,0 +1,63 @@
+<HTML><HEAD><TITLE>&lt;assert.h&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;assert.h&gt;"><CODE>&lt;assert.h&gt;</CODE></A></H1><HR>
+
+<P>Include the standard header <B><CODE>&lt;assert.h&gt;</CODE></B>
+to define the macro
+<A HREF="#assert"><CODE>assert</CODE></A>,
+which is useful for diagnosing logic errors in
+the program. You can eliminate the testing code produced by the macro
+<CODE>assert</CODE> without removing the macro references from the program
+by defining the macro
+<B><A NAME="NDEBUG"><CODE>NDEBUG</CODE></A></B>
+in the program before you include
+<CODE>&lt;assert.h&gt;</CODE>. Each time the program includes this header,
+it redetermines the definition of the macro <CODE>assert</CODE>.</P>
+
+<PRE>#undef assert
+#if defined NDEBUG
+#define <B><A HREF="#assert">assert</A></B>(test) (void)0
+#else
+#define <B><A HREF="#assert">assert</A></B>(test) <I>&lt;void expression&gt;</I>
+#endif</PRE>
+
+<H2><A NAME="assert"><CODE>assert</CODE></A></H2>
+
+<PRE>#undef assert
+#if defined NDEBUG
+#define <B>assert</B>(test) (void)0
+#else
+#define <B>assert</B>(test) <I>&lt;void expression&gt;</I>
+#endif</PRE>
+
+<P>If the <I>int</I> expression <CODE>test</CODE> equals zero,
+the macro writes to
+<A HREF="stdio.html#stderr"><CODE>stderr</CODE></A>
+a diagnostic message that includes:</P>
+
+<UL>
+<LI>the text of <CODE>test</CODE></LI>
+
+<LI>the source filename (the predefined macro
+<A HREF="preproc.html#__FILE__"><CODE>__FILE__</CODE></A>)</LI>
+
+<LI>the source line number (the predefined macro
+<A HREF="preproc.html#__LINE__"><CODE>__LINE__</CODE></A>)</LI>
+</UL>
+
+<P>It then calls
+<A HREF="stdlib.html#abort"><CODE>abort</CODE></A>.</P>
+
+<P>You can write the macro <CODE>assert</CODE> in the program in any
+<A HREF="function.html#side-effects context">side-effects context</A>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pb.html">Copyright</A> &#169; 1989-2002
+by P.J. Plauger and Jim Brodie. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

@@ -1,0 +1,222 @@
+<HTML><HEAD><TITLE>&lt;stack&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;stack&gt;"><CODE>&lt;stack&gt;</CODE></A></H1><HR>
+
+<P>Include the <A HREF="index.html#STL">STL</A>
+standard header <B><CODE>&lt;stack&gt;</CODE></B>
+to define the template class <CODE>stack</CODE> and two supporting
+templates.</P>
+
+<PRE>namespace std {
+template&lt;class Ty, class Container&gt;
+    class <B><A HREF="#stack">stack</A></B>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Ty, class Container&gt;
+    bool <B><A HREF="#operator==">operator==</A></B>(const stack&lt;Ty, Container&gt;&amp; left,
+        const stack&lt;Ty, Container&gt;&amp;);
+template&lt;class Ty, class Container&gt;
+    bool <B><A HREF="#operator!=">operator!=</A></B>(const stack&lt;Ty, Container&gt;&amp; left,
+        const stack&lt;Ty, Container&gt;&amp;);
+template&lt;class Ty, class Container&gt;
+    bool <B><A HREF="#operator&lt;">operator&lt;</A></B>(const stack&lt;Ty, Container&gt;&amp; left,
+        const stack&lt;Ty, Container&gt;&amp;);
+template&lt;class Ty, class Container&gt;
+    bool <B><A HREF="#operator&gt;">operator&gt;</A></B>(const stack&lt;Ty, Container&gt;&amp; left,
+        const stack&lt;Ty, Container&gt;&amp;);
+template&lt;class Ty, class Container&gt;
+    bool <B><A HREF="#operator&lt;=">operator&lt;=</A></B>(const stack&lt;Ty, Container&gt;&amp; left,
+        const stack&lt;Ty, Container&gt;&amp;);
+template&lt;class Ty, class Container&gt;
+    bool <B><A HREF="#operator&gt;=">operator&gt;=</A></B>(const stack&lt;Ty, Container&gt;&amp; left,
+        const stack&lt;Ty, Container&gt;&amp;);
+    };</PRE>
+
+<H2><A NAME="operator!="><CODE>operator!=</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Container&gt;
+    bool <B>operator!=</B>(const stack &lt;Ty, Container&gt;&amp; left,
+        const stack &lt;Ty, Container&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(left == right)</CODE>.</P>
+
+<H2><A NAME="operator=="><CODE>operator==</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Container&gt;
+    bool <B>operator==</B>(const stack &lt;Ty, Container&gt;&amp; left,
+        const stack &lt;Ty, Container&gt;&amp; right);</PRE>
+
+<P>The template function overloads <CODE>operator==</CODE> to compare
+two objects of template class
+<A HREF="#stack"><CODE>stack</CODE></A>. The function returns
+<CODE>left.<A HREF="#stack::c">c</A> == right.c</CODE>.</P>
+
+<H2><A NAME="operator&lt;"><CODE>operator&lt;</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Container&gt;
+    bool <B>operator&lt;</B>(const stack &lt;Ty, Container&gt;&amp; left,
+        const stack &lt;Ty, Container&gt;&amp; right);</PRE>
+
+<P>The template function overloads <CODE>operator&lt;</CODE> to compare
+two objects of template class
+<A HREF="#stack"><CODE>stack</CODE></A>. The function returns
+<CODE>left.<A HREF="#stack::c">c</A> &lt; right.c</CODE>.</P>
+
+<H2><A NAME="operator&lt;="><CODE>operator&lt;=</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Container&gt;
+    bool <B>operator&lt;=</B>(const stack &lt;Ty, Container&gt;&amp; left,
+        const stack &lt;Ty, Container&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(right &lt; left)</CODE>.</P>
+
+<H2><A NAME="operator&gt;"><CODE>operator&gt;</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Container&gt;
+    bool <B>operator&gt;</B>(const stack &lt;Ty, Container&gt;&amp; left,
+        const stack &lt;Ty, Container&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>right &lt; left</CODE>.</P>
+
+<H2><A NAME="operator&gt;="><CODE>operator&gt;=</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Container&gt;
+    bool <B>operator&gt;=</B>(const stack &lt;Ty, Container&gt;&amp; left,
+        const stack &lt;Ty, Container&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(left &lt; right)</CODE>.</P>
+
+<H2><A NAME="stack"><CODE>stack</CODE></A></H2>
+
+<PRE>template&lt;class Ty,
+    class Container = deque&lt;Ty&gt; &gt;
+    class stack {
+public:
+    typedef Container <B><A HREF="#stack::container_type">container_type</A></B>;
+    typedef typename Container::value_type <B><A HREF="#stack::value_type">value_type</A></B>;
+    typedef typename Container::size_type <B><A HREF="#stack::size_type">size_type</A></B>;
+    <B><A HREF="#stack::stack">stack</A></B>();
+    explicit <B><A HREF="#stack::stack">stack</A></B>(const container_type&amp; cont);
+    bool <B><A HREF="#stack::empty">empty</A></B>() const;
+    size_type <B><A HREF="#stack::size">size</A></B>() const;
+    value_type&amp; <B><A HREF="#stack::top">top</A></B>();
+    const value_type&amp; <B><A HREF="#stack::top">top</A></B>() const;
+    void <B><A HREF="#stack::push">push</A></B>(const value_type&amp; val);
+    void <B><A HREF="#stack::pop">pop</A></B>();
+protected:
+    Container <B><A HREF="#stack::c">c</A></B>;
+    };</PRE>
+
+<P>The template class describes an object that controls a
+varying-length sequence of elements.
+The object allocates and frees storage for the sequence it controls
+through a protected object named
+<B><A NAME="stack::c"><CODE>c</CODE></A></B>,
+of class <CODE>Container</CODE>.
+The type <CODE>Ty</CODE> of elements in the controlled sequence must match
+<CODE><A HREF="#stack::value_type">value_type</A></CODE>.</P>
+
+<P>An object of class <CODE>Container</CODE> must supply
+several public members defined the same as for
+<CODE><A HREF="deque.html#deque">deque</A></CODE>,
+<CODE><A HREF="list.html#list">list</A></CODE>, and
+<CODE><A HREF="vector.html#vector">vector</A></CODE>
+(all of which are suitable candidates for class <CODE>Container</CODE>).
+The required members are:</P>
+
+<PRE>    typedef Ty <B>value_type</B>;
+    typedef T0 <B>size_type</B>;
+    <B>Container</B>();
+    bool <B>empty</B>() const;
+    size_type <B>size</B>() const;
+    value_type&amp; <B>back</B>();
+    const value_type&amp; <B>back</B>() const;
+    void <B>push_back</B>(const value_type&amp; val);
+    void <B>pop_back</B>();
+    bool operator==(const Container&amp; cont) const;
+    bool operator!=(const Container&amp; cont) const;
+    bool operator&lt;(const Container&amp; cont) const;
+    bool operator&gt;(const Container&amp; cont) const;
+    bool operator&lt;=(const Container&amp; cont) const;
+    bool operator&gt;=(const Container&amp; cont) const;</PRE>
+
+<P>Here, <CODE>T0</CODE> is an unspecified type
+that meets the stated requirements.</P>
+
+<H3><CODE><A NAME="stack::container_type">stack::container_type</A></CODE></H3>
+
+<PRE>typedef Container <B>container_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Container</CODE>.</P>
+
+<H3><CODE><A NAME="stack::empty">stack::empty</A></CODE></H3>
+
+<PRE>bool <B>empty</B>() const;</PRE>
+
+<P>The member function returns true for an empty controlled sequence.</P>
+
+<H3><CODE><A NAME="stack::pop">stack::pop</A></CODE></H3>
+
+<PRE>void <B>pop</B>();</PRE>
+
+<P>The member function removes the last element of the
+controlled sequence, which must be non-empty.</P>
+
+<H3><CODE><A NAME="stack::push">stack::push</A></CODE></H3>
+
+<PRE>void <B>push</B>(const Ty&amp; val);</PRE>
+
+<P>The member function inserts an element with value <CODE>val</CODE>
+at the end of the controlled sequence.</P>
+
+<H3><CODE><A NAME="stack::size">stack::size</A></CODE></H3>
+
+<PRE>size_type <B>size</B>() const;</PRE>
+
+<P>The member function returns the length of the controlled sequence.</P>
+
+<H3><CODE><A NAME="stack::size_type">stack::size_type</A></CODE></H3>
+
+<PRE>typedef typename Container::size_type <B>size_type</B>;</PRE>
+
+<P>The type is a synonym for <CODE>Container::size_type</CODE>.</P>
+
+<H3><CODE><A NAME="stack::stack">stack::stack</A></CODE></H3>
+
+<PRE><B>stack</B>();
+explicit <B>stack</B>(const container_type&amp; cont);</PRE>
+
+<P>The first constructor initializes the stored object with
+<CODE><A HREF="#stack::c">c</A>()</CODE>, to specify an
+empty initial controlled sequence.
+The second constructor initializes the stored object with
+<CODE><A HREF="#stack::c">c</A>(cont)</CODE>, to specify an
+initial controlled sequence that is a copy of the sequence controlled
+by <CODE>cont</CODE>.</P>
+
+<H3><CODE><A NAME="stack::top">stack::top</A></CODE></H3>
+
+<PRE>value_type&amp; <B>top</B>();
+const value_type&amp; <B>top</B>() const;</PRE>
+
+<P>The member function returns a reference to the last element of the
+controlled sequence, which must be non-empty.</P>
+
+<H3><CODE><A NAME="stack::value_type">stack::value_type</A></CODE></H3>
+
+<PRE>typedef typename Container::value_type <B>value_type</B>;</PRE>
+
+<P>The type is a synonym for <CODE>Container::value_type</CODE>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1994-2002
+by P.J. Plauger. Portions derived from work
+<A HREF="crit_hp.html">copyright</A> &#169; 1994
+by Hewlett-Packard Company. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

@@ -1,0 +1,280 @@
+<HTML><HEAD><TITLE>STL Conventions</TITLE></HEAD><BODY>
+
+<H1><A NAME="STL Conventions">STL Conventions</A></H1><HR>
+
+<P><B>
+<A HREF="#Algorithm Conventions">Algorithm Conventions</A>
+&#183; <A HREF="#Iterator Conventions">Iterator Conventions</A>
+</B></P>
+
+<P>The <A HREF="index.html#Standard Template Library">Standard
+Template Library</A>, or
+<A HREF="index.html#STL">STL</A>, establishes uniform standards
+for the application of
+<A HREF="#Iterator Conventions">iterators</A> to STL
+<A HREF="lib_cont.html#Containers">containers</A> or other sequences
+that you define, by STL
+<A HREF="#Algorithm Conventions">algorithms</A> or other functions
+that you define. This document summarizes many of the conventions
+used widely throughout the Standard Template Library.</P>
+
+<H2><A NAME="Iterator Conventions">Iterator Conventions</A></H2><HR>
+
+<P>The STL facilities make widespread use of
+<B><A NAME="iterators">iterators</A></B>, to
+mediate between the various algorithms
+and the sequences upon which they act.
+For brevity in the remainder of this document,
+the name of an iterator type (or its prefix)
+indicates the category of iterators required
+for that type. In order of increasing power, the categories are
+summarized here as:</P>
+
+<UL>
+<LI><B><CODE><A NAME="OutIt">OutIt</A></CODE></B> --
+An <B><A NAME="output iterator">output iterator</A></B> <CODE>X</CODE>
+can only have a value <CODE>V</CODE> stored indirect on it,
+after which it <I>must</I> be incremented before the next store,
+as in <CODE>(*X++ = V)</CODE>, <CODE>(*X = V, ++X)</CODE>, or
+<CODE>(*X = V, X++)</CODE>.</LI>
+
+<LI><B><CODE><A NAME="InIt">InIt</A></CODE></B> --
+An <B><A NAME="input iterator">input iterator</A></B> <CODE>X</CODE>
+can represent a singular value that indicates end-of-sequence.
+If an input
+iterator does not compare equal to its end-of-sequence value,
+it can have a value <CODE>V</CODE> accessed indirect on it
+any number of times, as in <CODE>(V = *X)</CODE>. To progress
+to the next value, or end-of-sequence, you increment it, as in
+<CODE>++X</CODE>, <CODE>X++</CODE>, or <CODE>(V = *X++)</CODE>.
+Once you increment <I>any</I> copy of an input iterator, none
+of the other copies can safely be compared, dereferenced, or
+incremented thereafter.</LI>
+
+<LI><B><CODE><A NAME="FwdIt">FwdIt</A></CODE></B> --
+A <B><A NAME="forwarditerator">forward iterator</A></B> <CODE>X</CODE>
+can take the place of an output iterator (for writing) or an
+input iterator (for reading). You can, however, read
+(via <CODE>V = *X</CODE>) what you just wrote (via <CODE>*X = V</CODE>)
+through a forward iterator. And you can make multiple copies
+of a forward iterator, each of which can be dereferenced and
+incremented independently.</LI>
+
+<LI><B><CODE><A NAME="BidIt">BidIt</A></CODE></B> --
+A <B><A NAME="bidirectional iterator">bidirectional iterator</A></B> <CODE>X</CODE>
+can take the place of a forward iterator. You can, however,
+also decrement a bidirectional iterator, as in
+<CODE>--X</CODE>, <CODE>X--</CODE>, or <CODE>(V = *X--)</CODE>.</LI>
+
+<LI><B><CODE><A NAME="RanIt">RanIt</A></CODE></B> --
+A <B><A NAME="random-access iterator">random-access iterator</A></B> <CODE>X</CODE>
+can take the place of a bidirectional iterator. You can also
+perform much the same integer arithmetic on a random-access iterator
+that you can on an object pointer. For <CODE>N</CODE> an integer object,
+you can write <CODE>x[N]</CODE>, <CODE>x + N</CODE>, <CODE>x - N</CODE>,
+and <CODE>N + X</CODE>.</LI>
+</UL>
+
+<P>Note that an object pointer can take the place of a random-access
+iterator, or any other for that matter. All iterators can be assigned
+or copied. They are assumed to be lightweight objects and hence are
+often passed and returned by value, not by reference.
+Note also that none of the operations described above can throw
+an exception, at least when performed on a valid iterator.</P>
+
+<P>The hierarchy of iterator categories can be
+summarize by showing three sequences.
+For write-only access to a sequence, you can use any of:</P>
+
+<PRE>output iterator
+    -&gt; forward iterator
+    -&gt; bidirectional iterator
+    -&gt; random-access iterator</PRE>
+
+<P>The right arrow means ``can be replaced by.'' So any algorithm
+that calls for an output iterator should work nicely with a forward
+iterator, for example, but <I>not</I> the other way around.</P>
+
+<P>For read-only access to a sequence, you can use any of:</P>
+
+<PRE>input iterator
+    -&gt; forward iterator
+    -&gt; bidirectional iterator
+    -&gt; random-access iterator</PRE>
+
+<P>An input iterator is the weakest of all categories, in this
+case.</P>
+
+<P>Finally, for read/write access to a sequence, you can use any
+of:</P>
+
+<PRE>forward iterator
+    -&gt; bidirectional iterator
+    -&gt; random-access iterator</PRE>
+
+<P>Remember that an object pointer can always serve as a random-access
+iterator. Hence, it can serve as any category of iterator, so long
+as it supports the proper read/write access
+to the sequence it designates.</P>
+
+<P>An iterator <CODE>It</CODE> other than an object pointer must also
+define the member types required by the specialization
+<CODE><A HREF="iterator.html#iterator_traits">iterator_traits</A>&lt;It&gt;</CODE>.
+Note that these requirements can be met by deriving <CODE>It</CODE>
+from the public base class
+<CODE><A HREF="iterator.html#iterator">iterator</A></CODE>.</P>
+
+<P>This ``algebra'' of iterators is fundamental to practically
+everything else in the
+<A HREF="index.html#Standard Template Library">Standard
+Template Library</A>. It is important
+to understand the promises, and limitations, of each iterator category
+to see how iterators are used by containers and algorithms in STL.</P>
+
+<H2><A NAME="Algorithm Conventions">Algorithm Conventions</A></H2><HR>
+
+<P>The descriptions of the algorithm template functions
+employ several shorthand phrases:</P>
+
+<UL>
+<LI>The phrase ``<B>in the range <CODE>[A, B)</CODE></B>'' means
+the sequence of zero or more discrete values beginning with <CODE>A</CODE>
+up to but not including <CODE>B</CODE>. A range is valid only if
+<CODE>B</CODE> is <B>reachable</B> from <CODE>A</CODE> --
+you can store <CODE>A</CODE>
+in an object <CODE>N</CODE> (<CODE>N = A</CODE>),
+increment the object zero or more times (<CODE>++N</CODE>),
+and have the object compare equal to <CODE>B</CODE>
+after a finite number of increments (<CODE>N == B</CODE>).</LI>
+
+<LI>The phrase ``<B>each <CODE>N</CODE> in the range
+<CODE>[A, B)</CODE></B>'' means that <CODE>N</CODE>
+begins with the value <CODE>A</CODE> and is incremented
+zero or more times until it equals the value <CODE>B</CODE>.
+The case <CODE>N == B</CODE> is <I>not</I> in the range.</LI>
+
+<LI>The phrase ``<B>the lowest value of <CODE>N</CODE>
+in the range <CODE>[A, B)</CODE> such that X</B>'' means
+that the condition X is determined for each <CODE>N</CODE>
+in the range <CODE>[A, B)</CODE> until the condition X is met.</LI>
+
+<LI>The phrase ``<B>the highest value of <CODE>N</CODE>
+in the range <CODE>[A, B)</CODE> such that X</B>'' usually means
+that X is determined for each <CODE>N</CODE>
+in the range <CODE>[A, B)</CODE>.
+The function stores in <CODE>K</CODE> a
+copy of <CODE>N</CODE> each time the condition X is met.
+If any such store occurs, the function replaces the final
+value of <CODE>N</CODE> (which equals <CODE>B</CODE>)
+with the value of <CODE>K</CODE>. For a bidirectional or
+random-access iterator, however, it can also mean that
+<CODE>N</CODE> begins with the highest value in the range
+and is decremented over the range until the condition X is met.</LI>
+
+<LI>Expressions such as <B><CODE>X - Y</CODE></B>, where <CODE>X</CODE>
+and <CODE>Y</CODE> can be iterators other than random-access
+iterators, are intended in the mathematical sense. The
+function does not necessarily evaluate <CODE>operator-</CODE> if it must
+determine such a value. The same is also true for expressions
+such as <B><CODE>X + N</CODE></B> and <B><CODE>X - N</CODE></B>,
+where <CODE>N</CODE> is an integer type.</LI>
+</UL>
+
+<P>Several algorithms make use of a predicate that performs a
+<B><A NAME="pairwise comparison">pairwise comparison</A></B>,
+such as with <CODE>operator==</CODE>, to yield a <CODE>bool</CODE> result.
+The predicate function <CODE>operator==</CODE>, or any
+replacement for it, must not alter either of its operands.
+It must yield the same <CODE>bool</CODE>result every time it is evaluated,
+and it must yield the same result if a copy of either operand is substituted
+for the operand.</P>
+
+<P>Several algorithms make use of a predicate that must impose a
+<B><A NAME="strict weak ordering">strict weak ordering</A></B>
+on pairs of elements from a sequence.
+For the predicate <CODE>pr(X, Y)</CODE>:</P>
+
+<UL>
+<LI><CODE>pr(X, X)</CODE> is false
+(X can't be ordered before itself)</LI>
+
+<LI><CODE>X</CODE> and <CODE>Y</CODE> have an
+<B><A NAME="equivalent ordering">equivalent ordering</A></B>
+if <CODE>!pr(X, Y) &amp;&amp; !pr(Y, X)</CODE>
+(<CODE>X == Y</CODE> need not be defined)</LI>
+
+<LI><CODE>pr(X, Y) &amp;&amp;
+pr(Y, Z)</CODE> implies <CODE>pr(X, Z)</CODE>
+(ordering is transitive)</LI>
+</UL>
+
+<P>Some of these algorithms implicitly use the predicate
+<CODE>X &lt; Y</CODE>, and some use a predicate <CODE>pr(X, Y)</CODE>
+passed as a function object. Predicates that
+satisfy the ``strict weak ordering'' requirement are
+<CODE>X &lt; Y</CODE> and <CODE>X &gt; Y</CODE> for the
+arithmetic types and for string objects.
+Note, however, that predicates such as <CODE>X &lt;= Y</CODE> and
+<CODE>X &gt;= Y</CODE> for these same types
+do <I>not</I> satisfy this requirement.</P>
+
+<P>A sequence of elements designated by iterators in the range
+<CODE>[first, last)</CODE> is
+``<B>a sequence <A NAME="sequence ordering">ordered by</A>
+<CODE>operator&lt;</CODE></B>'' if, for each <CODE>N</CODE>
+in the range <CODE>[0, last - first)</CODE> and for each <CODE>M</CODE>
+in the range <CODE>(N, last - first)</CODE> the predicate
+<CODE>!(*(first + M) &lt; *(first + N))</CODE>
+is true. (Note that the elements are sorted in
+<I>ascending</I> order.)
+The predicate function <CODE>operator&lt;</CODE>, or any
+replacement for it, must not alter either of its operands.
+It must yield the same <CODE>bool</CODE>result every time it is evaluated,
+and it must yield the same result if a copy of either operand is substituted
+for the operand.
+Moreover, it must impose a
+<A HREF="#strict weak ordering">strict weak ordering</A> on the operands
+it compares.</P>
+
+<P>A sequence of elements designated by iterators in the range
+<CODE>[first, last)</CODE> is
+``<B>a <A NAME="heap ordering">heap ordered</A> by
+<CODE>operator&lt;</CODE></B>'' if:</P>
+
+<UL>
+<LI>For each <CODE>N</CODE>
+in the range <CODE>[1, last - first)</CODE> the predicate
+<CODE>!(*first &lt; *(first + N))</CODE>
+is true. (The first element is the largest.)</LI>
+
+<LI>It is possible to insert (<CODE>push_heap</CODE>)
+a new element or remove (<CODE>pop_heap</CODE>) the largest element
+in logarithmic time and preserve the heap discipline
+in the resulting sequence.</LI>
+</UL>
+
+<P>Its internal structure
+is otherwise known only to the template functions
+<CODE><A HREF="algorith.html#make_heap">make_heap</A></CODE>,
+<CODE><A HREF="algorith.html#pop_heap">pop_heap</A></CODE>, and
+<CODE><A HREF="algorith.html#push_heap">push_heap</A></CODE>.
+As with an <A HREF="#sequence ordering">ordered sequence</A>,
+the predicate function <CODE>operator&lt;</CODE>, or any
+replacement for it, must not alter either of its operands,
+and it must impose a
+<A HREF="#strict weak ordering">strict weak ordering</A> on the operands
+it compares.
+It must yield the same <CODE>bool</CODE>result every time it is evaluated,
+and it must yield the same result if a copy of either operand is substituted
+for the operand.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1992-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

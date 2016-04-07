@@ -1,0 +1,705 @@
+<HTML><HEAD><TITLE>&lt;complex.h&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;complex.h&gt;"><CODE>&lt;complex.h&gt;</CODE></A></H1>
+
+<P>[Added with
+<A HREF="lib_over.html#C99">C99</A>]</P><HR>
+
+<P><B><CODE><A HREF="#complex">complex</A>
+&#183; <A HREF="#_Complex_I">_Complex_I</A>
+&#183; <A HREF="#I">I</A>
+&#183; <A HREF="#imaginary">imaginary</A>
+&#183; <A HREF="#_Imaginary_I">_Imaginary_I</A>
+</CODE></B></P>
+
+<P><B><CODE><A HREF="#CX_LIMITED_RANGE">CX_LIMITED_RANGE</A>
+</CODE></B></P>
+
+<P><B><CODE><A HREF="#abs">abs</A>
+&#183; <A HREF="#acos">acos</A>
+&#183; <A HREF="#acosh">acosh</A>
+&#183; <A HREF="#arg">arg</A>
+&#183; <A HREF="#asin">asin</A>
+&#183; <A HREF="#asinh">asinh</A>
+&#183; <A HREF="#atan">atan</A>
+&#183; <A HREF="#atanh">atanh</A>
+&#183; <A HREF="#cos">cos</A>
+&#183; <A HREF="#cosh">cosh</A>
+&#183; <A HREF="#exp">exp</A>
+&#183; <A HREF="#fabs">fabs</A>
+&#183; <A HREF="#imag">imag</A>
+&#183; <A HREF="#log">log</A>
+&#183; <A HREF="#pow">pow</A>
+&#183; <A HREF="#real">real</A>
+&#183; <A HREF="#sin">sin</A>
+&#183; <A HREF="#sinh">sinh</A>
+&#183; <A HREF="#sqrt">sqrt</A>
+&#183; <A HREF="#tan">tan</A>
+&#183; <A HREF="#tanh">tanh</A>
+</CODE></B></P>
+
+<P><B><CODE><A HREF="#cabs">cabs</A>
+&#183; <A HREF="#cacos">cacos</A>
+&#183; <A HREF="#cacosh">cacosh</A>
+&#183; <A HREF="#carg">carg</A>
+&#183; <A HREF="#casin">casin</A>
+&#183; <A HREF="#casinh">casinh</A>
+&#183; <A HREF="#catan">catan</A>
+&#183; <A HREF="#catanh">catanh</A>
+&#183; <A HREF="#ccos">ccos</A>
+&#183; <A HREF="#ccosh">ccosh</A>
+&#183; <A HREF="#cexp">cexp</A>
+&#183; <A HREF="#cimag">cimag</A>
+&#183; <A HREF="#clog">clog</A>
+&#183; <A HREF="#conj">conj</A>
+&#183; <A HREF="#cpow">cpow</A>
+&#183; <A HREF="#cproj">cproj</A>
+&#183; <A HREF="#creal">creal</A>
+&#183; <A HREF="#csin">csin</A>
+&#183; <A HREF="#csinh">csinh</A>
+&#183; <A HREF="#csqrt">csqrt</A>
+&#183; <A HREF="#ctan">ctan</A>
+&#183; <A HREF="#ctanh">ctanh</A>
+</CODE></B></P>
+
+<P><B><CODE><A HREF="#cabsf">cabsf</A>
+&#183; <A HREF="#cacosf">cacosf</A>
+&#183; <A HREF="#cacoshf">cacoshf</A>
+&#183; <A HREF="#cargf">cargf</A>
+&#183; <A HREF="#casinf">casinf</A>
+&#183; <A HREF="#casinhf">casinhf</A>
+&#183; <A HREF="#catanf">catanf</A>
+&#183; <A HREF="#catanhf">catanhf</A>
+&#183; <A HREF="#ccosf">ccosf</A>
+&#183; <A HREF="#ccoshf">ccoshf</A>
+&#183; <A HREF="#cexpf">cexpf</A>
+&#183; <A HREF="#cimagf">cimagf</A>
+&#183; <A HREF="#clogf">clogf</A>
+&#183; <A HREF="#conjf">conjf</A>
+&#183; <A HREF="#cpowf">cpowf</A>
+&#183; <A HREF="#cprojf">cprojf</A>
+&#183; <A HREF="#crealf">crealf</A>
+&#183; <A HREF="#csinf">csinf</A>
+&#183; <A HREF="#csinhf">csinhf</A>
+&#183; <A HREF="#csqrtf">csqrtf</A>
+&#183; <A HREF="#ctanf">ctanf</A>
+&#183; <A HREF="#ctanhf">ctanhf</A>
+</CODE></B></P>
+
+<P><B><CODE><A HREF="#cabsl">cabsl</A>
+&#183; <A HREF="#cacosl">cacosl</A>
+&#183; <A HREF="#cacoshl">cacoshl</A>
+&#183; <A HREF="#cargl">cargl</A>
+&#183; <A HREF="#casinl">casinl</A>
+&#183; <A HREF="#casinhl">casinhl</A>
+&#183; <A HREF="#catanl">catanl</A>
+&#183; <A HREF="#catanhl">catanhl</A>
+&#183; <A HREF="#ccosl">ccosl</A>
+&#183; <A HREF="#ccoshl">ccoshl</A>
+&#183; <A HREF="#cexpl">cexpl</A>
+&#183; <A HREF="#cimagl">cimagl</A>
+&#183; <A HREF="#clogl">clogl</A>
+&#183; <A HREF="#conjl">conjl</A>
+&#183; <A HREF="#cpowl">cpowl</A>
+&#183; <A HREF="#cprojl">cprojl</A>
+&#183; <A HREF="#creall">creall</A>
+&#183; <A HREF="#csinl">csinl</A>
+&#183; <A HREF="#csinhl">csinhl</A>
+&#183; <A HREF="#csqrtl">csqrtl</A>
+&#183; <A HREF="#ctanl">ctanl</A>
+&#183; <A HREF="#ctanhl">ctanhl</A>
+</CODE></B></P>
+<HR>
+
+<P>Include the standard header <B><CODE>&lt;complex.h&gt;</CODE></B>
+to define several macros and a host of functions for use with the three
+complex arithmetic types <CODE>float _Complex</CODE>, <CODE>double _Complex</CODE>,
+and <CODE>long double _Complex</CODE>.
+(If you include this header in a C++ program,
+these three types are
+effectively replaced by <CODE>complex&lt;float&gt;</CODE>,
+<CODE>complex&lt;double&gt;</CODE>, and <CODE>complex&lt;long double&gt;</CODE>,
+respectively.)
+Unless otherwise specified,
+functions that can return multiple values return an imaginary
+part in the half-open interval <CODE>(-pi, pi]</CODE>.</P>
+
+<P>The pragma:</P>
+
+<PRE>#pragma STD <B><A NAME="CX_LIMITED_RANGE">CX_LIMITED_RANGE</A></B> [ON|OFF|DEFAULT]</PRE>
+
+<P>controls the behavior of complex multiply, divide, and magnitude. If the parameter is
+<CODE>ON</CODE>, the translator is permitted to use the conventional expressions:</P>
+
+<PRE>(x + I * y) * (u + I * v) =
+    (x * u - y * v) + I * (y * u + x * v)
+(x + I * y) / (u + I * v) =
+    ((x * u + y * v) + I * (y * u - x * v))
+        / (u * u + v * v)
+abs(x + I * y) = sqrt(x * x + y * y)</PRE>
+
+<P>without regard to possible intermediate overflow. The parameter <CODE>OFF</CODE>
+has the same effect as <CODE>DEFAULT</CODE>; it restores the original state where
+such latitude is not permitted. If the pragma occurs outside an external declaration,
+it remains in effect until overridden by another such pragma. If the pragma occurs
+inside an external declaration, it must precede all explicit declarations and
+statements within a compound statement. It remains in effect until overridden by
+another such pragma or until the end of the compound statement.</P>
+
+<PRE>        // MACROS
+#define <B><A HREF="#complex">complex</A></B> _Complex <B>[not in C++]</B>
+#define <B><A HREF="#_Complex_I">_Complex_I</A></B> (float _Complex){0, 1}
+#define <B><A HREF="#imaginary">imaginary</A></B> _Imaginary <B>[optional]</B>
+
+#ifdef imaginary
+ #define <B><A HREF="#_Imaginary_I">_Imaginary_I</A></B> ((float _Imaginary)1)
+#endif
+
+#ifdef imaginary
+ #define <B><A HREF="#I">I</A></B> _Imaginary_I
+#else
+ #define <B><A HREF="#I">I</A></B> _Complex_I
+#endif
+
+        // FUNCTIONS
+double <A HREF="#abs"><B>abs</B></A>(double _Complex left); <B>[C++ only]</B>
+float <A HREF="#abs"><B>abs</B></A>(float _Complex left); <B>[C++ only]</B>
+long double <A HREF="#abs"><B>abs</B></A>(long double _Complex left); <B>[C++ only]</B>
+double <A HREF="#fabs"><B>fabs</B></A>(double _Complex left); <B>[C++ only]</B>
+float <A HREF="#fabs"><B>fabs</B></A>(float _Complex left); <B>[C++ only]</B>
+long double <A HREF="#fabs"><B>fabs</B></A>(long double _Complex left); <B>[C++ only]</B>
+double <A HREF="#cabs"><B>cabs</B></A>(double _Complex left);
+float <A HREF="#cabsf"><B>cabsf</B></A>(float _Complex left);
+long double <A HREF="#cabsl"><B>cabsl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#acos"><B>acos</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#acos"><B>acos</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#acos"><B>acos</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#cacos"><B>cacos</B></A>(double _Complex left);
+float _Complex <A HREF="#cacosf"><B>cacosf</B></A>(float _Complex left);
+long double _Complex <A HREF="#cacosl"><B>cacosl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#acosh"><B>acosh</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#acosh"><B>acosh</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#acosh"><B>acosh</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#cacosh"><B>cacosh</B></A>(double _Complex left);
+float _Complex <A HREF="#cacoshf"><B>cacoshf</B></A>(float _Complex left);
+long double _Complex <A HREF="#cacoshl"><B>cacoshl</B></A>(long double _Complex left);
+
+double <A HREF="#arg"><B>arg</B></A>(double _Complex left); <B>[C++ only]</B>
+float <A HREF="#arg"><B>arg</B></A>(float _Complex left); <B>[C++ only]</B>
+long double <A HREF="#arg"><B>arg</B></A>(long double _Complex left); <B>[C++ only]</B>
+double <A HREF="#carg"><B>carg</B></A>(double _Complex left);
+float <A HREF="#carg"><B>carg</B></A>(float _Complex left); <B>[C++ only]</B>
+long double <A HREF="#carg"><B>carg</B></A>(long double _Complex left); <B>[C++ only]</B>
+float <A HREF="#cargf"><B>cargf</B></A>(float _Complex left);
+long double <A HREF="#cargl"><B>cargl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#asin"><B>asin</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#asin"><B>asin</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#asin"><B>asin</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#casin"><B>casin</B></A>(double _Complex left);
+float _Complex <A HREF="#casinf"><B>casinf</B></A>(float _Complex left);
+long double _Complex <A HREF="#casinl"><B>casinl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#asinh"><B>asinh</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#asinh"><B>asinh</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#asinh"><B>asinh</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#casinh"><B>casinh</B></A>(double _Complex left);
+float _Complex <A HREF="#casinhf"><B>casinhf</B></A>(float _Complex left);
+long double _Complex <A HREF="#casinhl"><B>casinhl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#atan"><B>atan</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#atan"><B>atan</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#atan"><B>atan</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#catan"><B>catan</B></A>(double _Complex left);
+float _Complex <A HREF="#catanf"><B>catanf</B></A>(float _Complex left);
+long double _Complex <A HREF="#catanl"><B>catanl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#atanh"><B>atanh</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#atanh"><B>atanh</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#atanh"><B>atanh</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#catanh"><B>catanh</B></A>(double _Complex left);
+float _Complex <A HREF="#catanhf"><B>catanhf</B></A>(float _Complex left);
+long double _Complex <A HREF="#catanhl"><B>catanhl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#conj"><B>conj</B></A>(double _Complex left);
+float _Complex <A HREF="#conj"><B>conj</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#conj"><B>conj</B></A>(long double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#conjf"><B>conjf</B></A>(float _Complex left);
+long double _Complex <A HREF="#conjl"><B>conjl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#cos"><B>cos</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#cos"><B>cos</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#cos"><B>cos</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#ccos"><B>ccos</B></A>(double _Complex left);
+float _Complex <A HREF="#ccosf"><B>ccosf</B></A>(float _Complex left);
+long double _Complex <A HREF="#ccosl"><B>ccosl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#cosh"><B>cosh</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#cosh"><B>cosh</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#cosh"><B>cosh</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#ccosh"><B>ccosh</B></A>(double _Complex left);
+float _Complex <A HREF="#ccoshf"><B>ccoshf</B></A>(float _Complex left);
+long double _Complex <A HREF="#ccoshl"><B>ccoshl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#cproj"><B>cproj</B></A>(double _Complex left);
+float _Complex <A HREF="#cproj"><B>cproj</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#cproj"><B>cproj</B></A>(long double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#cprojf"><B>cprojf</B></A>(float _Complex left);
+long double _Complex <A HREF="#cprojl"><B>cprojl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#exp"><B>exp</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#exp"><B>exp</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#exp"><B>exp</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#cexp"><B>cexp</B></A>(double _Complex left);
+float _Complex <A HREF="#cexpf"><B>cexpf</B></A>(float _Complex left);
+long double _Complex <A HREF="#cexpl"><B>cexpl</B></A>(long double _Complex left);
+
+double <A HREF="#imag"><B>imag</B></A>(double _Complex left); <B>[C++ only]</B>
+float <A HREF="#imag"><B>imag</B></A>(float _Complex left); <B>[C++ only]</B>
+long double <A HREF="#imag"><B>imag</B></A>(long double _Complex left); <B>[C++ only]</B>
+double <A HREF="#cimag"><B>cimag</B></A>(double _Complex left);
+float <A HREF="#cimag"><B>cimag</B></A>(float _Complex left); <B>[C++ only]</B>
+long double <A HREF="#cimag"><B>cimag</B></A>(long double _Complex left); <B>[C++ only]</B>
+float <A HREF="#cimagf"><B>cimagf</B></A>(float _Complex left);
+long double <A HREF="#cimagl"><B>cimagl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#log"><B>log</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#log"><B>log</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#log"><B>log</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#clog"><B>clog</B></A>(double _Complex left);
+float _Complex <A HREF="#clogf"><B>clogf</B></A>(float _Complex left);
+long double _Complex <A HREF="#clogl"><B>clogl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#pow"><B>pow</B></A>(double _Complex left, double _Complex right); <B>[C++ only]</B>
+float _Complex <A HREF="#pow"><B>pow</B></A>(float _Complex left, float _Complex right); <B>[C++ only]</B>
+long double _Complex <A HREF="#pow"><B>pow</B></A>(long double _Complex left, long double _Complex right); <B>[C++ only]</B>
+double _Complex <A HREF="#cpow"><B>cpow</B></A>(double _Complex left, double _Complex right);
+float _Complex <A HREF="#cpowf"><B>cpowf</B></A>(float _Complex left, float _Complex right);
+long double _Complex <A HREF="#cpowl"><B>cpowl</B></A>(long double _Complex left, long double _Complex right);
+
+double <A HREF="#real"><B>real</B></A>(double _Complex left); <B>[C++ only]</B>
+float <A HREF="#real"><B>real</B></A>(float _Complex left); <B>[C++ only]</B>
+long double <A HREF="#real"><B>real</B></A>(long double _Complex left); <B>[C++ only]</B>
+double <A HREF="#creal"><B>creal</B></A>(double _Complex left);
+float <A HREF="#creal"><B>creal</B></A>(float _Complex left); <B>[C++ only]</B>
+long double <A HREF="#creal"><B>creal</B></A>(long double _Complex left); <B>[C++ only]</B>
+float <A HREF="#crealf"><B>crealf</B></A>(float _Complex left);
+long double <A HREF="#creall"><B>creall</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#sin"><B>sin</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#sin"><B>sin</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#sin"><B>sin</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#csin"><B>csin</B></A>(double _Complex left);
+float _Complex <A HREF="#csinf"><B>csinf</B></A>(float _Complex left);
+long double _Complex <A HREF="#csinl"><B>csinl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#sinh"><B>sinh</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#sinh"><B>sinh</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#sinh"><B>sinh</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#csinh"><B>csinh</B></A>(double _Complex left);
+float _Complex <A HREF="#csinhf"><B>csinhf</B></A>(float _Complex left);
+long double _Complex <A HREF="#csinhl"><B>csinhl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#sqrt"><B>sqrt</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#sqrt"><B>sqrt</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#sqrt"><B>sqrt</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#csqrt"><B>csqrt</B></A>(double _Complex left);
+float _Complex <A HREF="#csqrtf"><B>csqrtf</B></A>(float _Complex left);
+long double _Complex <A HREF="#csqrtl"><B>csqrtl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#tan"><B>tan</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#tan"><B>tan</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#tan"><B>tan</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#ctan"><B>ctan</B></A>(double _Complex left);
+float _Complex <A HREF="#ctanf"><B>ctanf</B></A>(float _Complex left);
+long double _Complex <A HREF="#ctanl"><B>ctanl</B></A>(long double _Complex left);
+
+double _Complex <A HREF="#tanh"><B>tanh</B></A>(double _Complex left); <B>[C++ only]</B>
+float _Complex <A HREF="#tanh"><B>tanh</B></A>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <A HREF="#tanh"><B>tanh</B></A>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <A HREF="#ctanh"><B>ctanh</B></A>(double _Complex left);
+float _Complex <A HREF="#ctanhf"><B>ctanhf</B></A>(float _Complex left);
+long double _Complex <A HREF="#ctanhl"><B>ctanhl</B></A>(long double _Complex left);</PRE>
+
+<H2><A NAME="abs"><CODE>abs</CODE></A>,
+<A NAME="fabs"><CODE>fabs</CODE></A>,
+<A NAME="cabs"><CODE>cabs</CODE></A>,
+<A NAME="cabsf"><CODE>cabsf</CODE></A>,
+<A NAME="cabsl"><CODE>cabsl</CODE></A></H2>
+
+<PRE>double <B>abs</B>(double _Complex left); <B>[C++ only]</B>
+float <B>abs</B>(float _Complex left); <B>[C++ only]</B>
+long double <B>abs</B>(long double _Complex left); <B>[C++ only]</B>
+double <B>fabs</B>(double _Complex left); <B>[C++ only]</B>
+float <B>fabs</B>(float _Complex left); <B>[C++ only]</B>
+long double <B>fabs</B>(long double _Complex left); <B>[C++ only]</B>
+double <B>cabs</B>(double _Complex left);
+float <B>cabsf</B>(float _Complex left);
+long double <B>cabsl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the magnitude of <CODE>left</CODE>,
+<CODE>|left|</CODE>.</P>
+
+<H2><A NAME="acos"><CODE>acos</CODE></A>,
+<A NAME="cacos"><CODE>cacos</CODE></A>,
+<A NAME="cacosf"><CODE>cacosf</CODE></A>,
+<A NAME="cacosl"><CODE>cacosl</CODE></A></H2>
+
+<PRE>double _Complex <B>acos</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>acos</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>acos</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>cacos</B>(double _Complex left);
+float _Complex <B>cacosf</B>(float _Complex left);
+long double _Complex <B>cacosl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the arccosine of <CODE>left</CODE>.</P>
+
+<H2><A NAME="acosh"><CODE>acosh</CODE></A>,
+<A NAME="cacosh"><CODE>cacosh</CODE></A>,
+<A NAME="cacoshf"><CODE>cacoshf</CODE></A>,
+<A NAME="cacoshl"><CODE>cacoshl</CODE></A></H2>
+
+<PRE>double _Complex <B>acosh</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>acosh</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>acosh</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>cacosh</B>(double _Complex left);
+float _Complex <B>cacoshf</B>(float _Complex left);
+long double _Complex <B>cacoshl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the hyperbolic arccosine of <CODE>left</CODE>.</P>
+
+<H2><A NAME="arg"><CODE>arg</CODE></A>,
+<A NAME="carg"><CODE>carg</CODE></A>,
+<A NAME="cargf"><CODE>cargf</CODE></A>,
+<A NAME="cargl"><CODE>cargl</CODE></A></H2>
+
+<PRE>double <B>arg</B>(double _Complex left); <B>[C++ only]</B>
+float <B>arg</B>(float _Complex left); <B>[C++ only]</B>
+long double <B>arg</B>(long double _Complex left); <B>[C++ only]</B>
+double <B>carg</B>(double _Complex left);
+float <B>carg</B>(float _Complex left); <B>[C++ only]</B>
+long double <B>carg</B>(long double _Complex left); <B>[C++ only]</B>
+float <B>cargf</B>(float _Complex left);
+long double <B>cargl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the phase angle of <CODE>left</CODE>.</P>
+
+<H2><A NAME="asin"><CODE>asin</CODE></A>,
+<A NAME="casin"><CODE>casin</CODE></A>,
+<A NAME="casinf"><CODE>casinf</CODE></A>,
+<A NAME="casinl"><CODE>casinl</CODE></A></H2>
+
+<PRE>double _Complex <B>asin</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>asin</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>asin</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>casin</B>(double _Complex left);
+float _Complex <B>casinf</B>(float _Complex left);
+long double _Complex <B>casinl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the arcsine of <CODE>left</CODE>.</P>
+
+<H2><A NAME="asinh"><CODE>asinh</CODE></A>,
+<A NAME="casinh"><CODE>casinh</CODE></A>,
+<A NAME="casinhf"><CODE>casinhf</CODE></A>,
+<A NAME="casinhl"><CODE>casinhl</CODE></A></H2>
+
+<PRE>double _Complex <B>asinh</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>asinh</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>asinh</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>casinh</B>(double _Complex left);
+float _Complex <B>casinhf</B>(float _Complex left);
+long double _Complex <B>casinhl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the hyperbolic arcsine of <CODE>left</CODE>.</P>
+
+<H2><A NAME="atan"><CODE>atan</CODE></A>,
+<A NAME="catan"><CODE>catan</CODE></A>,
+<A NAME="catanf"><CODE>catanf</CODE></A>,
+<A NAME="catanl"><CODE>catanl</CODE></A></H2>
+
+<PRE>double _Complex <B>atan</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>atan</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>atan</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>catan</B>(double _Complex left);
+float _Complex <B>catanf</B>(float _Complex left);
+long double _Complex <B>catanl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the arctangent of <CODE>left</CODE>.</P>
+
+<H2><A NAME="atanh"><CODE>atanh</CODE></A>,
+<A NAME="catanh"><CODE>catanh</CODE></A>,
+<A NAME="catanhf"><CODE>catanhf</CODE></A>,
+<A NAME="catanhl"><CODE>catanhl</CODE></A></H2>
+
+<PRE>double _Complex <B>atanh</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>atanh</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>atanh</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>catanh</B>(double _Complex left);
+float _Complex <B>catanhf</B>(float _Complex left);
+long double _Complex <B>catanhl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the hyperbolic arctangent of <CODE>left</CODE>.</P>
+
+<H2><A NAME="complex"><CODE>complex</CODE></A></H2>
+
+<PRE>#define <B>complex</B> _Complex <B>[not in C++]</B></PRE>
+
+<P>The macro expands to the keyword <CODE>_Complex</CODE>.</P>
+
+<H2><A NAME="_Complex_I"><CODE>_Complex_I</CODE></A></H2>
+
+<PRE>#define <B>_Complex_I</B> (float _Complex){0, 1}</PRE>
+
+<P>The macro expands to an expression of type <CODE>const float _Complex</CODE>
+whose real component is zero and whose imaginary component is one.</P>
+
+<H2><A NAME="conj"><CODE>conj</CODE></A>,
+<A NAME="conjf"><CODE>conjf</CODE></A>,
+<A NAME="conjl"><CODE>conjl</CODE></A></H2>
+
+<PRE>double _Complex <B>conj</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>conj</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>conj</B>(long double _Complex left); <B>[C++ only]</B>
+float _Complex <B>conjf</B>(float _Complex left);
+long double _Complex <B>conjl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the conjugate of <CODE>left</CODE>.</P>
+
+<H2><A NAME="cos"><CODE>cos</CODE></A>,
+<A NAME="ccos"><CODE>ccos</CODE></A>,
+<A NAME="ccosf"><CODE>ccosf</CODE></A>,
+<A NAME="ccosl"><CODE>ccosl</CODE></A></H2>
+
+<PRE>double _Complex <B>cos</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>cos</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>cos</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>ccos</B>(double _Complex left);
+float _Complex <B>ccosf</B>(float _Complex left);
+long double _Complex <B>ccosl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the cosine of <CODE>left</CODE>.</P>
+
+<H2><A NAME="cosh"><CODE>cosh</CODE></A>,
+<A NAME="ccosh"><CODE>ccosh</CODE></A>,
+<A NAME="ccoshf"><CODE>ccoshf</CODE></A>,
+<A NAME="ccoshl"><CODE>ccoshl</CODE></A></H2>
+
+<PRE>double _Complex <B>cosh</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>cosh</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>cosh</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>ccosh</B>(double _Complex left);
+float _Complex <B>ccoshf</B>(float _Complex left);
+long double _Complex <B>ccoshl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the hyperbolic cosine of <CODE>left</CODE>.</P>
+
+<H2><A NAME="cproj"><CODE>cproj</CODE></A>,
+<A NAME="cprojf"><CODE>cprojf</CODE></A>,
+<A NAME="cprojl"><CODE>cprojl</CODE></A></H2>
+
+<PRE>double _Complex <B>cproj</B>(double _Complex left);
+float _Complex <B>cproj</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>cproj</B>(long double _Complex left); <B>[C++ only]</B>
+float _Complex <B>cprojf</B>(float _Complex left);
+long double _Complex <B>cprojl</B>(long double _Complex left);</PRE>
+
+<P>The function returns a projection of <CODE>left</CODE> onto the Riemann
+sphere. Specifically, if either component of <CODE>left</CODE> is an
+infinity of either sign, the function returns a value whose real part is
+positive infinity and whose imaginary part is zero with the same sign
+as the imaginary part of <CODE>left</CODE>. Otherwise, the function returns
+<CODE>left</CODE>.</P>
+
+<H2><A NAME="exp"><CODE>exp</CODE></A>,
+<A NAME="cexp"><CODE>cexp</CODE></A>,
+<A NAME="cexpf"><CODE>cexpf</CODE></A>,
+<A NAME="cexpl"><CODE>cexpl</CODE></A></H2>
+
+<PRE>double _Complex <B>exp</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>exp</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>exp</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>cexp</B>(double _Complex left);
+float _Complex <B>cexpf</B>(float _Complex left);
+long double _Complex <B>cexpl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the exponential of <CODE>left</CODE>.</P>
+
+<H2><A NAME="I"><CODE>I</CODE></A></H2>
+
+<PRE>#ifdef imaginary
+ #define <B>I</B> _Imaginary_I
+#else
+ #define <B>I</B> _Complex_I
+#endif</PRE>
+
+<P>The macro expands either to
+<CODE><A HREF="#_Imaginary_I">_Imaginary_I</A></CODE>, if
+<CODE><A HREF="#imaginary">imaginary</A></CODE> is defined;
+otherwise it expands to
+<CODE><A HREF="#_Complex_I">_Complex_I</A></CODE>.</P>
+
+<H2><A NAME="imag"><CODE>imag</CODE></A>,
+<A NAME="cimag"><CODE>cimag</CODE></A>,
+<A NAME="cimagf"><CODE>cimagf</CODE></A>,
+<A NAME="cimagl"><CODE>cimagl</CODE></A></H2>
+
+<PRE>double <B>imag</B>(double _Complex left); <B>[C++ only]</B>
+float <B>imag</B>(float _Complex left); <B>[C++ only]</B>
+long double <B>imag</B>(long double _Complex left); <B>[C++ only]</B>
+double <B>cimag</B>(double _Complex left);
+float <B>cimag</B>(float _Complex left); <B>[C++ only]</B>
+long double <B>cimag</B>(long double _Complex left); <B>[C++ only]</B>
+float <B>cimagf</B>(float _Complex left);
+long double <B>cimagl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the imaginary part of <CODE>left</CODE>.</P>
+
+<H2><A NAME="imaginary"><CODE>imaginary</CODE></A></H2>
+
+<PRE>#define <B>imaginary</B> _Imaginary <B>[optional]</B></PRE>
+
+<P>The macro expands to the optional keyword <CODE>_Imaginary</CODE>,
+if that keyword is defined by the implementation.</P>
+
+<H2><A NAME="_Imaginary_I"><CODE>_Imaginary_I</CODE></A></H2>
+
+<PRE>#ifdef imaginary
+ #define <B>_Imaginary_I</B> ((float _Imaginary)1)
+#endif</PRE>
+
+<P>The macro expands to an expression of type <CODE>const float _Imaginary)</CODE>
+with value one, but only if
+<CODE><A HREF="#imaginary">imaginary</A></CODE> is defined.</P>
+
+<H2><A NAME="log"><CODE>log</CODE></A>,
+<A NAME="clog"><CODE>clog</CODE></A>,
+<A NAME="clogf"><CODE>clogf</CODE></A>,
+<A NAME="clogl"><CODE>clogl</CODE></A></H2>
+
+<PRE>double _Complex <B>log</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>log</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>log</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>clog</B>(double _Complex left);
+float _Complex <B>clogf</B>(float _Complex left);
+long double _Complex <B>clogl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the logarithm of <CODE>left</CODE>.
+The branch cuts are along the negative real axis.</P>
+
+<H2><A NAME="pow"><CODE>pow</CODE></A>,
+<A NAME="cpow"><CODE>cpow</CODE></A>,
+<A NAME="cpowf"><CODE>cpowf</CODE></A>,
+<A NAME="cpowl"><CODE>cpowl</CODE></A></H2>
+
+<PRE>double _Complex <B>pow</B>(double _Complex left, double _Complex right); <B>[C++ only]</B>
+float _Complex <B>pow</B>(float _Complex left, float _Complex right); <B>[C++ only]</B>
+long double _Complex <B>pow</B>(long double _Complex left, long double _Complex right); <B>[C++ only]</B>
+double _Complex <B>cpow</B>(double _Complex left, double _Complex right);
+float _Complex <B>cpowf</B>(float _Complex left, float _Complex right);
+long double _Complex <B>cpowl</B>(long double _Complex left, long double _Complex right);</PRE>
+
+<P>The function returns <CODE>left</CODE> to the power <CODE>right</CODE>,
+<CODE>left^right</CODE>.
+The branch cut for <CODE>left</CODE> is along the negative real axis.</P>
+
+<H2><A NAME="real"><CODE>real</CODE></A>,
+<A NAME="creal"><CODE>creal</CODE></A>,
+<A NAME="crealf"><CODE>crealf</CODE></A>,
+<A NAME="creall"><CODE>creall</CODE></A></H2>
+
+<PRE>double <B>real</B>(double _Complex left); <B>[C++ only]</B>
+float <B>real</B>(float _Complex left); <B>[C++ only]</B>
+long double <B>real</B>(long double _Complex left); <B>[C++ only]</B>
+double <B>creal</B>(double _Complex left);
+float <B>creal</B>(float _Complex left); <B>[C++ only]</B>
+long double <B>creal</B>(long double _Complex left); <B>[C++ only]</B>
+float <B>crealf</B>(float _Complex left);
+long double <B>creall</B>(long double _Complex left);</PRE>
+
+<P>The function returns the real part of <CODE>left</CODE>.</P>
+
+<H2><A NAME="sin"><CODE>sin</CODE></A>,
+<A NAME="csin"><CODE>csin</CODE></A>,
+<A NAME="csinf"><CODE>csinf</CODE></A>,
+<A NAME="csinl"><CODE>csinl</CODE></A></H2>
+
+<PRE>double _Complex <B>sin</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>sin</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>sin</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>csin</B>(double _Complex left);
+float _Complex <B>csinf</B>(float _Complex left);
+long double _Complex <B>csinl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the sine of <CODE>left</CODE>.</P>
+
+<H2><A NAME="sinh"><CODE>sinh</CODE></A>,
+<A NAME="csinh"><CODE>csinh</CODE></A>,
+<A NAME="csinhf"><CODE>csinhf</CODE></A>,
+<A NAME="csinhl"><CODE>csinhl</CODE></A></H2>
+
+<PRE>double _Complex <B>sinh</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>sinh</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>sinh</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>csinh</B>(double _Complex left);
+float _Complex <B>csinhf</B>(float _Complex left);
+long double _Complex <B>csinhl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the hyperbolic sine of <CODE>left</CODE>.</P>
+
+<H2><A NAME="sqrt"><CODE>sqrt</CODE></A>,
+<A NAME="csqrt"><CODE>csqrt</CODE></A>,
+<A NAME="csqrtf"><CODE>csqrtf</CODE></A>,
+<A NAME="csqrtl"><CODE>csqrtl</CODE></A></H2>
+
+<PRE>double _Complex <B>sqrt</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>sqrt</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>sqrt</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>csqrt</B>(double _Complex left);
+float _Complex <B>csqrtf</B>(float _Complex left);
+long double _Complex <B>csqrtl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the square root of <CODE>left</CODE>,
+<CODE>left^(1/2)</CODE>,
+with phase angle in the half-open interval <CODE>(-pi/2, pi/2]</CODE>.
+The branch cuts are along the negative real axis.</P>
+
+<H2><A NAME="tan"><CODE>tan</CODE></A>,
+<A NAME="ctan"><CODE>ctan</CODE></A>,
+<A NAME="ctanf"><CODE>ctanf</CODE></A>,
+<A NAME="ctanl"><CODE>ctanl</CODE></A></H2>
+
+<PRE>double _Complex <B>tan</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>tan</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>tan</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>ctan</B>(double _Complex left);
+float _Complex <B>ctanf</B>(float _Complex left);
+long double _Complex <B>ctanl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the tangent of <CODE>left</CODE>.</P>
+
+<H2><A NAME="tanh"><CODE>tanh</CODE></A>,
+<A NAME="ctanh"><CODE>ctanh</CODE></A>,
+<A NAME="ctanhf"><CODE>ctanhf</CODE></A>,
+<A NAME="ctanhl"><CODE>ctanhl</CODE></A></H2>
+
+<PRE>double _Complex <B>tanh</B>(double _Complex left); <B>[C++ only]</B>
+float _Complex <B>tanh</B>(float _Complex left); <B>[C++ only]</B>
+long double _Complex <B>tanh</B>(long double _Complex left); <B>[C++ only]</B>
+double _Complex <B>ctanh</B>(double _Complex left);
+float _Complex <B>ctanhf</B>(float _Complex left);
+long double _Complex <B>ctanhl</B>(long double _Complex left);</PRE>
+
+<P>The function returns the hyperbolic tangent of <CODE>left</CODE>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pb.html">Copyright</A> &#169; 2000-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

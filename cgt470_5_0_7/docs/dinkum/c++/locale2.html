@@ -1,0 +1,3760 @@
+<HTML><HEAD><TITLE>&lt;locale&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;locale&gt;"><CODE>&lt;locale&gt;</CODE></A></H1><HR>
+
+<P><B><CODE><A HREF="#codecvt">codecvt</A>
+&#183; <A HREF="#codecvt_base">codecvt_base</A>
+&#183; <A HREF="#codecvt_byname">codecvt_byname</A>
+&#183; <A HREF="#collate">collate</A>
+&#183; <A HREF="#collate_byname">collate_byname</A>
+&#183; <A HREF="#ctype">ctype</A>
+&#183; <A HREF="#ctype&lt;char&gt;">ctype&lt;char&gt;</A>
+&#183; <A HREF="#ctype_base">ctype_base</A>
+&#183; <A HREF="#ctype_byname">ctype_byname</A>
+&#183; <A HREF="#has_facet">has_facet</A>
+&#183; <A HREF="#locale">locale</A>
+&#183; <A HREF="#messages">messages</A>
+&#183; <A HREF="#messages_base">messages_base</A>
+&#183; <A HREF="#messages_byname">messages_byname</A>
+&#183; <A HREF="#money_base">money_base</A>
+&#183; <A HREF="#money_get">money_get</A>
+&#183; <A HREF="#money_put">money_put</A>
+&#183; <A HREF="#moneypunct">moneypunct</A>
+&#183; <A HREF="#moneypunct_byname">moneypunct_byname</A>
+&#183; <A HREF="#num_get">num_get</A>
+&#183; <A HREF="#num_put">num_put</A>
+&#183; <A HREF="#numpunct">numpunct</A>
+&#183; <A HREF="#numpunct_byname">numpunct_byname</A>
+&#183; <A HREF="#time_base">time_base</A>
+&#183; <A HREF="#time_get">time_get</A>
+&#183; <A HREF="#time_get_byname">time_get_byname</A>
+&#183; <A HREF="#time_put">time_put</A>
+&#183; <A HREF="#time_put_byname">time_put_byname</A>
+&#183; <A HREF="#use_facet">use_facet</A>
+</CODE></B></P>
+
+<P><B><CODE><A HREF="#isalnum">isalnum</A>
+&#183; <A HREF="#isalpha">isalpha</A>
+&#183; <A HREF="#iscntrl">iscntrl</A>
+&#183; <A HREF="#isdigit">isdigit</A>
+&#183; <A HREF="#isgraph">isgraph</A>
+&#183; <A HREF="#islower">islower</A>
+&#183; <A HREF="#isprint">isprint</A>
+&#183; <A HREF="#ispunct">ispunct</A>
+&#183; <A HREF="#isspace">isspace</A>
+&#183; <A HREF="#isupper">isupper</A>
+&#183; <A HREF="#isxdigit">isxdigit</A>
+&#183; <A HREF="#tolower">tolower</A>
+&#183; <A HREF="#toupper">toupper</A>
+</CODE></B></P>
+<HR>
+
+<P>Include the standard header <B><CODE>&lt;locale&gt;</CODE></B>
+to define a host of template classes and functions that encapsulate
+and manipulate <A HREF="locale.html#locale">locales</A>.</P>
+
+<PRE>namespace std {
+class <B><A HREF="#locale">locale</A></B>;
+class <B><A HREF="#ctype_base">ctype_base</A></B>;
+template&lt;class Elem&gt;
+    class <B><A HREF="#ctype">ctype</A></B>;
+template&lt;&gt;
+    class <B><A HREF="#ctype&lt;char&gt;">ctype&lt;char&gt;</A></B>;
+template&lt;class Elem&gt;
+    class <B><A HREF="#ctype_byname">ctype_byname</A></B>;
+class <B><A HREF="#codecvt_base">codecvt_base</A></B>;
+template&lt;class Elem, class Byte, class Statype&gt;
+    class <B><A HREF="#codecvt">codecvt</A></B>;
+template&lt;class Elem, class Byte, class Statype&gt;
+    class <B><A HREF="#codecvt_byname">codecvt_byname</A></B>;
+template&lt;class Elem, class InIt&gt;
+    class <B><A HREF="#num_get">num_get</A></B>;
+template&lt;class Elem, class OutIt&gt;
+    class <B><A HREF="#num_put">num_put</A></B>;
+template&lt;class Elem&gt;
+    class <B><A HREF="#numpunct">numpunct</A></B>;
+template&lt;class Elem&gt;
+    class <B><A HREF="#numpunct_byname">numpunct_byname</A></B>;
+template&lt;class Elem&gt;
+    class <B><A HREF="#collate">collate</A></B>;
+template&lt;class Elem&gt;
+    class <B><A HREF="#collate_byname">collate_byname</A></B>;
+class <B><A HREF="#time_base">time_base</A></B>;
+template&lt;class Elem, class InIt&gt;
+    class <B><A HREF="#time_get">time_get</A></B>;
+template&lt;class Elem, class InIt&gt;
+    class <B><A HREF="#time_get_byname">time_get_byname</A></B>;
+template&lt;class Elem, class OutIt&gt;
+    class <B><A HREF="#time_put">time_put</A></B>;
+template&lt;class Elem, class OutIt&gt;
+    class <B><A HREF="#time_put_byname">time_put_byname</A></B>;
+class <B><A HREF="#money_base">money_base</A></B>;
+template&lt;class Elem, bool Intl, class InIt&gt;
+    class <B><A HREF="#money_get">money_get</A></B>;
+template&lt;class Elem, bool Intl, class OutIt&gt;
+    class <B><A HREF="#money_put">money_put</A></B>;
+template&lt;class Elem, bool Intl&gt;
+    class <B><A HREF="#moneypunct">moneypunct</A></B>;
+template&lt;class Elem, bool Intl&gt;
+    class <B><A HREF="#moneypunct_byname">moneypunct_byname</A></B>;
+class <B><A HREF="#messages_base">messages_base</A></B>;
+template&lt;class Elem&gt;
+    class <B><A HREF="#messages">messages</A></B>;
+template&lt;class Elem&gt;
+    class <B><A HREF="#messages_byname">messages_byname</A></B>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Facet&gt;
+    bool <B><A HREF="#has_facet">has_facet</A></B>(const locale&amp; loc);
+template&lt;class Facet&gt;
+    const Facet&amp; <B><A HREF="#use_facet">use_facet</A></B>(const locale&amp; loc);
+template&lt;class Elem&gt;
+    bool <B><A HREF="#isspace">isspace</A></B>(Elem ch, const locale&amp; loc) const;
+template&lt;class Elem&gt;
+    bool <B><A HREF="#isprint">isprint</A></B>(Elem ch, const locale&amp; loc) const;
+template&lt;class Elem&gt;
+    bool <B><A HREF="#iscntrl">iscntrl</A></B>(Elem ch, const locale&amp; loc) const;
+template&lt;class Elem&gt;
+    bool <B><A HREF="#isupper">isupper</A></B>(Elem ch, const locale&amp; loc) const;
+template&lt;class Elem&gt;
+    bool <B><A HREF="#islower">islower</A></B>(Elem ch, const locale&amp; loc) const;
+template&lt;class Elem&gt;
+    bool <B><A HREF="#isalpha">isalpha</A></B>(Elem ch, const locale&amp; loc) const;
+template&lt;class Elem&gt;
+    bool <B><A HREF="#isdigit">isdigit</A></B>(Elem ch, const locale&amp; loc) const;
+template&lt;class Elem&gt;
+    bool <B><A HREF="#ispunct">ispunct</A></B>(Elem ch, const locale&amp; loc) const;
+template&lt;class Elem&gt;
+    bool <B><A HREF="#isxdigit">isxdigit</A></B>(Elem ch, const locale&amp; loc) const;
+template&lt;class Elem&gt;
+    bool <B><A HREF="#isalnum">isalnum</A></B>(Elem ch, const locale&amp; loc) const;
+template&lt;class Elem&gt;
+    bool <B><A HREF="#isgraph">isgraph</A></B>(Elem ch, const locale&amp; loc) const;
+template&lt;class Elem&gt;
+    Elem <B><A HREF="#toupper">toupper</A></B>(Elem ch, const locale&amp; loc) const;
+template&lt;class Elem&gt;
+    Elem <B><A HREF="#tolower">tolower</A></B>(Elem ch, const locale&amp; loc) const;
+    };</PRE>
+
+<H2><CODE><A NAME="codecvt">codecvt</A></CODE></H2>
+
+<PRE>template&lt;class Elem, class Byte, class Statype&gt;
+    class <B>codecvt</B>
+        : public locale::facet, codecvt_base {
+public:
+    typedef Elem <B><A HREF="#codecvt::intern_type">intern_type</A></B>;
+    typedef Byte <B><A HREF="#codecvt::extern_type">extern_type</A></B>;
+    typedef Statype <B><A HREF="#codecvt::state_type">state_type</A></B>;
+    explicit <B><A HREF="#codecvt::codecvt">codecvt</A></B>(size_t refs = 0);
+    result <B><A HREF="#codecvt::in">in</A></B>(Statype&amp; state,
+        const Byte *first1, const Byte *last1,
+            const Byte *next1,
+        Elem *first2, Elem *last2, Elem *next2);
+    result <B><A HREF="#codecvt::out">out</A></B>(Statype&amp; state,
+        const Elem *first1, const Elem *last1,
+            const Elem *next1,
+        Byte *first2, Byte *last2, Byte *next2);
+    result <B><A HREF="#codecvt::unshift">unshift</A></B>(Statype&amp; state,
+        Byte *first2, Byte *last2, Byte *next2);
+    bool <B><A HREF="#codecvt::always_noconv">always_noconv</A></B>() const throw();
+    int <B><A HREF="#codecvt::max_length">max_length</A></B>() const throw();
+    int <B><A HREF="#codecvt::length">length</A></B>(const Statype&amp; state,
+        const Byte *first1, const Byte *last1,
+            size_t _N2) const throw();
+    int <B><A HREF="#codecvt::encoding">encoding</A></B>() const throw();
+    static locale::id <B><A HREF="#codecvt::id">id</A></B>;
+protected:
+    <B>~codecvt</B>();
+    virtual result <B><A HREF="#codecvt::do_in">do_in</A></B>(Statype&amp; state,
+        const Byte *first1, const Byte *last1,
+            const Byte *next1,
+        Elem *first2, Elem *last2, Elem *next2);
+    virtual result <B><A HREF="#codecvt::do_out">do_out</A></B>(Statype&amp; state,
+        const Elem *first1, const Elem *last1,
+            const Elem *next1,
+        Byte *first2, Byte *last2, Byte *next2);
+    virtual result <B><A HREF="#codecvt::do_unshift">do_unshift</A></B>(Statype&amp; state,
+        Byte *first2, Byte *last2, Byte *next2);
+    virtual bool <B><A HREF="#codecvt::do_always_noconv">do_always_noconv</A></B>() const throw();
+    virtual int <B><A HREF="#codecvt::do_max_length">do_max_length</A></B>() const throw();
+    virtual int <B><A HREF="#codecvt::do_encoding">do_encoding</A></B>() const throw();
+    virtual int <B><A HREF="#codecvt::do_length">do_length</A></B>(const Statype&amp; state,
+        const Byte *first1, const Byte *last1,
+            size_t len2) const throw();
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A>, to control conversions between
+a sequence of values of type <CODE>Elem</CODE>
+and a sequence of values of type <CODE>Byte</CODE>.
+The class <CODE>Statype</CODE>
+characterizes the transformation -- and an object of class
+<CODE>Statype</CODE> stores any necessary state information during
+a conversion.</P>
+
+<P>As with any locale facet, the static object
+<B><CODE><A NAME="codecvt::id">id</A></CODE></B> has an initial
+stored value of zero. The first attempt to access its stored value
+stores a unique positive value in <CODE>id</CODE>.</P>
+
+<P>The template versions of
+<CODE><A HREF="#codecvt::do_in">do_in</A></CODE> and
+<CODE><A HREF="#codecvt::do_out">do_out</A></CODE> always return
+<CODE>codecvt_base::<A HREF="#codecvt_base::noconv">noconv</A></CODE>.
+The Standard C++ library defines an explicit specialization, however,
+that is more useful:</P>
+
+<PRE>template&lt;&gt;
+    codecvt&lt;wchar_t, char, mbstate_t&gt;</PRE>
+
+<P>which converts between <CODE>wchar_t</CODE> and <I>char</I> sequences.</P>
+
+<H3><CODE><A NAME="codecvt::always_noconv">codecvt::always_noconv</A></CODE></H3>
+
+<PRE>bool <B>always_noconv</B>() const throw();</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#codecvt::do_always_noconv">do_always_noconv</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="codecvt::codecvt">codecvt::codecvt</A></CODE></H3>
+
+<PRE>explicit <B>codecvt</B>(size_t refs = 0);</PRE>
+
+<P>The constructor initializes its
+<CODE>locale::facet</CODE> base object with
+<CODE>locale::<A HREF="#locale::facet">facet</A>(refs)</CODE>.</P>
+
+<H3><CODE><A NAME="codecvt::do_always_noconv">codecvt::do_always_noconv</A></CODE></H3>
+
+<PRE>virtual bool <B>do_always_noconv</B>() const throw();</PRE>
+
+<P>The protected virtual member function returns true only if every call to
+<CODE><A HREF="#codecvt::do_in">do_in</A></CODE> or
+<CODE><A HREF="#codecvt::do_out">do_out</A></CODE> returns
+<CODE><A HREF="#codecvt_base::noconv">noconv</A></CODE>.
+The template version always returns true.</P>
+
+<H3><CODE><A NAME="codecvt::do_encoding">codecvt::do_encoding</A></CODE></H3>
+
+<PRE>virtual int <B>do_encoding</B>() const throw();</PRE>
+
+<P>The protected virtual member function returns:</P>
+
+<UL>
+<LI>-1, if the encoding of sequences of type <CODE>extern_type</CODE>
+is state dependent</LI>
+
+<LI>0, if the encoding involves sequences of varying lengths</LI>
+
+<LI><CODE>N</CODE>, if the encoding involves only sequences of length
+<CODE>N</CODE></LI>
+</UL>
+
+<H3><CODE><A NAME="codecvt::do_in">codecvt::do_in</A></CODE></H3>
+
+<PRE>virtual result <B>do_in</B>(Statype state&amp;,
+    const Byte *first1, const Byte *last1, const Byte *next1,
+    Elem *first2, Elem *last2, Elem *next2);</PRE>
+
+<P>The protected virtual member function endeavors to convert the
+source sequence at <CODE>[first1, last1)</CODE>
+to a destination sequence that it
+stores within <CODE>[first2, last2)</CODE>. It always stores in
+<CODE>next1</CODE> a pointer to the first unconverted element in
+the source sequence, and it always stores in <CODE>next2</CODE> a
+pointer to the first unaltered element in the destination sequence.</P>
+
+<P><CODE>state</CODE> must represent the
+<A HREF="charset.html#initial conversion state">initial conversion state</A>
+at the beginning of a new source sequence. The function alters its stored
+value, as needed, to reflect the current state of a
+successful conversion. Its stored value is otherwise unspecified.</P>
+
+<P>The function returns:</P>
+
+<UL>
+<LI><CODE>codecvt_base::<A HREF="#codecvt_base::error">error</A></CODE>
+if the source sequence is ill formed</LI>
+
+<LI><CODE>codecvt_base::<A HREF="#codecvt_base::noconv">noconv</A></CODE>
+if the function performs no conversion</LI>
+
+<LI><CODE>codecvt_base::<A HREF="#codecvt_base::ok">ok</A></CODE>
+if the conversion succeeds</LI>
+
+<LI><CODE>codecvt_base::<A HREF="#codecvt_base::partial">partial</A></CODE>
+if the source is insufficient, or if the destination is not large enough,
+for the conversion to succeed</LI>
+</UL>
+
+<P>The template version always returns <CODE>noconv</CODE>.</P>
+
+<H3><CODE><A NAME="codecvt::do_length">codecvt::do_length</A></CODE></H3>
+
+<PRE>virtual int <B>do_length</B>(const Statype state&amp;,
+    const Byte *first1, const Byte *last1,
+        size_t len2) const throw();</PRE>
+
+<P>The protected virtual member function effectively calls
+<CODE><A HREF="#codecvt::do_in">do_in</A>(mystate, first1,
+last1, next1, buf, buf + len2, next2)</CODE>
+for <CODE>mystate</CODE> a copy of <CODE>state</CODE>,
+some buffer <CODE>buf</CODE>, and pointers
+<CODE>next1</CODE> and <CODE>next2</CODE>. It
+then returns <CODE>next2 - buf</CODE>.
+(Thus, it counts the maximum number of conversions,
+not greater than <CODE>len2</CODE>, defined by the
+source sequence at <CODE>[first1, last1)</CODE>.)</P>
+
+<P>The template version always returns the lesser of
+<CODE>last1 - first1</CODE> and <CODE>len2</CODE>.</P>
+
+<H3><CODE><A NAME="codecvt::do_max_length">codecvt::do_max_length</A></CODE></H3>
+
+<PRE>virtual int <B>do_max_length</B>() const throw();</PRE>
+
+<P>The protected virtual member function returns
+the largest permissible value that can be returned by
+<CODE><A HREF="#codecvt::do_length">do_length</A>(first1,
+last1, 1)</CODE>, for arbitrary valid values of <CODE>first1</CODE>
+and <CODE>last1</CODE>. (Thus, it is roughly analogous to the macro
+<CODE><A HREF="stdlib.html#MB_CUR_MAX">MB_CUR_MAX</A></CODE>, at least
+when <CODE>Byte</CODE> is type <CODE>char</CODE>.)</P>
+
+<P>The template version always returns 1.</P>
+
+<H3><CODE><A NAME="codecvt::do_out">codecvt::do_out</A></CODE></H3>
+
+<PRE>virtual result <B>do_out</B>(Statype state&amp;,
+    const Elem *first1, const Elem *last1,
+        const Elem *next1,
+    Byte *first2, Byte *last2, Byte *next2);</PRE>
+
+<P>The protected virtual member function endeavors to convert the
+source sequence at <CODE>[first1, last1)</CODE>
+to a destination sequence that it
+stores within <CODE>[first2, last2)</CODE>. It always stores in
+<CODE>next1</CODE> a pointer to the first unconverted element in
+the source sequence, and it always stores in <CODE>next2</CODE> a
+pointer to the first unaltered element in the destination sequence.</P>
+
+<P><CODE>state</CODE> must represent the
+<A HREF="charset.html#initial conversion state">initial conversion state</A>
+at the beginning of a new source sequence. The function alters its stored
+value, as needed, to reflect the current state of a
+successful conversion. Its stored value is otherwise unspecified.</P>
+
+<P>The function returns:</P>
+
+<UL>
+<LI><CODE>codecvt_base::<A HREF="#codecvt_base::error">error</A></CODE>
+if the source sequence is ill formed</LI>
+
+<LI><CODE>codecvt_base::<A HREF="#codecvt_base::noconv">noconv</A></CODE>
+if the function performs no conversion</LI>
+
+<LI><CODE>codecvt_base::<A HREF="#codecvt_base::ok">ok</A></CODE>
+if the conversion succeeds</LI>
+
+<LI><CODE>codecvt_base::<A HREF="#codecvt_base::partial">partial</A></CODE>
+if the source is insufficient, or if the destination is not large enough,
+for the conversion to succeed</LI>
+</UL>
+
+<P>The template version always returns <CODE>noconv</CODE>.</P>
+
+<H3><CODE><A NAME="codecvt::do_unshift">codecvt::do_unshift</A></CODE></H3>
+
+<PRE>virtual result <B>do_unshift</B>(Statype state&amp;,
+    Byte *first2, Byte *last2, Byte *next2);</PRE>
+
+<P>The protected virtual member function endeavors to convert the
+source element <CODE>Elem(0)</CODE>
+to a destination sequence that it
+stores within <CODE>[first2, last2)</CODE>, except for the terminating
+element <CODE>Byte(0)</CODE>. It always stores in <CODE>next2</CODE> a
+pointer to the first unaltered element in the destination sequence.</P>
+
+<P><CODE>state</CODE> must represent the
+<A HREF="charset.html#initial conversion state">initial conversion state</A>
+at the beginning of a new source sequence. The function alters its stored
+value, as needed, to reflect the current state of a
+successful conversion. Typically, converting the source element
+<CODE>Elem(0)</CODE> leaves the current state in the initial conversion state.</P>
+
+<P>The function returns:</P>
+
+<UL>
+<LI><CODE>codecvt_base::<A HREF="#codecvt_base::error">error</A></CODE>
+if <CODE>state</CODE> represents an invalid state</LI>
+
+<LI><CODE>codecvt_base::<A HREF="#codecvt_base::noconv">noconv</A></CODE>
+if the function performs no conversion</LI>
+
+<LI><CODE>codecvt_base::<A HREF="#codecvt_base::ok">ok</A></CODE>
+if the conversion succeeds</LI>
+
+<LI><CODE>codecvt_base::<A HREF="#codecvt_base::partial">partial</A></CODE>
+if the destination is not large enough for the conversion to succeed</LI>
+</UL>
+
+<P>The template version always returns <CODE>noconv</CODE>.</P>
+
+<H3><CODE><A NAME="codecvt::extern_type">codecvt::extern_type</A></CODE></H3>
+
+<PRE>typedef Byte <B>extern_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Byte</CODE>.</P>
+
+<H3><CODE><A NAME="codecvt::in">codecvt::in</A></CODE></H3>
+
+<PRE>result <B>in</B>(Statype state&amp;,
+    const Byte *first1, const Byte *last1, const Byte *next1,
+    Elem *first2, Elem *last2, Elem *next2);</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#codecvt::do_in">do_in</A>(state, first1, last1,
+next1, first2, last2, next2)</CODE>.</P>
+
+<H3><CODE><A NAME="codecvt::intern_type">codecvt::intern_type</A></CODE></H3>
+
+<PRE>typedef Elem <B>intern_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><CODE><A NAME="codecvt::length">codecvt::length</A></CODE></H3>
+
+<PRE>int <B>length</B>(const Statype state&amp;,
+    const Byte *first1, const Byte *last1,
+        size_t len2) const throw();</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#codecvt::do_length">do_length</A>(first1,
+last1, len2)</CODE>.</P>
+
+<H3><CODE><A NAME="codecvt::encoding">codecvt::encoding</A></CODE></H3>
+
+<PRE>int <B>encoding</B>() const throw();</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#codecvt::do_encoding">do_encoding</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="codecvt::max_length">codecvt::max_length</A></CODE></H3>
+
+<PRE>int <B>max_length</B>() const throw();</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#codecvt::do_max_length">do_max_length</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="codecvt::out">codecvt::out</A></CODE></H3>
+
+<PRE>result <B>out</B>(Statype state&amp;,
+    const Elem *first1, const Elem *last1,
+        const Elem *next1,
+    Byte *first2, Byte *last2, Byte *next2);</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#codecvt::do_out">do_out</A>(state, first1, last1,
+next1, first2, last2, next2)</CODE>.</P>
+
+<H3><CODE><A NAME="codecvt::state_type">codecvt::state_type</A></CODE></H3>
+
+<PRE>typedef Statype <B>state_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Statype</CODE>.</P>
+
+<H3><CODE><A NAME="codecvt::unshift">codecvt::unshift</A></CODE></H3>
+
+<PRE>result <B>unshift</B>(Statype state&amp;,
+    Byte *first2, Byte *last2, Byte *next2);</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#codecvt::do_unshift">do_unshift</A>(state,
+first2, last2, next2)</CODE>.</P>
+
+<H2><CODE><A NAME="codecvt_base">codecvt_base</A></CODE></H2>
+
+<PRE>class <B>codecvt_base</B> {
+public:
+    enum <B>result</B> {<B>ok</B>, <B>partial</B>, <B>error</B>, <B>noconv</B>};
+    };</PRE>
+
+<P>The class describes an enumeration common to all specializations of
+template class <CODE><A HREF="#codecvt">codecvt</A></CODE>. The enumeration
+<B><CODE><A NAME="codecvt_base::result">result</A></CODE></B>
+describes the possible return values from
+<CODE><A HREF="#codecvt::do_in">do_in</A></CODE> or
+<CODE><A HREF="#codecvt::do_out">do_out</A></CODE>:</P>
+
+<UL>
+<LI><B><CODE><A NAME="codecvt_base::error">error</A></CODE></B>
+if the source sequence is ill formed</LI>
+
+<LI><B><CODE><A NAME="codecvt_base::noconv">noconv</A></CODE></B>
+if the function performs no conversion</LI>
+
+<LI><B><CODE><A NAME="codecvt_base::ok">ok</A></CODE></B>
+if the conversion succeeds</LI>
+
+<LI><B><CODE><A NAME="codecvt_base::partial">partial</A></CODE></B>
+if the destination is not large enough for the conversion to succeed</LI>
+</UL>
+
+<H2><CODE><A NAME="codecvt_byname">codecvt_byname</A></CODE></H2>
+
+<PRE>template&lt;class Elem, class Byte, class Statype&gt;
+    class <B>codecvt_byname</B>
+        : public codecvt&lt;Elem, Byte, Statype&gt; {
+public:
+    explicit <B>codecvt_byname</B>(const char *locname,
+        size_t refs = 0);
+protected:
+    <B>~codecvt_byname</B>();
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A> of type
+<CODE><A HREF="#codecvt">codecvt</A>&lt;Elem, Byte, Statype&gt;</CODE>.
+Its behavior is determined by the
+<A HREF="#locale name">named</A> locale <CODE>locname</CODE>.
+The constructor initializes its base object with
+<CODE><A HREF="#codecvt::codecvt">codecvt</A>&lt;Elem,
+Byte, Statype&gt;(refs)</CODE>.</P>
+
+<H2><CODE><A NAME="collate">collate</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    class <B>collate</B> : public locale::facet {
+public:
+    typedef Elem <B><A HREF="#collate::char_type">char_type</A></B>;
+    typedef basic_string&lt;Elem&gt; <B><A HREF="#collate::string_type">string_type</A></B>;
+    explicit <B><A HREF="#collate::collate">collate</A></B>(size_t refs = 0);
+    int <B><A HREF="#collate::compare">compare</A></B>(const Elem *first1, const Elem *last1,
+        const Elem *first2, const Elem *last2) const;
+    string_type <B><A HREF="#collate::transform">transform</A></B>(const Elem *first,
+        const Elem *last) const;
+    long <B><A HREF="#collate::hash">hash</A></B>(const Elem *first, const Elem *last) const;
+    static locale::id <B><A HREF="#collate::id">id</A></B>;
+protected:
+    <B>~collate</B>();
+    virtual int
+        <B><A HREF="#collate::do_compare">do_compare</A></B>(const Elem *first1, const Elem *last1,
+            const Elem *first2, const Elem *last2) const;
+    virtual string_type <B><A HREF="#collate::do_transform">do_transform</A></B>(const Elem *first,
+        const Elem *last) const;
+    virtual long <B><A HREF="#collate::do_hash">do_hash</A></B>(const Elem *first,
+        const Elem *last) const;
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A>, to control comparisons
+of sequences of type <CODE>Elem</CODE>.</P>
+
+<P>As with any locale facet, the static object
+<B><CODE><A NAME="collate::id">id</A></CODE></B> has an initial
+stored value of zero. The first attempt to access its stored value
+stores a unique positive value in <CODE>id</CODE>.</P>
+
+<H3><CODE><A NAME="collate::char_type">collate::char_type</A></CODE></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><CODE><A NAME="collate::collate">collate::collate</A></CODE></H3>
+
+<PRE>explicit <B>collate</B>(size_t refs = 0);</PRE>
+
+<P>The constructor initializes its base object with
+<CODE>locale::<A HREF="#locale::facet">facet</A>(refs)</CODE>.</P>
+
+<H3><CODE><A NAME="collate::compare">collate::compare</A></CODE></H3>
+
+<PRE>int <B>compare</B>(const Elem *first1, const Elem *last1,
+    const Elem *first2, const Elem *last2) const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#collate::do_compare">do_compare</A>(first1, last1,
+first2, last2)</CODE>.</P>
+
+<H3><CODE><A NAME="collate::do_compare">collate::do_compare</A></CODE></H3>
+
+<PRE>virtual int <B>do_compare</B>(const Elem *first1, const Elem *last1,
+    const Elem *first2, const Elem *last2) const;</PRE>
+
+<P>The protected virtual member function compares the sequence at
+<CODE>[first1, last1)</CODE> with the sequence at
+<CODE>[first2, last2)</CODE>. It compares values
+by applying <CODE>operator&lt;</CODE>
+between pairs of corresponding elements of type <CODE>Elem</CODE>.
+The first sequence compares less if it has the smaller element in
+the earliest unequal pair in the sequences, or if no unequal
+pairs exist but the first sequence is shorter.</P>
+
+<P>If the first sequence compares less than the second sequence,
+the function returns -1. If the second sequence compares less, the function
+returns +1. Otherwise, the function returns zero.</P>
+
+<H3><CODE><A NAME="collate::do_hash">collate::do_hash</A></CODE></H3>
+
+<PRE>virtual long <B>do_hash</B>(const Elem *first,
+    const Elem *last) const;</PRE>
+
+<P>The protected virtual member function returns an integer derived
+from the values of the elements in the sequence
+<CODE>[first, last)</CODE>. Such a <B>hash</B> value can be useful,
+for example, in distributing sequences pseudo randomly
+across an array of lists.</P>
+
+<H3><CODE><A NAME="collate::do_transform">collate::do_transform</A></CODE></H3>
+
+<PRE>virtual string_type <B>do_transform</B>(const Elem *first,
+    const Elem *last) const;</PRE>
+
+<P>The protected virtual member function returns an object of class
+<CODE><A HREF="#collate::string_type">string_type</A></CODE> whose controlled
+sequence is a copy of the sequence <CODE>[first, last)</CODE>.
+If a class derived from <CODE>collate&lt;Elem&gt;</CODE> overrides
+<CODE><A HREF="#collate::do_compare">do_compare</A></CODE>, it should
+also override <CODE>do_transform</CODE> to match. Put simply, two
+transformed strings should yield the same result, when passed to
+<CODE>collate::compare</CODE>, that you would get from passing the
+untransformed strings to <CODE>compare</CODE> in the derived class.</P>
+
+<H3><CODE><A NAME="collate::hash">collate::hash</A></CODE></H3>
+
+<PRE>long <B>hash</B>(const Elem *first, const Elem *last) const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#collate::do_hash">do_hash</A>(first, last)</CODE>.</P>
+
+<H3><CODE><A NAME="collate::string_type">collate::string_type</A></CODE></H3>
+
+<PRE>typedef basic_string&lt;Elem&gt; <B>string_type</B>;</PRE>
+
+<P>The type describes a specialization of template class
+<CODE><A HREF="string2.html#basic_string">basic_string</A></CODE>
+whose objects can store copies of the source sequence.</P>
+
+<H3><CODE><A NAME="collate::transform">collate::transform</A></CODE></H3>
+
+<PRE>string_type <B>transform</B>(const Elem *first,
+    const Elem *last) const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#collate::do_transform">do_transform</A>(first,
+last)</CODE>.</P>
+
+<H2><CODE><A NAME="collate_byname">collate_byname</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    class <B>collate_byname</B> : public collate&lt;Elem&gt; {
+public:
+    explicit <B>collate_byname</B>(const char *locname,
+        size_t refs = 0);
+protected:
+    <B>~collate_byname</B>();
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A> of type
+<CODE><A HREF="#collate">collate</A>&lt;Elem&gt;</CODE>.
+Its behavior is determined by the
+<A HREF="#locale name">named</A> locale <CODE>locname</CODE>.
+The constructor initializes its base object with
+<CODE><A HREF="#collate::collate">collate</A>&lt;Elem&gt;(refs)</CODE>.</P>
+
+<H2><CODE><A NAME="ctype">ctype</A></CODE></H2>
+
+<HR>
+<P><B><CODE><A HREF="#ctype::char_type">char_type</A>
+&#183; <A HREF="#ctype::ctype">ctype</A>
+&#183; <A HREF="#ctype::do_is">do_is</A>
+&#183; <A HREF="#ctype::do_narrow">do_narrow</A>
+&#183; <A HREF="#ctype::do_scan_is">do_scan_is</A>
+&#183; <A HREF="#ctype::do_scan_not">do_scan_not</A>
+&#183; <A HREF="#ctype::do_tolower">do_tolower</A>
+&#183; <A HREF="#ctype::do_toupper">do_toupper</A>
+&#183; <A HREF="#ctype::do_widen">do_widen</A>
+&#183; <A HREF="#ctype::is">is</A>
+&#183; <A HREF="#ctype::narrow">narrow</A>
+&#183; <A HREF="#ctype::scan_is">scan_is</A>
+&#183; <A HREF="#ctype::scan_not">scan_not</A>
+&#183; <A HREF="#ctype::tolower">tolower</A>
+&#183; <A HREF="#ctype::toupper">toupper</A>
+&#183; <A HREF="#ctype::widen">widen</A>
+</CODE></B></P>
+<HR>
+
+<PRE>template&lt;class Elem&gt;
+    class <B>ctype</B>
+        : public locale::facet, public ctype_base {
+public:
+    typedef Elem <B><A HREF="#ctype::char_type">char_type</A></B>;
+    explicit <B><A HREF="#ctype::ctype">ctype</A></B>(size_t refs = 0);
+    bool <B><A HREF="#ctype::is">is</A></B>(mask maskval, Elem ch) const;
+    const Elem *<B><A HREF="#ctype::is">is</A></B>(const Elem *first, const Elem *last,
+        mask *dest) const;
+    const Elem *<B><A HREF="#ctype::scan_is">scan_is</A></B>(mask maskval, const Elem *first,
+        const Elem *last) const;
+    const Elem *<B><A HREF="#ctype::scan_not">scan_not</A></B>(mask maskval, const Elem *first,
+        const Elem *last) const;
+    Elem <B><A HREF="#ctype::toupper">toupper</A></B>(Elem ch) const;
+    const Elem *<B><A HREF="#ctype::toupper">toupper</A></B>(Elem *first, Elem *last) const;
+    Elem <B><A HREF="#ctype::tolower">tolower</A></B>(Elem ch) const;
+    const Elem *<B><A HREF="#ctype::tolower">tolower</A></B>(Elem *first, Elem *last) const;
+    Elem <B><A HREF="#ctype::widen">widen</A></B>(char byte) const;
+    const char *<B><A HREF="#ctype::widen">widen</A></B>(char *first, char *last,
+        Elem *dest) const;
+    char <B><A HREF="#ctype::narrow">narrow</A></B>(Elem ch, char dflt) const;
+    const Elem *<B><A HREF="#ctype::narrow">narrow</A></B>(const Elem *first, const Elem *last,
+        char dflt, char *dest) const;
+    static locale::id <B><A HREF="#ctype::id">id</A></B>;
+protected:
+    <B>~ctype()</B>;
+    virtual bool <B><A HREF="#ctype::do_is">do_is</A></B>(mask maskval, Elem ch) const;
+    virtual const Elem *<B><A HREF="#ctype::do_is">do_is</A></B>(const Elem *first, const Elem *last,
+        mask *dest) const;
+    virtual const Elem *<B><A HREF="#ctype::do_scan_is">do_scan_is</A></B>(mask maskval, const Elem *first,
+        const Elem *last) const;
+    virtual const Elem *<B><A HREF="#ctype::do_scan_not">do_scan_not</A></B>(mask maskval, const Elem *first,
+        const Elem *last) const;
+    virtual Elem <B><A HREF="#ctype::do_toupper">do_toupper</A></B>(Elem ch) const;
+    virtual const Elem *<B><A HREF="#ctype::do_toupper">do_toupper</A></B>(Elem *first, Elem *last) const;
+    virtual Elem <B><A HREF="#ctype::do_tolower">do_tolower</A></B>(Elem ch) const;
+    virtual const Elem *<B><A HREF="#ctype::do_tolower">do_tolower</A></B>(Elem *first, Elem *last) const;
+    virtual Elem <B><A HREF="#ctype::do_widen">do_widen</A></B>(char byte) const;
+    virtual const char *<B><A HREF="#ctype::do_widen">do_widen</A></B>(char *first, char *last,
+        Elem *dest) const;
+    virtual char <B><A HREF="#ctype::do_narrow">do_narrow</A></B>(Elem ch, char dflt) const;
+    virtual const Elem *<B><A HREF="#ctype::do_narrow">do_narrow</A></B>(const Elem *first,
+        const Elem *last, char dflt, char *dest) const;
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A>, to characterize
+various properties of a ``character'' (element) of type <CODE>Elem</CODE>.
+Such a facet also converts between sequences of <CODE>Elem</CODE>
+elements and sequences of <I>char.</I></P>
+
+<P>As with any locale facet, the static object
+<B><CODE><A NAME="ctype::id">id</A></CODE></B> has an initial
+stored value of zero. The first attempt to access its stored value
+stores a unique positive value in <CODE>id</CODE>.</P>
+
+<P>The Standard C++ library defines two explicit specializations
+of this template class:</P>
+
+<UL>
+<LI><CODE><A HREF="#ctype&lt;char&gt;">ctype&lt;char&gt;</A></CODE>,
+an explicit specialization whose differences are described separately</LI>
+
+<LI><CODE>ctype&lt;wchar_t&gt;</CODE>, which treats elements as
+<A HREF="charset.html#Wide-Character Encoding">wide characters</A></LI>
+</UL>
+
+<P>In this
+<A HREF="index.html#implementation">implementation</A>,
+other specializations of template class <CODE>ctype&lt;Elem&gt;</CODE>:</P>
+
+<UL>
+<LI>convert a value <CODE>ch</CODE> of type <CODE>Elem</CODE> to
+a value of type <I>char</I> with the expression <CODE>(char)ch</CODE></LI>
+
+<LI>convert a value <CODE>byte</CODE> of type <I>char</I> to
+a value of type <CODE>Elem</CODE> with the expression
+<CODE>Elem(byte)</CODE></LI>
+</UL>
+
+<P>All other operations are performed on <I>char</I> values the same
+as for the explicit specialization <CODE>ctype&lt;char&gt;</CODE>.</P>
+
+<H3><A NAME="ctype::char_type"><CODE>ctype::char_type</CODE></A></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><A NAME="ctype::ctype"><CODE>ctype::ctype</CODE></A></H3>
+
+<PRE>explicit <B>ctype</B>(size_t refs = 0);</PRE>
+
+<P>The constructor initializes its
+<CODE>locale::facet</CODE> base object with
+<CODE>locale::<A HREF="#locale::facet">facet</A>(refs)</CODE>.</P>
+
+<H3><A NAME="ctype::do_is"><CODE>ctype::do_is</CODE></A></H3>
+
+<PRE>virtual bool <B>do_is</B>(mask maskval, Elem ch) const;
+virtual const Elem *<B>do_is</B>(const Elem *first, const Elem *last,
+    mask *dest) const;</PRE>
+
+<P>The first protected member template function returns true if
+<CODE>MASK(ch) &amp; maskval</CODE> is nonzero,
+where <CODE>MASK(ch)</CODE> designates the mapping between an element
+value <CODE>ch</CODE> and its classification mask, of type
+<CODE><A HREF="#ctype_base::mask">mask</A></CODE>.
+The name <CODE>MASK</CODE> is purely symbolic here; it is not
+defined by the template class. For an object of class
+<CODE><A HREF="#ctype&lt;char&gt;">ctype&lt;char&gt;</A></CODE>,
+the mapping is <CODE>tab[(unsigned char)(char)ch]</CODE>,
+where <CODE>tab</CODE> is the stored pointer to the
+<A HREF="#ctype mask table">ctype mask table</A>.</P>
+
+<P>The second protected member template function stores in
+<CODE>dest[I]</CODE> the value
+<CODE>MASK(first[I]) &amp; maskval</CODE>, where
+<CODE>I</CODE> ranges over the interval <CODE>[0, last - first)</CODE>.</P>
+
+<H3><A NAME="ctype::do_narrow"><CODE>ctype::do_narrow</CODE></A></H3>
+
+<PRE>virtual char <B>do_narrow</B>(Elem ch, char dflt) const;
+virtual const Elem *<B>do_narrow</B>(const Elem *first, const Elem *last,
+    char dflt, char *dest) const;</PRE>
+
+<P>The first protected member template function returns
+<CODE>(char)ch</CODE>, or <CODE>dflt</CODE> if that expression
+is undefined.</P>
+
+<P>The second protected member template function stores in
+<CODE>dest[I]</CODE> the value <CODE>do_narrow(first[I], dflt)</CODE>, for
+<CODE>I</CODE> in the interval <CODE>[0, last - first)</CODE>.</P>
+
+<H3><A NAME="ctype::do_scan_is"><CODE>ctype::do_scan_is</CODE></A></H3>
+
+<PRE>virtual const Elem *<B>do_scan_is</B>(mask maskval, const Elem *first,
+    const Elem *last) const;</PRE>
+
+<P>The protected member function returns the smallest pointer
+<CODE>ptr</CODE> in the range <CODE>[first, last)</CODE> for which
+<CODE><A HREF="#ctype::do_is">do_is</A>(maskval, *ptr)</CODE> is true.
+If no such value exists, the function returns <CODE>last</CODE>.</P>
+
+<H3><A NAME="ctype::do_scan_not"><CODE>ctype::do_scan_not</CODE></A></H3>
+
+<PRE>virtual const Elem *<B>do_scan_not</B>(mask maskval, const Elem *first,
+    const Elem *last) const;</PRE>
+
+<P>The protected member function returns the smallest pointer
+<CODE>ptr</CODE> in the range <CODE>[first, last)</CODE> for which
+<CODE><A HREF="#ctype::do_is">do_is</A>(maskval, *ptr)</CODE> is false.
+If no such value exists, the function returns <CODE>last</CODE>.</P>
+
+<H3><A NAME="ctype::do_tolower"><CODE>ctype::do_tolower</CODE></A></H3>
+
+<PRE>virtual Elem <B>do_tolower</B>(Elem ch) const;
+virtual const Elem *<B>do_tolower</B>(Elem *first, Elem *last) const;</PRE>
+
+<P>The first protected member template function returns
+the lowercase character corresponding to <CODE>ch</CODE>,
+if such a character exists. Otherwise, it returns <CODE>ch</CODE>.</P>
+
+<P>The second protected member template function replaces each
+element <CODE>first[I]</CODE>, for <CODE>I</CODE> in the interval
+<CODE>[0, last - first)</CODE>, with <CODE>do_tolower(first[I])</CODE>.</P>
+
+<H3><A NAME="ctype::do_toupper"><CODE>ctype::do_toupper</CODE></A></H3>
+
+<PRE>virtual Elem <B>do_toupper</B>(Elem ch) const;
+virtual const Elem *<B>do_toupper</B>(Elem *first, Elem *last) const;</PRE>
+
+<P>The first protected member template function returns
+the uppercase character corresponding to <CODE>ch</CODE>,
+if such a character exists. Otherwise, it returns <CODE>ch</CODE>.</P>
+
+<P>The second protected member template function replaces each
+element <CODE>first[I]</CODE>, for <CODE>I</CODE> in the interval
+<CODE>[0, last - first)</CODE>, with <CODE>do_toupper(first[I])</CODE>.</P>
+
+<H3><A NAME="ctype::do_widen"><CODE>ctype::do_widen</CODE></A></H3>
+
+<PRE>virtual Elem <B>do_widen</B>(char byte) const;
+virtual const char *<B>do_widen</B>(char *first, char *last,
+    Elem *dest) const;</PRE>
+
+<P>The first protected member template function returns
+<CODE>Elem(byte)</CODE>.</P>
+
+<P>The second protected member template function stores in
+<CODE>dest[I]</CODE> the value <CODE>do_widen(first[I])</CODE>, for
+<CODE>I</CODE> in the interval <CODE>[0, last - first)</CODE>.</P>
+
+<H3><A NAME="ctype::is"><CODE>ctype::is</CODE></A></H3>
+
+<PRE>bool <B>is</B>(mask maskval, Elem ch) const;
+const Elem *<B>is</B>(const Elem *first, const Elem *last,
+    mask *dest) const;</PRE>
+
+<P>The first member function returns
+<CODE><A HREF="#ctype::do_is">do_is</A>(maskval, ch)</CODE>.
+The second member function returns <CODE>do_is(first, last, dest)</CODE>.</P>
+
+<H3><A NAME="ctype::narrow"><CODE>ctype::narrow</CODE></A></H3>
+
+<PRE>char <B>narrow</B>(Elem ch, char dflt) const;
+const Elem *<B>narrow</B>(const Elem *first, const Elem *last,
+    char dflt, char *dest) const;</PRE>
+
+<P>The first member function returns
+<CODE><A HREF="#ctype::do_narrow">do_narrow</A>(ch, dflt)</CODE>.
+The second member function returns <CODE>do_narrow(first, last,
+dflt, dest)</CODE>.</P>
+
+<H3><A NAME="ctype::scan_is"><CODE>ctype::scan_is</CODE></A></H3>
+
+<PRE>const Elem *<B>scan_is</B>(mask maskval, const Elem *first,
+    const Elem *last) const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#ctype::do_scan_is">do_scan_is</A>(maskval,
+first, last)</CODE>.</P>
+
+<H3><A NAME="ctype::scan_not"><CODE>ctype::scan_not</CODE></A></H3>
+
+<PRE>const Elem *<B>scan_not</B>(mask maskval, const Elem *first,
+    const Elem *last) const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#ctype::do_scan_not">do_scan_not</A>(maskval,
+first, last)</CODE>.</P>
+
+<H3><A NAME="ctype::tolower"><CODE>ctype::tolower</CODE></A></H3>
+
+<PRE>Elem <B>tolower</B>(Elem ch) const;
+const Elem *<B>tolower</B>(Elem *first, Elem *last) const;</PRE>
+
+<P>The first member function returns
+<CODE><A HREF="#ctype::do_tolower">do_tolower</A>(ch)</CODE>.
+The second member function returns
+<CODE><A HREF="#ctype::do_tolower">do_tolower</A>(first,
+last)</CODE>.</P>
+
+<H3><A NAME="ctype::toupper"><CODE>ctype::toupper</CODE></A></H3>
+
+<PRE>Elem <B>toupper</B>(Elem ch) const;
+const Elem *<B>toupper</B>(Elem *first, Elem *last) const;</PRE>
+
+<P>The first member function returns
+<CODE><A HREF="#ctype::do_toupper">do_toupper</A>(ch)</CODE>.
+The second member function returns
+<CODE><A HREF="#ctype::do_toupper">do_toupper</A>(first,
+last)</CODE>.</P>
+
+<H3><A NAME="ctype::widen"><CODE>ctype::widen</CODE></A></H3>
+
+<PRE>Elem <B>widen</B>(char byte) const;
+const char *<B>widen</B>(char *first, char *last, Elem *dest) const;</PRE>
+
+<P>The first member function returns
+<CODE><A HREF="#ctype::do_widen">do_widen</A>(byte)</CODE>.
+The second member function returns
+<CODE><A HREF="#ctype::do_widen">do_widen</A>(first,
+last, dest)</CODE>.</P>
+
+<H2><CODE><A NAME="ctype&lt;char&gt;">ctype&lt;char&gt;</A></CODE></H2>
+
+<PRE>template&lt;&gt;
+    class <B>ctype&lt;char&gt;</B>
+    : public locale::facet, public ctype_base {
+public:
+    typedef char <B>char_type</B>;
+    explicit <B>ctype</B>(const mask *tab = 0, bool del = false,
+        size_t refs = 0);
+    bool <B>is</B>(mask maskval, char ch) const;
+    const char *<B>is</B>(const char *first, const char *last,
+        mask *dest) const;
+    const char *<B>scan_is</B>(mask maskval,
+        const char *first, const char *last) const;
+    const char *<B>scan_not</B>(mask maskval,
+        const char *first, const char *last) const;
+    char <B>toupper</B>(char ch) const;
+    const char *<B>toupper</B>(char *first, char *last) const;
+    char <B>tolower</B>(char ch) const;
+    const char *<B>tolower</B>(char *first, char *last) const;
+    char <B>widen</B>(char byte) const;
+    const char *<B>widen</B>(char *first, char *last,
+        char *dest) const;
+    char <B>narrow</B>(char ch, char dflt) const;
+    const char *<B>narrow</B>(const char *first,
+        const char *last, char dflt, char *dest) const;
+    static locale::id <B>id</B>;
+protected:
+    <B>~ctype()</B>;
+    virtual char <B>do_toupper</B>(char ch) const;
+    virtual const char *<B>do_toupper</B>(char *first,
+        char *last) const;
+    virtual char <B>do_tolower</B>(char ch) const;
+    virtual const char *<B>do_tolower</B>(char *first,
+        char *last) const;
+    virtual char <B>do_widen</B>(char ch) const;
+    virtual const char *<B>do_widen</B>(char *first, char *last,
+        char *dest) const;
+    virtual char <B>do_narrow</B>(char ch, char dflt) const;
+    virtual const char *<B>do_narrow</B>(const char *first,
+        const char *last, char dflt, char *dest) const;
+
+    const mask *<B><A HREF="#ctype&lt;char&gt;::table">table</A></B>() const throw();
+    static const mask *<B><A HREF="#ctype&lt;char&gt;::classic_table">classic_table</A></B>() const throw();
+    static const size_t <B><A HREF="#ctype&lt;char&gt;::table_size">table_size</A></B>;
+    };</PRE>
+
+<P>The class is an explicit specialization of template class
+<CODE><A HREF="#ctype">ctype</A></CODE> for type <I>char.</I>
+Hence, it describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A>, to characterize
+various properties of a ``character'' (element) of type <I>char.</I>
+The explicit specialization differs from the template class in several
+ways:</P>
+
+<UL>
+<LI>An object of class <CODE>ctype&lt;char&gt;</CODE> stores a
+pointer to the first element of a
+<B><A NAME="ctype mask table">ctype mask table</A></B>, an array of
+<CODE><A HREF="limits.html#UCHAR_MAX">UCHAR_MAX</A> + 1</CODE>
+elements of type
+<CODE>ctype_base::<A HREF="#ctype_base::mask">mask</A></CODE>.
+It also stores a boolean object that indicates whether the array
+should be deleted (using <CODE>operator delete[]</CODE>)
+when the <CODE>ctype&lt;Elem&gt;</CODE> object
+is destroyed.</LI>
+
+<LI>Its sole public constructor lets you specify <CODE>tab</CODE>, the
+ctype mask table, and <CODE>del</CODE>,
+the boolean object that is true if the array
+should be deleted when the <CODE>ctype&lt;char&gt;</CODE> object
+is destroyed -- as well as the usual reference-count parameter
+<CODE>refs</CODE>.</LI>
+
+<LI>The protected member function
+<CODE><A NAME="ctype&lt;char&gt;::table">table</A>()</CODE>
+returns the stored ctype mask table.</LI>
+
+<LI>The static member object
+<CODE><A NAME="ctype&lt;char&gt;::table_size">table_size</A></CODE>
+specifies the minimum number of elements in a ctype mask table.</LI>
+
+<LI>The protected static member function
+<CODE><A NAME="ctype&lt;char&gt;::classic_table">classic_table</A>()</CODE>
+returns the ctype mask table appropriate to the
+<A HREF="locale.html#C locale"><CODE>"C"</CODE> locale</A>.</LI>
+
+<LI>There are no protected virtual member functions
+<CODE><A HREF="#ctype::do_is">do_is</A></CODE>,
+<CODE><A HREF="#ctype::do_scan_is">do_scan_is</A></CODE>, or
+<CODE><A HREF="#ctype::do_scan_not">do_scan_not</A></CODE>.
+The corresponding public member functions perform the
+equivalent operations themselves.</LI>
+
+<LI>The member functions
+<CODE><A HREF="#ctype::do_narrow">do_narrow</A></CODE> and
+<CODE><A HREF="#ctype::do_widen">do_widen</A></CODE> simply
+copy elements unaltered.</LI>
+</UL>
+
+<H2><CODE><A NAME="ctype_base">ctype_base</A></CODE></H2>
+
+<PRE>class <B>ctype_base</B> {
+public:
+    enum <B>mask</B> {
+        <B>space</B> = 1 &lt;&lt; 0,  // EXAMPLE VALUES ONLY
+        <B>print</B> = 1 &lt;&lt; 1,
+        <B>cntrl</B> = 1 &lt;&lt; 2,
+        <B>upper</B> = 1 &lt;&lt; 3,
+        <B>lower</B> = 1 &lt;&lt; 4,
+        <B>digit</B> = 1 &lt;&lt; 5,
+        <B>punct</B> = 1 &lt;&lt; 6,
+        <B>xdigit</B> = 1 &lt;&lt; 7,
+        <B>alpha</B> = 1 &lt;&lt; 8,
+        <B>alnum</B> = 0x9 &lt;&lt; 5,
+        <B>graph</B> = 0xB &lt;&lt; 5};</PRE>
+
+<P>The class serves as a base class for facets of template class
+<CODE><A HREF="#ctype">ctype</A></CODE>.
+It defines just the enumeration
+<B><CODE><A NAME="ctype_base::mask">mask</A></CODE></B>.
+Each of the enumeration constants characterizes
+a different way to classify characters, as defined by the functions
+with similar names declared in the header
+<CODE><A HREF="ctype.html#&lt;ctype.h&gt;">&lt;ctype.h&gt;</A></CODE>.
+The constants are:</P>
+
+<UL>
+<LI><B><CODE><A NAME="ctype_base::space">space</A></CODE></B>
+(function <CODE><A HREF="ctype.html#isspace">isspace</A></CODE>)</LI>
+
+<LI><B><CODE><A NAME="ctype_base::print">print</A></CODE></B>
+(function <CODE><A HREF="ctype.html#isprint">isprint</A></CODE>)</LI>
+
+<LI><B><CODE><A NAME="ctype_base::cntrl">cntrl</A></CODE></B>
+(function <CODE><A HREF="ctype.html#iscntrl">iscntrl</A></CODE>)</LI>
+
+<LI><B><CODE><A NAME="ctype_base::upper">upper</A></CODE></B>
+(function <CODE><A HREF="ctype.html#isupper">isupper</A></CODE>)</LI>
+
+<LI><B><CODE><A NAME="ctype_base::lower">lower</A></CODE></B>
+(function <CODE><A HREF="ctype.html#islower">islower</A></CODE>)</LI>
+
+<LI><B><CODE><A NAME="ctype_base::digit">digit</A></CODE></B>
+(function <CODE><A HREF="ctype.html#isdigit">isdigit</A></CODE>)</LI>
+
+<LI><B><CODE><A NAME="ctype_base::punct">punct</A></CODE></B>
+(function <CODE><A HREF="ctype.html#ispunct">ispunct</A></CODE>)</LI>
+
+<LI><B><CODE><A NAME="ctype_base::xdigit">xdigit</A></CODE></B>
+(function <CODE><A HREF="ctype.html#isxdigit">isxdigit</A></CODE>)</LI>
+
+<LI><B><CODE><A NAME="ctype_base::alpha">alpha</A></CODE></B>
+(function <CODE><A HREF="ctype.html#isalpha">isalpha</A></CODE>)</LI>
+
+<LI><B><CODE><A NAME="ctype_base::alnum">alnum</A></CODE></B>
+(function <CODE><A HREF="ctype.html#isalnum">isalnum</A></CODE>)</LI>
+
+<LI><B><CODE><A NAME="ctype_base::graph">graph</A></CODE></B>
+(function <CODE><A HREF="ctype.html#isgraph">isgraph</A></CODE>)</LI>
+</UL>
+
+<P>You can charaterize a combination of classifications by
+ORing these constants. In particular, it is always true that
+<CODE>alnum == (alpha | digit)</CODE> and
+<CODE>graph == (alnum | punct)</CODE>.</P>
+
+<H2><CODE><A NAME="ctype_byname">ctype_byname</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    class <B>ctype_byname</B> : public ctype&lt;Elem&gt; {
+public:
+    explicit <B>ctype_byname</B>(const char *locname,
+        size_t refs = 0);
+protected:
+    <B>~ctype_byname</B>();
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A> of type
+<CODE><A HREF="#ctype">ctype</A>&lt;Elem&gt;</CODE>.
+Its behavior is determined by the
+<A HREF="#locale name">named</A> locale <CODE>locname</CODE>.
+The constructor initializes its base object with
+<CODE><A HREF="#ctype::ctype">ctype</A>&lt;Elem&gt;(refs)</CODE>
+(or the equivalent for base class
+<CODE><A HREF="#ctype&lt;char&gt;">ctype&lt;char&gt;</A></CODE>).</P>
+
+<H2><CODE><A NAME="has_facet">has_facet</A></CODE></H2>
+
+<PRE>template&lt;class Facet&gt;
+    bool <B>has_facet</B>(const locale&amp; loc);</PRE>
+
+<P>The template function returns true if a
+<A HREF="#locale facet">locale facet</A> of class <CODE>Facet</CODE>
+is listed within the
+<A HREF="#locale object">locale object</A> <CODE>loc</CODE>.</P>
+
+
+<H2><CODE><A NAME="isalnum">isalnum</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    bool <B>isalnum</B>(Elem ch, const locale&amp; loc) const;</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#use_facet">use_facet</A>&lt;
+<A HREF="#ctype">ctype</A>&lt;Elem&gt; &gt;(loc).
+<A HREF="#ctype::is">is</A>(ctype&lt;Elem&gt;::
+<A HREF="#ctype_base::alnum">alnum</A>, ch)</CODE>.</P>
+
+<H2><CODE><A NAME="isalpha">isalpha</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    bool <B>isalpha</B>(Elem ch, const locale&amp; loc) const;</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#use_facet">use_facet</A>&lt;
+<A HREF="#ctype">ctype</A>&lt;Elem&gt; &gt;(loc).
+<A HREF="#ctype::is">is</A>(ctype&lt;Elem&gt;::
+<A HREF="#ctype_base::alpha">alpha</A>, ch)</CODE>.</P>
+
+<H2><CODE><A NAME="iscntrl">iscntrl</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    bool <B>iscntrl</B>(Elem ch, const locale&amp; loc) const;</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#use_facet">use_facet</A>&lt;
+<A HREF="#ctype">ctype</A>&lt;Elem&gt; &gt;(loc).
+<A HREF="#ctype::is">is</A>(ctype&lt;Elem&gt;::
+<A HREF="#ctype_base::cntrl">cntrl</A>, ch)</CODE>.</P>
+
+<H2><CODE><A NAME="isdigit">isdigit</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    bool <B>isdigit</B>(Elem ch, const locale&amp; loc) const;</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#use_facet">use_facet</A>&lt;
+<A HREF="#ctype">ctype</A>&lt;Elem&gt; &gt;(loc).
+<A HREF="#ctype::is">is</A>(ctype&lt;Elem&gt;::
+<A HREF="#ctype_base::digit">digit</A>, ch)</CODE>.</P>
+
+<H2><CODE><A NAME="isgraph">isgraph</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    bool <B>isgraph</B>(Elem ch, const locale&amp; loc) const;</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#use_facet">use_facet</A>&lt;
+<A HREF="#ctype">ctype</A>&lt;Elem&gt; &gt;(loc).
+<A HREF="#ctype::is">is</A>(ctype&lt;Elem&gt;::
+<A HREF="#ctype_base::graph">graph</A>, ch)</CODE>.</P>
+
+<H2><CODE><A NAME="islower">islower</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    bool <B>islower</B>(Elem ch, const locale&amp; loc) const;</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#use_facet">use_facet</A>&lt;
+<A HREF="#ctype">ctype</A>&lt;Elem&gt; &gt;(loc).
+<A HREF="#ctype::is">is</A>(ctype&lt;Elem&gt;::
+<A HREF="#ctype_base::lower">lower</A>, ch)</CODE>.</P>
+
+<H2><CODE><A NAME="isprint">isprint</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    bool <B>isprint</B>(Elem ch, const locale&amp; loc) const;</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#use_facet">use_facet</A>&lt;
+<A HREF="#ctype">ctype</A>&lt;Elem&gt; &gt;(loc).
+<A HREF="#ctype::is">is</A>(ctype&lt;Elem&gt;::
+<A HREF="#ctype_base::print">print</A>, ch)</CODE>.</P>
+
+<H2><CODE><A NAME="ispunct">ispunct</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    bool <B>ispunct</B>(Elem ch, const locale&amp; loc) const;</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#use_facet">use_facet</A>&lt;
+<A HREF="#ctype">ctype</A>&lt;Elem&gt; &gt;(loc).
+<A HREF="#ctype::is">is</A>(ctype&lt;Elem&gt;::
+<A HREF="#ctype_base::punct">punct</A>, ch)</CODE>.</P>
+
+<H2><CODE><A NAME="isspace">isspace</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    bool <B>isspace</B>(Elem ch, const locale&amp; loc) const;</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#use_facet">use_facet</A>&lt;
+<A HREF="#ctype">ctype</A>&lt;Elem&gt; &gt;(loc).
+<A HREF="#ctype::is">is</A>(ctype&lt;Elem&gt;::
+<A HREF="#ctype_base::space">space</A>, ch)</CODE>.</P>
+
+<H2><CODE><A NAME="isupper">isupper</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    bool <B>isupper</B>(Elem ch, const locale&amp; loc) const;</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#use_facet">use_facet</A>&lt;
+<A HREF="#ctype">ctype</A>&lt;Elem&gt; &gt;(loc).
+<A HREF="#ctype::is">is</A>(ctype&lt;Elem&gt;::
+<A HREF="#ctype_base::upper">upper</A>, ch)</CODE>.</P>
+
+<H2><CODE><A NAME="isxdigit">isxdigit</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    bool <B>isxdigit</B>(Elem ch, const locale&amp; loc) const;</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#use_facet">use_facet</A>&lt;
+<A HREF="#ctype">ctype</A>&lt;Elem&gt; &gt;(loc).
+<A HREF="#ctype::is">is</A>(ctype&lt;Elem&gt;::
+<A HREF="#ctype_base::xdigit">xdigit</A>, ch)</CODE>.</P>
+
+<H2><CODE><A NAME="locale">locale</A></CODE></H2>
+
+<HR>
+<P><B><CODE><A HREF="#locale::category">category</A>
+&#183; <A HREF="#locale::classic">classic</A>
+&#183; <A HREF="#locale::combine">combine</A>
+&#183; <A HREF="#locale::facet">facet</A>
+&#183; <A HREF="#locale::global">global</A>
+&#183; <A HREF="#locale::id">id</A>
+&#183; <A HREF="#locale::locale">locale</A>
+&#183; <A HREF="#locale::name">name</A>
+&#183; <A HREF="#locale::operator!=">operator!=</A>
+&#183; <A HREF="#locale::operator()">operator()</A>
+&#183; <A HREF="#locale::operator==">operator==</A>
+</CODE></B></P>
+<HR>
+
+<PRE>class <B>locale</B> {
+public:
+    class <B><A HREF="#locale::facet">facet</A></B>;
+    class <B><A HREF="#locale::id">id</A></B>;
+    typedef int <B><A HREF="#locale::category">category</A></B>;
+    static const category <B>none</B>, <B>collate</B>, <B>ctype</B>, <B>monetary</B>,
+        <B>numeric</B>, <B>time</B>, <B>messages</B>, <B>all</B>;
+    <B><A HREF="#locale::locale">locale</A></B>();
+    explicit <B><A HREF="#locale::locale">locale</A></B>(const char *locname);
+    <B><A HREF="#locale::locale">locale</A></B>(const locale&amp; loc, const locale&amp; other,
+        category cat);
+    <B><A HREF="#locale::locale">locale</A></B>(const locale&amp; loc, const char *locname, category cat);
+    template&lt;class Facet&gt;
+        <B><A HREF="#locale::locale">locale</A></B>(const locale&amp; loc, Facet *fac);
+    template&lt;class Facet&gt;
+        locale <B><A HREF="#locale::combine">combine</A></B>(const locale&amp; loc) const;
+    template&lt;class Elem, class Tr, class Alloc&gt;
+        bool <B><A HREF="#locale::operator()">operator()</A></B>(const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+            const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right) const;
+    string <B><A HREF="#locale::name">name</A></B>() const;
+    bool <B><A HREF="#locale::operator==">operator==</A></B>(const locale&amp; right) const;
+    bool <B><A HREF="#locale::operator!=">operator!=</A></B>(const locale&amp; right) const;
+    static locale <B><A HREF="#locale::global">global</A></B>(const locale&amp; right);
+    static const locale&amp; <B><A HREF="#locale::classic">classic</A></B>();
+    };</PRE>
+
+<P>The class describes a
+<B><A NAME="locale object">locale object</A></B> that encapsulates a
+<A HREF="locale.html#locale">locale</A>. It represents
+culture-specific information as a list of
+<B><A NAME="locale facet">facets</A></B>. A facet is a
+pointer to an object of a class
+derived from class <CODE><A HREF="#locale::facet">facet</A></CODE>
+that has a public object of the form:
+
+<PRE>static locale::id id;</PRE>
+
+<P>You can define an open-ended set of these facets. You can also
+construct a locale object that designates an arbitrary number of
+facets.</P>
+
+<P>Predefined groups of these facets represent the
+<A HREF="locale.html#locale category">locale categories</A>
+traditionally managed in the Standard C library by the function
+<CODE><A HREF="locale.html#setlocale">setlocale</A></CODE>.</P>
+
+<P>Category <B><CODE><A HREF="#locale::collate">collate</A></CODE></B>
+(<CODE><A HREF="locale.html#LC_COLLATE">LC_COLLATE</A></CODE>)
+includes the facets:</P>
+
+<PRE>collate&lt;char&gt;
+collate&lt;wchar_t&gt;</PRE>
+
+<P>Category <B><CODE><A HREF="#locale::ctype">ctype</A></CODE></B>
+(<CODE><A HREF="locale.html#LC_CTYPE">LC_CTYPE</A></CODE>)
+includes the facets:</P>
+
+<PRE>ctype&lt;char&gt;
+ctype&lt;wchar_t&gt;
+codecvt&lt;char, char, mbstate_t&gt;
+codecvt&lt;wchar_t, char, mbstate_t&gt;</PRE>
+
+<P>Category <B><CODE><A HREF="#locale::monetary">monetary</A></CODE></B>
+(<CODE><A HREF="locale.html#LC_MONETARY">LC_MONETARY</A></CODE>)
+includes the facets:</P>
+
+<PRE>moneypunct&lt;char, false&gt;
+moneypunct&lt;wchar_t, false&gt;
+moneypunct&lt;char, true&gt;
+moneypunct&lt;wchar_t, true&gt;
+money_get&lt;char, istreambuf_iterator&lt;char&gt; &gt;
+money_get&lt;wchar_t, istreambuf_iterator&lt;wchar_t&gt; &gt;
+money_put&lt;char, ostreambuf_iterator&lt;char&gt; &gt;
+money_put&lt;wchar_t, ostreambuf_iterator&lt;wchar_t&gt; &gt;</PRE>
+
+<P>Category <B><CODE><A HREF="#locale::numeric">numeric</A></CODE></B>
+(<CODE><A HREF="locale.html#LC_NUMERIC">LC_NUMERIC</A></CODE>)
+includes the facets:</P>
+
+<PRE>num_get&lt;char, istreambuf_iterator&lt;char&gt; &gt;
+num_get&lt;wchar_t, istreambuf_iterator&lt;wchar_t&gt; &gt;
+num_put&lt;char, ostreambuf_iterator&lt;char&gt; &gt;
+num_put&lt;wchar_t, ostreambuf_iterator&lt;wchar_t&gt; &gt;
+numpunct&lt;char&gt;
+numpunct&lt;wchar_t&gt;</PRE>
+
+<P>Category <B><CODE><A HREF="#locale::time">time</A></CODE></B>
+(<CODE><A HREF="locale.html#LC_TIME">LC_TIME</A></CODE>)
+includes the facets:</P>
+
+<PRE>time_get&lt;char, istreambuf_iterator&lt;char&gt; &gt;
+time_get&lt;wchar_t, istreambuf_iterator&lt;wchar_t&gt; &gt;
+time_put&lt;char, ostreambuf_iterator&lt;char&gt; &gt;
+time_put&lt;wchar_t, ostreambuf_iterator&lt;wchar_t&gt; &gt;</PRE>
+
+<P>Category <B><CODE><A HREF="#locale::messages">messages</A></CODE></B>
+(<CODE>LC_MESSAGES</CODE>) includes the facets:</P>
+
+<PRE>messages&lt;char&gt;
+messages&lt;wchar_t&gt;</PRE>
+
+<P>(The last category is required by Posix, but not the C Standard.)</P>
+
+<P>Some of these predefined facets are used by the
+<A HREF="lib_cpp.html#iostreams">iostreams</A> classes,
+to control the conversion of numeric values to and from
+text sequences.</P>
+
+<P>An object of class <CODE>locale</CODE> also stores a
+<B><A NAME="locale name">locale name</A></B> as an object of class
+<CODE><A HREF="string2.html#string">string</A></CODE>. Using an
+invalid locale name to construct a
+<A HREF="#locale facet">locale facet</A> or a locale object
+throws an object of class
+<CODE><A HREF="stdexcep.html#runtime_error">runtime_error</A></CODE>.
+The stored locale name is <CODE>"*"</CODE> if the locale object
+cannot be certain that a C-style locale corresponds exactly
+to that represented by the object. Otherwise, you can establish
+a matching locale within the Standard C library,
+for the locale object <CODE>loc</CODE>, by calling
+<CODE><A HREF="locale.html#setlocale">setlocale</A>(
+<A HREF="locale.html#LC_ALL">LC_ALL</A>,
+loc.<A HREF="#locale::name">name</A>.
+<A HREF="string2.html#basic_string::c_str">c_str</A>())</CODE>.</P>
+
+<P>In this
+<A HREF="index.html#implementation">implementation</A>,
+you can also call the static member function:</P>
+
+<PRE>static locale <B><A NAME="locale::empty">empty</A></B>();</PRE>
+
+<P>to construct a locale object that has no facets. It is also a
+<B><A NAME="transparent locale">transparent locale</A></B> --
+if the template functions
+<CODE><A HREF="#has_facet">has_facet</A></CODE> and
+<CODE><A HREF="#use_facet">use_facet</A></CODE> cannot find
+the requested facet in a transparent locale, they consult first the
+<A HREF="#global locale">global locale</A> and then,
+if that is transparent, the
+<A HREF="#classic locale">classic locale</A>. Thus, you can write:</P>
+
+<PRE>cout.imbue(locale::empty());</PRE>
+
+<P>Subsequent insertions to
+<CODE><A HREF="iostream.html#cout">cout</A></CODE> are
+mediated by the current state of the global locale.
+You can even write:</P>
+
+<PRE>locale loc(locale::empty(), locale::classic(),
+    locale::numeric);
+cout.imbue(loc);</PRE>
+
+<P>Numeric formatting rules for subsequent insertions to
+<CODE>cout</CODE> remain the same as in the
+<A HREF="locale.html#C locale">C locale</A>,
+even as the global locale supplies changing rules for inserting
+dates and monetary amounts.</P>
+
+<H3><CODE><A NAME="locale::category">locale::category</A></CODE></H3>
+
+<PRE>typedef int <B>category</B>;
+static const category <B>none</B>, <B>collate</B>, <B>ctype</B>, <B>monetary</B>,
+    <B>numeric</B>, <B>time</B>, <B>messages</B>, <B>all</B>;</PRE>
+
+<P>The type is a synonym for <I>int</I> so that it can represent
+any of the C <A HREF="locale.html#locale category">locale categories</A>.
+It can represent a group of distinct elements of a
+<A HREF="lib_cpp.html#bitmask type">bitmask type</A>
+(which is anonymous) local to class <CODE>locale</CODE>.
+The elements are:</P>
+
+<UL>
+<LI><B><CODE><A NAME="locale::collate">collate</A></CODE></B>,
+corresponding to the C category
+<CODE><A HREF="locale.html#LC_COLLATE">LC_COLLATE</A></CODE></LI>
+
+<LI><B><CODE><A NAME="locale::ctype">ctype</A></CODE></B>,
+corresponding to the C category
+<CODE><A HREF="locale.html#LC_CTYPE">LC_CTYPE</A></CODE></LI>
+
+<LI><B><CODE><A NAME="locale::monetary">monetary</A></CODE></B>,
+corresponding to the C category
+<CODE><A HREF="locale.html#LC_MONETARY">LC_MONETARY</A></CODE></LI>
+
+<LI><B><CODE><A NAME="locale::numeric">numeric</A></CODE></B>,
+corresponding to the C category
+<CODE><A HREF="locale.html#LC_NUMERIC">LC_NUMERIC</A></CODE></LI>
+
+<LI><B><CODE><A NAME="locale::time">time</A></CODE></B>,
+corresponding to the C category
+<CODE><A HREF="locale.html#LC_TIME">LC_TIME</A></CODE></LI>
+
+<LI><B><CODE><A NAME="locale::messages">messages</A></CODE></B>,
+corresponding to the Posix category
+<CODE>LC_MESSAGES</CODE></LI>
+</UL>
+
+<P>In addition, two useful values are:</P>
+
+<UL>
+<LI><B><CODE><A NAME="locale::none">none</A></CODE></B>, corresponding to none of
+the C categories</LI>
+
+<LI><B><CODE><A NAME="locale::all">all</A></CODE></B>,
+corresponding to the C union of all categories
+<CODE><A HREF="locale.html#LC_ALL">LC_ALL</A></CODE></LI>
+</UL>
+
+<P>You can represent an arbitrary group of categories by ORing
+these constants, as in <CODE>monetary | time</CODE>.</P>
+
+<H3><CODE><A NAME="locale::classic">locale::classic</A></CODE></H3>
+
+<PRE>static const locale&amp; <B>classic</B>();</PRE>
+
+<P>The static member function returns a locale object that represents the
+<B><A NAME="classic locale">classic locale</A></B>,
+which behaves the same as the
+<A HREF="locale.html#C locale">C locale</A> within the
+Standard C library.</P>
+
+<H3><CODE><A NAME="locale::combine">locale::combine</A></CODE></H3>
+
+<PRE>template&lt;class Facet&gt;
+    locale <B>combine</B>(const locale&amp; loc) const;</PRE>
+
+<P>The member function returns a locale object that
+replaces in (or adds to) <CODE>*this</CODE> the facet <CODE>Facet</CODE>
+listed in <CODE>loc</CODE>.</P>
+
+<H3><CODE><A NAME="locale::facet">locale::facet</A></CODE></H3>
+
+<PRE>class <B>facet</B> {
+protected:
+    explicit <B>facet</B>(size_t refs = 0);
+    virtual <B>~facet</B>();
+private:
+    <B>facet</B>(const facet&amp;)          // not defined
+    <B>void operator=</B>(const facet&amp;) // not defined
+    };</PRE>
+
+<P>The member class serves as the base class for all
+<A HREF="#locale facet">locale facets</A>. Note that you
+can neither copy nor assign an object of class <CODE>facet</CODE>.
+You can construct and destroy objects derived from class
+<CODE>locale::facet</CODE>, but not objects of the base class proper.
+Typically, you construct an object <CODE>myfac</CODE> derived
+from <CODE>facet</CODE> when you construct a locale, as in:</P>
+
+<PRE>locale loc(locale::classic(), new myfac);</PRE>
+
+<P>In such cases, the constructor for the base class <CODE>facet</CODE>
+should have a zero <CODE>refs</CODE> argument. When the object
+is no longer needed, it is deleted. Thus, you supply a nonzero
+<CODE>refs</CODE> argument only in those rare cases where you
+take responsibility for the lifetime of the object.</P>
+
+<H3><CODE><A NAME="locale::global">locale::global</A></CODE></H3>
+
+<PRE>static locale <B>global</B>(const locale&amp; loc);</PRE>
+
+<P>The static member function stores a copy of <CODE>loc</CODE> as the
+<B><A NAME="global locale">global locale</A></B>. It also calls
+<CODE><A HREF="locale.html#setlocale">setlocale</A>(
+<A HREF="locale.html#LC_ALL">LC_ALL</A>,
+loc.<A HREF="#locale::name">name</A>.
+<A HREF="string2.html#basic_string::c_str">c_str</A>())</CODE>,
+to establishing a matching locale within the Standard C library.
+The function then returns the previous global locale. At
+<A HREF="lib_over.html#program startup">program startup</A>,
+the global locale is the same as the
+<A HREF="#classic locale">classic locale</A>.</P>
+
+<H3><CODE><A NAME="locale::id">locale::id</A></CODE></H3>
+
+<PRE>class <B>id</B> {
+protected:
+    <B>id</B>();
+private:
+    <B>id</B>(const id&amp;)             // not defined
+    <B>void operator=</B>(const id&amp;) // not defined
+    };</PRE>
+
+<P>The member class describes the static
+member object required by each unique
+<A HREF="#locale facet">locale facet</A>. Note that you
+can neither copy nor assign an object of class <CODE>id</CODE>.</P>
+
+<H3><CODE><A NAME="locale::locale">locale::locale</A></CODE></H3>
+
+<PRE><B>locale</B>();
+explicit <B>locale</B>(const char *locname);
+<B>locale</B>(const locale&amp; loc, const locale&amp; other,
+    category cat);
+<B>locale</B>(const locale&amp; loc, const char *locname, category cat);
+template&lt;class Facet&gt;
+    <B>locale</B>(const locale&amp; loc, Facet *fac);</PRE>
+
+<P>The first constructor initializes the object to match the
+<A HREF="#global locale">global locale</A>. The second constructor
+initializes all the
+<A HREF="locale.html#locale category">locale categories</A> to have behavior
+consistent with the <A HREF="#locale name">locale name</A>
+<CODE>locname</CODE>. The remaining constructors copy <CODE>loc</CODE>,
+with the exceptions noted:</P>
+
+<PRE><B>locale</B>(const locale&amp; loc, const locale&amp; other,
+    category cat);</PRE>
+
+<P>replaces from <CODE>other</CODE> those facets
+corresponding to a category <CODE>C</CODE>
+for which <CODE>C &amp; cat</CODE> is nonzero.</P>
+
+<PRE><B>locale</B>(const locale&amp; loc, const char *locname, category cat);</PRE>
+
+<P>replaces from <CODE>locale(locname, all)</CODE> those facets
+corresponding to a category <CODE>C</CODE>
+for which <CODE>C &amp; cat</CODE> is nonzero.</P>
+
+<PRE>template&lt;class Facet&gt;
+    <B>locale</B>(const locale&amp; loc, Facet *fac);</PRE>
+
+<P>replaces in (or adds to) <CODE>loc</CODE>
+the facet <CODE>fac</CODE>,
+if <CODE>fac</CODE> is not a null pointer.</P>
+
+<P>If a locale name <CODE>locname</CODE> is a null pointer or otherwise
+invalid, the function throws
+<CODE><A HREF="stdexcep.html#runtime_error">runtime_error</A></CODE>.</P>
+
+<H3><CODE><A NAME="locale::name">locale::name</A></CODE></H3>
+
+<PRE>string <B>name</B>() const;</PRE>
+
+<P>The member function returns the stored
+<A HREF="#locale name">locale name</A>.</P>
+
+<H3><CODE><A NAME="locale::operator!=">locale::operator!=</A></CODE></H3>
+
+<PRE>bool <B>operator!=</B>(const locale&amp; right) const;</PRE>
+
+<P>The member function returns <CODE>!(*this == right)</CODE>.</P>
+
+<H3><CODE><A NAME="locale::operator()">locale::operator()</A></CODE></H3>
+
+<PRE>template&lt;class Elem, class Tr, class Alloc&gt;
+    bool <B>operator()</B>(const basic_string&lt;Elem, Tr, Alloc&gt;&amp; left,
+        const basic_string&lt;Elem, Tr, Alloc&gt;&amp; right);</PRE>
+
+<P>The member function effectively executes:</P>
+
+<PRE>const collate&lt;Elem&gt;&amp; fac = use_fac&lt;collate&lt;Elem&gt; &gt;(*this);
+return (fac.compare(left.begin(), left.end(),
+    right.begin(), right.end()) &lt; 0);</PRE>
+
+<P>Thus, you can use a locale object as a
+<A HREF="functio2.html#function objects">function object</A>.</P>
+
+
+<H3><CODE><A NAME="locale::operator==">locale::operator==</A></CODE></H3>
+
+<PRE>bool <B>operator==</B>(const locale&amp; right) const;</PRE>
+
+<P>The member function returns true only if <CODE>*this</CODE> and <CODE>right</CODE>
+are copies of the same locale or have the same name (other than
+<CODE>"*"</CODE>).</P>
+
+<H2><CODE><A NAME="messages">messages</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    class <B>messages</B>
+        : public locale::facet, public messages_base {
+public:
+    typedef Elem <B><A HREF="#messages::char_type">char_type</A></B>;
+    typedef basic_string&lt;Elem&gt; <B><A HREF="#messages::string_type">string_type</A></B>;
+    explicit <B><A HREF="#messages::messages">messages</A></B>(size_t refs = 0);
+    catalog <B><A HREF="#messages::open">open</A></B>(const string&amp; catname,
+        const locale&amp; loc) const;
+    string_type <B><A HREF="#messages::get">get</A></B>(catalog catval, int set, int message,
+        const string_type&amp; dflt) const;
+    void <B><A HREF="#messages::close">close</A></B>(catalog catval) const;
+    static locale::id <B><A HREF="#messages::id">id</A></B>;
+protected:
+    <B>~messages</B>();
+    virtual catalog <B><A HREF="#messages::do_open">do_open</A></B>(const string&amp; catname,
+        const locale&amp; loc) const;
+    virtual string_type <B><A HREF="#messages::do_get">do_get</A></B>(catalog catval, int set,
+        int message, const string_type&amp; dflt) const;
+    virtual void <B><A HREF="#messages::do_close">do_close</A></B>(catalog catval) const;
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A>, to characterize
+various properties of a
+<B><A NAME="message catalog">message catalog</A></B>
+that can supply messages represented as sequences of elements
+of type <CODE>Elem</CODE>.</P>
+
+<P>As with any locale facet, the static object
+<B><CODE><A NAME="messages::id">id</A></CODE></B> has an initial
+stored value of zero. The first attempt to access its stored value
+stores a unique positive value in <CODE>id</CODE>.</P>
+
+<H3><CODE><A NAME="messages::char_type">messages::char_type</A></CODE></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><CODE><A NAME="messages::close">messages::close</A></CODE></H3>
+
+<PRE>void <B>close</B>(catalog catval) const;</PRE>
+
+<P>The member function calls
+<CODE><A HREF="#messages::do_close">do_close</A>(catval);</CODE>.</P>
+
+<H3><CODE><A NAME="messages::do_close">messages::do_close</A></CODE></H3>
+
+<PRE>virtual void <B>do_close</B>(catalog catval) const;</PRE>
+
+<P>The protected member function closes the
+<A HREF="#message catalog">message catalog</A> <CODE>catval</CODE>,
+which must have been opened by an earlier call to
+<CODE><A HREF="#messages::do_open">do_open</A></CODE>.</P>
+
+<H3><CODE><A NAME="messages::do_get">messages::do_get</A></CODE></H3>
+
+<PRE>virtual string_type <B>do_get</B>(catalog catval, int set, int message,
+    const string_type&amp; dflt) const;</PRE>
+
+<P>The protected member function endeavors to obtain a
+message sequence from the
+<A HREF="#message catalog">message catalog</A>
+<CODE>catval</CODE>. It may make use of <CODE>set</CODE>,
+<CODE>message</CODE>, and <CODE>dflt</CODE> in doing so.
+It returns a copy of <CODE>dflt</CODE> on failure. Otherwise,
+it returns a copy of the specified message sequence.</P>
+
+<H3><CODE><A NAME="messages::do_open">messages::do_open</A></CODE></H3>
+
+<PRE>virtual catalog <B>do_open</B>(const string&amp; catname,
+    const locale&amp; loc) const;</PRE>
+
+<P>The protected member function endeavors to open a
+<A HREF="#message catalog">message catalog</A>
+whose name is <CODE>catname</CODE>. It may make use of the locale
+<CODE>loc</CODE> in doing so. It returns a value that compares
+less than zero on failure. Otherwise, the returned value can
+be used as the first argument on a later call to
+<CODE><A HREF="#messages::get">get</A></CODE>.
+It should in any case be used as the argument on a later call to
+<CODE><A HREF="#messages::close">close</A></CODE>.</P>
+
+<H3><CODE><A NAME="messages::get">messages::get</A></CODE></H3>
+
+<PRE>string_type <B>get</B>(catalog catval, int set, int message,
+    const string_type&amp; dflt) const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#messages::do_get">do_get</A>(catval, set, message, dflt);</CODE>.</P>
+
+<H3><CODE><A NAME="messages::messages">messages::messages</A></CODE></H3>
+
+<PRE>explicit <B>messages</B>(size_t refs = 0);</PRE>
+
+<P>The constructor initializes its base object
+with <CODE>locale::<A HREF="#locale::facet">facet</A>(refs)</CODE>.</P>
+
+<H3><CODE><A NAME="messages::open">messages::open</A></CODE></H3>
+
+<PRE>catalog <B>open</B>(const string&amp; catname,
+    const locale&amp; loc) const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#messages::do_open">do_open</A>(catname, loc);</CODE>.</P>
+
+<H3><CODE><A NAME="messages::string_type">messages::string_type</A></CODE></H3>
+
+<PRE>typedef basic_string&lt;Elem&gt; <B>string_type</B>;</PRE>
+
+<P>The type describes a specialization of template class
+<CODE><A HREF="string2.html#basic_string">basic_string</A></CODE>
+whose objects can store copies of the message sequences.</P>
+
+<H2><CODE><A NAME="messages_base">messages_base</A></CODE></H2>
+
+<PRE>class <B>messages_base</B> {
+    typedef int <B>catalog</B>;
+    };</PRE>
+
+<P>The class describes a type common to all specializations of
+template class <CODE><A HREF="#messages">messages</A></CODE>. The type
+<B><CODE><A NAME="messages_base::catalog">catalog</A></CODE></B>
+is a synonym for type <I>int</I> that
+describes the possible return values from
+<CODE>messages::<A HREF="#messages::do_open">do_open</A></CODE>.</P>
+
+<H2><CODE><A NAME="messages_byname">messages_byname</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    class <B>messages_byname</B> : public messages&lt;Elem&gt; {
+public:
+    explicit <B>messages_byname</B>(const char *locname,
+        size_t refs = 0);
+protected:
+    <B>~messages_byname</B>();
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A> of type
+<CODE><A HREF="#messages">messages</A>&lt;Elem&gt;</CODE>.
+Its behavior is determined by the
+<A HREF="#locale name">named</A> locale <CODE>locname</CODE>.
+The constructor initializes its base object with
+<CODE><A HREF="#messages::messages">messages</A>&lt;Elem&gt;(refs)</CODE>.</P>
+
+<H2><CODE><A NAME="money_base">money_base</A></CODE></H2>
+
+<PRE>class <B>money_base</B> {
+    enum <B>part</B> {<B>none</B>, <B>sign</B>, <B>space</B>, <B>symbol</B>, <B>value</B>};
+    struct <B>pattern</B> {
+        char <B>field</B>[4];
+        };
+    };</PRE>
+
+<P>The class describes an enumeration and a structure
+common to all specializations of
+template class <CODE><A HREF="#moneypunct">moneypunct</A></CODE>.
+The enumeration
+<B><CODE><A NAME="money_base::part">part</A></CODE></B>
+describes the possible values in elements of the array
+<B><CODE><A NAME="money_base::field">field</A></CODE></B> in the structure
+<B><CODE><A NAME="money_base::pattern">pattern</A></CODE></B>.
+The values of <CODE>part</CODE> are:</P>
+
+<UL>
+<LI><B><CODE><A NAME="money_base::none">none</A></CODE></B>
+to match zero or more spaces or generate nothing</LI>
+
+<LI><B><CODE><A NAME="money_base::sign">sign</A></CODE></B>
+to match or generate a positive or negative sign</LI>
+
+<LI><B><CODE><A NAME="money_base::space">space</A></CODE></B>
+to match zero or more spaces or generate a space</LI>
+
+<LI><B><CODE><A NAME="money_base::symbol">symbol</A></CODE></B>
+to match or generate a currency symbol</LI>
+
+<LI><B><CODE><A NAME="money_base::value">value</A></CODE></B>
+to match or generate a monetary value</LI>
+</UL>
+
+<H2><CODE><A NAME="money_get">money_get</A></CODE></H2>
+
+<PRE>template&lt;class Elem,
+    class InIt = istreambuf_iterator&lt;Elem&gt; &gt;
+    class <B>money_get</B> : public locale::facet {
+public:
+    typedef Elem <B><A HREF="#money_get::char_type">char_type</A></B>;
+    typedef InIt <B><A HREF="#money_get::iter_type">iter_type</A></B>;
+    typedef basic_string&lt;Elem&gt; <B><A HREF="#money_get::string_type">string_type</A></B>;
+    explicit <B><A HREF="#money_get::money_get">money_get</A></B>(size_t refs = 0);
+    iter_type <B><A HREF="#money_get::get">get</A></B>(iter_type first, iter_type last,
+        bool intl, ios_base&amp; iosbase, ios_base::iostate&amp; state,
+            long double&amp; val) const;
+    iter_type <B><A HREF="#money_get::get">get</A></B>(iter_type first, iter_type last,
+        bool intl, ios_base&amp; iosbase, ios_base::iostate&amp; state,
+            string_type&amp; val) const;
+    static locale::id <B><A HREF="#money_get::id">id</A></B>;
+protected:
+    <B>~money_get</B>();
+    virtual iter_type <B><A HREF="#money_get::do_get">do_get</A></B>(iter_type first,
+        iter_type last, bool intl, ios_base&amp; iosbase,
+        ios_base::iostate&amp; state, string_type&amp; val) const;
+    virtual iter_type <B><A HREF="#money_get::do_get">do_get</A></B>(iter_type first,
+        iter_type last, bool intl, ios_base&amp; iosbase,
+        ios_base::iostate&amp; state, long double&amp; val) const;
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A>, to control conversions
+of sequences of type <CODE>Elem</CODE> to monetary values.</P>
+
+<P>As with any locale facet, the static object
+<B><CODE><A NAME="money_get::id">id</A></CODE></B> has an initial
+stored value of zero. The first attempt to access its stored value
+stores a unique positive value in <CODE>id</CODE>.</P>
+
+<H3><CODE><A NAME="money_get::char_type">money_get::char_type</A></CODE></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><CODE><A NAME="money_get::do_get">money_get::do_get</A></CODE></H3>
+
+<PRE>virtual iter_type <B>do_get</B>(iter_type first, iter_type last,
+    bool intl, ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        string_type&amp; val) const;
+virtual iter_type <B>do_get</B>(iter_type first, iter_type last,
+    bool intl, ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        long double&amp; val) const;</PRE>
+
+<P>The first virtual protected member function endeavors to match
+sequential elements beginning at <CODE>first</CODE> in the sequence
+<CODE>[first, last)</CODE> until it has recognized a complete, nonempty
+<B><A NAME="monetary input field">monetary input field</A></B>.
+If successful, it converts this field to a sequence of one or
+more decimal digits, optionally preceded by a minus sign
+(<CODE>-</CODE>), to represent the amount and stores the result in the
+<CODE><A HREF="#money_get::string_type">string_type</A></CODE> object <CODE>val</CODE>.
+It returns an iterator
+designating the first element beyond the monetary input field.
+Otherwise, the function stores
+an empty sequence in <CODE>val</CODE> and sets
+<CODE>ios_base::failbit</CODE> in <CODE>state</CODE>.
+It returns an iterator designating the first element beyond
+any prefix of a valid monetary input field. In either case, if the
+return value equals <CODE>last</CODE>, the function sets
+<CODE>ios_base::eofbit</CODE> in <CODE>state</CODE>.</P>
+
+<P>The second virtual protected member function behaves the same
+as the first, except that if successful it converts
+the optionally-signed digit sequence to a value of type <I>long double</I>
+and stores that value in <CODE>val</CODE>.</P>
+
+<P>The format of a monetary input field is determined by the
+<A HREF="#locale facet">locale facet</A> <CODE>fac</CODE>
+returned by the (effective) call
+<CODE><A HREF="#use_facet">use_facet</A>
+&lt;<A HREF="#moneypunct">moneypunct</A>&lt;Elem, intl&gt; &gt;(iosbase.
+<A HREF="ios.html#ios_base::getloc">getloc</A>())</CODE>.
+Specifically:
+
+<UL>
+<LI><CODE>fac.<A HREF="#moneypunct::neg_format">neg_format</A>()</CODE>
+determines the order in which components of the field occur.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::curr_symbol">curr_symbol</A>()</CODE>
+determines the sequence of elements that constitutes a currency symbol.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::positive_sign">positive_sign</A>()</CODE>
+determines the sequence of elements that constitutes a positive sign.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::negative_sign">negative_sign</A>()</CODE>
+determines the sequence of elements that constitutes a negative sign.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::grouping">grouping</A>()</CODE>
+determines how digits are grouped to the left of any decimal point.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::thousands_sep">thousands_sep</A>()</CODE>
+determines the element that separates groups of digits to
+the left of any decimal point.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::decimal_point">decimal_point</A>()</CODE>
+determines the element that separates the integer digits from the
+fraction digits.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::frac_digits">frac_digits</A>()</CODE>
+determines the number of significant fraction digits to the right of
+any decimal point.</LI>
+</UL>
+
+<P>If the sign string (<CODE>fac.negative_sign</CODE>
+or <CODE>fac.positive_sign</CODE>) has more than one element, only
+the first element is matched where the element equal to
+<B><CODE>money_base::<A HREF="#money_base::sign">sign</A></CODE></B>
+appears in the format pattern (<CODE>fac.neg_format</CODE>).
+Any remaining
+elements are matched at the end of the monetary input field.
+If neither string has a first element
+that matches the next element in the monetary input field,
+the sign string is taken as empty and the sign is positive.</P>
+
+<P>If <CODE>iosbase.<A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+<A HREF="ios.html#ios_base::showbase">showbase</A></CODE> is nonzero,
+the string <CODE>fac.curr_symbol</CODE> <I>must</I> match where the
+element equal to
+<B><CODE>money_base::<A HREF="#money_base::symbol">symbol</A></CODE></B>
+appears in the format pattern.
+Otherwise, if <CODE>money_base::symbol</CODE> occurs at the end of
+the format pattern, and if no elements of the sign string remain
+to be matched, the currency symbol is <I>not</I> matched.
+Otherwise, the currency symbol is <I>optionally</I> matched.</P>
+
+<P>If no instances of <CODE>fac.thousands_sep()</CODE> occur in
+the value portion of the monetary input field
+(where the element equal to
+<B><CODE>money_base::<A HREF="#money_base::value">value</A></CODE></B>
+appears in the format pattern), no grouping constraint is imposed. Otherwise,
+any grouping constraints imposed by <CODE>fac.grouping()</CODE>
+is enforced. Note that the resulting
+digit sequence represents an integer whose
+low-order <CODE>fac.frac_digits()</CODE> decimal digits are considered
+to the right of the decimal point.</P>
+
+<P>Arbitrary
+<A HREF="lib_prin.html#white space">white space</A> is matched
+where the element equal to
+<B><CODE>money_base::<A HREF="#money_base::space">space</A></CODE></B>
+appears in the format pattern, if it appears other than at the end
+of the format pattern.
+Otherwise, no internal white space is matched.
+An element <CODE>ch</CODE> is considered white space if
+<CODE><A HREF="#use_facet">use_facet</A>
+&lt;<A HREF="#ctype">ctype</A>&lt;Elem&gt; &gt;(iosbase.
+<A HREF="ios.html#ios_base::getloc">getloc</A>()).
+<A HREF="#ctype::is">is</A>(ctype_base::
+<A HREF="#ctype_base::space">space</A>, ch)</CODE> is true.</P>
+
+<H3><CODE><A NAME="money_get::get">money_get::get</A></CODE></H3>
+
+<PRE>iter_type <B>get</B>(iter_type first, iter_type last,
+    bool intl, ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        long double&amp; val) const;
+iter_type <B>get</B>(iter_type first, iter_type last,
+    bool intl, ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        string_type&amp; val) const;</PRE>
+
+<P>Both member functions return
+<CODE><A HREF="#money_get::do_get">do_get</A>(first, last, intl,
+iosbase, state, val)</CODE>.</P>
+
+<H3><CODE><A NAME="money_get::iter_type">money_get::iter_type</A></CODE></H3>
+
+<PRE>typedef InIt <B>iter_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>InIt</CODE>.</P>
+
+<H3><CODE><A NAME="money_get::money_get">money_get::money_get</A></CODE></H3>
+
+<PRE>explicit <B>money_get</B>(size_t refs = 0);</PRE>
+
+<P>The constructor initializes its base object with
+<CODE>locale::<A HREF="#locale::facet">facet</A>(refs)</CODE>.</P>
+
+<H3><CODE><A NAME="money_get::string_type">money_get::string_type</A></CODE></H3>
+
+<PRE>typedef basic_string&lt;Elem&gt; <B>string_type</B>;</PRE>
+
+<P>The type describes a specialization of template class
+<CODE><A HREF="string2.html#basic_string">basic_string</A></CODE>
+whose objects can store sequences of elements from the source sequence.</P>
+
+<H2><CODE><A NAME="money_put">money_put</A></CODE></H2>
+
+<PRE>template&lt;class Elem,
+    class OutIt = ostreambuf_iterator&lt;Elem&gt; &gt;
+    class <B>money_put</B> : public locale::facet {
+public:
+    typedef Elem <B><A HREF="#money_put::char_type">char_type</A></B>;
+    typedef OutIt <B><A HREF="#money_put::iter_type">iter_type</A></B>;
+    typedef basic_string&lt;Elem&gt; <B><A HREF="#money_put::string_type">string_type</A></B>;
+    explicit <B><A HREF="#money_put::money_put">money_put</A></B>(size_t refs = 0);
+    iter_type <B><A HREF="#money_put::put">put</A></B>(iter_type next, bool intl, ios_base&amp; iosbase,
+        Elem fill, long double&amp; val) const;
+    iter_type <B><A HREF="#money_put::put">put</A></B>(iter_type next, bool intl, ios_base&amp; iosbase,
+        Elem fill, string_type&amp; val) const;
+    static locale::id <B><A HREF="#money_put::id">id</A></B>;
+protected:
+    <B>~money_put</B>();
+    virtual iter_type <B><A HREF="#money_put::do_put">do_put</A></B>(iter_type next, bool intl,
+        ios_base&amp; iosbase, Elem fill, string_type&amp; val) const;
+    virtual iter_type <B><A HREF="#money_put::do_put">do_put</A></B>(iter_type next, bool intl,
+        ios_base&amp; iosbase, Elem fill, long double&amp; val) const;
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A>, to control conversions
+of monetary values to sequences of type <CODE>Elem</CODE>.</P>
+
+<P>As with any locale facet, the static object
+<B><CODE><A NAME="money_put::id">id</A></CODE></B> has an initial
+stored value of zero. The first attempt to access its stored value
+stores a unique positive value in <CODE>id</CODE>.</P>
+
+<H3><CODE><A NAME="money_put::char_type">money_put::char_type</A></CODE></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><CODE><A NAME="money_put::do_put">money_put::do_put</A></CODE></H3>
+
+<PRE>virtual iter_type <B>do_put</B>(iter_type next, bool intl,
+    ios_base&amp; iosbase, Elem fill, string_type&amp; val) const;
+virtual iter_type <B>do_put</B>(iter_type next, bool intl,
+    ios_base&amp; iosbase, Elem fill, long double&amp; val) const;</PRE>
+
+<P>The first virtual protected member function generates
+sequential elements beginning at <CODE>next</CODE> to produce a
+<B><A NAME="monetary output field">monetary output field</A></B> from the
+<CODE><A HREF="#money_put::string_type">string_type</A></CODE>
+object <CODE>val</CODE>.
+The sequence controlled by <CODE>val</CODE> must begin with
+one or more decimal digits, optionally preceded by a minus sign
+(<CODE>-</CODE>), which represents the amount.
+The function returns an iterator designating the first element beyond
+the generated monetary output field.</P>
+
+<P>The second virtual protected member function behaves the same
+as the first, except that it effectively first converts <CODE>val</CODE>
+to a sequence of decimal digits, optionally preceded by a minus sign,
+then converts that sequence as above.</P>
+
+<P>The format of a monetary output field is determined by the
+<A HREF="#locale facet">locale facet</A> <CODE>fac</CODE>
+returned by the (effective) call
+<CODE><A HREF="#use_facet">use_facet</A>
+&lt;<A HREF="#moneypunct">moneypunct</A>&lt;Elem, intl&gt; &gt;(iosbase.
+<A HREF="ios.html#ios_base::getloc">getloc</A>())</CODE>.
+Specifically:
+
+<UL>
+<LI><CODE>fac.<A HREF="#moneypunct::pos_format">pos_format</A>()</CODE>
+determines the order in which components of the field are generated
+for a non-negative value.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::neg_format">neg_format</A>()</CODE>
+determines the order in which components of the field are generated
+for a negative value.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::curr_symbol">curr_symbol</A>()</CODE>
+determines the sequence of elements to generate for a currency symbol.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::positive_sign">positive_sign</A>()</CODE>
+determines the sequence of elements to generate for a positive sign.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::negative_sign">negative_sign</A>()</CODE>
+determines the sequence of elements to generate for a negative sign.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::grouping">grouping</A>()</CODE>
+determines how digits are grouped to the left of any decimal point.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::thousands_sep">thousands_sep</A>()</CODE>
+determines the element that separates groups of digits to
+the left of any decimal point.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::decimal_point">decimal_point</A>()</CODE>
+determines the element that separates the integer digits from any
+fraction digits.</LI>
+
+<LI><CODE>fac.<A HREF="#moneypunct::frac_digits">frac_digits</A>()</CODE>
+determines the number of significant fraction digits to the right of
+any decimal point.</LI>
+</UL>
+
+<P>If the sign string (<CODE>fac.negative_sign</CODE>
+or <CODE>fac.positive_sign</CODE>) has more than one element, only
+the first element is generated where the element equal to
+<B><CODE>money_base::<A HREF="#money_base::sign">sign</A></CODE></B>
+appears in the format pattern (<CODE>fac.neg_format</CODE> or
+<CODE>fac.pos_format</CODE>). Any remaining
+elements are generated at the end of the monetary output field.</P>
+
+<P>If <CODE>iosbase.<A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+<A HREF="ios.html#ios_base::showbase">showbase</A></CODE> is nonzero,
+the string <CODE>fac.curr_symbol</CODE> is generated where the
+element equal to
+<B><CODE>money_base::<A HREF="#money_base::symbol">symbol</A></CODE></B>
+appears in the format pattern.
+Otherwise, no currency symbol is generated.</P>
+
+<P>If no grouping constraints are imposed by <CODE>fac.grouping()</CODE>
+(its first element has the value
+<CODE><A HREF="limits.html#CHAR_MAX">CHAR_MAX</A></CODE>)
+then no instances of <CODE>fac.thousands_sep()</CODE> are generated
+in the value portion of the monetary output field
+(where the element equal to
+<B><CODE>money_base::<A HREF="#money_base::value">value</A></CODE></B>
+appears in the format pattern).
+If <CODE>fac.frac_digits()</CODE> is zero,
+then no instance of <CODE>fac.decimal_point()</CODE> is generated
+after the decimal digits. Otherwise, the resulting monetary output
+field places the low-order <CODE>fac.frac_digits()</CODE>
+decimal digits to the right of the decimal point.</P>
+
+<P><A HREF="#padding">Padding</A> occurs as for any numeric output field,
+except that if <CODE>iosbase.flags() &amp;
+iosbase.<A HREF="ios.html#ios_base::internal">internal</A></CODE> is nonzero, any internal
+padding is generated where the element equal to
+<B><CODE>money_base::<A HREF="#money_base::space">space</A></CODE></B>
+appears in the format pattern, if it does appear.
+Otherwise, internal padding occurs before the generated sequence.
+The padding character is <CODE>fill</CODE>.</P>
+
+<P>The function calls <CODE>iosbase.width(0)</CODE> to reset the
+field width to zero.</P>
+
+<H3><CODE><A NAME="money_put::put">money_put::put</A></CODE></H3>
+
+<PRE>iter_type <B>put</B>(iter_type next, bool intl, ios_base&amp; iosbase,
+    Elem fill, long double&amp; val) const;
+iter_type <B>put</B>(iter_type next, bool intl, ios_base&amp; iosbase,
+    Elem fill, string_type&amp; val) const;</PRE>
+
+<P>Both member functions return
+<CODE><A HREF="#money_put::do_put">do_put</A>(next, intl,
+iosbase, fill, val)</CODE>.</P>
+
+<H3><CODE><A NAME="money_put::iter_type">money_put::iter_type</A></CODE></H3>
+
+<PRE>typedef InIt <B>iter_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>OutIt</CODE>.</P>
+
+<H3><CODE><A NAME="money_put::money_put">money_put::money_put</A></CODE></H3>
+
+<PRE>explicit <B>money_put</B>(size_t refs = 0);</PRE>
+
+<P>The constructor initializes its base object with
+<CODE>locale::<A HREF="#locale::facet">facet</A>(refs)</CODE>.</P>
+
+<H3><CODE><A NAME="money_put::string_type">money_put::string_type</A></CODE></H3>
+
+<PRE>typedef basic_string&lt;Elem&gt; <B>string_type</B>;</PRE>
+
+<P>The type describes a specialization of template class
+<CODE><A HREF="string2.html#basic_string">basic_string</A></CODE>
+whose objects can store sequences of elements from the source sequence.</P>
+
+<H2><CODE><A NAME="moneypunct">moneypunct</A></CODE></H2>
+
+<HR>
+<P><B><CODE><A HREF="#moneypunct::char_type">char_type</A>
+&#183; <A HREF="#moneypunct::curr_symbol">curr_symbol</A>
+&#183; <A HREF="#moneypunct::decimal_point">decimal_point</A>
+&#183; <A HREF="#moneypunct::do_curr_symbol">do_curr_symbol</A>
+&#183; <A HREF="#moneypunct::do_decimal_point">do_decimal_point</A>
+&#183; <A HREF="#moneypunct::do_frac_digits">do_frac_digits</A>
+&#183; <A HREF="#moneypunct::do_grouping">do_grouping</A>
+&#183; <A HREF="#moneypunct::do_neg_format">do_neg_format</A>
+&#183; <A HREF="#moneypunct::do_negative_sign">do_negative_sign</A>
+&#183; <A HREF="#moneypunct::do_pos_format">do_pos_format</A>
+&#183; <A HREF="#moneypunct::do_positive_sign">do_positive_sign</A>
+&#183; <A HREF="#moneypunct::do_thousands_sep">do_thousands_sep</A>
+&#183; <A HREF="#moneypunct::frac_digits">frac_digits</A>
+&#183; <A HREF="#moneypunct::grouping">grouping</A>
+&#183; <A HREF="#moneypunct::moneypunct">moneypunct</A>
+&#183; <A HREF="#moneypunct::neg_format">neg_format</A>
+&#183; <A HREF="#moneypunct::negative_sign">negative_sign</A>
+&#183; <A HREF="#moneypunct::pos_format">pos_format</A>
+&#183; <A HREF="#moneypunct::positive_sign">positive_sign</A>
+&#183; <A HREF="#moneypunct::string_type">string_type</A>
+&#183; <A HREF="#moneypunct::thousands_sep">thousands_sep</A>
+</CODE></B></P>
+<HR>
+
+<PRE>template&lt;class Elem, bool Intl&gt;
+    class <B>moneypunct</B>
+        : public locale::facet, public money_base {
+public:
+    typedef Elem <B><A HREF="#moneypunct::char_type">char_type</A></B>;
+    typedef basic_string&lt;Elem&gt; <B><A HREF="#moneypunct::string_type">string_type</A></B>;
+    explicit <B><A HREF="#moneypunct::moneypunct">moneypunct</A></B>(size_t refs = 0);
+    Elem <B><A HREF="#moneypunct::decimal_point">decimal_point</A></B>() const;
+    Elem <B><A HREF="#moneypunct::thousands_sep">thousands_sep</A></B>() const;
+    string <B><A HREF="#moneypunct::grouping">grouping</A></B>() const;
+    string_type <B><A HREF="#moneypunct::curr_symbol">curr_symbol</A></B>() const;
+    string_type <B><A HREF="#moneypunct::positive_sign">positive_sign</A></B>() const;
+    string_type <B><A HREF="#moneypunct::negative_sign">negative_sign</A></B>() const;
+    int <B><A HREF="#moneypunct::frac_digits">frac_digits</A></B>() const;
+    pattern <B><A HREF="#moneypunct::pos_format">pos_format</A></B>(  oonst;
+    pattern <B><A HREF="#moneypunct::neg_format">neg_format</A></B>() const;
+    static const bool <B>intl</B> = Intl;
+    static locale::id <B><A HREF="#moneypunct::id">id</A></B>;
+protected:
+    <B>~moneypunct</B>();
+    virtual Elem <B><A HREF="#moneypunct::do_decimal_point">do_decimal_point</A></B>() const;
+    virtual Elem <B><A HREF="#moneypunct::do_thousands_sep">do_thousands_sep</A></B>() const;
+    virtual string <B><A HREF="#moneypunct::do_grouping">do_grouping</A></B>() const;
+    virtual string_type <B><A HREF="#moneypunct::do_curr_symbol">do_curr_symbol</A></B>() const;
+    virtual string_type <B><A HREF="#moneypunct::do_positive_sign">do_positive_sign</A></B>() const;
+    virtual string_type <B><A HREF="#moneypunct::do_negative_sign">do_negative_sign</A></B>() const;
+    virtual int <B><A HREF="#moneypunct::do_frac_digits">do_frac_digits</A></B>() const;
+    virtual pattern <B><A HREF="#moneypunct::do_pos_format">do_pos_format</A></B>() const;
+    virtual pattern <B><A HREF="#moneypunct::do_neg_format">do_neg_format</A></B>() const;
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A>, to desceibe the sequences
+of type <CODE>Elem</CODE> used to represent a
+<B><A HREF="#monetary input field">monetary input field</A></B> or a
+<B><A HREF="#monetary output field">monetary output field</A></B>.
+If the template parameter <CODE>Intl</CODE> is true, international
+conventions are observed.</P>
+
+<P>As with any locale facet, the static object
+<B><CODE><A NAME="moneypunct::id">id</A></CODE></B> has an initial
+stored value of zero. The first attempt to access its stored value
+stores a unique positive value in <CODE>id</CODE>.</P>
+
+<P>The const static object
+<B><CODE><A NAME="moneypunct::intl">intl</A></CODE></B> stores the value
+of the template parameter <CODE>Intl</CODE>.</P>
+
+<H3><CODE><A NAME="moneypunct::char_type">moneypunct::char_type</A></CODE></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><CODE><A NAME="moneypunct::curr_symbol">moneypunct::curr_symbol</A></CODE></H3>
+
+<PRE>string_type <B>curr_symbol</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#moneypunct::do_curr_symbol">do_curr_symbol</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="moneypunct::decimal_point">moneypunct::decimal_point</A></CODE></H3>
+
+<PRE>Elem <B>decimal_point</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#moneypunct::do_decimal_point">do_decimal_point</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="moneypunct::do_curr_symbol">moneypunct::do_curr_symbol</A></CODE></H3>
+
+<PRE>string_type <B>do_curr_symbol</B>() const;</PRE>
+
+<P>The protected virtual member function returns
+a locale-specific sequence of elements to use as a currency symbol.</P>
+
+<H3><CODE><A NAME="moneypunct::do_decimal_point">moneypunct::do_decimal_point</A></CODE></H3>
+
+<PRE>Elem <B>do_decimal_point</B>() const;</PRE>
+
+<P>The protected virtual member function returns
+a locale-specific element to use as a decimal-point.</P>
+
+<H3><CODE><A NAME="moneypunct::do_frac_digits">moneypunct::do_frac_digits</A></CODE></H3>
+
+<PRE>int <B>do_frac_digits</B>() const;</PRE>
+
+<P>The protected virtual member function returns
+a locale-specific count of the number of digits to display to the
+right of any decimal point.</P>
+
+<H3><CODE><A NAME="moneypunct::do_grouping">moneypunct::do_grouping</A></CODE></H3>
+
+<PRE>string <B>do_grouping</B>() const;</PRE>
+
+<P>The protected virtual member function returns a locale-specific
+rule for determining how digits
+are grouped to the left of any decimal point.
+The encoding is the same as for
+<CODE>lconv::<A HREF="locale.html#grouping">grouping</A></CODE>.</P>
+
+<H3><CODE><A NAME="moneypunct::do_neg_format">moneypunct::do_neg_format</A></CODE></H3>
+
+<PRE>pattern <B>do_neg_format</B>() const;</PRE>
+
+<P>The protected virtual member function returns
+a locale-specific rule for determining how to generate a
+<A HREF="#monetary output field">monetary output field</A> for
+a neeative amount. Each of the four elements of
+<CODE>pattern::<A HREF="#money_base::field">field</A></CODE>
+can have the values:</P>
+
+<UL>
+<LI><B><CODE><A HREF="#money_base::none">none</A></CODE></B>
+to match zero or more spaces or generate nothing</LI>
+
+<LI><B><CODE><A HREF="#money_base::sign">sign</A></CODE></B>
+to match or generate a positive or negative sign</LI>
+
+<LI><B><CODE><A HREF="#money_base::space">space</A></CODE></B>
+to match zero or more spaces or generate a space</LI>
+
+<LI><B><CODE><A HREF="#money_base::symbol">symbol</A></CODE></B>
+to match or generate a currency symbol</LI>
+
+<LI><B><CODE><A HREF="#money_base::value">value</A></CODE></B>
+to match or generate a monetary value</LI>
+</UL>
+
+<P>Components of a monetary output field are generated
+(and components of a
+<A HREF="#monetary input field">monetary input field</A> are matched)
+in the order in which these elements appear in <CODE>pattern::field</CODE>.
+Each of the values <CODE>sign</CODE>, <CODE>symbol</CODE>,
+<CODE>value</CODE>, and either <CODE>none</CODE> or <CODE>space</CODE>
+must appear exactly once. The value <CODE>none</CODE> must not appear
+first. The value <CODE>space</CODE> must not appear first or last.
+If <CODE>Intl</CODE> is true, the order is <CODE>symbol</CODE>,
+<CODE>sign</CODE>, <CODE>none</CODE>, then <CODE>value</CODE>.</P>
+
+<P>The template version of <CODE>moneypunct&lt;Elem, Intl&gt;</CODE>
+returns <CODE>{money_base::symbol, money_base::sign, money_base::value,
+money_base::none}</CODE>.</P>
+
+<H3><CODE><A NAME="moneypunct::do_negative_sign">moneypunct::do_negative_sign</A></CODE></H3>
+
+<PRE>string_type <B>do_negative_sign</B>() const;</PRE>
+
+<P>The protected virtual member function returns
+a locale-specific sequence of elements to use as a negative sign.</P>
+
+<H3><CODE><A NAME="moneypunct::do_pos_format">moneypunct::do_pos_format</A></CODE></H3>
+
+<PRE>pattern <B>do_pos_format</B>() const;</PRE>
+
+<P>The protected virtual member function returns
+a locale-specific rule for determining how to generate a
+<A HREF="#monetary output field">monetary output field</A> for
+a positive amount. (It also determines how to match the components of a
+<A HREF="#monetary input field">monetary input field</A>.)
+The encoding is the same as for
+<CODE><A HREF="#moneypunct::do_neg_format">do_neg_format</A></CODE>.</P>
+
+<P>The template version of <CODE>moneypunct&lt;Elem, Intl&gt;</CODE>
+returns <CODE>{money_base::symbol, money_base::sign, money_base::value,
+money_base::none}</CODE>.</P>
+
+<H3><CODE><A NAME="moneypunct::do_positive_sign">moneypunct::do_positive_sign</A></CODE></H3>
+
+<PRE>string_type <B>do_positive_sign</B>() const;</PRE>
+
+<P>The protected virtual member function returns
+a locale-specific sequence of elements to use as a positive sign.</P>
+
+<H3><CODE><A NAME="moneypunct::do_thousands_sep">moneypunct::do_thousands_sep</A></CODE></H3>
+
+<PRE>Elem <B>do_thousands_sep</B>() const;</PRE>
+
+<P>The protected virtual member function returns
+a locale-specific element to use as a group separator to the left of
+any decimal point.</P>
+
+<H3><CODE><A NAME="moneypunct::frac_digits">moneypunct::frac_digits</A></CODE></H3>
+
+<PRE>int <B>frac_digits</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#moneypunct::do_frac_digits">do_frac_digits</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="moneypunct::grouping">moneypunct::grouping</A></CODE></H3>
+
+<PRE>string <B>grouping</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#moneypunct::do_grouping">do_grouping</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="moneypunct::moneypunct">moneypunct::moneypunct</A></CODE></H3>
+
+<PRE>explicit <B>moneypunct</B>(size_t refs = 0);</PRE>
+
+<P>The constructor initializes its base object with
+<CODE>locale::<A HREF="#locale::facet">facet</A>(refs)</CODE>.</P>
+
+<H3><CODE><A NAME="moneypunct::neg_format">moneypunct::neg_format</A></CODE></H3>
+
+<PRE>pattern <B>neg_format</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#moneypunct::do_neg_format">do_neg_format</A>()</CODE>.</P>
+
+
+<H3><CODE><A NAME="moneypunct::negative_sign">moneypunct::negative_sign</A></CODE></H3>
+
+<PRE>string_type <B>negative_sign</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#moneypunct::do_negative_sign">do_negative_sign</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="moneypunct::pos_format">moneypunct::pos_format</A></CODE></H3>
+
+<PRE>pattern <B>pos_format</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#moneypunct::do_pos_format">do_pos_format</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="moneypunct::positive_sign">moneypunct::positive_sign</A></CODE></H3>
+
+<PRE>string_type <B>positive_sign</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#moneypunct::do_positive_sign">do_positive_sign</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="moneypunct::string_type">moneypunct::string_type</A></CODE></H3>
+
+<PRE>typedef basic_string&lt;Elem&gt; <B>string_type</B>;</PRE>
+
+<P>The type describes a specialization of template class
+<CODE><A HREF="string2.html#basic_string">basic_string</A></CODE>
+whose objects can store copies of the punctuation sequences.</P>
+
+<H3><CODE><A NAME="moneypunct::thousands_sep">moneypunct::thousands_sep</A></CODE></H3>
+
+<PRE>Elem <B>thousands_sep</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#moneypunct::do_thousands_sep">do_thousands_sep</A>()</CODE>.</P>
+
+<H2><CODE><A NAME="moneypunct_byname">moneypunct_byname</A></CODE></H2>
+
+<PRE>template&lt;class Elem, bool Intl&gt;
+    class <B>moneypunct_byname</B>
+        : public moneypunct&lt;Elem, Intl&gt; {
+public:
+    explicit <B>moneypunct_byname</B>(const char *locname,
+        size_t refs = 0);
+protected:
+    <B>~moneypunct_byname</B>();
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A> of type
+<CODE><A HREF="#moneypunct">moneypunct</A>&lt;Elem, Intl&gt;</CODE>.
+Its behavior is determined by the
+<A HREF="#locale name">named</A> locale <CODE>locname</CODE>.
+The constructor initializes its base object with
+<CODE><A HREF="#moneypunct::moneypunct">moneypunct</A>&lt;Elem,
+Intl&gt;(refs)</CODE>.</P>
+
+<H2><CODE><A NAME="num_get">num_get</A></CODE></H2>
+
+<PRE>template&lt;class Elem, class InIt = istreambuf_iterator&lt;Elem&gt; &gt;
+    class <B>num_get</B> : public locale::facet {
+public:
+    typedef Elem <B><A HREF="#num_get::char_type">char_type</A></B>;
+    typedef InIt <B><A HREF="#num_get::iter_type">iter_type</A></B>;
+    explicit <B><A HREF="#num_get::num_get">num_get</A></B>(size_t refs = 0);
+    iter_type <B><A HREF="#num_get::get">get</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state,
+            long&amp; val) const;
+    iter_type <B><A HREF="#num_get::get">get</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state,
+            unsigned long&amp; val) const;
+    iter_type <B><A HREF="#num_get::get">get</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state,
+            double&amp; val) const;
+    iter_type <B><A HREF="#num_get::get">get</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state,
+            long double&amp; val) const;
+    iter_type <B><A HREF="#num_get::get">get</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state,
+            void *&amp; val) const;
+    iter_type <B><A HREF="#num_get::get">get</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state,
+            bool&amp; val) const;
+    static locale::id <B><A HREF="#num_get::id">id</A></B>;
+protected:
+    <B>~num_get</B>();
+    virtual iter_type
+        <B><A HREF="#num_get::do_get">do_get</A></B>(iter_type first, iter_type last,
+            ios_base&amp; iosbase, ios_base::iostate&amp; state,
+                long&amp; val) const;
+    virtual iter_type
+        <B><A HREF="#num_get::do_get">do_get</A></B>(iter_type first, iter_type last,
+            ios_base&amp; iosbase, ios_base::iostate&amp; state,
+                unsigned long&amp; val) const;
+    virtual iter_type
+        <B><A HREF="#num_get::do_get">do_get</A></B>(iter_type first, iter_type last,
+            ios_base&amp; iosbase, ios_base::iostate&amp; state,
+                double&amp; val) const;
+    virtual iter_type
+        <B><A HREF="#num_get::do_get">do_get</A></B>(iter_type first, iter_type last,
+            ios_base&amp; iosbase, ios_base::iostate&amp; state,
+                long double&amp; val) const;
+    virtual iter_type
+        <B><A HREF="#num_get::do_get">do_get</A></B>(iter_type first, iter_type last,
+            ios_base&amp; iosbase, ios_base::iostate&amp; state,
+                void *&amp; val) const;
+    virtual iter_type
+        <B><A HREF="#num_get::do_get">do_get</A></B>(iter_type first, iter_type last,
+            ios_base&amp; iosbase, ios_base::iostate&amp; state,
+                bool&amp; val) const;
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A>, to control conversions
+of sequences of type <CODE>Elem</CODE> to numeric values.</P>
+
+<P>As with any locale facet, the static object
+<B><CODE><A NAME="num_get::id">id</A></CODE></B> has an initial
+stored value of zero. The first attempt to access its stored value
+stores a unique positive value in <CODE>id</CODE>.</P>
+
+<H3><CODE><A NAME="num_get::char_type">num_get::char_type</A></CODE></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><CODE><A NAME="num_get::do_get">num_get::do_get</A></CODE></H3>
+
+<PRE>virtual iter_type <B>do_get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        long&amp; val) const;
+virtual iter_type <B>do_get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        unsigned long&amp; val) const;
+virtual iter_type <B>do_get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        double&amp; val) const;
+virtual iter_type <B>do_get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        long double&amp; val) const;
+virtual iter_type <B>do_get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        void *&amp; val) const;
+virtual iter_type <B>do_get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        bool&amp; val) const;</PRE>
+
+<P>The first virtual protected member function endeavors to match
+sequential elements beginning at <CODE>first</CODE> in the sequence
+<CODE>[first, last)</CODE> until it has recognized a complete, nonempty
+<B><A NAME="integer input field">integer input field</A></B>.
+If successful, it converts this field to its equivalent value as
+type <I>long,</I> and stores the result in <CODE>val</CODE>.
+It returns an iterator
+designating the first element beyond the numeric input field.
+Otherwise, the function stores nothing in <CODE>val</CODE> and sets
+<CODE>ios_base::failbit</CODE> in <CODE>state</CODE>.
+It returns an iterator designating the first element beyond
+any prefix of a valid integer input field. In either case, if the
+return value equals <CODE>last</CODE>, the function sets
+<CODE>ios_base::eofbit</CODE> in <CODE>state</CODE>.</P>
+
+<P>The integer input field is converted by the same rules used by the
+<A HREF="lib_scan.html#Scan Functions">scan functions</A>
+for matching and converting a series of <I>char</I> elements from a file.
+(Each such <I>char</I> element is assumed to map to an equivalent element
+of type <CODE>Elem</CODE> by a simple, one-to-one, mapping.) The equivalent
+<A HREF="lib_scan.html#scan conversion specification">scan conversion
+specification</A> is determined as follows:</P>
+
+<UL>
+<LI>If <CODE>iosbase.<A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+ios_base::<A HREF="ios.html#ios_base::basefield">basefield</A> ==
+ios_base::<A HREF="ios.html#ios_base::oct">oct</A></CODE>, the
+conversion specification is <CODE>lo</CODE>.</LI>
+
+<LI>If <CODE>iosbase.flags() &amp; ios_base::basefield ==
+ios_base::<A HREF="ios.html#ios_base::hex">hex</A></CODE>, the
+conversion specification is <CODE>lx</CODE>.</LI>
+
+<LI>If <CODE>iosbase.flags() &amp; ios_base::basefield == 0</CODE>, the
+conversion specification is <CODE>li</CODE>.</LI>
+
+<LI>Otherwise, the conversion specification is <CODE>ld</CODE>.</LI>
+</UL>
+
+<P>The format of an integer input field is further determined by the
+<A HREF="#locale facet">locale facet</A> <CODE>fac</CODE>
+returned by the call
+<CODE><A HREF="#use_facet">use_facet</A>
+&lt;<A HREF="#numpunct">numpunct</A>&lt;Elem&gt;(iosbase.
+<A HREF="ios.html#ios_base::getloc">getloc</A>())</CODE>.
+Specifically:
+
+<UL>
+<LI><CODE>fac.<A HREF="#numpunct::grouping">grouping</A>()</CODE>
+determines how digits are grouped to the left of any decimal point</LI>
+
+<LI><CODE>fac.<A HREF="#numpunct::thousands_sep">thousands_sep</A>()</CODE>
+determines the sequence that separates groups of digits to
+the left of any decimal point</LI>
+</UL>
+
+<P>If no instances of <CODE>fac.thousands_sep()</CODE> occur in
+the numeric input field, no grouping constraint is imposed. Otherwise,
+any grouping constraints imposed by <CODE>fac.grouping()</CODE>
+is enforced and separators are removed before the scan conversion
+occurs.</P>
+
+<P>The second virtual protected member function:</P>
+
+<PRE>virtual iter_type <B>do_get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        unsigned long&amp; val) const;</PRE>
+
+<P>behaves the same
+as the first, except that it replaces a conversion specification
+of <CODE>ld</CODE> with <CODE>lu</CODE>. If successful it converts
+the numeric input field to a value of type <I>unsigned long</I>
+and stores that value in <CODE>val</CODE>.</P>
+
+<P>The third virtual protected member function:</P>
+
+<PRE>virtual iter_type <B>do_get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        double&amp; val) const;</PRE>
+
+<P>behaves the same
+as the first, except that it endeavors to match a complete, nonempty
+<B><A NAME="floating-point input field">floating-point input field</A></B>.
+<CODE>fac.<A HREF="#numpunct::decimal_point">decimal_point</A>()</CODE>
+determines the sequence that separates the integer digits from the
+fraction digits.
+The equivalent scan conversion specifier is <CODE>lf</CODE>.</P>
+
+<P>The fourth virtual protected member function:</P>
+
+<PRE>virtual iter_type <B>do_get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        long double&amp; val) const;</PRE>
+
+<P>behaves the same the third, except that the equivalent
+scan conversion specifier is <CODE>Lf</CODE>.</P>
+
+<P>The fifth virtual protected member function:</P>
+
+<PRE>virtual iter_type <B>do_get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        void *&amp; val) const;</PRE>
+
+<P>behaves the same the first, except that the equivalent
+scan conversion specifier is <CODE>p</CODE>.</P>
+
+<P>The sixth virtual protected member function:</P>
+
+<PRE>virtual iter_type <B>do_get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        bool&amp; val) const;</PRE>
+
+<P>behaves the same
+as the first, except that it endeavors to match a complete, nonempty
+<B><A NAME="boolean input field">boolean input field</A></B>.
+If successful it converts
+the boolean input field to a value of type <CODE>bool</CODE>
+and stores that value in <CODE>val</CODE>.</P>
+
+<P>A boolean input field takes one of two forms.
+If <CODE>iosbase.flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::boolalpha">boolalpha</A></CODE>
+is false, it is the same as an integer input field, except that the
+converted value must be either 0 (for false) or 1 (for true).
+Otherwise, the sequence must match either
+<CODE>fac.<A HREF="#numpunct::falsename">falsename</A>()</CODE>
+(for false), or
+<CODE>fac.<A HREF="#numpunct::truename">truename</A>()</CODE>
+(for true).</P>
+
+
+<H3><CODE><A NAME="num_get::get">num_get::get</A></CODE></H3>
+
+<PRE>iter_type <B>get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        long&amp; val) const;
+iter_type <B>get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        unsigned long&amp; val) const;
+iter_type <B>get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        double&amp; val) const;
+iter_type <B>get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        long double&amp; val) const;
+iter_type <B>get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        void *&amp; val) const;
+iter_type <B>get</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state,
+        bool&amp; val) const;</PRE>
+
+<P>All member functions return
+<CODE><A HREF="#num_get::do_get">do_get</A>(first, last,
+iosbase, state, val)</CODE>.</P>
+
+
+<H3><CODE><A NAME="num_get::iter_type">num_get::iter_type</A></CODE></H3>
+
+<PRE>typedef InIt <B>iter_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>InIt</CODE>.</P>
+
+<H3><CODE><A NAME="num_get::num_get">num_get::num_get</A></CODE></H3>
+
+<PRE>explicit <B>num_get</B>(size_t refs = 0);</PRE>
+
+<P>The constructor initializes its base object with
+<CODE>locale::<A HREF="#locale::facet">facet</A>(refs)</CODE>.</P>
+
+<H2><CODE><A NAME="num_put">num_put</A></CODE></H2>
+
+<PRE>template&lt;class Elem, class OutIt = ostreambuf_iterator&lt;Elem&gt; &gt;
+    class <B>num_put</B> : public locale::facet {
+public:
+    typedef Elem <B><A HREF="#num_put::char_type">char_type</A></B>;
+    typedef OutIt <B><A HREF="#num_put::iter_type">iter_type</A></B>;
+    explicit <B><A HREF="#num_put::num_put">num_put</A></B>(size_t refs = 0);
+    iter_type <B><A HREF="#num_put::put">put</A></B>(iter_type next, ios_base&amp; iosbase,
+        Elem fill, long val) const;
+    iter_type <B><A HREF="#num_put::put">put</A></B>(iter_type next, ios_base&amp; iosbase,
+        Elem fill, unsigned long val) const;
+    iter_type <B><A HREF="#num_put::put">put</A></B>(iter_type next, ios_base&amp; iosbase,
+        Elem fill, double val) const;
+    iter_type <B><A HREF="#num_put::put">put</A></B>(iter_type next, ios_base&amp; iosbase,
+        Elem fill, long double val) const;
+    iter_type <B><A HREF="#num_put::put">put</A></B>(iter_type next, ios_base&amp; iosbase,
+        Elem fill, const void *val) const;
+    iter_type <B><A HREF="#num_put::put">put</A></B>(iter_type next, ios_base&amp; iosbase,
+        Elem fill, bool val) const;
+    static locale::id <B><A HREF="#num_put::id">id</A></B>;
+protected:
+    <B>~num_put</B>();
+    virtual iter_type <B><A HREF="#num_put::do_put">do_put</A></B>(iter_type next, ios_base&amp; iosbase,
+        Elem fill, long val) const;
+    virtual iter_type <B><A HREF="#num_put::do_put">do_put</A></B>(iter_type next, ios_base&amp; iosbase,
+        Elem fill, unsigned long val) const;
+    virtual iter_type <B><A HREF="#num_put::do_put">do_put</A></B>(iter_type next, ios_base&amp; iosbase,
+        Elem fill, double val) const;
+    virtual iter_type <B><A HREF="#num_put::do_put">do_put</A></B>(iter_type next, ios_base&amp; iosbase,
+        Elem fill, long double val) const;
+    virtual iter_type <B><A HREF="#num_put::do_put">do_put</A></B>(iter_type next, ios_base&amp; iosbase,
+        Elem fill, const void *val) const;
+    virtual iter_type <B><A HREF="#num_put::do_put">do_put</A></B>(iter_type next, ios_base&amp; iosbase,
+        Elem fill, bool val) const;
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A>, to control conversions
+of numeric values to sequences of type <CODE>Elem</CODE>.</P>
+
+<P>As with any locale facet, the static object
+<B><CODE><A NAME="num_put::id">id</A></CODE></B> has an initial
+stored value of zero. The first attempt to access its stored value
+stores a unique positive value in <CODE>id</CODE>.</P>
+
+<H3><CODE><A NAME="num_put::char_type">num_put::char_type</A></CODE></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><CODE><A NAME="num_put::do_put">num_put::do_put</A></CODE></H3>
+
+<PRE>virtual iter_type <B>do_put</B>(iter_type next, ios_base&amp; iosbase,
+    Elem fill, long val) const;
+virtual iter_type <B>do_put</B>(iter_type next, ios_base&amp; iosbase,
+    Elem fill, unsigned long val) const;
+virtual iter_type <B>do_put</B>(iter_type next, ios_base&amp; iosbase,
+    Elem fill, double val) const;
+virtual iter_type <B>do_put</B>(iter_type nextp ios_base&amp; iosbase,
+    Elem fill, long double val) const;
+virtual iter_type <B>do_put</B>(iter_type nextp ios_base&amp; iosbase,
+    Elem fill, const void *val) const;
+virtual iter_type <B>do_put</B>(iter_type next, ios_base&amp; iosbase,
+    Elem fill, bool val) const;</PRE>
+
+<P>The first virtual protected member function generates
+sequential elements beginning at <CODE>next</CODE> to produce an
+<B><A NAME="integer output field">integer output field</A></B>
+from the value of <CODE>val</CODE>.
+The function returns an iterator designating the next place to
+insert an element beyond the generated integer output field.</P>
+
+<P>The integer output field is generated by the same rules used by the
+<A HREF="lib_prin.html#Print Functions">print functions</A>
+for generating a series of <I>char</I> elements to a file.
+(Each such <I>char</I> element is assumed to map to an equivalent element
+of type <CODE>Elem</CODE> by a simple, one-to-one, mapping.) Where a
+print function pads a field with either spaces or the digit <CODE>0</CODE>,
+however, <CODE>do_put</CODE> instead uses <CODE>fill</CODE>.
+The equivalent
+<A HREF="lib_prin.html#print conversion specification">print conversion
+specification</A> is determined as follows:</P>
+
+<UL>
+<LI>If <CODE>iosbase.<A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+ios_base::<A HREF="ios.html#ios_base::basefield">basefield</A> ==
+ios_base::<A HREF="ios.html#ios_base::oct">oct</A></CODE>, the
+conversion specification is <CODE>lo</CODE>.</LI>
+
+<LI>If <CODE>iosbase.flags() &amp; ios_base::basefield ==
+ios_base::<A HREF="ios.html#ios_base::hex">hex</A></CODE>, the
+conversion specification is <CODE>lx</CODE>.</LI>
+
+<LI>Otherwise, the conversion specification is <CODE>ld</CODE>.</LI>
+</UL>
+
+<P>If <CODE>iosbase.<A HREF="ios.html#ios_base::width">width</A>()</CODE>
+is nonzero, a field width of this value is prepended. The
+function then calls <CODE>iosbase.width(0)</CODE> to reset the
+field width to zero.</P>
+
+<P><B><A NAME="padding">Padding</A></B> occurs only if
+the minimum number of elements <CODE>N</CODE> required to
+specify the output field is less than
+<CODE>iosbase.<A HREF="ios.html#ios_base::width">width</A>()</CODE>.
+Such padding consists of a sequence of <CODE>N - width()</CODE> copies of
+<CODE>fill</CODE>. Padding then occurs as follows:</P>
+
+<UL>
+<LI>If <CODE>iosbase.flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::adjustfield">adjustfield</A> ==
+ios_base::<A HREF="ios.html#ios_base::left">left</A></CODE>,
+the flag <CODE>-</CODE> is prepended. (Padding occurs
+after the generated text.)
+</LI>
+
+<LI>If <CODE>iosbase.flags() &amp; ios_base::adjustfield ==
+ios_base::<A HREF="ios.html#ios_base::internal">internal</A></CODE>,
+the flag <CODE>0</CODE> is prepended. (For a numeric output field,
+padding occurs where the print functions pad with <CODE>0</CODE>.)</LI>
+
+<LI>Otherwise, no additional flag is prepended.
+(Padding occurs before the generated sequence.)
+</UL>
+
+<P>Finally:</P>
+
+<UL>
+<LI>If <CODE>iosbase.flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::showpos">showpos</A></CODE>
+is nonzero, the flag <CODE>+</CODE> is prepended to the conversion
+specification.</LI>
+
+<LI>If <CODE>iosbase.flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::showbase">showbase</A></CODE>
+is nonzero, the flag <CODE>#</CODE> is prepended to the conversion
+specification.</LI>
+</UL>
+
+<P>The format of an integer output field is further determined by the
+<A HREF="#locale facet">locale facet</A> <CODE>fac</CODE>
+returned by the call
+<CODE><A HREF="#use_facet">use_facet</A>
+&lt;<A HREF="#numpunct">numpunct</A>&lt;Elem&gt;(iosbase.
+<A HREF="ios.html#ios_base::getloc">getloc</A>())</CODE>.
+Specifically:
+
+<UL>
+<LI><CODE>fac.<A HREF="#numpunct::grouping">grouping</A>()</CODE>
+determines how digits are grouped to the left of any decimal point</LI>
+
+<LI><CODE>fac.<A HREF="#numpunct::thousands_sep">thousands_sep</A>()</CODE>
+determines the sequence that separates groups of digits to
+the left of any decimal point</LI>
+</UL>
+
+<P>If no grouping constraints are imposed by <CODE>fac.grouping()</CODE>
+(its first element has the value
+<CODE><A HREF="limits.html#CHAR_MAX">CHAR_MAX</A></CODE>)
+then no instances of <CODE>fac.thousands_sep()</CODE> are generated
+in the output field. Otherwise, separators are inserted after the
+print conversion occurs.</P>
+
+<P>The second virtual protected member function:</P>
+
+<PRE>virtual iter_type <B>do_put</B>(iter_type next, ios_base&amp; iosbase,
+    Elem fill, unsigned long val) const;</PRE>
+
+<P>behaves the same
+as the first, except that it replaces a conversion specification
+of <CODE>ld</CODE> with <CODE>lu</CODE>.</P>
+
+<P>The third virtual protected member function:</P>
+
+<PRE>virtual iter_type <B>do_put</B>(iter_type next, ios_base&amp; iosbase,
+    Elem fill, double val) const;</PRE>
+
+<P>behaves the same as the first, except that it produces a
+<B><A NAME="floating-point output field">floating-point output field</A></B>
+from the value of <CODE>val</CODE>.
+<CODE>fac.<A HREF="#numpunct::decimal_point">decimal_point</A>()</CODE>
+determines the sequence that separates the integer digits from the
+fraction digits.
+The equivalent print conversion specification is determined as follows:</P>
+
+<UL>
+<LI>If <CODE>(iosbase.flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::floatfield">floatfield</A>) ==
+ios_base::<A HREF="ios.html#ios_base::fixed">fixed</A></CODE>, the
+conversion specification is <CODE>lf</CODE>.</LI>
+
+<LI>If <CODE>(iosbase.flags() &amp; ios_base::floatfield) ==
+ios_base::<A HREF="ios.html#ios_base::scientific">scientific</A></CODE>, the
+conversion specification is <CODE>le</CODE>.
+If <CODE>iosbase.flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::uppercase">uppercase</A></CODE>
+is nonzero, <CODE>e</CODE> is replaced with <CODE>E</CODE>.</LI>
+
+<LI>Otherwise, the conversion specification is <CODE>lg</CODE>.
+If <CODE>iosbase.flags() &amp; ios_base::uppercase</CODE>
+is nonzero, <CODE>g</CODE> is replaced with <CODE>G</CODE>.</LI>
+</UL>
+
+<P>If <CODE>(iosbase.flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::floatfield">floatfield</A>) ==
+ios_base::<A HREF="ios.html#ios_base::fixed">fixed</A></CODE>, or if
+<CODE>iosbase.<A HREF="ios.html#ios_base::precision">precision</A>()</CODE>
+is greater than zero, a precision with the value
+<CODE>iosbase.precision()</CODE> is prepended to the conversion specification.
+Any <A HREF="#padding">padding</A> behaves the same
+as for an integer output field. The padding character is
+<CODE>fill</CODE>. Finally:</P>
+
+<UL>
+<LI>If <CODE>iosbase.flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::showpos">showpos</A></CODE>
+is nonzero, the flag <CODE>+</CODE> is prepended to the conversion
+specification.</LI>
+
+<LI>If <CODE>iosbase.flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::showpoint">showpoint</A></CODE>
+is nonzero, the flag <CODE>#</CODE> is prepended to the conversion
+specification.</LI>
+</UL>
+
+<P>The fourth virtual protected member function:</P>
+
+<PRE>virtual iter_type <B>do_put</B>(iter_type next, ios_base&amp; iosbase,
+    Elem fill, long double val) const;</PRE>
+
+<P>behaves the same the third, except that the qualifier
+<CODE>l</CODE> in the conversion specification is replaced with
+<CODE>L</CODE>.</P>
+
+<P>The fifth virtual protected member function:</P>
+
+<PRE>virtual iter_type <B>do_put</B>(iter_type next, ios_base&amp; iosbase,
+    Elem fill, const void *val) const;</PRE>
+
+<P>behaves the same the first, except that the conversion specification
+is <CODE>p</CODE>, plus any qualifier needed to specify padding.</P>
+
+<P>The sixth virtual protected member function:</P>
+
+<PRE>virtual iter_type <B>do_put</B>(iter_type next, ios_base&amp; iosbase,
+    Elem fill, bool val) const;</PRE>
+
+<P>behaves the same
+as the first, except that it generates a
+<B><A NAME="boolean output field">boolean output field</A></B>
+from <CODE>val</CODE>.</P>
+
+<P>A boolean output field takes one of two forms.
+If <CODE>iosbase.flags() &amp;
+ios_base::<A HREF="ios.html#ios_base::boolalpha">boolalpha</A></CODE>
+is false, the member function returns
+<CODE>do_put(next, iosbase, fill, (long)val)</CODE>, which typically produces a
+generated sequence of either <CODE>0</CODE> (for false)
+or <CODE>1</CODE> (for true).
+Otherwise, the generated sequence is either
+<CODE>fac.<A HREF="#numpunct::falsename">falsename</A>()</CODE>
+(for false), or
+<CODE>fac.<A HREF="#numpunct::truename">truename</A>()</CODE>
+(for true).</P>
+
+
+<H3><CODE><A NAME="num_put::put">num_put::put</A></CODE></H3>
+
+<PRE>iter_type <B>put</B>(iter_type next, ios_base&amp; iosbase,
+    Elem fill, long val) const;
+iter_type <B>put</B>(iter_type next, ios_base&amp; iosbase,
+    Elem fill, unsigned long val) const;
+iter_type <B>put</B>(iter_type iter_type next, ios_base&amp; iosbase,
+    Elem fill, double val) const;
+iter_type <B>put</B>(iter_type next, ios_base&amp; iosbase,
+    Elem fill, long double val) const;
+iter_type <B>put</B>(iter_type next, ios_base&amp; iosbase,
+    Elem fill, const void *val) const;
+iter_type <B>put</B>(iter_type next, ios_base&amp; iosbase,
+    Elem fill, bool val) const;</PRE>
+
+<P>All member functions return
+<CODE><A HREF="#num_put::do_put">do_put</A>(next,
+iosbase, fill, val)</CODE>.</P>
+
+
+<H3><CODE><A NAME="num_put::iter_type">num_put::iter_type</A></CODE></H3>
+
+<PRE>typedef InIt <B>iter_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>OutIt</CODE>.</P>
+
+<H3><CODE><A NAME="num_put::num_put">num_put::num_put</A></CODE></H3>
+
+<PRE>explicit <B>num_put</B>(size_t refs = 0);</PRE>
+
+<P>The constructor initializes its base object with
+<CODE>locale::<A HREF="#locale::facet">facet</A>(refs)</CODE>.</P>
+
+<H2><CODE><A NAME="numpunct">numpunct</A></CODE></H2>
+
+<HR>
+<P><B><CODE><A HREF="#numpunct::char_type">char_type</A>
+&#183; <A HREF="#numpunct::decimal_point">decimal_point</A>
+&#183; <A HREF="#numpunct::do_decimal_point">do_decimal_point</A>
+&#183; <A HREF="#numpunct::do_falsename">do_falsename</A>
+&#183; <A HREF="#numpunct::do_grouping">do_grouping</A>
+&#183; <A HREF="#numpunct::do_truename">do_truename</A>
+&#183; <A HREF="#numpunct::do_thousands_sep">do_thousands_sep</A>
+&#183; <A HREF="#numpunct::falsename">falsename</A>
+&#183; <A HREF="#numpunct::grouping">grouping</A>
+&#183; <A HREF="#numpunct::numpunct">numpunct</A>
+&#183; <A HREF="#numpunct::string_type">string_type</A>
+&#183; <A HREF="#numpunct::thousands_sep">thousands_sep</A>
+&#183; <A HREF="#numpunct::truename">truename</A>
+</CODE></B></P>
+<HR>
+
+<PRE>template&lt;class Elem, class <B>numpunct</B> : public locale::facet {
+public:
+    typedef Elem <B><A HREF="#numpunct::char_type">char_type</A></B>;
+    typedef basic_string&lt;Elem&gt; <B><A HREF="#numpunct::string_type">string_type</A></B>;
+    explicit <B><A HREF="#numpunct::numpunct">numpunct</A></B>(size_t refs = 0);
+    Elem <B><A HREF="#numpunct::decimal_point">decimal_point</A></B>() const;
+    Elem <B><A HREF="#numpunct::thousands_sep">thousands_sep</A></B>() const;
+    string <B><A HREF="#numpunct::grouping">grouping</A></B>() const;
+    string_type <B><A HREF="#numpunct::truename">truename</A></B>() const;
+    string_type <B><A HREF="#numpunct::falsename">falsename</A></B>() const;
+    static locale::id <B><A HREF="#numpunct::id">id</A></B>;
+protected:
+    <B>~numpunct</B>();
+    virtual Elem <B><A HREF="#numpunct::do_decimal_point">do_decimal_point</A></B>() const;
+    virtual Elem <B><A HREF="#numpunct::do_thousands_sep">do_thousands_sep</A></B>() const;
+    virtual string <B><A HREF="#numpunct::do_grouping">do_grouping</A></B>() const;
+    virtual string_type <B><A HREF="#numpunct::do_truename">do_truename</A></B>() const;
+    virtual string_type <B><A HREF="#numpunct::do_falsename">do_falsename</A></B>() const;
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A>, to desceibe the sequences
+of type <CODE>Elem</CODE> used to represent the input fields matched by
+<CODE><A HREF="#num_get">num_get</A></CODE>
+or the output fields generated by
+<CODE><A HREF="#num_get">num_get</A></CODE>.</P>
+
+<P>As with any locale facet, the static object
+<B><CODE><A NAME="numpunct::id">id</A></CODE></B> has an initial
+stored value of zero. The first attempt to access its stored value
+stores a unique positive value in <CODE>id</CODE>.</P>
+
+<H3><CODE><A NAME="numpunct::char_type">numpunct::char_type</A></CODE></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><CODE><A NAME="numpunct::decimal_point">numpunct::decimal_point</A></CODE></H3>
+
+<PRE>Elem <B>decimal_point</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#numpunct::do_decimal_point">do_decimal_point</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="numpunct::do_decimal_point">numpunct::do_decimal_point</A></CODE></H3>
+
+<PRE>Elem <B>do_decimal_point</B>() const;</PRE>
+
+<P>The protected virtual member function returns
+a locale-specific element to use as a decimal-point.</P>
+
+<H3><CODE><A NAME="numpunct::do_falsename">numpunct::do_falsename</A></CODE></H3>
+
+<PRE>string_type <B>do_falsename</B>() const;</PRE>
+
+<P>The protected virtual member function returns
+a locale-specific sequence to use as a text representation of
+the value false.</P>
+
+<H3><CODE><A NAME="numpunct::do_grouping">numpunct::do_grouping</A></CODE></H3>
+
+<PRE>string <B>do_grouping</B>() const;</PRE>
+
+<P>The protected virtual member function returns a locale-specific
+rule for determining how digits
+are grouped to the left of any decimal point.
+The encoding is the same as for
+<CODE>lconv::<A HREF="locale.html#grouping">grouping</A></CODE>.</P>
+
+<H3><CODE><A NAME="numpunct::do_thousands_sep">numpunct::do_thousands_sep</A></CODE></H3>
+
+<PRE>Elem <B>do_thousands_sep</B>() const;</PRE>
+
+<P>The protected virtual member function returns
+a locale-specific element to use as a group separator to the left of
+any decimal point.</P>
+
+<H3><CODE><A NAME="numpunct::do_truename">numpunct::do_truename</A></CODE></H3>
+
+<PRE>string_type <B>do_truename</B>() const;</PRE>
+
+<P>The protected virtual member function returns
+a locale-specific sequence to use as a text representation of
+the value true.</P>
+
+<H3><CODE><A NAME="numpunct::falsename">numpunct::falsename</A></CODE></H3>
+
+<PRE>string_type <B>falsename</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#numpunct::do_falsename">do_falsename</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="numpunct::grouping">numpunct::grouping</A></CODE></H3>
+
+<PRE>string <B>grouping</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#numpunct::do_grouping">do_grouping</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="numpunct::numpunct">numpunct::numpunct</A></CODE></H3>
+
+<PRE>explicit <B>numpunct</B>(size_t refs = 0);</PRE>
+
+<P>The constructor initializes its base object with
+<CODE>locale::<A HREF="#locale::facet">facet</A>(refs)</CODE>.</P>
+
+<H3><CODE><A NAME="numpunct::string_type">numpunct::string_type</A></CODE></H3>
+
+<PRE>typedef basic_string&lt;Elem&gt; <B>string_type</B>;</PRE>
+
+<P>The type describes a specialization of template class
+<CODE><A HREF="string2.html#basic_string">basic_string</A></CODE>
+whose objects can store copies of the punctuation sequences.</P>
+
+<H3><CODE><A NAME="numpunct::thousands_sep">numpunct::thousands_sep</A></CODE></H3>
+
+<PRE>Elem <B>thousands_sep</B>() const;</PRE>
+
+<P>The mmmber function returns
+<CODE><A HREF="#numpunct::do_thousands_sep">do_thousands_sep</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="numpunct::truename">numpunct::truename</A></CODE></H3>
+
+<PRE>string_type <B>falsename</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#numpunct::do_truename">do_truename</A>()</CODE>.</P>
+
+<H2><CODE><A NAME="numpunct_byname">numpunct_byname</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    class <B>numpunct_byname</B> : public numpunct&lt;Elem&gt; {
+public:
+    explicit <B>numpunct_byname</B>(const char *locname,
+        size_t refs = 0);
+protected:
+    <B>~numpunct_byname</B>();
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A> of type
+<CODE><A HREF="#numpunct">numpunct</A>&lt;Elem&gt;</CODE>.
+Its behavior is determined by the
+<A HREF="#locale name">named</A> locale <CODE>locname</CODE>.
+The constructor initializes its base object with
+<CODE><A HREF="#numpunct::numpunct">numpunct</A>&lt;Elem&gt;(refs)</CODE>.</P>
+
+<H2><CODE><A NAME="time_base">time_base</A></CODE></H2>
+
+<PRE>class <B>time_base</B> {
+public:
+    enum <B>dateorder</B> {<B>no_order</B>, <B>dmy</B>, <B>mdy</B>, <B>ymd</B>, <B>ydm</B>};
+    };</PRE>
+
+<P>The class serves as a base class for facets of template class
+<CODE><A HREF="#time_get">time_get</A></CODE>.
+It defines just the enumerated type
+<B><CODE><A NAME="time_base::dateorder">dateorder</A></CODE></B>
+and several constants of this type. Each of the constants characterizes
+a different way to order the components of a date.
+The constants are:</P>
+
+<UL>
+<LI><B><CODE><A NAME="time_base::no_order">no_order</A></CODE></B>
+specifies no particular order.</LI>
+
+<LI><B><CODE><A NAME="time_base::dmy">dmy</A></CODE></B>
+specifies the order day, month, then year, as in
+<CODE>2 December 1979</CODE>.</LI>
+
+<LI><B><CODE><A NAME="time_base::mdy">mdy</A></CODE></B>
+specifies the order month, day, then year, as in
+<CODE>December 2, 1979</CODE>.</LI>
+
+<LI><B><CODE><A NAME="time_base::ymd">ymd</A></CODE></B>
+specifies the order year, month, then day, as in
+<CODE>1979/12/2</CODE>.</LI>
+
+<LI><B><CODE><A NAME="time_base::ydm">ydm</A></CODE></B>
+specifies the order year, day, then month, as in
+<CODE>1979: 2 Dec</CODE>.</LI>
+</UL>
+
+<H2><CODE><A NAME="time_get">time_get</A></CODE></H2>
+
+<PRE>template&lt;class Elem, class InIt = istreambuf_iterator&lt;Elem&gt; &gt;
+    class <B>time_get</B> : public locale::facet, time_base {
+public:
+    typedef Elem <B><A HREF="#time_get::char_type">char_type</A></B>;
+    typedef InIt <B><A HREF="#time_get::iter_type">iter_type</A></B>;
+    explicit <B><A HREF="#time_get::time_get">time_get</A></B>(size_t refs = 0);
+    dateorder <B><A HREF="#time_get::date_order">date_order</A></B>() const;
+    iter_type <B><A HREF="#time_get::get_time">get_time</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;
+    iter_type <B><A HREF="#time_get::get_date">get_date</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;
+    iter_type <B><A HREF="#time_get::get_weekday">get_weekday</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;
+    iter_type <B><A HREF="#time_get::get_month">get_month</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;
+    iter_type <B><A HREF="#time_get::get_year">get_year</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;
+    static locale::id <B><A HREF="#time_get::id">id</A></B>;
+protected:
+    <B>~time_get</B>();
+    virtual dateorder <B><A HREF="#time_get::do_date_order">do_date_order</A></B>() const;
+    virtual iter_type
+        <B><A HREF="#time_get::do_get_time">do_get_time</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;
+    virtual iter_type
+        <B><A HREF="#time_get::do_get_date">do_get_date</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;
+    virtual iter_type
+        <B><A HREF="#time_get::do_get_weekday">do_get_weekday</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;
+    virtual iter_type
+        <B><A HREF="#time_get::do_get_month">do_get_month</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;
+    virtual iter_type
+        <B><A HREF="#time_get::do_get_year">do_get_year</A></B>(iter_type first, iter_type last,
+        ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A>, to control conversions
+of sequences of type <CODE>Elem</CODE> to time values.</P>
+
+<P>As with any locale facet, the static object
+<B><CODE><A NAME="time_get::id">id</A></CODE></B> has an initial
+stored value of zero. The first attempt to access its stored value
+stores a unique positive value in <CODE>id</CODE>.</P>
+
+<H3><CODE><A NAME="time_get::char_type">time_get::char_type</A></CODE></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><CODE><A NAME="time_get::date_order">time_get::date_order</A></CODE></H3>
+
+<PRE>dateorder <B>date_order</B>() const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#time_get::do_date_order">date_order</A>()</CODE>.</P>
+
+<H3><CODE><A NAME="time_get::do_date_order">time_get::do_date_order</A></CODE></H3>
+
+<PRE>virtual dateorder <B>do_date_order</B>() const;</PRE>
+
+<P>The virtual protected member function returns a value of type
+<CODE>time_base::<A HREF="#time_base::dateorder">dateorder</A></CODE>,
+which describes the order in which date components are matched by
+<CODE><A HREF="#time_get::do_get_date">do_get_date</A></CODE>.</P>
+
+<H3><CODE><A NAME="time_get::do_get_date">time_get::do_get_date</A></CODE></H3>
+
+<PRE>virtual iter_type
+    <B>do_get_date</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;</PRE>
+
+<P>The virtual protected member function endeavors to match
+sequential elements beginning at <CODE>first</CODE> in the sequence
+<CODE>[first, last)</CODE> until it has recognized a complete, nonempty
+<B><A NAME="date input field">date input field</A></B>.
+If successful, it converts this field to its equivalent value as
+the components
+<CODE><A HREF="time.html#tm">tm</A>::tm_mon</CODE>,
+<CODE>tm::tm_day</CODE>, and <CODE>tm::tm_year</CODE>,
+and stores the results in <CODE>pt-&gt;tm_mon</CODE>,
+<CODE>pt-&gt;tm_day</CODE> and <CODE>pt-&gt;tm_year</CODE>, respectively.
+It returns an iterator
+designating the first element beyond the date input field.
+Otherwise, the function sets
+<CODE>ios_base::failbit</CODE> in <CODE>state</CODE>.
+It returns an iterator designating the first element beyond
+any prefix of a valid date input field. In either case, if the
+return value equals <CODE>last</CODE>, the function sets
+<CODE>ios_base::eofbit</CODE> in <CODE>state</CODE>.</P>
+
+<P>In this <A HREF="index.html#implementation">implementation</A>,
+the date input field is assumed to have three fields:</P>
+
+<UL>
+<LI>a month, which is either a sequence of decimal digits whose
+corresponding numeric value must be in the range [1, 12],
+giving the month plus one, or the sequence matched by
+<CODE><A HREF="#time_get::get_month">get_month</A></CODE>, giving
+the month</LI>
+
+<LI>a day, which is a sequence of decimal digits whose
+corresponding numeric value must be in the range [1, 31],
+giving the day of the month</LI>
+
+<LI>a year, which is the sequence matched by
+<CODE><A HREF="#time_get::get_year">get_year</A></CODE>, giving
+the year</LI>
+</UL>
+
+<P>The fields are separated by optional spaces,
+followed by an optional colon, comma, or slash,
+followed by optional spaces. The order of the fields is as specified by
+<CODE><A HREF="#time_get::date_order">time_get::date_order</A>()</CODE>,
+except that the value <CODE>no_order</CODE> is taken as <CODE>mdy</CODE> and any
+sequence matched by <CODE>get_month</CODE> is always taken as a month.</P>
+
+<H3><CODE><A NAME="time_get::do_get_month">time_get::do_get_month</A></CODE></H3>
+
+<PRE>virtual iter_type
+    <B>do_get_month</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;</PRE>
+
+<P>The virtual protected member function endeavors to match
+sequential elements beginning at <CODE>first</CODE> in the sequence
+<CODE>[first, last)</CODE> until it has recognized a complete, nonempty
+<B><A NAME="month input field">month input field</A></B>.
+If successful, it converts this field to its equivalent value as
+the component
+<CODE><A HREF="time.html#tm">tm</A>::tm_mon</CODE>,
+and stores the result in <CODE>pt-&gt;tm_mon</CODE>.
+It returns an iterator
+designating the first element beyond the month input field.
+Otherwise, the function sets
+<CODE>ios_base::failbit</CODE> in <CODE>state</CODE>.
+It returns an iterator designating the first element beyond
+any prefix of a valid month input field. In either case, if the
+return value equals <CODE>last</CODE>, the function sets
+<CODE>ios_base::eofbit</CODE> in <CODE>state</CODE>.</P>
+
+<P>The month input field is a sequence that matches the longest
+of a set of locale-specific sequences, such as: <CODE>Jan</CODE>,
+<CODE>January</CODE>, <CODE>Feb</CODE>, <CODE>February</CODE>, etc.
+The converted value is the number of months since January.</P>
+
+<H3><CODE><A NAME="time_get::do_get_time">time_get::do_get_time</A></CODE></H3>
+
+<PRE>virtual iter_type
+    <B>do_get_time</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;</PRE>
+
+<P>The virtual protected member function endeavors to match
+sequential elements beginning at <CODE>first</CODE> in the sequence
+<CODE>[first, last)</CODE> until it has recognized a complete, nonempty
+<B><A NAME="time input field">time input field</A></B>.
+If successful, it converts this field to its equivalent value as
+the components
+<CODE><A HREF="time.html#tm">tm</A>::tm_hour</CODE>,
+<CODE>tm::tm_min</CODE>, and <CODE>tm::tm_sec</CODE>,
+and stores the results in <CODE>pt-&gt;tm_hour</CODE>,
+<CODE>pt-&gt;tm_min</CODE> and <CODE>pt-&gt;tm_sec</CODE>, respectively.
+It returns an iterator
+designating the first element beyond the time input field.
+Otherwise, the function sets
+<CODE>ios_base::failbit</CODE> in <CODE>state</CODE>.
+It returns an iterator designating the first element beyond
+any prefix of a valid time input field. In either case, if the
+return value equals <CODE>last</CODE>, the function sets
+<CODE>ios_base::eofbit</CODE> in <CODE>state</CODE>.</P>
+
+<P>In this <A HREF="index.html#implementation">implementation</A>,
+the time input field has the form <CODE>HH:MM:SS</CODE>, where:</P>
+
+<UL>
+<LI><CODE>HH</CODE> is a sequence of decimal digits whose
+corresponding numeric value must be in the range [0, 24), giving
+the hour of the day.</LI>
+
+<LI><CODE>MM</CODE> is a sequence of decimal digits whose
+corresponding numeric value must be in the range [0, 60), giving
+the minutes past the hour.</LI>
+
+<LI><CODE>SS</CODE> is a sequence of decimal digits whose
+corresponding numeric value must be in the range [0, 60), giving
+the seconds past the minute.</LI>
+
+<LI>The literal colons must match corresponding elements
+in the input sequence.</LI>
+</UL>
+
+<H3><CODE><A NAME="time_get::do_get_weekday">time_get::do_get_weekday</A></CODE></H3>
+
+<PRE>virtual iter_type
+    <B>do_get_weekday</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;</PRE>
+
+<P>The virtual protected member function endeavors to match
+sequential elements beginning at <CODE>first</CODE> in the sequence
+<CODE>[first, last)</CODE> until it has recognized a complete, nonempty
+<B><A NAME="weekday input field">weekday input field</A></B>.
+If successful, it converts this field to its equivalent value as
+the component
+<CODE><A HREF="time.html#tm">tm</A>::tm_wday</CODE>,
+and stores the result in <CODE>pt-&gt;tm_wday</CODE>.
+It returns an iterator
+designating the first element beyond the weekday input field.
+Otherwise, the function sets
+<CODE>ios_base::failbit</CODE> in <CODE>state</CODE>.
+It returns an iterator designating the first element beyond
+any prefix of a valid weekday input field. In either case, if the
+return value equals <CODE>last</CODE>, the function sets
+<CODE>ios_base::eofbit</CODE> in <CODE>state</CODE>.</P>
+
+<P>The weekday input field is a sequence that matches the longest
+of a set of locale-specific sequences, such as: <CODE>Sun</CODE>,
+<CODE>Sunday</CODE>, <CODE>Mon</CODE>, <CODE>Monday</CODE>, etc.
+The converted value is the number of days since Sunday.</P>
+
+<H3><CODE><A NAME="time_get::do_get_year">time_get::do_get_year</A></CODE></H3>
+
+<PRE>virtual iter_type
+    <B>do_get_year</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;</PRE>
+
+<P>The virtual protected member function endeavors to match
+sequential elements beginning at <CODE>first</CODE> in the sequence
+<CODE>[first, last)</CODE> until it has recognized a complete, nonempty
+<B><A NAME="year input field">year input field</A></B>.
+If successful, it converts this field to its equivalent value as
+the component
+<CODE><A HREF="time.html#tm">tm</A>::tm_year</CODE>,
+and stores the result in <CODE>pt-&gt;tm_year</CODE>.
+It returns an iterator
+designating the first element beyond the year input field.
+Otherwise, the function sets
+<CODE>ios_base::failbit</CODE> in <CODE>state</CODE>.
+It returns an iterator designating the first element beyond
+any prefix of a valid year input field. In either case, if the
+return value equals <CODE>last</CODE>, the function sets
+<CODE>ios_base::eofbit</CODE> in <CODE>state</CODE>.</P>
+
+<P>The year input field is a sequence of decimal digits whose
+corresponding numeric value must be in the range [1900, 2036).
+The stored value is this value minus 1900.
+In this <A HREF="index.html#implementation">implementation</A>,
+values in the range [69, 136) represent the range of years [1969, 2036).
+Values in the range [0, 69) are also permissible, but may represent
+either the range of years [1900, 1969) or [2000, 2069),
+depending on the specific translation environment.</P>
+
+<H3><CODE><A NAME="time_get::get_date">time_get::get_date</A></CODE></H3>
+
+<PRE>iter_type <B>get_date</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#time_get::do_get_date">do_get_date</A>(first, last,
+iosbase, state, pt)</CODE>.</P>
+
+<H3><CODE><A NAME="time_get::get_month">time_get::get_month</A></CODE></H3>
+
+<PRE>iter_type <B>get_month</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#time_get::do_get_month">do_get_month</A>(first, last,
+iosbase, state, pt)</CODE>.</P>
+
+<H3><CODE><A NAME="time_get::get_time">time_get::get_time</A></CODE></H3>
+
+<PRE>iter_type <B>get_time</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#time_get::do_get_time">do_get_time</A>(first, last,
+iosbase, state, pt)</CODE>.</P>
+
+<H3><CODE><A NAME="time_get::get_weekday">time_get::get_weekday</A></CODE></H3>
+
+<PRE>iter_type <B>get_weekday</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#time_get::do_get_weekday">do_get_weekday</A>(first, last,
+iosbase, state, pt)</CODE>.</P>
+
+<H3><CODE><A NAME="time_get::get_year">time_get::get_year</A></CODE></H3>
+
+<PRE>iter_type <B>get_year</B>(iter_type first, iter_type last,
+    ios_base&amp; iosbase, ios_base::iostate&amp; state, tm *pt) const;</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#time_get::do_get_year">do_get_year</A>(first, last,
+iosbase, state, pt)</CODE>.</P>
+
+<H3><CODE><A NAME="time_get::iter_type">time_get::iter_type</A></CODE></H3>
+
+<PRE>typedef InIt <B>iter_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>InIt</CODE>.</P>
+
+<H3><CODE><A NAME="time_get::time_get">time_get::time_get</A></CODE></H3>
+
+<PRE>explicit <B>time_get</B>(size_t refs = 0);</PRE>
+
+<P>The constructor initializes its base object with
+<CODE>locale::<A HREF="#locale::facet">facet</A>(refs)</CODE>.</P>
+
+<H2><CODE><A NAME="time_get_byname">time_get_byname</A></CODE></H2>
+
+<PRE>template&lt;class Elem, class InIt&gt;
+    class <B>time_get_byname</B> : public time_get&lt;Elem, InIt&gt; {
+public:
+    explicit <B>time_get_byname</B>(const char *locname,
+        size_t refs = 0);
+protected:
+    <B>~time_get_byname</B>();
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A> of type
+<CODE><A HREF="#time_get">time_get</A>&lt;Elem, InIt&gt;</CODE>.
+Its behavior is determined by the
+<A HREF="#locale name">named</A> locale <CODE>locname</CODE>.
+The constructor initializes its base object with
+<CODE><A HREF="#time_get::time_get">time_get</A>&lt;Elem,
+InIt&gt;(refs)</CODE>.</P>
+
+<H2><CODE><A NAME="time_put">time_put</A></CODE></H2>
+
+<PRE>template&lt;class Elem, class OutIt = ostreambuf_iterator&lt;Elem&gt; &gt;
+    class <B>time_put</B> : public locale::facet {
+public:
+    typedef Elem <B><A HREF="#time_put::char_type">char_type</A></B>;
+    typedef OutIt <B><A HREF="#time_put::iter_type">iter_type</A></B>;
+    explicit <B><A HREF="#time_put::time_put">time_put</A></B>(size_t refs = 0);
+    iter_type <B><A HREF="#time_put::put">put</A></B>(iter_type next, ios_base&amp; iosbase,
+        char_type fill, const tm *pt, char fmt, char mod = 0) const;
+    iter_type <B><A HREF="#time_put::put">put</A></B>(iter_type next, ios_base&amp; iosbase,
+        char_type fill, const tm *pt, const Elem *first, const Elem *last) const;
+    static locale::id <B><A HREF="#time_put::id">id</A></B>;
+protected:
+    <B>~time_put</B>();
+    virtual iter_type <B><A HREF="#time_put::do_put">do_put</A></B>(iter_type next, ios_base&amp; iosbase,
+        char_type fill, const tm *pt, char fmt, char mod = 0) const;
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A>, to control conversions
+of time values to sequences of type <CODE>Elem</CODE>.</P>
+
+<P>As with any locale facet, the static object
+<B><CODE><A NAME="time_put::id">id</A></CODE></B> has an initial
+stored value of zero. The first attempt to access its stored value
+stores a unique positive value in <CODE>id</CODE>.</P>
+
+<H3><CODE><A NAME="time_put::char_type">time_put::char_type</A></CODE></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><CODE><A NAME="time_put::do_put">time_put::do_put</A></CODE></H3>
+
+<PRE>virtual iter_type <B>do_put</B>(iter_type next, ios_base&amp; iosbase,
+    char_type fill, const tm *pt, char fmt, char mod = 0) const;</PRE>
+
+<P>The virtual protected member function generates
+sequential elements beginning at <CODE>next</CODE> from
+time values stored in the object <CODE>*pt</CODE>, of type
+<CODE><A HREF="time.html#tm">tm</A></CODE>.
+The function returns an iterator designating the next place to
+insert an element beyond the generated output.</P>
+
+<P>The output is generated by the same rules used by
+<CODE><A HREF="time.html#strftime">strftime</A></CODE>,
+with a last argument of <CODE>pt</CODE>,
+for generating a series of <I>char</I> elements into an array.
+(Each such <I>char</I> element is assumed to map to an equivalent element
+of type <CODE>Elem</CODE> by a simple, one-to-one, mapping.)
+If <CODE>mod</CODE> equals zero, the effective format is
+<CODE>"%F"</CODE>, where <CODE>F</CODE> is replaced by <CODE>fmt</CODE>.
+Otherwise, the effective format is
+<CODE>"%MF"</CODE>, where <CODE>M</CODE> is replaced by <CODE>mod</CODE>.</P>
+
+<P>The parameter <CODE>fill</CODE> is not used.</P>
+
+<H3><CODE><A NAME="time_put::put">time_put::put</A></CODE></H3>
+
+<PRE>iter_type <B>put</B>(iter_type next, ios_base&amp; iosbase,
+    char_type fill, const tm *pt, char fmt, char mod = 0) const;
+iter_type <B>put</B>(iter_type next, ios_base&amp; iosbase,
+    char_type fill, const tm *pt, const Elem *first, const Elem *last) const;</PRE>
+
+<P>The first member function returns
+<CODE><A HREF="#time_put::do_put">do_put</A>(next,
+iosbase, fill, pt, fmt, mod)</CODE>. The second member function
+copies to <CODE>*next++</CODE> any element in the interval
+<CODE>[first, last)</CODE> other than a percent (<CODE>%</CODE>).
+For a percent followed by a character <CODE>C</CODE> in the interval
+<CODE>[first, last)</CODE>, the function instead evaluates
+<CODE>next = do_put(next, iosbase, fill, pt, C, 0)</CODE>
+and skips past <CODE>C</CODE>.
+If, however, <CODE>C</CODE> is a qualifier character from the set
+<CODE>EOQ#</CODE>, followed by a character <CODE>C2</CODE> in the interval
+<CODE>[first, last)</CODE>, the function instead evaluates
+<CODE>next = do_put(next, iosbase, fill, pt, C2, C)</CODE>
+and skips past <CODE>C2</CODE>.</P>
+
+<H3><CODE><A NAME="time_put::iter_type">time_put::iter_type</A></CODE></H3>
+
+<PRE>typedef InIt <B>iter_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>OutIt</CODE>.</P>
+
+<H3><CODE><A NAME="time_put::time_put">time_put::time_put</A></CODE></H3>
+
+<PRE>explicit <B>time_put</B>(size_t refs = 0);</PRE>
+
+<P>The constructor initializes its base object with
+<CODE>locale::<A HREF="#locale::facet">facet</A>(refs)</CODE>.</P>
+
+<H2><CODE><A NAME="time_put_byname">time_put_byname</A></CODE></H2>
+
+<PRE>template&lt;class Elem, class OutIt&gt;
+    class <B>time_put_byname</B> : public time_put&lt;Elem, OutIt&gt; {
+public:
+    explicit <B>time_put_byname</B>(const char *locname,
+        size_t refs = 0);
+protected:
+    <B>~time_put_byname</B>();
+    };</PRE>
+
+<P>The template class describes an object that can serve as a
+<A HREF="#locale facet">locale facet</A> of type
+<CODE><A HREF="#time_put">time_put</A>&lt;Elem, OutIt&gt;</CODE>.
+Its behavior is determined by the
+<A HREF="#locale name">named</A> locale <CODE>locname</CODE>.
+The constructor initializes its base object with
+<CODE><A HREF="#time_put::time_put">time_put</A>&lt;Elem,
+OutIt&gt;(refs)</CODE>.</P>
+
+<H2><CODE><A NAME="tolower">tolower</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    Elem <B>tolower</B>(Elem ch, const locale&amp; loc) const;</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#use_facet">use_facet</A>&lt;
+<A HREF="#ctype">ctype</A>&lt;Elem&gt; &gt;(loc).
+<A HREF="#ctype::tolower">tolower</A>(ch)</CODE>.</P>
+
+<H2><CODE><A NAME="toupper">toupper</A></CODE></H2>
+
+<PRE>template&lt;class Elem&gt;
+    Elem <B>toupper</B>(Elem ch, const locale&amp; loc) const;</PRE>
+
+<P>The template function returns
+<CODE><A HREF="#use_facet">use_facet</A>&lt;
+<A HREF="#ctype">ctype</A>&lt;Elem&gt; &gt;(loc).
+<A HREF="#ctype::toupper">toupper</A>(ch)</CODE>.</P>
+
+<H2><CODE><A NAME="use_facet">use_facet</A></CODE></H2>
+
+<PRE>template&lt;class Facet&gt;
+    const Facet&amp; <B>use_facet</B>(const locale&amp; loc);</PRE>
+
+<P>The template function returns a reference to the
+<A HREF="#locale facet">locale facet</A> of class <CODE>Facet</CODE>
+listed within the
+<A HREF="#locale object">locale object</A> <CODE>loc</CODE>.
+If no such object is listed, the function throws an object of class
+<CODE><A HREF="typeinfo.html#bad_cast">bad_cast</A></CODE>.</P>
+
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1992-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

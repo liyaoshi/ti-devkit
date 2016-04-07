@@ -1,0 +1,267 @@
+<HTML><HEAD><TITLE>Dinkum EC++ Library</TITLE></HEAD><BODY>
+
+<H1><A NAME="Embedded C++ Library">Dinkum EC++ Library</A></H1>
+
+<P><B>
+Use of this Dinkum EC++ Library
+Reference is subject to limitations. See the
+<A HREF="crit_pjp.html">Copyright Notice</A>
+for detailed restrictions.
+</B></P><HR>
+
+<P>A C++ program can call on a large number of functions from the 
+<B>Dinkum EC++ Library</B>, a conforming implementation of the
+<B>Embedded C++ library</B>, as specified by the
+Embedded C++ Technical Committee.
+The Embedded C++ library is, in turn, a conforming subset of the
+<B>Standard C++ library</B>.
+These functions perform essential services 
+such as input and output. They also provide efficient implementations 
+of frequently used operations. Numerous function and class definitions 
+accompany these functions to help you to make better use of the library.
+Most of the information about the Embedded C++ library can be
+found in the descriptions of the
+<B><A HREF="lib_cpp.html#C++ library headers">C++ library headers</A></B>
+that declare or define library entities for the program.</P>
+
+<H2><A NAME="Table of Contents">Table of Contents</A></H2>
+
+<P><B><CODE><A HREF="complex.html">&lt;complex&gt;</A>
+&#183; <A HREF="exceptio.html">&lt;exception&gt;</A>
+&#183; <A HREF="fstream.html">&lt;fstream&gt;</A>
+&#183; <A HREF="iomanip.html">&lt;iomanip&gt;</A>
+&#183; <A HREF="ios.html">&lt;ios&gt;</A>
+&#183; <A HREF="iosfwd.html">&lt;iosfwd&gt;</A>
+&#183; <A HREF="iostream.html">&lt;iostream&gt;</A>
+&#183; <A HREF="istream.html">&lt;istream&gt;</A>
+&#183; <A HREF="new.html">&lt;new&gt;</A>
+&#183; <A HREF="ostream.html">&lt;ostream&gt;</A>
+&#183; <A HREF="sstream.html">&lt;sstream&gt;</A>
+&#183; <A HREF="stdexcep.html">&lt;stdexcept&gt;</A>
+&#183; <A HREF="streambu.html">&lt;streambuf&gt;</A>
+&#183; <A HREF="string2.html">&lt;string&gt;</A>
+&#183; <A HREF="strstrea.html">&lt;strstream&gt;</A>
+</CODE></B></P>
+
+<P><B><CODE><A HREF="cassert.html">&lt;cassert&gt;</A>
+&#183; <A HREF="cctype.html">&lt;cctype&gt;</A>
+&#183; <A HREF="cerrno.html">&lt;cerrno&gt;</A>
+&#183; <A HREF="cfloat.html">&lt;cfloat&gt;</A>
+&#183; <A HREF="climits.html">&lt;climits&gt;</A>
+&#183; <A HREF="clocale.html">&lt;clocale&gt;</A>
+&#183; <A HREF="cmath.html">&lt;cmath&gt;</A>
+&#183; <A HREF="csetjmp.html">&lt;csetjmp&gt;</A>
+&#183; <A HREF="csignal.html">&lt;csignal&gt;</A>
+&#183; <A HREF="cstdarg.html">&lt;cstdarg&gt;</A>
+&#183; <A HREF="cstddef.html">&lt;cstddef&gt;</A>
+&#183; <A HREF="cstdio.html">&lt;cstdio&gt;</A>
+&#183; <A HREF="cstdlib.html">&lt;cstdlib&gt;</A>
+&#183; <A HREF="cstring.html">&lt;cstring&gt;</A>
+&#183; <A HREF="ctime.html">&lt;ctime&gt;</A>
+</CODE></B></P>
+
+<P><B><CODE><A HREF="assert.html">&lt;assert.h&gt;</A>
+&#183; <A HREF="ctype.html">&lt;ctype.h&gt;</A>
+&#183; <A HREF="errno.html">&lt;errno.h&gt;</A>
+&#183; <A HREF="float.html">&lt;float.h&gt;</A>
+&#183; <A HREF="limits.html">&lt;limits.h&gt;</A>
+&#183; <A HREF="locale.html">&lt;locale.h&gt;</A>
+&#183; <A HREF="math.html">&lt;math.h&gt;</A>
+&#183; <A HREF="setjmp.html">&lt;setjmp.h&gt;</A>
+&#183; <A HREF="signal.html">&lt;signal.h&gt;</A>
+&#183; <A HREF="stdarg.html">&lt;stdarg.h&gt;</A>
+&#183; <A HREF="stddef.html">&lt;stddef.h&gt;</A>
+&#183; <A HREF="stdio.html">&lt;stdio.h&gt;</A>
+&#183; <A HREF="stdlib.html">&lt;stdlib.h&gt;</A>
+&#183; <A HREF="string.html">&lt;string.h&gt;</A>
+&#183; <A HREF="time.html">&lt;time.h&gt;</A>
+</CODE></B></P>
+
+<P><B><CODE><A HREF="fstream2.html">&lt;fstream.h&gt;</A>
+&#183; <A HREF="iomanip2.html">&lt;iomanip.h&gt;</A>
+&#183; <A HREF="iostrea2.html">&lt;iostream.h&gt;</A>
+&#183; <A HREF="new2.html">&lt;new.h&gt;</A>
+</CODE></B></P>
+
+<P><B><CODE><A HREF="lib_cpp.html">C++ Library Overview</A>
+&#183; <A HREF="lib_over.html">C Library Overview</A>
+&#183; <A HREF="charset.html">Characters</A>
+&#183; <A HREF="lib_file.html">Files and Streams</A>
+&#183; <A HREF="lib_prin.html">Formatted Output</A>
+&#183; <A HREF="lib_scan.html">Formatted Input</A>
+</CODE></B></P>
+<HR>
+
+<P>The Embedded C++ library headers are:</P>
+
+<P><CODE><A HREF="complex.html">&lt;complex&gt;</A></CODE>
+-- for defining a template class that supports complex arithmetic<BR>
+<CODE><A HREF="exceptio.html">&lt;exception&gt;</A></CODE>
+-- for defining several functions that control exception handling<BR>
+<CODE><A HREF="fstream.html">&lt;fstream&gt;</A></CODE>
+-- for defining several iostreams template classes that manipulate
+exteral files<BR>
+<CODE><A HREF="iomanip.html">&lt;iomanip&gt;</A></CODE>
+-- for declaring several iostreams manipulators that take an argument<BR>
+<CODE><A HREF="ios.html">&lt;ios&gt;</A></CODE>
+-- for defining the template class that serves as the base for
+many iostreams classes<BR>
+<CODE><A HREF="iosfwd.html">&lt;iosfwd&gt;</A></CODE>
+-- for declaring several iostreams template classes before they
+are necessarily defined<BR>
+<CODE><A HREF="iostream.html">&lt;iostream&gt;</A></CODE>
+-- for declaring the iostreams objects that manipulate the
+standard streams<BR>
+<CODE><A HREF="istream.html">&lt;istream&gt;</A></CODE>
+-- for defining the template class that performs extractions<BR>
+<CODE><A HREF="new.html">&lt;new&gt;</A></CODE>
+-- for declaring several functions that allocate and free storage<BR>
+<CODE><A HREF="ostream.html">&lt;ostream&gt;</A></CODE>
+-- for defining the template class that performs insertions<BR>
+<CODE><A HREF="sstream.html">&lt;sstream&gt;</A></CODE>
+-- for defining several iostreams template classes that manipulate
+string containers<BR>
+<CODE><A HREF="stdexcep.html">&lt;stdexcept&gt;</A></CODE>
+-- for defining several classes useful for reporting exceptions<BR>
+<CODE><A HREF="streambu.html">&lt;streambuf&gt;</A></CODE>
+-- for defining template classes that buffer iostreams operations<BR>
+<CODE><A HREF="string2.html">&lt;string&gt;</A></CODE>
+-- for defining a template class that implements a string container<BR>
+<CODE><A HREF="strstrea.html">&lt;strstream&gt;</A></CODE>
+-- for defining several iostreams classes that manipulate in-memory
+character sequences</P>
+
+<P>The Embedded C++ library works in conjunction with 15
+of the headers from the
+<B><A NAME="Standard C Library">Standard C library</A></B>,
+sometimes with small alterations.
+The headers come in two forms, new and traditional.
+The new-form headers are:</P>
+
+<P><CODE><A HREF="cassert.html">&lt;cassert&gt;</A></CODE>
+-- for enforcing assertions when functions execute<BR>
+<CODE><A HREF="cctype.html">&lt;cctype&gt;</A></CODE>
+-- for classifying characters<BR>
+<CODE><A HREF="cerrno.html">&lt;cerrno&gt;</A></CODE>
+-- for testing error codes reported by library functions<BR>
+<CODE><A HREF="cfloat.html">&lt;cfloat&gt;</A></CODE>
+-- for testing floating-point type properties<BR>
+<CODE><A HREF="climits.html">&lt;climits&gt;</A></CODE>
+-- for testing integer type properties<BR>
+<CODE><A HREF="clocale.html">&lt;clocale&gt;</A></CODE>
+-- for adapting to different cultural conventions<BR>
+<CODE><A HREF="cmath.html">&lt;cmath&gt;</A></CODE>
+-- for computing common mathematical functions<BR>
+<CODE><A HREF="csetjmp.html">&lt;csetjmp&gt;</A></CODE>
+-- for executing nonlocal <I>goto</I> statements<BR>
+<CODE><A HREF="csignal.html">&lt;csignal&gt;</A></CODE>
+-- for controlling various exceptional conditions<BR>
+<CODE><A HREF="cstdarg.html">&lt;cstdarg&gt;</A></CODE>
+-- for accessing a varying number of arguments<BR>
+<CODE><A HREF="cstddef.html">&lt;cstddef&gt;</A></CODE>
+-- for defining several useful types and macros<BR>
+<CODE><A HREF="cstdio.html">&lt;cstdio&gt;</A></CODE>
+-- for performing input and output<BR>
+<CODE><A HREF="cstdlib.html">&lt;cstdlib&gt;</A></CODE>
+-- for performing a variety of operations<BR>
+<CODE><A HREF="cstring.html">&lt;cstring&gt;</A></CODE>
+-- for manipulating several kinds of strings<BR>
+<CODE><A HREF="ctime.html">&lt;ctime&gt;</A></CODE>
+-- for converting between various time and date formats</P>
+
+<P>The traditional Standard C library headers are:</P>
+
+<P><CODE><A HREF="assert.html">&lt;assert.h&gt;</A></CODE>
+-- for enforcing assertions when functions execute<BR>
+<CODE><A HREF="ctype.html">&lt;ctype.h&gt;</A></CODE>
+-- for classifying characters<BR>
+<CODE><A HREF="errno.html">&lt;errno.h&gt;</A></CODE>
+-- for testing error codes reported by library functions<BR>
+<CODE><A HREF="float.html">&lt;float.h&gt;</A></CODE>
+-- for testing floating-point type properties<BR>
+<CODE><A HREF="limits.html">&lt;limits.h&gt;</A></CODE>
+-- for testing integer type properties<BR>
+<CODE><A HREF="locale.html">&lt;locale.h&gt;</A></CODE>
+-- for adapting to different cultural conventions<BR>
+<CODE><A HREF="math.html">&lt;math.h&gt;</A></CODE>
+-- for computing common mathematical functions<BR>
+<CODE><A HREF="setjmp.html">&lt;setjmp.h&gt;</A></CODE>
+-- for executing nonlocal <I>goto</I> statements<BR>
+<CODE><A HREF="signal.html">&lt;signal.h&gt;</A></CODE>
+-- for controlling various exceptional conditions<BR>
+<CODE><A HREF="stdarg.html">&lt;stdarg.h&gt;</A></CODE>
+-- for accessing a varying number of arguments<BR>
+<CODE><A HREF="stddef.html">&lt;stddef.h&gt;</A></CODE>
+-- for defining several useful types and macros<BR>
+<CODE><A HREF="stdio.html">&lt;stdio.h&gt;</A></CODE>
+-- for performing input and output<BR>
+<CODE><A HREF="stdlib.html">&lt;stdlib.h&gt;</A></CODE>
+-- for performing a variety of operations<BR>
+<CODE><A HREF="string.html">&lt;string.h&gt;</A></CODE>
+-- for manipulating several kinds of strings<BR>
+<CODE><A HREF="time.html">&lt;time.h&gt;</A></CODE>
+-- for converting between various time and date formats</P>
+
+<P>Finally, in this
+<A HREF="index.html#implementation">implementation</A>,
+the Embedded C++ library also includes several headers
+for compatibility with traditional C++ libraries:</P>
+
+<P><CODE><A HREF="fstream2.html">&lt;fstream.h&gt;</A></CODE>
+-- for defining several iostreams template classes that manipulate
+exteral files<BR>
+<CODE><A HREF="iomanip2.html">&lt;iomanip.h&gt;</A></CODE>
+-- for declaring several iostreams manipulators that take an argument<BR>
+<CODE><A HREF="iostrea2.html">&lt;iostream.h&gt;</A></CODE>
+-- for declaring the iostreams objects that manipulate the
+standard streams<BR>
+<CODE><A HREF="new2.html">&lt;new.h&gt;</A></CODE>
+-- for declaring several functions that allocate and free storage</P>
+
+<P>Other information on the Embedded C++ library includes:</P>
+
+<P><B><A HREF="lib_cpp.html">C++ Library Overview</A></B> --
+how to use the Embedded C++ library, including alternative
+mechanisms for <A HREF="lib_cpp.html#Exceptions">handling exceptions</A>
+<BR>
+<B><A HREF="lib_over.html">C Library Overview</A></B> --
+how to use the Standard C library, including what happens at
+<A HREF="lib_over.html#program startup">program startup</A> and at
+<A HREF="lib_over.html#program termination">program termination</A>
+<BR>
+<B><A HREF="charset.html">Characters</A></B> --
+how to write
+<A HREF="charset.html#character constant">character constants</A> and
+<A HREF="charset.html#string literal">string literals</A>
+<BR>
+<B><A HREF="lib_file.html">Files and Streams</A></B> -- 
+how to read and write data between the program and
+<A HREF="lib_file.html#files">files</A>
+<BR>
+<B><A HREF="lib_prin.html">Formatted Output</A></B> -- 
+how to generate text under control of a
+<A HREF="lib_prin.html#format string">format string</A>
+<BR><B><A HREF="lib_scan.html">Formatted Input</A></B> -- 
+how to scan and parse text under control of a
+<A HREF="lib_prin.html#format string">format string</A>
+</P>
+
+<P>A few special conventions are introduced into this document
+specifically for this particular
+<B><A NAME="implementation">implementation</A></B> of the Embedded
+C++ library. Because the
+<A HREF="crit_pjp.html#C++ Standard">C++ Standard</A>
+is still relatively new, not all implementations support all the features
+described here. Hence, this implementation introduces macros,
+or alternative declarations, where necessary to provide reasonable
+substitutes for the capabilities required by the C++ Standard.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1992-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

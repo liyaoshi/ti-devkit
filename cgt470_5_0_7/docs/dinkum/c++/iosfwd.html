@@ -1,0 +1,117 @@
+<HTML><HEAD><TITLE>&lt;iosfwd&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;iosfwd&gt;"><CODE>&lt;iosfwd&gt;</CODE></A></H1><HR>
+
+<P>Include the <A HREF="lib_cpp.html#iostreams">iostreams</A>
+standard header <B><CODE>&lt;iosfwd&gt;</CODE></B>
+to declare forward references to several template classes used
+throughout iostreams. All such template classes are defined in other
+standard headers. You include this header explicitly only when
+you need one of the above declarations, but not its definition.</P>
+
+<PRE>namespace std {
+typedef T1 <B><A HREF="ios.html#streamoff">streamoff</A></B>;
+typedef T2 <B><A HREF="ios.html#streamsize">streamsize</A></B>;
+typedef fpos <B><A HREF="ios.html#streampos">streampos</A></B>;
+
+       // TEMPLATE CLASSES
+template&lt;class Elem&gt;
+    class <B><A HREF="string2.html#char_traits">char_traits</A></B>;
+class <B><A HREF="string2.html#char_traits&lt;char&gt;">char_traits&lt;char&gt;</A></B>;
+class <B><A HREF="string2.html#char_traits&lt;wchar_t&gt;">char_traits&lt;wchar_t&gt;</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="ios.html#basic_ios">basic_ios</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="iterator.html#istreambuf_iterator">istreambuf_iterator</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="iterator.html#ostreambuf_iterator">ostreambuf_iterator</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="streambu.html#basic_streambuf">basic_streambuf</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="istream.html#basic_istream">basic_istream</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="ostream.html#basic_ostream">basic_ostream</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="istream.html#basic_iostream">basic_iostream</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="sstream.html#basic_stringbuf">basic_stringbuf</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="sstream.html#basic_istringstream">basic_istringstream</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="sstream.html#basic_ostringstream">basic_ostringstream</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="sstream.html#basic_stringstream">basic_stringstream</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="fstream.html#basic_filebuf">basic_filebuf</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="fstream.html#basic_ifstream">basic_ifstream</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="fstream.html#basic_ofstream">basic_ofstream</A></B>;
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="fstream.html#basic_fstream">basic_fstream</A></B>;
+
+        // char TYPE DEFINITIONS
+typedef basic_ios&lt;char, char_traits&lt;char&gt; &gt; <B><A HREF="ios.html#ios">ios</A></B>;
+typedef basic_streambuf&lt;char, char_traits&lt;char&gt; &gt;
+    <B><A HREF="streambu.html#streambuf">streambuf</A></B>;
+typedef basic_istream&lt;char, char_traits&lt;char&gt; &gt;
+    <B><A HREF="istream.html#istream">istream</A></B>;
+typedef basic_ostream&lt;char, char_traits&lt;char&gt; &gt;
+    <B><A HREF="ostream.html#ostream">ostream</A></B>;
+typedef basic_iostream&lt;char, char_traits&lt;char&gt; &gt;
+    <B><A HREF="istream.html#iostream">iostream</A></B>;
+typedef basic_stringbuf&lt;char, char_traits&lt;char&gt; &gt;
+    <B><A HREF="sstream.html#stringbuf">stringbuf</A></B>;
+typedef basic_istringstream&lt;char, char_traits&lt;char&gt; &gt;
+    <B><A HREF="sstream.html#istringstream">istringstream</A></B>;
+typedef basic_ostringstream&lt;char, char_traits&lt;char&gt; &gt;
+    <B><A HREF="sstream.html#ostringstream">ostringstream</A></B>;
+typedef basic_stringstream&lt;char, char_traits&lt;char&gt; &gt;
+    <B><A HREF="sstream.html#stringstream">stringstream</A></B>;
+typedef basic_filebuf&lt;char, char_traits&lt;char&gt; &gt;
+    <B><A HREF="fstream.html#filebuf">filebuf</A></B>;
+typedef basic_ifstream&lt;char, char_traits&lt;char&gt; &gt;
+    <B><A HREF="fstream.html#ifstream">ifstream</A></B>;
+typedef basic_ofstream&lt;char, char_traits&lt;char&gt; &gt;
+    <B><A HREF="fstream.html#ofstream">ofstream</A></B>;
+typedef basic_fstream&lt;char, char_traits&lt;char&gt; &gt;
+    <B><A HREF="fstream.html#fstream">fstream</A></B>;
+
+        // wchar_t TYPE DEFINITIONS
+typedef basic_ios&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt; <B><A HREF="ios.html#wios">wios</A></B>;
+typedef basic_streambuf&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <B><A HREF="streambu.html#wstreambuf">wstreambuf</A></B>;
+typedef basic_istream&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <B><A HREF="istream.html#wistream">wistream</A></B>;
+typedef basic_ostream&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <B><A HREF="ostream.html#wostream">wostream</A></B>;
+typedef basic_iostream&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <B><A HREF="istream.html#wiostream">wiostream</A></B>;
+typedef basic_stringbuf&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <B><A HREF="sstream.html#wstringbuf">wstringbuf</A></B>;
+typedef basic_istringstream&lt;wchar_t,
+    char_traits&lt;wchar_t&gt; &gt; <B><A HREF="sstream.html#wistringstream">wistringstream</A></B>;
+typedef basic_ostringstream&lt;wchar_t,
+    char_traits&lt;wchar_t&gt; &gt; <B><A HREF="sstream.html#wostringstream">wostringstream</A></B>;
+typedef basic_stringstream&lt;wchar_t,
+    char_traits&lt;wchar_t&gt; &gt; <B><A HREF="sstream.html#wstringstream">wstringstream</A></B>;
+typedef basic_filebuf&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <B><A HREF="fstream.html#wfilebuf">wfilebuf</A></B>;
+typedef basic_ifstream&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <B><A HREF="fstream.html#wifstream">wifstream</A></B>;
+typedef basic_ofstream&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <B><A HREF="fstream.html#wofstream">wofstream</A></B>;
+typedef basic_fstream&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <B><A HREF="fstream.html#wfstream">wfstream</A></B>;
+    };</PRE>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1992-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

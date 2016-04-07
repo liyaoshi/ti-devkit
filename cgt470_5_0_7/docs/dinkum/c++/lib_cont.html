@@ -1,0 +1,536 @@
+<HTML><HEAD><TITLE>Container</TITLE></HEAD><BODY>
+
+<H1><A NAME="Containers">Containers</A></H1><HR>
+
+<P>A <B><A HREF="#Containers">container</A></B> is an
+<A HREF="index.html#STL">STL</A> template class
+that manages a sequence of elements.
+Such elements can be of any object type that supplies
+a copy constructor, a destructor, and an assignment operator
+(all with sensible behavior, of course).
+The destructor may not throw an exception.
+This document describes the properties required of all such
+containers, in terms of a generic template class <CODE>Container</CODE>.
+An actual container template class may have additional template parameters.
+It will certainly have additional member functions.</P>
+
+<P>The STL template container classes are:</P>
+
+<PRE>    <A HREF="deque.html#deque">deque</A>
+    <A HREF="hash_map.html#hash_map">hash_map</A>
+    <A HREF="hash_map.html#hash_multimap">hash_multimap</A>
+    <A HREF="hash_set.html#hash_multiset">hash_multiset</A>
+    <A HREF="hash_set.html#hash_set">hash_set</A>
+    <A HREF="list.html#list">list</A>
+    <A HREF="map.html#map">map</A>
+    <A HREF="map.html#multimap">multimap</A>
+    <A HREF="set.html#multiset">multiset</A>
+    <A HREF="set.html#set">set</A>
+    <A HREF="slist.html#slist">slist</A>
+    <A HREF="vector.html#vector">vector</A></PRE>
+
+<P>The four hash containers and <CODE>slist</CODE>
+are not required by the C++ Standard.
+The Standard C++ library template class <CODE>basic_string</CODE> also
+meets the requirements for a template container class.</P>
+
+<PRE>namespace std {
+template&lt;class Ty&gt;
+    class <B><A HREF="#Container">Container</A></B>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Ty&gt;
+    bool <B><A HREF="#operator==">operator==</A></B>(
+        const Container&lt;Ty&gt;&amp; left,
+        const Container&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    bool <B><A HREF="#operator!=">operator!=</A></B>(
+        const Container&lt;Ty&gt;&amp; left,
+        const Container&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    bool <B><A HREF="#operator&lt;">operator&lt;</A></B>(
+        const Container&lt;Ty&gt;&amp; left,
+        const Container&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    bool <B><A HREF="#operator&gt;">operator&gt;</A></B>(
+        const Container&lt;Ty&gt;&amp; left,
+        const Container&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    bool <B><A HREF="#operator&lt;=">operator&lt;=</A></B>(
+        const Container&lt;Ty&gt;&amp; left,
+        const Container&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    bool <B><A HREF="#operator&gt;=">operator&gt;=</A></B>(
+        const Container&lt;Ty&gt;&amp; left,
+        const Container&lt;Ty&gt;&amp; right);
+template&lt;class Ty&gt;
+    void <B><A HREF="#swap">swap</A></B>(
+        Container&lt;Ty&gt;&amp; left,
+        Container&lt;Ty&gt;&amp; right);
+    };</PRE>
+
+<H2><A NAME="Container"><CODE>Container</CODE></A></H2>
+
+<HR>
+<P><B><CODE><A HREF="#Container::begin">begin</A>
+&#183; <A HREF="#Container::clear">clear</A>
+&#183; <A HREF="#Container::const_iterator">const_iterator</A>
+&#183; <A HREF="#Container::const_reference">const_reference</A>
+&#183; <A HREF="#Container::const_reverse_iterator">const_reverse_iterator</A>
+&#183; <A HREF="#Container::difference_type">difference_type</A>
+&#183; <A HREF="#Container::empty">empty</A>
+&#183; <A HREF="#Container::end">end</A>
+&#183; <A HREF="#Container::erase">erase</A>
+&#183; <A HREF="#Container::iterator">iterator</A>
+&#183; <A HREF="#Container::max_size">max_size</A>
+&#183; <A HREF="#Container::rbegin">rbegin</A>
+&#183; <A HREF="#Container::reference">reference</A>
+&#183; <A HREF="#Container::rend">rend</A>
+&#183; <A HREF="#Container::reverse_iterator">reverse_iterator</A>
+&#183; <A HREF="#Container::size">size</A>
+&#183; <A HREF="#Container::size_type">size_type</A>
+&#183; <A HREF="#Container::swap">swap</A>
+&#183; <A HREF="#Container::value_type">value_type</A>
+</CODE></B></P>
+<HR>
+
+<PRE>template&lt;class Ty&gt;
+    class <B>Container</B> {
+public:
+    typedef T0 <B><A HREF="#Container::size_type">size_type</A></B>;
+    typedef T1 <B><A HREF="#Container::difference_type">difference_type</A></B>;
+    typedef T2 <B><A HREF="#Container::reference">reference</A></B>;
+    typedef T3 <B><A HREF="#Container::const_reference">const_reference</A></B>;
+    typedef T4 <B><A HREF="#Container::value_type">value_type</A></B>;
+    typedef T5 <B><A HREF="#Container::iterator">iterator</A></B>;
+    typedef T6 <B><A HREF="#Container::const_iterator">const_iterator</A></B>;
+    typedef T7 <B><A HREF="#Container::reverse_iterator">reverse_iterator</A></B>;
+    typedef T8 <B><A HREF="#Container::const_reverse_iterator">const_reverse_iterator</A></B>;
+    iterator <B><A HREF="#Container::begin">begin</A></B>();
+    const_iterator <B><A HREF="#Container::begin">begin</A></B>() const;
+    iterator <B><A HREF="#Container::end">end</A></B>();
+    const_iterator <B><A HREF="#Container::end">end</A></B>() const;
+    reverse_iterator <B><A HREF="#Container::rbegin">rbegin</A></B>();
+    const_reverse_iterator <B><A HREF="#Container::rbegin">rbegin</A></B>() const;
+    reverse_iterator <B><A HREF="#Container::rend">rend</A></B>();
+    const_reverse_iterator <B><A HREF="#Container::rend">rend</A></B>() const;
+    size_type <B><A HREF="#Container::size">size</A></B>() const;
+    size_type <B><A HREF="#Container::max_size">max_size</A></B>() const;
+    bool <B><A HREF="#Container::empty">empty</A></B>() const;
+    iterator <B><A HREF="#Container::erase">erase</A></B>(iterator where);
+    iterator <B><A HREF="#Container::erase">erase</A></B>(iterator first, iterator last);
+    void <B><A HREF="#Container::clear">clear</A></B>();
+    void <B><A HREF="#Container::swap">swap</A></B>(Container&amp; right);
+    };</PRE>
+
+<P>The template class describes an object that controls a
+varying-length sequence of elements,
+typically of type <CODE>Ty</CODE>.
+The sequence is stored in different ways, depending on the
+actual container.</P>
+
+<P>A container constructor or member function may find occasion
+to call the constructor <CODE>Ty(const Ty&amp;)</CODE> or the function
+<CODE>Ty::operator=(const Ty&amp;)</CODE>. If such a call throws
+an exception, the container object is obliged to maintain its integrity,
+and to rethrow any exception it catches. You can safely swap, assign to,
+erase, or destroy a container object
+after it throws one of these exceptions.
+In general, however, you cannot otherwise predict the state of the
+sequence controlled by the container object.</P>
+
+<P>A few additional caveats:</P>
+
+<UL>
+<LI>If the expression <CODE>~Ty()</CODE> throws an exception, the
+resulting state of the container object is undefined.</LI>
+
+<LI>If the container stores an allocator object <CODE>al</CODE>,
+and <CODE>al</CODE> throws an exception
+other than as a result of a call to <CODE>al.allocate</CODE>,
+the resulting state of the container object is undefined.</LI>
+
+<LI>If the container stores a function object <CODE>comp</CODE>,
+to determine how to order the controlled sequence, and <CODE>comp</CODE>
+throws an exception of any kind, the resulting state of the container
+object is undefined.</LI>
+</UL>
+
+<P>The container classes defined by STL satisfy several additional
+requirements, as described in the following paragraphs.</P>
+
+<P>Container template class
+<CODE><A HREF="list.html">list</A></CODE> provides deterministic,
+and useful, behavior even in the presence of the exceptions
+described above. For example, if an exception is thrown during the
+insertion of one or more elements, the container is left unaltered
+and the exception is rethrown.</P>
+
+<P>For <I>all</I> the container classes defined by STL,
+if an exception is thrown during calls to the following member
+functions:</P>
+
+<PRE><B><A NAME="Container::insert">insert</A></B> // single element inserted at end
+<B><A NAME="Container::push_back">push_back</A></B>
+<B><A NAME="Container::push_front">push_front</A></B></PRE>
+
+<P>the container is left unaltered and the exception is rethrown.</P>
+
+<P>For <I>all</I> the container classes defined by STL,
+no exception is thrown during calls to the following member
+functions:</P>
+
+<PRE><B><A NAME="Container::pop_back">pop_back</A></B>
+<B><A NAME="Container::pop_front">pop_front</A></B></PRE>
+
+<P>The member function <CODE><A HREF="#Container::erase">erase</A></CODE>
+throws an exception only if a
+<B><A NAME="copy operation">copy operation</A></B>
+(assignment or copy construction) throws an exception.</P>
+
+<P>Moreover, no exception is thrown while copying an iterator returned by a
+member function.</P>
+
+<P>The member function <CODE><A HREF="#Container::swap">swap</A></CODE>
+makes additional promises for <I>all</I> container classes defined by STL:</P>
+
+<UL>
+<LI>The member function throws an exception only if the container stores
+an allocator object <CODE>al</CODE>,
+and <CODE>al</CODE> throws an exception when copied,
+or if the container stores a function object <CODE>comp</CODE>,
+to determine how to order the controlled sequence, and <CODE>comp</CODE>
+throws an exception when copied.</LI>
+
+<LI>References, pointers, and iterators that designate elements of
+the controlled sequences being swapped remain valid.</LI>
+</UL>
+
+<P>An object of a container class defined by STL
+allocates and frees storage for the sequence it controls
+through a stored object of type <CODE>Alloc</CODE>,
+which is typically a template parameter. Such an
+<A HREF="memory.html#allocator object">allocator object</A> must have
+the same external interface as an object of class
+<A HREF="memory.html#allocator"><CODE>allocator</CODE>&lt;Ty&gt;</A>.
+In particular, <CODE>Alloc</CODE> must be the same type as
+<CODE>Alloc::rebind&lt;value_type&gt;::other</CODE></P>
+
+<P>For <I>all</I> container classes defined by STL, the member function:</P>
+
+<PRE>Alloc <B><A NAME="Container::get_allocator">get_allocator</A></B>() const;</PRE>
+
+<P>returns a copy of the stored allocator object.
+Note that the stored allocator object is <I>not</I> copied when the container
+object is assigned. All constructors initialize the value stored
+in <CODE>allocator</CODE>, to <CODE>Alloc()</CODE> if the constructor contains
+no allocator parameter.</P>
+
+<P>According to the
+<A HREF="crit_pjp.html#C++ Standard">C++ Standard</A>
+a container class defined by STL can assume that:</P>
+
+<UL>
+<LI>All objects of class <CODE>Alloc</CODE> compare equal.</LI>
+
+<LI>Type <CODE>Alloc::const_pointer</CODE> is the same as
+<CODE>const Ty *</CODE>.</LI>
+
+<LI>Type <CODE>Alloc::const_reference</CODE> is the same as
+<CODE>const Ty&amp;</CODE>.</LI>
+
+<LI>Type <CODE>Alloc::pointer</CODE> is the same as
+<CODE>Ty *</CODE>.</LI>
+
+<LI>Type <CODE>Alloc::reference</CODE> is the same as
+<CODE>Ty&amp;</CODE>.</LI>
+</UL>
+
+<P>In this
+<A HREF="index.html#implementation">implementation</A>, however,
+containers do <I>not</I> make such simplifying assumptions.
+Thus, they work properly with allocator objects that are
+more ambitious:</P>
+
+<UL>
+<LI>All objects of class <CODE>Alloc</CODE> need not compare equal.
+(You can maintain multiple pools of storage.)</LI>
+
+<LI>Type <CODE>Alloc::const_pointer</CODE> need not be the same as
+<CODE>const Ty *</CODE>.
+(A const pointer can be a class.)</LI>
+
+<LI>Type <CODE>Alloc::pointer</CODE> need not be the same as
+<CODE>Ty *</CODE>.
+(A pointer can be a class.)</LI>
+</UL>
+
+<H3><CODE><A NAME="Container::begin">Container::begin</A></CODE></H3>
+
+<PRE>const_iterator <B>begin</B>() const;
+iterator <B>begin</B>();</PRE>
+
+<P>The member function returns an iterator that points at
+the first element of the sequence (or just beyond the end of an empty
+sequence).</P>
+
+<H3><CODE><A NAME="Container::clear">Container::clear</A></CODE></H3>
+
+<PRE>void <B>clear</B>();</PRE>
+
+<P>The member function calls
+<CODE><A HREF="#Container::erase">erase</A>(
+<A HREF="#Container::begin">begin</A>(),
+<A HREF="#Container::end">end</A>())</CODE>.</P>
+
+<H3><CODE><A NAME="Container::const_iterator">Container::const_iterator</A></CODE></H3>
+
+<PRE>typedef T6 <B>const_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant
+iterator for the controlled sequence.
+It is described here as a
+synonym for the unspecified type <CODE>T6</CODE>.</P>
+
+<H3><CODE><A NAME="Container::const_reference">Container::const_reference</A></CODE></H3>
+
+<PRE>typedef T3 <B>const_reference</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant reference
+to an element of the controlled sequence. It is described here as a
+synonym for the unspecified type <CODE>T3</CODE>
+(typically <CODE>Alloc::const_reference</CODE>).</P>
+
+<H3><CODE><A NAME="Container::const_reverse_iterator">Container::const_reverse_iterator</A></CODE></H3>
+
+<PRE>typedef T8 <B>const_reverse_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant reverse
+iterator for the controlled sequence. It is described here as a
+synonym for the unspecified type <CODE>T8</CODE> (typically
+<CODE><A HREF="iterator.html#reverse_iterator">reverse_iterator</A>
+&lt;<A HREF="#Container::const_iterator">const_iterator</A>&gt;</CODE>).</P>
+
+<H3><CODE><A NAME="Container::difference_type">Container::difference_type</A></CODE></H3>
+
+<PRE>typedef T1 <B>difference_type</B>;</PRE>
+
+<P>The signed integer type describes an object that can represent the
+difference between the addresses of any two elements in the controlled
+sequence. It is described here as a
+synonym for the unspecified type <CODE>T1</CODE>
+(typically <CODE>Alloc::difference_type</CODE>).</P>
+
+<H3><CODE><A NAME="Container::empty">Container::empty</A></CODE></H3>
+
+<PRE>bool <B>empty</B>() const;</PRE>
+
+<P>The member function returns true for an empty controlled sequence.</P>
+
+<H3><CODE><A NAME="Container::end">Container::end</A></CODE></H3>
+
+<PRE>const_iterator <B>end</B>() const;
+iterator <B>end</B>();</PRE>
+
+<P>The member function returns an iterator that points
+just beyond the end of the sequence.</P>
+
+<H3><CODE><A NAME="Container::erase">Container::erase</A></CODE></H3>
+
+<PRE>iterator <B>erase</B>(iterator where);
+iterator <B>erase</B>(iterator first, iterator last);</PRE>
+
+<P>The first member function removes the element of the controlled
+sequence pointed to by <CODE>where</CODE>. The second member function
+removes the elements of the controlled sequence
+in the range <CODE>[first, last)</CODE>.
+Both return an iterator that designates the first element remaining
+beyond any elements removed, or
+<CODE><A HREF="#Container::end">end</A>()</CODE> if no such element exists.</P>
+
+<P>The member functions throw an exception only if a copy operation
+throws an exception.</P>
+
+<H3><CODE><A NAME="Container::iterator">Container::iterator</A></CODE></H3>
+
+<PRE>typedef T5 <B>iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as an
+iterator for the controlled sequence.
+It is described here as a
+synonym for the unspecified type <CODE>T5</CODE>.
+An object of type <CODE>iterator</CODE> can be cast
+to an object of type
+<CODE><A HREF="#Container::const_iterator">const_iterator</A></CODE>.</P>
+
+<H3><CODE><A NAME="Container::max_size">Container::max_size</A></CODE></H3>
+
+<PRE>size_type <B>max_size</B>() const;</PRE>
+
+<P>The member function returns the length of the longest sequence that
+the object can control, in constant time regardless of the length of the
+controlled sequence.</P>
+
+<H3><CODE><A NAME="Container::rbegin">Container::rbegin</A></CODE></H3>
+
+<PRE>const_reverse_iterator <B>rbegin</B>() const;
+reverse_iterator <B>rbegin</B>();</PRE>
+
+<P>The member function returns a reverse iterator that designates the
+last element of the controlled sequence. Hence, it designates the
+beginning of the reverse sequence.</P>
+
+<H3><CODE><A NAME="Container::reference">Container::reference</A></CODE></H3>
+
+<PRE>typedef T2 <B>reference</B>;</PRE>
+
+<P>The type describes an object that can serve as a reference to an
+element of the controlled sequence. It is described here as a
+synonym for the unspecified type <CODE>T2</CODE>
+(typically <CODE>Alloc::reference</CODE>).
+An object of type <CODE>reference</CODE> can be cast
+to an object of type
+<CODE><A HREF="#Container::const_reference">const_reference</A></CODE>.</P>
+
+<H3><CODE><A NAME="Container::rend">Container::rend</A></CODE></H3>
+
+<PRE>const_reverse_iterator <B>rend</B>() const;
+reverse_iterator <B>rend</B>();</PRE>
+
+<P>The member function returns a reverse iterator that designates the
+(fictitious) element before the first element of the controlled
+sequence. Hence, it points just beyond the end of the reverse sequence.</P>
+
+<H3><CODE><A NAME="Container::reverse_iterator">Container::reverse_iterator</A></CODE></H3>
+
+<PRE>typedef T7 <B>reverse_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a reverse iterator
+for the controlled sequence. It is described here as a
+synonym for the unspecified type <CODE>T7</CODE> (typically
+<CODE><A HREF="iterator.html#reverse_iterator">reverse_iterator</A>
+&lt;<A HREF="#Container::iterator">iterator</A>&gt;</CODE>).</P>
+
+<H3><CODE><A NAME="Container::size">Container::size</A></CODE></H3>
+
+<PRE>size_type <B>size</B>() const;</PRE>
+
+<P>The member function returns the length of the controlled sequence,
+in constant time regardless of the length of the controlled sequence.</P>
+
+<H3><CODE><A NAME="Container::size_type">Container::size_type</A></CODE></H3>
+
+<PRE>typedef T0 <B>size_type</B>;</PRE>
+
+<P>The unsigned integer type describes an object that can represent the
+length of any controlled sequence. It is described here as a
+synonym for the unspecified type <CODE>T0</CODE>
+(typically <CODE>Alloc::size_type</CODE>).</P>
+
+<H3><CODE><A NAME="Container::swap">Container::swap</A></CODE></H3>
+
+<PRE>void <B>swap</B>(Container&amp; right);</PRE>
+
+<P>The member function swaps the controlled sequences between
+<CODE>*this</CODE> and <CODE>right</CODE>. If
+<CODE><A NAME="Container::get_allocator">get_allocator</A>()
+== right.get_allocator()</CODE>, it does so in constant time. Otherwise,
+it performs a number of element assignments and constructor calls
+proportional to the number of elements in the two controlled sequences.</P>
+
+<H3><CODE><A NAME="Container::value_type">Container::value_type</A></CODE></H3>
+
+<PRE>typedef T4 <B>value_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Ty</CODE>.
+It is described here as a
+synonym for the unspecified type <CODE>T4</CODE>
+(typically <CODE>Alloc::value_type</CODE>).</P>
+
+<H2><A NAME="operator!="><CODE>operator!=</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    bool <B>operator!=</B>(
+        const Container &lt;Ty&gt;&amp; left,
+        const Container &lt;Ty&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(left == right)</CODE>.</P>
+
+<H2><A NAME="operator=="><CODE>operator==</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    bool <B>operator==</B>(
+        const Container &lt;Ty&gt;&amp; left,
+        const Container &lt;Ty&gt;&amp; right);</PRE>
+
+<P>The template function overloads <CODE>operator==</CODE> to compare
+two objects of template class
+<A HREF="#Container"><CODE>Container</CODE></A>. The function returns
+<CODE>left.<A HREF="#Container::size">size</A>() == right.size() &amp;&amp;
+<A HREF="algorith.html#equal">equal</A>(left.
+<A HREF="#Container::begin">begin</A>(), left.
+<A HREF="#Container::end">end</A>(), right.begin())</CODE>.</P>
+
+<H2><A NAME="operator&lt;"><CODE>operator&lt;</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    bool <B>operator&lt;</B>(
+        const Container &lt;Ty&gt;&amp; left,
+        const Container &lt;Ty&gt;&amp; right);</PRE>
+
+<P>The template function overloads <CODE>operator&lt;</CODE> to compare
+two objects of template class
+<A HREF="#Container"><CODE>Container</CODE></A>. The function returns
+<CODE><A HREF="algorith.html#lexicographical_compare">lexicographical_compare</A>(left.
+<A HREF="#Container::begin">begin</A>(), left.
+<A HREF="#Container::end">end</A>(), right.begin(), right.end())</CODE>.</P>
+
+<H2><A NAME="operator&lt;="><CODE>operator&lt;=</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    bool <B>operator&lt;=</B>(
+        const Container &lt;Ty&gt;&amp; left,
+        const Container &lt;Ty&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(right &lt; left)</CODE>.</P>
+
+<H2><A NAME="operator&gt;"><CODE>operator&gt;</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    bool <B>operator&gt;</B>(
+        const Container &lt;Ty&gt;&amp; left,
+        const Container &lt;Ty&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>right &lt; left</CODE>.</P>
+
+<H2><A NAME="operator&gt;="><CODE>operator&gt;=</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    bool <B>operator&gt;=</B>(
+        const Container &lt;Ty&gt;&amp; left,
+        const Container &lt;Ty&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(left &lt; right)</CODE>.</P>
+
+<H2><A NAME="swap"><CODE>swap</CODE></A></H2>
+
+<PRE>template&lt;class Ty&gt;
+    void <B>swap</B>(
+        Container &lt;Ty&gt;&amp; left,
+        Container &lt;Ty&gt;&amp; right);</PRE>
+
+<P>The template function executes
+<CODE>left.<A HREF="#Container::swap">swap</A>(right)</CODE>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1994-2002
+by P.J. Plauger. Portions derived from work
+<A HREF="crit_hp.html">copyright</A> &#169; 1994
+by Hewlett-Packard Company. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

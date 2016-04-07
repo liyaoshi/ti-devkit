@@ -1,0 +1,800 @@
+<HTML><HEAD><TITLE>&lt;streambuf&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;streambuf&gt;"><CODE>&lt;streambuf&gt;</CODE></A></H1><HR>
+
+<P>Include the <A HREF="lib_cpp.html#iostreams">iostreams</A>
+standard header <B><CODE>&lt;streambuf&gt;</CODE></B> to define
+template
+class <CODE><A HREF="#basic_streambuf">basic_streambuf</A></CODE>,
+which is basic to the operation of the iostreams classes.
+(This header is typically included for you by another
+of the iostreams headers. You seldom have occasion to include it
+directly.)</P>
+
+<PRE>namespace std {
+template&lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B><A HREF="#basic_streambuf">basic_streambuf</A></B>;
+typedef basic_streambuf&lt;char, char_traits&lt;char&gt; &gt;
+    <B><A HREF="#streambuf">streambuf</A></B>;
+typedef basic_streambuf&lt;wchar_t,
+    char_traits&lt;wchar_t&gt; &gt; <B><A HREF="#wstreambuf">wstreambuf</A></B>;
+    };</PRE>
+
+<H2><A NAME="basic_streambuf"><CODE>basic_streambuf</CODE></A></H2>
+
+<HR>
+<P><B><CODE><A HREF="#basic_streambuf::basic_streambuf">basic_streambuf</A>
+&#183; <A HREF="#basic_streambuf::char_type">char_type</A>
+&#183; <A HREF="#basic_streambuf::eback">eback</A>
+&#183; <A HREF="#basic_streambuf::egptr">egptr</A>
+&#183; <A HREF="#basic_streambuf::epptr">epptr</A>
+&#183; <A HREF="#basic_streambuf::gbump">gbump</A>
+&#183; <A HREF="#basic_streambuf::getloc">getloc</A>
+&#183; <A HREF="#basic_streambuf::gptr">gptr</A>
+&#183; <A HREF="#basic_streambuf::imbue">imbue</A>
+&#183; <A HREF="#basic_streambuf::in_avail">in_avail</A>
+&#183; <A HREF="#basic_streambuf::int_type">int_type</A>
+&#183; <A HREF="#basic_streambuf::off_type">off_type</A>
+&#183; <A HREF="#basic_streambuf::overflow">overflow</A>
+&#183; <A HREF="#basic_streambuf::pbackfail">pbackfail</A>
+&#183; <A HREF="#basic_streambuf::pbase">pbase</A>
+&#183; <A HREF="#basic_streambuf::pbump">pbump</A>
+&#183; <A HREF="#basic_streambuf::pos_type">pos_type</A>
+&#183; <A HREF="#basic_streambuf::pptr">pptr</A>
+&#183; <A HREF="#basic_streambuf::pubimbue">pubimbue</A>
+&#183; <A HREF="#basic_streambuf::pubseekoff">pubseekoff</A>
+&#183; <A HREF="#basic_streambuf::pubseekpos">pubseekpos</A>
+&#183; <A HREF="#basic_streambuf::pubsetbuf">pubsetbuf</A>
+&#183; <A HREF="#basic_streambuf::pubsync">pubsync</A>
+&#183; <A HREF="#basic_streambuf::sbumpc">sbumpc</A>
+&#183; <A HREF="#basic_streambuf::seekoff">seekoff</A>
+&#183; <A HREF="#basic_streambuf::seekpos">seekpos</A>
+&#183; <A HREF="#basic_streambuf::setbuf">setbuf</A>
+&#183; <A HREF="#basic_streambuf::setg">setg</A>
+&#183; <A HREF="#basic_streambuf::setp">setp</A>
+&#183; <A HREF="#basic_streambuf::sgetc">sgetc</A>
+&#183; <A HREF="#basic_streambuf::sgetn">sgetn</A>
+&#183; <A HREF="#basic_streambuf::showmanyc">showmanyc</A>
+&#183; <A HREF="#basic_streambuf::snextc">snextc</A>
+&#183; <A HREF="#basic_streambuf::sputbackc">sputbackc</A>
+&#183; <A HREF="#basic_streambuf::sputc">sputc</A>
+&#183; <A HREF="#basic_streambuf::sputn">sputn</A>
+&#183; <A HREF="#basic_streambuf::stossc">stossc</A>
+&#183; <A HREF="#basic_streambuf::sungetc">sungetc</A>
+&#183; <A HREF="#basic_streambuf::sync">sync</A>
+&#183; <A HREF="#basic_streambuf::traits_type">traits_type</A>
+&#183; <A HREF="#basic_streambuf::uflow">uflow</A>
+&#183; <A HREF="#basic_streambuf::underflow">underflow</A>
+&#183; <A HREF="#basic_streambuf::xsgetn">xsgetn</A>
+&#183; <A HREF="#basic_streambuf::xsputn">xsputn</A>
+</CODE></B></P>
+<HR>
+
+<PRE>template &lt;class Elem, class Tr = char_traits&lt;Elem&gt; &gt;
+    class <B>basic_streambuf</B> {
+public:
+    typedef Elem <B><A HREF="#basic_streambuf::char_type">char_type</A></B>;
+    typedef Tr <B><A HREF="#basic_streambuf::traits_type">traits_type</A></B>;
+    typedef typename traits_type::int_type <B><A HREF="#basic_streambuf::int_type">int_type</A></B>;
+    typedef typename traits_type::pos_type <B><A HREF="#basic_streambuf::pos_type">pos_type</A></B>;
+    typedef typename traits_type::off_type <B><A HREF="#basic_streambuf::off_type">off_type</A></B>;
+    virtual <B>~streambuf</B>();
+    locale <B><A HREF="#basic_streambuf::pubimbue">pubimbue</A></B>(const locale&amp; loc);
+    locale <B><A HREF="#basic_streambuf::getloc">getloc</A></B>() const;
+    basic_streambuf *<B><A HREF="#basic_streambuf::pubsetbuf">pubsetbuf</A></B>(char_type *buffer,
+        streamsize count);
+    pos_type <B><A HREF="#basic_streambuf::pubseekoff">pubseekoff</A></B>(off_type off,
+        ios_base::seekdir way,
+        ios_base::openmode which =
+            ios_base::in | ios_base::out);
+    pos_type <B><A HREF="#basic_streambuf::pubseekpos">pubseekpos</A></B>(pos_type sp,
+        ios_base::openmode which =
+            ios_base::in | ios_base::out);
+    int <B><A HREF="#basic_streambuf::pubsync">pubsync</A></B>();
+    streamsize <B><A HREF="#basic_streambuf::in_avail">in_avail</A></B>();
+    int_type <B><A HREF="#basic_streambuf::snextc">snextc</A></B>();
+    int_type <B><A HREF="#basic_streambuf::sbumpc">sbumpc</A></B>();
+    int_type <B><A HREF="#basic_streambuf::sgetc">sgetc</A></B>();
+    void <B><A HREF="#basic_streambuf::stossc">stossc</A></B>(); <B>[optional]</B>
+    streamsize <B><A HREF="#basic_streambuf::sgetn">sgetn</A></B>(char_type *ptr, streamsize count);
+    int_type <B><A HREF="#basic_streambuf::sputbackc">sputbackc</A></B>(char_type ch);
+    int_type <B><A HREF="#basic_streambuf::sungetc">sungetc</A></B>();
+    int_type <B><A HREF="#basic_streambuf::sputc">sputc</A></B>(char_type ch);
+    streamsize <B><A HREF="#basic_streambuf::sputn">sputn</A></B>(const char_type *ptr, streamsize count);
+protected:
+    <B><A HREF="#basic_streambuf::basic_streambuf">basic_streambuf</A></B>();
+    char_type *<B><A HREF="#basic_streambuf::eback">eback</A></B>() const;
+    char_type *<B><A HREF="#basic_streambuf::gptr">gptr</A></B>() const;
+    char_type *<B><A HREF="#basic_streambuf::egptr">egptr</A></B>() const;
+    void <B><A HREF="#basic_streambuf::gbump">gbump</A></B>(int count);
+    void <B><A HREF="#basic_streambuf::setg">setg</A></B>(char_type *gbeg,
+        char_type *gnext, char_type *gend);
+    char_type *<B><A HREF="#basic_streambuf::pbase">pbase</A></B>() const;
+    char_type *<B><A HREF="#basic_streambuf::pptr">pptr</A></B>() const;
+    char_type *<B><A HREF="#basic_streambuf::epptr">epptr</A></B>() const;
+    void <B><A HREF="#basic_streambuf::pbump">pbump</A></B>(int count);
+    void <B><A HREF="#basic_streambuf::setp">setp</A></B>(char_type *pbeg, char_type *pend);
+    virtual void <B><A HREF="#basic_streambuf::imbue">imbue</A></B>(const locale &loc);
+    virtual basic_streambuf *<B><A HREF="#basic_streambuf::setbuf">setbuf</A></B>(char_type *buffer,
+        streamsize count);
+    virtual pos_type <B><A HREF="#basic_streambuf::seekoff">seekoff</A></B>(off_type off,
+        ios_base::seekdir way,
+        ios_base::openmode which =
+            ios_base::in | ios_base::out);
+    virtual pos_type <B><A HREF="#basic_streambuf::seekpos">seekpos</A></B>(pos_type sp,
+        ios_base::openmode which =
+            ios_base::in | ios_base::out);
+    virtual int <B><A HREF="#basic_streambuf::sync">sync</A></B>();
+    virtual streamsize <B><A HREF="#basic_streambuf::showmanyc">showmanyc</A></B>();
+    virtual streamsize <B><A HREF="#basic_streambuf::xsgetn">xsgetn</A></B>(char_type *ptr,
+        streamsize count);
+    virtual int_type <B><A HREF="#basic_streambuf::underflow">underflow</A></B>();
+    virtual int_type <B><A HREF="#basic_streambuf::uflow">uflow</A></B>();
+    virtual int_type <B><A HREF="#basic_streambuf::pbackfail">pbackfail</A></B>(int_type meta =
+        traits_type::eof());
+    virtual streamsize <B><A HREF="#basic_streambuf::xsputn">xsputn</A></B>(const char_type *ptr,
+        streamsize count);
+    virtual int_type <B><A HREF="#basic_streambuf::overflow">overflow</A></B>(int_type meta =
+        traits_type::eof());
+    };</PRE>
+
+<P>The template class describes an abstract base class for deriving a
+<B><A NAME="stream buffer">stream buffer</A></B>, which controls
+the transmission of elements to and from a specific
+representation of a stream. An object of class
+<CODE>basic_streambuf</CODE> helps control
+a stream with elements of type <CODE>Tr</CODE>, also known as
+<CODE><A HREF="#basic_streambuf::char_type">char_type</A></CODE>, whose
+<A HREF="string2.html#character traits">character traits</A>
+are determined by the class
+<CODE><A HREF="string2.html#char_traits">char_traits</A></CODE>,
+also known as
+<CODE><A HREF="#basic_streambuf::traits_type">traits_type</A></CODE>.</P>
+
+<P>Every stream buffer conceptually controls
+two independent streams, in fact, one for extractions (input) and one for
+insertions (output). A specific representation may, however, make
+either or both of these streams inaccessible. It typically maintains
+some relationship between the two streams.
+What you insert into the output stream of a
+<CODE><A HREF="sstream.html#basic_stringbuf">basic_stringbuf</A>&lt;Elem, Tr&gt;</CODE>
+object, for example, is what you later extract from its input stream.
+And when you position one stream of a
+<CODE><A HREF="fstream.html#basic_filebuf">basic_filebuf</A>&lt;Elem, Tr&gt;</CODE>
+object, you position the other stream in tandem.</P>
+
+<P>The public interface to template class
+<CODE><A HREF="#basic_streambuf">basic_streambuf</A></CODE>
+supplies the operations common to all stream buffers, however
+specialized. The protected interface supplies the operations
+needed for a specific representation of a stream
+to do its work. The protected virtual member functions let you
+tailor the behavior of a derived stream buffer for a specific
+representation of a stream. Each of the derived stream buffers
+in this library describes how it specializes the
+behavior of its protected virtual member functions. Documented
+here is the <B>default behavior</B> for the base class,
+which is often to do nothing.</P>
+
+<P>The remaining protected member
+functions control copying to and from any storage supplied to
+buffer transmissions to and from streams.
+An <B><A NAME="input buffer">input buffer</A></B>,
+for example, is characterized by:</P>
+
+<UL>
+<LI><CODE><A HREF="#basic_streambuf::eback">eback</A>()</CODE>,
+a pointer to the beginning of the buffer
+
+<LI><CODE><A HREF="#basic_streambuf::gptr">gptr</A>()</CODE>,
+a pointer to the next element to read
+
+<LI><CODE><A HREF="#basic_streambuf::egptr">egptr</A>()</CODE>,
+a pointer just past the end of the buffer
+</UL>
+
+<P>Similarly, an <B><A NAME="output buffer">output buffer</A></B>
+is characterized by:</P>
+
+<UL>
+<LI><CODE><A HREF="#basic_streambuf::pbase">pbase</A>()</CODE>,
+a pointer to the beginning of the buffer
+
+<LI><CODE><A HREF="#basic_streambuf::pptr">pptr</A>()</CODE>,
+a pointer to the next element to write
+
+<LI><CODE><A HREF="#basic_streambuf::epptr">epptr</A>()</CODE>,
+a pointer just past the end of the buffer
+</UL>
+
+<P>For any buffer, the protocol is:</P>
+
+<UL>
+<LI>If the next pointer is null, no buffer exists. Otherwise,
+all three pointers point into the same sequence. (They can
+be safely compared for order.)
+
+<LI>For an output buffer, if the next pointer compares less
+than the end pointer, you can store an element at the
+<B><A NAME="write position">write position</A></B>
+designated by the next pointer.
+
+<LI>For an input buffer, if the next pointer compares less
+than the end pointer, you can read an element at the
+<B><A NAME="read position">read position</A></B>
+designated by the next pointer.
+
+<LI>For an input buffer, if the beginning pointer compares less
+than the next pointer, you can put back an element at the
+<B><A NAME="putback position">putback position</A></B>
+designated by the decremented next pointer.
+</UL>
+
+<P>Any protected virtual member functions you write for a
+class derived from <CODE>basic_streambuf&lt;Elem, Tr&gt;</CODE>
+must cooperate in maintaining this protocol.</P>
+
+<P>An object of class <CODE>basic_streambuf&lt;Elem, Tr&gt;</CODE>
+stores the six pointers described above. It also stores a
+<B><A HREF="locale2.html#locale object">locale object</A></B>
+in an object of type
+<CODE><A HREF="locale2.html#locale">locale</A></CODE>
+for potential use by a derived stream buffer.</P>
+
+<H3><A NAME="basic_streambuf::basic_streambuf"><CODE>basic_streambuf::basic_streambuf</CODE></A></H3>
+
+<PRE><B>basic_streambuf</B>();</PRE>
+
+<P>The protected constructor stores a null pointer in all the pointers
+controlling the
+<A HREF="#input buffer">input buffer</A> and the
+<A HREF="#output buffer">output buffer</A>.
+It also stores
+<CODE>locale::<A HREF="locale2.html#locale::classic">classic</A>()</CODE>
+in the <A HREF="locale2.html#locale object">locale object</A>.</P>
+
+<H3><A NAME="basic_streambuf::char_type"><CODE>basic_streambuf::char_type</CODE></A></H3>
+
+<PRE>typedef Elem <B>char_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Elem</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::eback"><CODE>basic_streambuf::eback</CODE></A></H3>
+
+<PRE>char_type *<B>eback</B>() const;</PRE>
+
+<P>The member function returns a pointer to the beginning of the
+<A HREF="#input buffer">input buffer</A>.</P>
+
+<H3><A NAME="basic_streambuf::egptr"><CODE>basic_streambuf::egptr</CODE></A></H3>
+
+<PRE>char_type *<B>egptr</B>() const;</PRE>
+
+<P>The member function returns a pointer just past the end of the
+<A HREF="#input buffer">input buffer</A>.</P>
+
+<H3><A NAME="basic_streambuf::epptr"><CODE>basic_streambuf::epptr</CODE></A></H3>
+
+<PRE>char_type *<B>epptr</B>() const;</PRE>
+
+<P>The member function returns a pointer just past the end of the
+<A HREF="#output buffer">output buffer</A>.</P>
+
+<H3><A NAME="basic_streambuf::gbump"><CODE>basic_streambuf::gbump</CODE></A></H3>
+
+<PRE>void <B>gbump</B>(int count);</PRE>
+
+<P>The member function adds <CODE>count</CODE> to the next pointer for the
+<A HREF="#input buffer">input buffer</A>.</P>
+
+<H3><A NAME="basic_streambuf::getloc"><CODE>basic_streambuf::getloc</CODE></A></H3>
+
+<PRE>locale <B>getloc</B>() const;</PRE>
+
+<P>The member function returns the stored locale object.</P>
+
+<H3><A NAME="basic_streambuf::gptr"><CODE>basic_streambuf::gptr</CODE></A></H3>
+
+<PRE>char_type *<B>gptr</B>() const;</PRE>
+
+<P>The member function returns a pointer to the next element of the
+<A HREF="#input buffer">input buffer</A>.</P>
+
+<H3><A NAME="basic_streambuf::imbue"><CODE>basic_streambuf::imbue</CODE></A></H3>
+
+<PRE>virtual void <B>imbue</B>(const locale &loc);</PRE>
+
+<P>The default behavior is to do nothing.</P>
+
+<H3><A NAME="basic_streambuf::in_avail"><CODE>basic_streambuf::in_avail</CODE></A></H3>
+
+<PRE>streamsize <B>in_avail</B>();</PRE>
+
+<P>If a <A HREF="#read position">read position</A> is available,
+the member function returns
+<CODE><A HREF="#basic_streambuf::egptr">egptr</A>() -
+<A HREF="#basic_streambuf::gptr">gptr</A>()</CODE>.
+Otherwise, it returns
+<CODE><A HREF="#basic_streambuf::showmanyc">showmanyc</A>()</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::int_type"><CODE>basic_streambuf::int_type</CODE></A></H3>
+
+<PRE>typedef typename traits_type::int_type <B>int_type</B>;</PRE>
+
+<P>The type is a synonym for
+<CODE>traits_type::<A HREF="string2.html#char_traits::int_type">int_type</A></CODE>.</P>
+
+<H3><A NAME="basic_streambuf::off_type"><CODE>basic_streambuf::off_type</CODE></A></H3>
+
+<PRE>typedef typename traits_type::off_type <B>off_type</B>;</PRE>
+
+<P>The type is a synonym for
+<CODE>traits_type::<A HREF="string2.html#char_traits::off_type">off_type</A></CODE>.</P>
+
+<H3><A NAME="basic_streambuf::overflow"><CODE>basic_streambuf::overflow</CODE></A></H3>
+
+<PRE>virtual int_type <B>overflow</B>(int_type meta =
+    traits_type::eof());</PRE>
+
+<P>If <CODE>meta</CODE> does not compare equal to
+<CODE>traits_type::<A HREF="string2.html#char_traits::eof">eof</A>()</CODE>,
+the protected virtual member function endeavors to insert the element
+<CODE>traits_type:: <A HREF="string2.html#char_traits::to_char_type">to_char_type</A>(meta)</CODE>
+into the output stream. It can do so in various ways:</P>
+
+<UL>
+<LI>If a <A HREF="#write position">write position</A> is available,
+it can store the element into the write position and increment the
+next pointer for the
+<A HREF="#output buffer">output buffer</A>.
+
+<LI>It can make a write position available by allocating
+new or additional storage for the output buffer.
+
+<LI>It can make a write position available by writing out, to some
+external destination, some or all of the elements
+between the beginning and next pointers for the output buffer.
+</UL>
+
+<P>If the function cannot succeed, it returns
+<CODE>traits_type::eof()</CODE> or throws an exception.
+Otherwise, it returns
+<CODE>traits_type::<A HREF="string2.html#char_traits::not_eof">not_eof</A>(meta)</CODE>.
+The default behavior is to return <CODE>traits_type::eof()</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::pbackfail"><CODE>basic_streambuf::pbackfail</CODE></A></H3>
+
+<PRE>virtual int_type <B>pbackfail</B>(int_type meta =
+    traits_type::eof());</PRE>
+
+<P>The protected virtual member function endeavors to put back an element
+into the input stream, then make it the current element (pointed to
+by the next pointer).
+If <CODE>meta</CODE> compares equal to
+<CODE>traits_type::<A HREF="string2.html#char_traits::eof">eof</A>()</CODE>,
+the element to push back is effectively the one already in the stream
+before the current element. Otherwise, that element is replaced by
+<CODE>traits_type::
+<A HREF="string2.html#char_traits::to_char_type">to_char_type</A>(meta)</CODE>.
+The function can put back an element in various ways:</P>
+
+<UL>
+<LI>If a <A HREF="#putback position">putback position</A> is available,
+it can store the element into the putback position and decrement the
+next pointer for the
+<A HREF="#input buffer">input buffer</A>.
+
+<LI>It can make a putback position available by allocating
+new or additional storage for the input buffer.
+
+<LI>For a stream buffer with common input and output streams,
+it can make a putback position available by writing out, to some
+external destination, some or all of the elements
+between the beginning and next pointers for the output buffer.
+</UL>
+
+<P>If the function cannot succeed, it returns
+<CODE>traits_type::eof()</CODE> or throws an exception. Otherwise,
+it returns some other value.
+The default behavior is to return <CODE>traits_type::eof()</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::pbase"><CODE>basic_streambuf::pbase</CODE></A></H3>
+
+<PRE>char_type *<B>pbase</B>() const;</PRE>
+
+<P>The member function returns a pointer to the beginning of the
+<A HREF="#output buffer">output buffer</A>.</P>
+
+<H3><A NAME="basic_streambuf::pbump"><CODE>basic_streambuf::pbump</CODE></A></H3>
+
+<PRE>void <B>pbump</B>(int count);</PRE>
+
+<P>The member function adds <CODE>count</CODE> to the next pointer for the
+<A HREF="#output buffer">output buffer</A>.</P>
+
+<H3><A NAME="basic_streambuf::pos_type"><CODE>basic_streambuf::pos_type</CODE></A></H3>
+
+<PRE>typedef typename traits_type::pos_type <B>pos_type</B>;</PRE>
+
+<P>The type is a synonym for
+<CODE>traits_type::<A HREF="string2.html#char_traits::pos_type">pos_type</A></CODE>.</P>
+
+<H3><A NAME="basic_streambuf::pptr"><CODE>basic_streambuf::pptr</CODE></A></H3>
+
+<PRE>char_type *<B>pptr</B>() const;</PRE>
+
+<P>The member function returns a pointer to the next element of the
+<A HREF="#output buffer">output buffer</A>.</P>
+
+<H3><A NAME="basic_streambuf::pubimbue"><CODE>basic_streambuf::pubimbue</CODE></A></H3>
+
+<PRE>locale <B>pubimbue</B>(const locale&amp; loc);</PRE>
+
+<P>The member function stores <CODE>loc</CODE> in the
+locale object, calls
+<CODE><A HREF="#basic_streambuf::imbue">imbue</A>()</CODE>,
+then returns the previous value stored in the locale object.</P>
+
+<H3><A NAME="basic_streambuf::pubseekoff"><CODE>basic_streambuf::pubseekoff</CODE></A></H3>
+
+<PRE>pos_type <B>pubseekoff</B>(off_type off,
+    ios_base::seekdir way,
+    ios_base::openmode which =
+        ios_base::in | ios_base::out);</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#basic_streambuf::seekoff">seekoff</A>(off, way,
+which)</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::pubseekpos"><CODE>basic_streambuf::pubseekpos</CODE></A></H3>
+
+<PRE>pos_type <B>pubseekpos</B>(pos_type sp,
+    ios_base::openmode which =
+        ios_base::in | ios_base::out);</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#basic_streambuf::seekpos">seekpos</A>(sp, which)</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::pubsetbuf"><CODE>basic_streambuf::pubsetbuf</CODE></A></H3>
+
+<PRE>basic_streambuf *<B>pubsetbuf</B>(char_type *buffer, streamsize count);</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#basic_streambuf::setbuf">setbuf</A>(buffer, count)</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::pubsync"><CODE>basic_streambuf::pubsync</CODE></A></H3>
+
+<PRE>int <B>pubsync</B>();</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#basic_streambuf::sync">sync</A>()</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::sbumpc"><CODE>basic_streambuf::sbumpc</CODE></A></H3>
+
+<PRE>int_type <B>sbumpc</B>();</PRE>
+
+<P>If a <A HREF="#read position">read position</A> is available,
+the member function returns
+<CODE>traits_type::<A HREF="string2.html#char_traits::to_int_type">to_int_type</A>(
+*<A HREF="#basic_streambuf::gptr">gptr</A>())</CODE>
+and increments the next pointer for the
+<A HREF="#input buffer">input buffer</A>.
+Otherwise, it returns
+<CODE><A HREF="#basic_streambuf::uflow">uflow</A>()</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::seekoff"><CODE>basic_streambuf::seekoff</CODE></A></H3>
+
+<PRE>virtual pos_type <B>seekoff</B>(off_type off,
+    ios_base::seekdir way,
+    ios_base::openmode which =
+        ios_base::in | ios_base::out);</PRE>
+
+<P>The protected virtual member function endeavors to alter the current
+positions for the controlled streams. The new position is determined
+as follows:</P>
+
+<UL>
+<LI>If <CODE>way ==
+ios_base::<A HREF="ios.html#ios_base::beg">beg</A></CODE>,
+the new position is the beginning of the stream plus <CODE>off</CODE>.
+
+<LI>If <CODE>way ==
+ios_base::<A HREF="ios.html#ios_base::cur">cur</A></CODE>,
+the new position is the current stream position plus <CODE>off</CODE>.
+
+<LI>If <CODE>way ==
+ios_base::<A HREF="ios.html#ios_base::end">end</A></CODE>,
+the new position is the end of the stream plus <CODE>off</CODE>.
+</UL>
+
+<P>Typically, if
+<CODE>which &amp; ios_base::in</CODE> is nonzero,
+the input stream is affected, and if <CODE>which &amp; ios_base::out</CODE>
+is nonzero, the output stream is affected. Actual use of this parameter
+varies among derived stream buffers, however.</P>
+
+<P>If the function succeeds in altering the stream position(s),
+it returns the resultant stream position (or one of them).
+Otherwise, it returns an invalid stream position.
+The default behavior is to return an invalid stream position.</P>
+
+<H3><A NAME="basic_streambuf::seekpos"><CODE>basic_streambuf::seekpos</CODE></A></H3>
+
+<PRE>virtual pos_type <B>seekpos</B>(pos_type sp,
+    ios_base::openmode which =
+        ios_base::in | ios_base::out);</PRE>
+
+<P>The protected virtual member function endeavors to alter the current
+positions for the controlled streams.
+The new position is <CODE>sp</CODE>.</P>
+
+<P>Typically, if
+<CODE>which &amp; ios_base::in</CODE> is nonzero,
+the input stream is affected, and if <CODE>which &amp; ios_base::out</CODE>
+is nonzero, the output stream is affected. Actual use of this parameter
+varies among derived stream buffers, however.</P>
+
+<P>If the function succeeds in altering the stream position(s),
+it returns the resultant stream position (or one of them).
+Otherwise, it returns an invalid stream position.
+The default behavior is to return an invalid stream position.</P>
+
+<H3><A NAME="basic_streambuf::setbuf"><CODE>basic_streambuf::setbuf</CODE></A></H3>
+
+<PRE>virtual basic_streambuf *<B>setbuf</B>(char_type *buffer,
+    streamsize count);</PRE>
+
+<P>The protected virtual member function performs an operation
+particular to each derived stream buffer. (See, for example,
+<CODE><A HREF="fstream.html#basic_filebuf">basic_filebuf</A></CODE>.)
+The default behavior is to return <CODE>this</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::setg"><CODE>basic_streambuf::setg</CODE></A></H3>
+
+<PRE>void <B>setg</B>(char_type *gbeg, char_type *gnext,
+    char_type *gend);</PRE>
+
+<P>The member function stores <CODE>gbeg</CODE> in the beginning pointer,
+<CODE>gnext</CODE> in the next pointer,
+and <CODE>gend</CODE> in the end pointer for the
+<A HREF="#input buffer">input buffer</A>.</P>
+
+<H3><A NAME="basic_streambuf::setp"><CODE>basic_streambuf::setp</CODE></A></H3>
+
+<PRE>void <B>setp</B>(char_type *pbeg, char_type *pend);</PRE>
+
+<P>The member function stores <CODE>pbeg</CODE> in the beginning pointer,
+<CODE>pbeg</CODE> in the next pointer,
+and <CODE>pend</CODE> in the end pointer for the
+<A HREF="#output buffer">output buffer</A>.</P>
+
+<H3><A NAME="basic_streambuf::sgetc"><CODE>basic_streambuf::sgetc</CODE></A></H3>
+
+<PRE>int_type <B>sgetc</B>();</PRE>
+
+<P>If a <A HREF="#read position">read position</A> is available,
+the member function returns
+<CODE>traits_type::<A HREF="string2.html#char_traits::to_int_type">to_int_type</A>(
+*<A HREF="#basic_streambuf::gptr">gptr</A>())</CODE>
+Otherwise, it returns
+<CODE><A HREF="#basic_streambuf::underflow">underflow</A>()</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::sgetn"><CODE>basic_streambuf::sgetn</CODE></A></H3>
+
+<PRE>streamsize <B>sgetn</B>(char_type *ptr, streamsize count);</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#basic_streambuf::xsgetn">xsgetn</A>(ptr, count)</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::showmanyc"><CODE>basic_streambuf::showmanyc</CODE></A></H3>
+
+<PRE>virtual streamsize <B>showmanyc</B>();</PRE>
+
+<P>The protected virtual member function returns a count of the
+number of characters that can be extracted from the input
+stream with no fear that the program will suffer an indefinite
+wait. The default behavior is to return zero.</P>
+
+<H3><A NAME="basic_streambuf::snextc"><CODE>basic_streambuf::snextc</CODE></A></H3>
+
+<PRE>int_type <B>snextc</B>();</PRE>
+
+<P>The member function calls
+<CODE><A HREF="#basic_streambuf::sbumpc">sbumpc</A>()</CODE> and,
+if that function returns
+<CODE>traits_type::<A HREF="string2.html#char_traits::eof">eof</A>()</CODE>,
+returns <CODE>traits_type::eof()</CODE>.
+Otherwise, it returns
+<CODE><A HREF="#basic_streambuf::sgetc">sgetc</A>()</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::sputbackc"><CODE>basic_streambuf::sputbackc</CODE></A></H3>
+
+<PRE>int_type <B>sputbackc</B>(char_type ch);</PRE>
+
+<P>If a <A HREF="#putback position">putback position</A> is available
+and <CODE>ch</CODE> compares equal to the character stored in that position,
+the member function decrements the next pointer for the
+<A HREF="#input buffer">input buffer</A> and returns
+<CODE>traits_type::<A HREF="string2.html#char_traits::to_int_type">to_int_type</A>(ch)</CODE>.
+Otherwise, it returns
+<CODE><A HREF="#basic_streambuf::pbackfail">pbackfail</A>(ch)</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::sputc"><CODE>basic_streambuf::sputc</CODE></A></H3>
+
+<PRE>int_type <B>sputc</B>(char_type ch);</PRE>
+
+<P>If a <A HREF="#write position">write position</A> is available,
+the member function stores <CODE>ch</CODE> in the write position,
+increments the next pointer for the
+<A HREF="#output buffer">output buffer</A>, and returns
+<CODE>traits_type::<A HREF="string2.html#char_traits::to_int_type">to_int_type</A>(ch)</CODE>.
+Otherwise, it returns
+<CODE><A HREF="#basic_streambuf::overflow">overflow</A>(ch)</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::sputn"><CODE>basic_streambuf::sputn</CODE></A></H3>
+
+<PRE>streamsize <B>sputn</B>(const char_type *ptr, streamsize count);</PRE>
+
+<P>The member function returns
+<CODE><A HREF="#basic_streambuf::xsputn">xsputn</A>(ptr, count)</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::stossc"><CODE>basic_streambuf::stossc</CODE></A></H3>
+
+<PRE>void <B>stossc</B>(); <B>[optional]</B></PRE>
+
+<P>The member function calls
+<CODE><A HREF="#basic_streambuf::sbumpc">sbumpc</A>()</CODE>.
+Note that an implementation is not required to supply this member function.</P>
+
+<H3><A NAME="basic_streambuf::sungetc"><CODE>basic_streambuf::sungetc</CODE></A></H3>
+
+<PRE>int_type <B>sungetc</B>();</PRE>
+
+<P>If a <A HREF="#putback position">putback position</A> is available,
+the member function decrements the next pointer for the
+<A HREF="#input buffer">input buffer</A> and returns
+<CODE>traits_type::<A HREF="string2.html#char_traits::to_int_type">to_int_type</A>(
+*<A HREF="#basic_streambuf::gptr">gptr</A>())</CODE>.
+Otherwise it returns
+<CODE><A HREF="#basic_streambuf::pbackfail">pbackfail</A>()</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::sync"><CODE>basic_streambuf::sync</CODE></A></H3>
+
+<PRE>virtual int <B>sync</B>();</PRE>
+
+<P>The protected virtual member function endeavors to synchronize
+the controlled streams with any associated external streams.
+Typically, this involves writing out any elements between the beginning
+and next pointers for the
+<A HREF="#output buffer">output buffer</A>.
+It does <I>not</I> involve putting back any elements between the next
+and end pointers for the
+<A HREF="#input buffer">input buffer</A>.
+If the function cannot succeed, it returns -1.
+The default behavior is to return zero.</P>
+
+<H3><A NAME="basic_streambuf::traits_type"><CODE>basic_streambuf::traits_type</CODE></A></H3>
+
+<PRE>typedef Tr <B>traits_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Tr</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::uflow"><CODE>basic_streambuf::uflow</CODE></A></H3>
+
+<PRE>virtual int_type <B>uflow</B>();</PRE>
+
+<P>The protected virtual member function endeavors to extract the current
+element <CODE>ch</CODE> from the input stream,
+then advance the current stream position, and return the element as
+<CODE>traits_type::<A HREF="string2.html#char_traits::to_int_type">to_int_type</A>(ch)</CODE>.
+It can do so in various ways:</P>
+
+<UL>
+<LI>If a <A HREF="#read position">read position</A> is available,
+it takes <CODE>ch</CODE> as the element stored in the read position
+and advances the next pointer for the
+<A HREF="#input buffer">input buffer</A>.
+
+<LI>It can read an element directly, from some external source,
+and deliver it as the value <CODE>ch</CODE>.
+
+<LI>For a stream buffer with common input and output streams,
+it can make a read position available by writing out, to some
+external destination, some or all of the elements
+between the beginning and next pointers for the output buffer.
+Or it can allocate new or additional storage for the
+input buffer. The function
+then reads in, from some external source, one or more elements.
+</UL>
+
+<P>If the function cannot succeed, it returns
+<CODE>traits_type::<A HREF="string2.html#char_traits::eof">eof</A>()</CODE>,
+or throws an exception. Otherwise,
+it returns the current element <CODE>ch</CODE> in the input stream,
+converted as described above, and advances the next pointer
+for the input buffer. The default behavior is to call
+<CODE><A HREF="#basic_streambuf::underflow">underflow</A>()</CODE>
+and, if that function returns <CODE>traits_type::eof()</CODE>,
+to return <CODE>traits_type::eof()</CODE>. Otherwise, the function
+returns the current element <CODE>ch</CODE> in the input stream,
+converted as described above, and advances the next pointer
+for the input buffer.</P>
+
+<H3><A NAME="basic_streambuf::underflow"><CODE>basic_streambuf::underflow</CODE></A></H3>
+
+<PRE>virtual int_type <B>underflow</B>();</PRE>
+
+<P>The protected virtual member function endeavors to extract the current
+element <CODE>ch</CODE> from the input stream,
+without advancing the current stream position, and return it as
+<CODE>traits_type::<A HREF="string2.html#char_traits::to_int_type">to_int_type</A>(ch)</CODE>.
+It can do so in various ways:</P>
+
+<UL>
+<LI>If a <A HREF="#read position">read position</A> is available,
+<CODE>ch</CODE> is the element stored in the read position.
+
+<LI>It can make a read position available by allocating
+new or additional storage for the
+<A HREF="#input buffer">input buffer</A>, then reading in,
+from some external source, one or more elements.
+</UL>
+
+<P>If the function cannot succeed, it returns
+<CODE>traits_type::<A HREF="string2.html#char_traits::eof">eof</A>()</CODE>,
+or throws an exception. Otherwise,
+it returns the current element in the input stream,
+converted as described above.
+The default behavior is to return <CODE>traits_type::eof()</CODE>.</P>
+
+<H3><A NAME="basic_streambuf::xsgetn"><CODE>basic_streambuf::xsgetn</CODE></A></H3>
+
+<PRE>virtual streamsize <B>xsgetn</B>(char_type *ptr, streamsize count);</PRE>
+
+<P>The protected virtual member function extracts up to <CODE>count</CODE>
+elements from the input stream, as if by repeated calls to
+<CODE><A HREF="#basic_streambuf::sbumpc">sbumpc</A></CODE>,
+and stores them in the array beginning at <CODE>ptr</CODE>.
+It returns the number of elements actually extracted.</P>
+
+<H3><A NAME="basic_streambuf::xsputn"><CODE>basic_streambuf::xsputn</CODE></A></H3>
+
+<PRE>virtual streamsize <B>xsputn</B>(const char_type *ptr,
+    streamsize count);</PRE>
+
+<P>The protected virtual member function inserts up to <CODE>count</CODE>
+elements into the output stream, as if by repeated calls to
+<CODE><A HREF="#basic_streambuf::sputc">sputc</A></CODE>,
+from the array beginning at <CODE>ptr</CODE>.
+It returns the number of elements actually inserted.</P>
+
+<H2><A NAME="streambuf"><CODE>streambuf</CODE></A></H2>
+
+<PRE>typedef basic_streambuf&lt;char, char_traits&lt;char&gt; &gt;
+    <B>streambuf</B>;</PRE>
+
+<P>The type is a synonym for template class
+<A HREF="#basic_streambuf"><CODE>basic_streambuf</CODE></A>, specialized
+for elements of type <I>char</I> with default
+<A HREF="string2.html#character traits">character traits</A>.</P>
+
+<H2><A NAME="wstreambuf"><CODE>wstreambuf</CODE></A></H2>
+
+<PRE>typedef basic_streambuf&lt;wchar_t, char_traits&lt;wchar_t&gt; &gt;
+    <B>wstreambuf</B>;</PRE>
+
+<P>The type is a synonym for template class
+<A HREF="#basic_streambuf"><CODE>basic_streambuf</CODE></A>, specialized
+for elements of type <CODE>wchar_t</CODE> with default
+<A HREF="string2.html#character traits">character traits</A>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1992-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

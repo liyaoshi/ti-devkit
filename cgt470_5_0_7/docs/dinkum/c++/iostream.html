@@ -1,0 +1,167 @@
+<HTML><HEAD><TITLE>&lt;iostream&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;iostream&gt;"><CODE>&lt;iostream&gt;</CODE></A></H1><HR>
+
+<P>Include the <A HREF="lib_cpp.html#iostreams">iostreams</A>
+standard header <B><CODE>&lt;iostream&gt;</CODE></B>
+to declare objects that control reading from and writing to the
+<A HREF="lib_over.html#standard streams">standard streams</A>.
+This is often the <I>only</I> header you
+need include to perform input and output from a C++ program.</P>
+
+<P>The objects fall into two groups:</P>
+
+<UL>
+<LI><CODE><A HREF="#cin">cin</A></CODE>,
+<CODE><A HREF="#cout">cout</A></CODE>,
+<CODE><A HREF="#cerr">cerr</A></CODE>, and
+<CODE><A HREF="#clog">clog</A></CODE> are
+<A HREF="lib_file.html#byte oriented">byte oriented</A>,
+performing conventional byte-at-a-time transfers</LI>
+
+<LI><CODE><A HREF="#wcin">wcin</A></CODE>,
+<CODE><A HREF="#wcout">wcout</A></CODE>,
+<CODE><A HREF="#wcerr">wcerr</A></CODE>, and
+<CODE><A HREF="#wclog">wclog</A></CODE> are
+<A HREF="lib_file.html#wide oriented">wide oriented</A>,
+translating to and from the
+<A HREF="charset.html#Wide-Character Encoding">wide characters</A>
+that the program manipulates internally</LI>
+</UL>
+
+<P>Once you perform
+<A HREF="lib_file.html#Stream States">certain operations</A>
+on a stream, such as the
+<A HREF="lib_over.html#standard input">standard input</A>,
+you cannot perform operations of a different orientation on
+the same stream. Hence, a program cannot operate interchangeably on both
+<CODE><A HREF="#cin">cin</A></CODE> and
+<CODE><A HREF="#wcin">wcin</A></CODE>, for example.</P>
+
+<P>All the objects declared in this header share a peculiar
+property -- you can assume they are
+<B><A NAME="constructing iostreams">constructed</A></B> before any
+static objects you define, in a translation unit that includes
+<CODE>&lt;iostreams&gt;</CODE>. Equally, you can assume that
+these objects are <B>not destroyed</B> before the destructors for any
+such static objects you define. (The output streams are, however,
+flushed during program termination.)
+Hence, you can safely read from
+or write to the standard streams prior to program startup and
+after program termination.</P>
+
+<P>This guarantee is <I>not</I> universal, however. A static
+constructor may call a function in another translation unit.
+The called function cannot assume that the objects declared in
+this header have been constructed, given the uncertain order
+in which translation units participate in static construction.
+To use these objects in such a context, you must first construct
+an object of class
+<B><CODE><A HREF="ios.html#ios_base::Init">ios_base::Init</A></CODE></B>,
+as in:</P>
+
+<PRE>#include &lt;iostream&gt;
+void marker()
+    {    // called by some constructor
+    ios_base::Init unused_name;
+    cout &lt;&lt; "called fun" &lt;&lt; endl;
+    }</PRE>
+
+<PRE>namespace std {
+extern istream <B><A HREF="#cin">cin</A></B>;
+extern ostream <B><A HREF="#cout">cout</A></B>;
+extern ostream <B><A HREF="#cerr">cerr</A></B>;
+extern ostream <B><A HREF="#clog">clog</A></B>;
+
+extern wistream <B><A HREF="#wcin">wcin</A></B>;
+extern wostream <B><A HREF="#wcout">wcout</A></B>;
+extern wostream <B><A HREF="#wcerr">wcerr</A></B>;
+extern wostream <B><A HREF="#wclog">wclog</A></B>;
+    };</PRE>
+
+<H2><CODE><A NAME="cerr">cerr</A></CODE></H2>
+
+<PRE>extern ostream cerr;</PRE>
+
+<P>The object controls unbuffered insertions to the
+<A HREF="lib_over.html#standard error">standard error</A> output
+as a <A HREF="lib_file.html#byte stream">byte stream</A>.
+Once the object is constructed, the expression
+<CODE>cerr.<A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+<A HREF="ios.html#ios_base::unitbuf">unitbuf</A></CODE> is nonzero.</P>
+
+<H2><CODE><A NAME="cin">cin</A></CODE></H2>
+
+<PRE>extern istream cin;</PRE>
+
+<P>The object controls extractions from the
+<A HREF="lib_over.html#standard input">standard input</A>
+as a <A HREF="lib_file.html#byte stream">byte stream</A>.
+Once the object is constructed, the call
+<CODE>cin.<A HREF="ios.html#basic_ios::tie">tie</A>()</CODE> returns
+<CODE>&amp;<A HREF="#cout">cout</A></CODE>.</P>
+
+<H2><CODE><A NAME="clog">clog</A></CODE></H2>
+
+<PRE>extern ostream clog;</PRE>
+
+<P>The object controls buffered insertions to the
+<A HREF="lib_over.html#standard error">standard error</A> output
+as a <A HREF="lib_file.html#byte stream">byte stream</A>.</P>
+
+<H2><CODE><A NAME="cout">cout</A></CODE></H2>
+
+<PRE>extern ostream cout;</PRE>
+
+<P>The object controls insertions to the
+<A HREF="lib_over.html#standard output">standard output</A>
+as a <A HREF="lib_file.html#byte stream">byte stream</A>.</P>
+
+<H2><CODE><A NAME="wcerr">wcerr</A></CODE></H2>
+
+<PRE>extern wostream wcerr;</PRE>
+
+<P>The object controls unbuffered insertions to the
+<A HREF="lib_over.html#standard error">standard error</A> output
+as a <A HREF="lib_file.html#wide stream">wide stream</A>.
+Once the object is constructed, the expression
+<CODE>wcerr.<A HREF="ios.html#ios_base::flags">flags</A>() &amp;
+<A HREF="ios.html#ios_base::unitbuf">unitbuf</A></CODE> is nonzero.</P>
+
+<H2><CODE><A NAME="wcin">wcin</A></CODE></H2>
+
+<PRE>extern wistream wcin;</PRE>
+
+<P>The object controls extractions from the
+<A HREF="lib_over.html#standard input">standard input</A>
+as a <A HREF="lib_file.html#wide stream">wide stream</A>.
+Once the object is constructed, the call
+<CODE>wcin.<A HREF="ios.html#basic_ios::tie">tie</A>()</CODE> returns
+<CODE>&amp;<A HREF="#wcout">wcout</A></CODE>.</P>
+
+<H2><CODE><A NAME="wclog">wclog</A></CODE></H2>
+
+<PRE>extern wostream wclog;</PRE>
+
+<P>The object controls buffered insertions to the
+<A HREF="lib_over.html#standard error">standard error</A> output
+as a <A HREF="lib_file.html#wide stream">wide stream</A>.</P>
+
+<H2><CODE><A NAME="wcout">wcout</A></CODE></H2>
+
+<PRE>extern wostream wcout;</PRE>
+
+<P>The object controls insertions to the
+<A HREF="lib_over.html#standard output">standard output</A>
+as a <A HREF="lib_file.html#wide stream">wide stream</A>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1992-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

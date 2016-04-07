@@ -1,0 +1,1087 @@
+<HTML><HEAD><TITLE>&lt;tgmath.h&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;tgmath.h&gt;"><CODE>&lt;tgmath.h&gt;</CODE></A></H1>
+
+<P>[Added with
+<A HREF="lib_over.html#C99">C99</A>]</P><HR>
+
+<P><B><CODE>&#183; <A HREF="#acos">acos</A>
+&#183; <A HREF="#acosh">acosh</A>
+&#183; <A HREF="#asin">asin</A>
+&#183; <A HREF="#asinh">asinh</A>
+&#183; <A HREF="#atan">atan</A>
+&#183; <A HREF="#atanh">atanh</A>
+&#183; <A HREF="#atan2">atan2</A>
+&#183; <A HREF="#carg">carg</A>
+&#183; <A HREF="#cbrt">cbrt</A>
+&#183; <A HREF="#ceil">ceil</A>
+&#183; <A HREF="#cimag">cimag</A>
+&#183; <A HREF="#conj">conj</A>
+&#183; <A HREF="#copysign">copysign</A>
+&#183; <A HREF="#cos">cos</A>
+&#183; <A HREF="#cosh">cosh</A>
+&#183; <A HREF="#cproj">cproj</A>
+&#183; <A HREF="#creal">creal</A>
+&#183; <A HREF="#erf">erf</A>
+&#183; <A HREF="#erfc">erfc</A>
+&#183; <A HREF="#exp">exp</A>
+&#183; <A HREF="#exp2">exp2</A>
+&#183; <A HREF="#expm1">expm1</A>
+&#183; <A HREF="#fabs">fabs</A>
+&#183; <A HREF="#fdim">fdim</A>
+&#183; <A HREF="#floor">floor</A>
+&#183; <A HREF="#fma">fma</A>
+&#183; <A HREF="#fmax">fmax</A>
+&#183; <A HREF="#fmin">fmin</A>
+&#183; <A HREF="#fmod">fmod</A>
+&#183; <A HREF="#frexp">frexp</A>
+&#183; <A HREF="#hypot">hypot</A>
+&#183; <A HREF="#ilogb">ilogb</A>
+&#183; <A HREF="#ldexp">ldexp</A>
+&#183; <A HREF="#lgamma">lgamma</A>
+&#183; <A HREF="#llrint">llrint</A>
+&#183; <A HREF="#llround">llround</A>
+&#183; <A HREF="#log">log</A>
+&#183; <A HREF="#log10">log10</A>
+&#183; <A HREF="#log1p">log1p</A>
+&#183; <A HREF="#log2">log2</A>
+&#183; <A HREF="#logb">logb</A>
+&#183; <A HREF="#lrint">lrint</A>
+&#183; <A HREF="#lround">lround</A>
+&#183; <A HREF="#modf">modf</A>
+&#183; <A HREF="#nearbyint">nearbyint</A>
+&#183; <A HREF="#nextafter">nextafter</A>
+&#183; <A HREF="#nexttoward">nexttoward</A>
+&#183; <A HREF="#pow">pow</A>
+&#183; <A HREF="#remainder">remainder</A>
+&#183; <A HREF="#remquo">remquo</A>
+&#183; <A HREF="#rint">rint</A>
+&#183; <A HREF="#round">round</A>
+&#183; <A HREF="#scalbln">scalbln</A>
+&#183; <A HREF="#scalbn">scalbn</A>
+&#183; <A HREF="#sin">sin</A>
+&#183; <A HREF="#sinh">sinh</A>
+&#183; <A HREF="#sqrt">sqrt</A>
+&#183; <A HREF="#tan">tan</A>
+&#183; <A HREF="#tanh">tanh</A>
+&#183; <A HREF="#tgamma">tgamma</A>
+&#183; <A HREF="#trunc">trunc</A>
+</CODE></B></P>
+<HR>
+
+<P>Include the standard header <B><CODE>&lt;tgmath&gt;</CODE></B>
+to define several families of
+<B><A NAME="generic functions">generic functions</A></B>.
+A generic function has the same name for two or more distinct parameter
+lists, as in:</P>
+
+<PRE>float _Complex fc;
+long double ld;
+
+cos(1)       // same as cos((double)1)
+cos(ld)      // same as cosl(ld)
+pow(fc, ld)  // same as cpowl((long double _Complex)fc,
+                   (long double _Complex)ld)</PRE>
+
+<P>The actual (non-generic) function called depends on the type(s)
+of the actual argument(s) on a function call:</P>
+
+<UL>
+<LI>For a function argument that can have a floating-point type,
+an integer argument is converted (by a type cast) to <I>double</I>
+before determining the function to call.</LI>
+
+<LI>For a function with two or more arguments, the arguments are each
+converted as above, then converted (by a type cast) to the type of
+the sum of all the arguments before determining the function to call.</LI>
+</UL>
+
+<P>The actual function called is the one whose parameters exactly
+match the type(s) of the converted argument(s).</P>
+
+<P>Note that C++ adds sufficient overloads (not shown here)
+to provide the same conversion rules.</P>
+
+<PRE>#include &lt;<A HREF="complex2.html">complex.h</A>&gt;
+#include &lt;<A HREF="math.html">math.h</A>&gt;
+
+    /* FUNCTIONS */
+double <A HREF="#acos"><B>acos</B></A>(double x);
+float <A HREF="#acos"><B>acos</B></A>(float x);
+long double <A HREF="#acos"><B>acos</B></A>(long double x);
+double _Complex <A HREF="#acos"><B>acos</B></A>(double _Complex x);
+float _Complex <A HREF="#acos"><B>acos</B></A>(float _Complex x);
+long double _Complex <A HREF="#acos"><B>acos</B></A>(long double _Complex x);
+
+double <A HREF="#acosh"><B>acosh</B></A>(double x);
+float <A HREF="#acosh"><B>acosh</B></A>(float x);
+long double <A HREF="#acosh"><B>acosh</B></A>(long double x);
+double _Complex <A HREF="#acosh"><B>acosh</B></A>(double _Complex x);
+float _Complex <A HREF="#acosh"><B>acosh</B></A>(float _Complex x);
+long double _Complex <A HREF="#acosh"><B>acosh</B></A>(long double _Complex x);
+
+double <A HREF="#asin"><B>asin</B></A>(double x);
+float <A HREF="#asin"><B>asin</B></A>(float x);
+long double <A HREF="#asin"><B>asin</B></A>(long double x);
+double _Complex <A HREF="#asin"><B>asin</B></A>(double _Complex x);
+float _Complex <A HREF="#asin"><B>asin</B></A>(float _Complex x);
+long double _Complex <A HREF="#asin"><B>asin</B></A>(long double _Complex x);
+
+double <A HREF="#asinh"><B>asinh</B></A>(double x);
+float <A HREF="#asinh"><B>asinh</B></A>(float x);
+long double <A HREF="#asinh"><B>asinh</B></A>(long double x);
+double _Complex <A HREF="#asinh"><B>asinh</B></A>(double _Complex x);
+float _Complex <A HREF="#asinh"><B>asinh</B></A>(float _Complex x);
+long double _Complex <A HREF="#asinh"><B>asinh</B></A>(long double _Complex x);
+
+double <A HREF="#atan"><B>atan</B></A>(double x);
+float <A HREF="#atan"><B>atan</B></A>(float x);
+long double <A HREF="#atan"><B>atan</B></A>(long double x);
+double _Complex <A HREF="#atan"><B>atan</B></A>(double _Complex x);
+float _Complex <A HREF="#atan"><B>atan</B></A>(float _Complex x);
+long double _Complex <A HREF="#atan"><B>atan</B></A>(long double _Complex x);
+
+double <A HREF="#atan2"><B>atan2</B></A>(double y, double x);
+float <A HREF="#atan2"><B>atan2</B></A>(float y, float x);
+long double <A HREF="#atan2"><B>atan2</B></A>(long double y, long double x);
+
+double <A HREF="#atanh"><B>atanh</B></A>(double x);
+float <A HREF="#atanh"><B>atanh</B></A>(float x);
+long double <A HREF="#atanh"><B>atanh</B></A>(long double x);
+double _Complex <A HREF="#atanh"><B>atanh</B></A>(double _Complex x);
+float _Complex <A HREF="#atanh"><B>atanh</B></A>(float _Complex x);
+long double _Complex <A HREF="#atanh"><B>atanh</B></A>(long double _Complex x);
+
+double <A HREF="#carg"><B>carg</B></A>(double _Complex x);
+float <A HREF="#carg"><B>carg</B></A>(float _Complex x);
+long double <A HREF="#carg"><B>carg</B></A>(long double _Complex x);
+
+double <A HREF="#ceil"><B>ceil</B></A>(double x);
+float <A HREF="#ceil"><B>ceil</B></A>(float x);
+long double <A HREF="#ceil"><B>ceil</B></A>(long double x);
+
+double <A HREF="#cbrt"><B>cbrt</B></A>(double x);
+float <A HREF="#cbrt"><B>cbrt</B></A>(float x);
+long double <A HREF="#cbrt"><B>cbrt</B></A>(long double x);
+
+double <A HREF="#cimag"><B>cimag</B></A>(double _Complex x);
+float <A HREF="#cimag"><B>cimag</B></A>(float _Complex x);
+long double <A HREF="#cimag"><B>cimag</B></A>(long double _Complex x);
+
+double _Complex <A HREF="#conj"><B>conj</B></A>(double _Complex x);
+float _Complex <A HREF="#conj"><B>conj</B></A>(float _Complex x);
+long double _Complex <A HREF="#conj"><B>conj</B></A>(long double _Complex x);
+
+double <A HREF="#cos"><B>cos</B></A>(double x);
+float <A HREF="#cos"><B>cos</B></A>(float x);
+long double <A HREF="#cos"><B>cos</B></A>(long double x);
+double _Complex <A HREF="#cos"><B>cos</B></A>(double _Complex x);
+float _Complex <A HREF="#cos"><B>cos</B></A>(float _Complex x);
+long double _Complex <A HREF="#cos"><B>cos</B></A>(long double _Complex x);
+
+double <A HREF="#copysign"><B>copysign</B></A>(double x, double y);
+float <A HREF="#copysign"><B>copysign</B></A>(float x, float y);
+long double <A HREF="#copysign"><B>copysign</B></A>(long double x, long double y);
+
+double _Complex <A HREF="#cproj"><B>cproj</B></A>(double _Complex x);
+float _Complex <A HREF="#cproj"><B>cproj</B></A>(float _Complex x);
+long double _Complex <A HREF="#cproj"><B>cproj</B></A>(long double _Complex x);
+
+double <A HREF="#cosh"><B>cosh</B></A>(double x);
+float <A HREF="#cosh"><B>cosh</B></A>(float x);
+long double <A HREF="#cosh"><B>cosh</B></A>(long double x);
+double _Complex <A HREF="#cosh"><B>cosh</B></A>(double _Complex x);
+float _Complex <A HREF="#cosh"><B>cosh</B></A>(float _Complex x);
+long double _Complex <A HREF="#cosh"><B>cosh</B></A>(long double _Complex x);
+
+double <A HREF="#creal"><B>creal</B></A>(double _Complex x);
+float <A HREF="#creal"><B>creal</B></A>(float _Complex x);
+long double <A HREF="#creal"><B>creal</B></A>(long double _Complex x);
+
+double <A HREF="#erf"><B>erf</B></A>(double x);
+float <A HREF="#erf"><B>erf</B></A>(float x);
+long double <A HREF="#erf"><B>erf</B></A>(long double x);
+
+double <A HREF="#erfc"><B>erfc</B></A>(double x);
+float <A HREF="#erfc"><B>erfc</B></A>(float x);
+long double <A HREF="#erfc"><B>erfc</B></A>(long double x);
+
+double <A HREF="#exp"><B>exp</B></A>(double x);
+float <A HREF="#exp"><B>exp</B></A>(float x);
+long double <A HREF="#exp"><B>exp</B></A>(long double x);
+double _Complex <A HREF="#exp"><B>exp</B></A>(double _Complex x);
+float _Complex <A HREF="#exp"><B>exp</B></A>(float _Complex x);
+long double _Complex <A HREF="#exp"><B>exp</B></A>(long double _Complex x);
+
+double <A HREF="#exp2"><B>exp2</B></A>(double x);
+float <A HREF="#exp2"><B>exp2</B></A>(float x);
+long double <A HREF="#exp2"><B>exp2</B></A>(long double x);
+
+double <A HREF="#expm1"><B>expm1</B></A>(double x);
+float <A HREF="#expm1"><B>expm1</B></A>(float x);
+long double <A HREF="#expm1"><B>expm1</B></A>(long double x);
+
+double <A HREF="#fabs"><B>fabs</B></A>(double x);
+float <A HREF="#fabs"><B>fabs</B></A>(float x);
+long double <A HREF="#fabs"><B>fabs</B></A>(long double x);
+double <A HREF="#fabs"><B>fabs</B></A>(double _Complex x);
+float <A HREF="#fabs"><B>fabs</B></A>(float _Complex x);
+long double <A HREF="#fabs"><B>fabs</B></A>(long double _Complex x);
+
+double <A HREF="#fdim"><B>fdim</B></A>(double x, double y);
+float <A HREF="#fdim"><B>fdim</B></A>(float x, float y);
+long double <A HREF="#fdim"><B>fdim</B></A>(long double x, long double y);
+
+double <A HREF="#floor"><B>floor</B></A>(double x);
+float <A HREF="#floor"><B>floor</B></A>(float x);
+long double <A HREF="#floor"><B>floor</B></A>(long double x);
+
+double <A HREF="#fma"><B>fma</B></A>(double x, double y, double z);
+float <A HREF="#fma"><B>fma</B></A>(float x, float y, float z);
+long double <A HREF="#fma"><B>fma</B></A>(long double x, long double y, long double z);
+
+double <A HREF="#fmax"><B>fmax</B></A>(double x, double y);
+float <A HREF="#fmax"><B>fmax</B></A>(float x, float y);
+long double <A HREF="#fmax"><B>fmax</B></A>(long double x, long double y);
+
+double <A HREF="#fmin"><B>fmin</B></A>(double x, double y);
+float <A HREF="#fmin"><B>fmin</B></A>(float x, float y);
+long double <A HREF="#fmin"><B>fmin</B></A>(long double x, long double y);
+
+double <A HREF="#fmod"><B>fmod</B></A>(double x, double y);
+float <A HREF="#fmod"><B>fmod</B></A>(float x, float y);
+long double <A HREF="#fmod"><B>fmod</B></A>(long double x, long double y);
+
+double <A HREF="#frexp"><B>frexp</B></A>(double x, int *pexp);
+float <A HREF="#frexp"><B>frexp</B></A>(float x, int *pexp);
+long double <A HREF="#frexp"><B>frexp</B></A>(long double x, int *pexp);
+
+double <A HREF="#hypot"><B>hypot</B></A>(double x, double y);
+float <A HREF="#hypot"><B>hypot</B></A>(float x, float y);
+long double <A HREF="#hypot"><B>hypot</B></A>(long double x, long double y);
+
+int <A HREF="#ilogb"><B>ilogb</B></A>(double x);
+int <A HREF="#ilogb"><B>ilogb</B></A>(float x);
+int <A HREF="#ilogb"><B>ilogb</B></A>(long double x);
+
+double <A HREF="#ldexp"><B>ldexp</B></A>(double x, int ex);
+float <A HREF="#ldexp"><B>ldexp</B></A>(float x, int ex);
+long double <A HREF="#ldexp"><B>ldexp</B></A>(long double x, int ex);
+
+double <A HREF="#lgamma"><B>lgamma</B></A>(double x);
+float <A HREF="#lgamma"><B>lgamma</B></A>(float x);
+long double <A HREF="#lgamma"><B>lgamma</B></A>(long double x);
+
+long long <A HREF="#llrint"><B>llrint</B></A>(double x);
+long long <A HREF="#llrint"><B>llrint</B></A>(float x);
+long long <A HREF="#llrint"><B>llrint</B></A>(long double x);
+
+long long <A HREF="#llround"><B>llround</B></A>(double x);
+long long <A HREF="#llround"><B>llround</B></A>(float x);
+long long <A HREF="#llround"><B>llround</B></A>(long double x);
+
+double <A HREF="#log"><B>log</B></A>(double x);
+float <A HREF="#log"><B>log</B></A>(float x);
+long double <A HREF="#log"><B>log</B></A>(long double x);
+double _Complex <A HREF="#log"><B>log</B></A>(double _Complex x);
+float _Complex <A HREF="#log"><B>log</B></A>(float _Complex x);
+long double _Complex <A HREF="#log"><B>log</B></A>(long double _Complex x);
+
+double <A HREF="#log10"><B>log10</B></A>(double x);
+float <A HREF="#log10"><B>log10</B></A>(float x);
+long double <A HREF="#log10"><B>log10</B></A>(long double x);
+
+double <A HREF="#log1p"><B>log1p</B></A>(double x);
+float <A HREF="#log1p"><B>log1p</B></A>(float x);
+long double <A HREF="#log1p"><B>log1p</B></A>(long double x);
+
+double <A HREF="#log2"><B>log2</B></A>(double x);
+float <A HREF="#log2"><B>log2</B></A>(float x);
+long double <A HREF="#log2"><B>log2</B></A>(long double x);
+
+double <A HREF="#logb"><B>logb</B></A>(double x);
+float <A HREF="#logb"><B>logb</B></A>(float x);
+long double <A HREF="#logb"><B>logb</B></A>(long double x);
+
+long <A HREF="#lrint"><B>lrint</B></A>(double x);
+long <A HREF="#lrint"><B>lrint</B></A>(float x);
+long <A HREF="#lrint"><B>lrint</B></A>(long double x);
+
+long <A HREF="#lround"><B>lround</B></A>(double x);
+long <A HREF="#lround"><B>lround</B></A>(float x);
+long <A HREF="#lround"><B>lround</B></A>(long double x);
+
+double <A HREF="#modf"><B>modf</B></A>(double x, double *pint);
+float <A HREF="#modf"><B>modf</B></A>(float x, float *pint);
+long double <A HREF="#modf"><B>modf</B></A>(long double x, long double *pint);
+
+double <A HREF="#nearbyint"><B>nearbyint</B></A>(double x);
+float <A HREF="#nearbyint"><B>nearbyint</B></A>(float x);
+long double <A HREF="#nearbyint"><B>nearbyint</B></A>(long double x);
+
+double <A HREF="#nextafter"><B>nextafter</B></A>(double x, double y);
+float <A HREF="#nextafter"><B>nextafter</B></A>(float x, float y);
+long double <A HREF="#nextafter"><B>nextafter</B></A>(long double x, long double y);
+
+double <A HREF="#nexttoward"><B>nexttoward</B></A>(double x, long double y);
+float <A HREF="#nexttoward"><B>nexttoward</B></A>(float x, long double y);
+long double <A HREF="#nexttoward"><B>nexttoward</B></A>(long double x, long double y);
+
+double <A HREF="#pow"><B>pow</B></A>(double x, double y);
+float <A HREF="#pow"><B>pow</B></A>(float x, float y);
+long double <A HREF="#pow"><B>pow</B></A>(long double x, long double y);
+double _Complex <A HREF="#pow"><B>pow</B></A>(double _Complex x);
+float _Complex <A HREF="#pow"><B>pow</B></A>(float _Complex x);
+long double _Complex <A HREF="#pow"><B>pow</B></A>(long double _Complex x);
+
+double <A HREF="#remainder"><B>remainder</B></A>(double x, double y);
+float <A HREF="#remainder"><B>remainder</B></A>(float x, float y);
+long double <A HREF="#remainder"><B>remainder</B></A>(long double x, long double y);
+
+double <A HREF="#remquo"><B>remquo</B></A>(double x, double y, int *pquo);
+float <A HREF="#remquo"><B>remquo</B></A>(float x, float y, int *pquo);
+long double <A HREF="#remquo"><B>remquo</B></A>(long double x, long double y, int *pquo);
+
+double <A HREF="#rint"><B>rint</B></A>(double x);
+float <A HREF="#rint"><B>rint</B></A>(float x);
+long double <A HREF="#rint"><B>rint</B></A>(long double x);
+
+double <A HREF="#round"><B>round</B></A>(double x);
+float <A HREF="#round"><B>round</B></A>(float x);
+long double <A HREF="#round"><B>round</B></A>(long double x);
+
+double <A HREF="#scalbln"><B>scalbln</B></A>(double x, long ex);
+float <A HREF="#scalbln"><B>scalbln</B></A>(float x, long ex);
+long double <A HREF="#scalbln"><B>scalbln</B></A>(long double x, long ex);
+
+double <A HREF="#scalbn"><B>scalbn</B></A>(double x, int ex);
+float <A HREF="#scalbn"><B>scalbn</B></A>(float x, int ex);
+long double <A HREF="#scalbn"><B>scalbn</B></A>(long double x, int ex);
+
+double <A HREF="#sin"><B>sin</B></A>(double x);
+float <A HREF="#sin"><B>sin</B></A>(float x);
+long double <A HREF="#sin"><B>sin</B></A>(long double x);
+double _Complex <A HREF="#sin"><B>sin</B></A>(double _Complex x);
+float _Complex <A HREF="#sin"><B>sin</B></A>(float _Complex x);
+long double _Complex <A HREF="#sin"><B>sin</B></A>(long double _Complex x);
+
+double <A HREF="#sinh"><B>sinh</B></A>(double x);
+float <A HREF="#sinh"><B>sinh</B></A>(float x);
+long double <A HREF="#sinh"><B>sinh</B></A>(long double x);
+double _Complex <A HREF="#sinh"><B>sinh</B></A>(double _Complex x);
+float _Complex <A HREF="#sinh"><B>sinh</B></A>(float _Complex x);
+long double _Complex <A HREF="#sinh"><B>sinh</B></A>(long double _Complex x);
+
+double <A HREF="#sqrt"><B>sqrt</B></A>(double x);
+float <A HREF="#sqrt"><B>sqrt</B></A>(float x);
+long double <A HREF="#sqrt"><B>sqrt</B></A>(long double x);
+double _Complex <A HREF="#sqrt"><B>sqrt</B></A>(double _Complex x);
+float _Complex <A HREF="#sqrt"><B>sqrt</B></A>(float _Complex x);
+long double _Complex <A HREF="#sqrt"><B>sqrt</B></A>(long double _Complex x);
+
+double <A HREF="#tan"><B>tan</B></A>(double x);
+float <A HREF="#tan"><B>tan</B></A>(float x);
+long double <A HREF="#tan"><B>tan</B></A>(long double x);
+double _Complex <A HREF="#tan"><B>tan</B></A>(double _Complex x);
+float _Complex <A HREF="#tan"><B>tan</B></A>(float _Complex x);
+long double _Complex <A HREF="#tan"><B>tan</B></A>(long double _Complex x);
+
+double <A HREF="#tanh"><B>tanh</B></A>(double x);
+float <A HREF="#tanh"><B>tanh</B></A>(float x);
+long double <A HREF="#tanh"><B>tanh</B></A>(long double x);
+double _Complex <A HREF="#tanh"><B>tanh</B></A>(double _Complex x);
+float _Complex <A HREF="#tanh"><B>tanh</B></A>(float _Complex x);
+long double _Complex <A HREF="#tanh"><B>tanh</B></A>(long double _Complex x);
+
+double <A HREF="#tgamma"><B>tgamma</B></A>(double x);
+float <A HREF="#tgamma"><B>tgamma</B></A>(float x);
+long double <A HREF="#tgamma"><B>tgamma</B></A>(long double x);
+
+double <A HREF="#trunc"><B>trunc</B></A>(double x);
+float <A HREF="#trunc"><B>trunc</B></A>(float x);
+long double <A HREF="#trunc"><B>trunc</B></A>(long double x);</PRE>
+
+<H2><A NAME="acos"><CODE>acos</CODE></A></H2>
+
+<PRE>double <B>acos</B>(double x);
+float <B>acos</B>(float x);
+long double <B>acos</B>(long double x);
+double _Complex <B>acos</B>(double _Complex x);
+float _Complex <B>acos</B>(float _Complex x);
+long double _Complex <B>acos</B>(long double _Complex x);</PRE>
+
+<P>The function returns the arccosine of <CODE>x</CODE>.</P>
+
+<H2><A NAME="acosh"><CODE>acosh</CODE></A></H2>
+
+<PRE>double <B>acosh</B>(double x);
+float <B>acosh</B>(float x);
+long double <B>acosh</B>(long double x);
+double _Complex <B>acosh</B>(double _Complex x);
+float _Complex <B>acosh</B>(float _Complex x);
+long double _Complex <B>acosh</B>(long double _Complex x);</PRE>
+
+<P>The function returns the hyperbolic arccosine of <CODE>x</CODE>.</P>
+
+<H2><A NAME="carg"><CODE>carg</CODE></A></H2>
+
+<PRE>double <B>carg</B>(double _Complex x);
+float <B>carg</B>(float _Complex x);
+long double <B>carg</B>(long double _Complex x);</PRE>
+
+<P>The function returns the phase angle of <CODE>x</CODE>.</P>
+
+<H2><A NAME="asin"><CODE>asin</CODE></A></H2>
+
+<PRE>double <B>asin</B>(double x);
+float <B>asin</B>(float x);
+long double <B>asin</B>(long double x);
+double _Complex <B>asin</B>(double _Complex x);
+float _Complex <B>asin</B>(float _Complex x);
+long double _Complex <B>asin</B>(long double _Complex x);</PRE>
+
+<P>The function returns the arcsine of <CODE>x</CODE>.</P>
+
+<H2><A NAME="asinh"><CODE>asinh</CODE></A></H2>
+
+<PRE>double <B>asinh</B>(double x);
+float <B>asinh</B>(float x);
+long double <B>asinh</B>(long double x);
+double _Complex <B>asinh</B>(double _Complex x);
+float _Complex <B>asinh</B>(float _Complex x);
+long double _Complex <B>asinh</B>(long double _Complex x);</PRE>
+
+<P>The function returns the hyperbolic arcsine of <CODE>x</CODE>.</P>
+
+<H2><A NAME="atan"><CODE>atan</CODE></A></H2>
+
+<PRE>double <B>atan</B>(double x);
+float <B>atan</B>(float x);
+long double <B>atan</B>(long double x);
+double _Complex <B>atan</B>(double _Complex x);
+float _Complex <B>atan</B>(float _Complex x);
+long double _Complex <B>atan</B>(long double _Complex x);</PRE>
+
+<P>The function returns the arctangent of <CODE>x</CODE>.</P>
+
+<H2><A NAME="atan2"><CODE>atan2</CODE></A></H2>
+
+<PRE>double <B>atan2</B>(double y, double x);
+float <B>atan2</B>(float y, float x);
+long double <B>atan2</B>(long double y, long double x);</PRE>
+
+<P>The function returns the angle whose tangent is <CODE>y/x</CODE>,
+in the full angular range [-pi, +pi] radians. A domain error may occur
+if both <CODE>x</CODE> and <CODE>y</CODE> are zero.</P>
+
+<H2><A NAME="atanh"><CODE>atanh</CODE></A></H2>
+
+<PRE>double <B>atanh</B>(double x);
+float <B>atanh</B>(float x);
+long double <B>atanh</B>(long double x);
+double _Complex <B>atanh</B>(double _Complex x);
+float _Complex <B>atanh</B>(float _Complex x);
+long double _Complex <B>atanh</B>(long double _Complex x);</PRE>
+
+<P>The function returns the hyperbolic arctangent of <CODE>x</CODE>.</P>
+
+<H2><A NAME="cbrt"><CODE>cbrt</CODE></A></H2>
+
+<PRE>double <B>cbrt</B>(double x);
+float <B>cbrt</B>(float x);
+long double <B>cbrt</B>(long double x);</PRE>
+
+<P>The function returns the real cube root of <CODE>x</CODE>,
+<CODE>x^(1/3)</CODE>.</P>
+
+<H2><A NAME="ceil"><CODE>ceil</CODE></A></H2>
+
+<PRE>double <B>ceil</B>(double x);
+float <B>ceil</B>(float x);
+long double <B>ceil</B>(long double x);</PRE>
+
+<P>The function returns the smallest integer value not less than
+<CODE>x</CODE>.</P>
+
+<H2><A NAME="cimag"><CODE>cimag</CODE></A></H2>
+
+<PRE>double <B>cimag</B>(double _Complex x);
+float <B>cimag</B>(float _Complex x);
+long double <B>cimag</B>(long double _Complex x);</PRE>
+
+<P>The function returns the imaginary part of <CODE>x</CODE>.</P>
+
+<H2><A NAME="conj"><CODE>conj</CODE></A></H2>
+
+<PRE>double _Complex <B>conj</B>(double _Complex x);
+float _Complex <B>conj</B>(float _Complex x);
+long double _Complex <B>conj</B>(long double _Complex x);</PRE>
+
+<P>The function returns the conjugate of <CODE>x</CODE>.</P>
+
+<H2><A NAME="copysign"><CODE>copysign</CODE></A></H2>
+
+<PRE>double <B>copysign</B>(double x, double y);
+float <B>copysign</B>(float x, float y);
+long double <B>copysign</B>(long double x, long double y);</PRE>
+
+<P>The function returns <CODE>x</CODE>, with its sign bit replaced from
+<CODE>y</CODE>.</P>
+
+<H2><A NAME="cos"><CODE>cos</CODE></A></H2>
+
+<PRE>double <B>cos</B>(double x);
+float <B>cos</B>(float x);
+long double <B>cos</B>(long double x);
+double _Complex <B>cos</B>(double _Complex x);
+float _Complex <B>cos</B>(float _Complex x);
+long double _Complex <B>cos</B>(long double _Complex x);</PRE>
+
+<P>The function returns the cosine of <CODE>x</CODE>.</P>
+
+<H2><A NAME="cosh"><CODE>cosh</CODE></A></H2>
+
+<PRE>double <B>cosh</B>(double x);
+float <B>cosh</B>(float x);
+long double <B>cosh</B>(long double x);
+double _Complex <B>cosh</B>(double _Complex x);
+float _Complex <B>cosh</B>(float _Complex x);
+long double _Complex <B>cosh</B>(long double _Complex x);</PRE>
+
+<P>The function returns the hyperbolic cosine of <CODE>x</CODE>.</P>
+
+<H2><A NAME="cproj"><CODE>cproj</CODE></A></H2>
+
+<PRE>double _Complex <B>cproj</B>(double _Complex x);
+float _Complex <B>cproj</B>(float _Complex x);
+long double _Complex <B>cproj</B>(long double _Complex x);</PRE>
+
+<P>The function returns a projection of <CODE>x</CODE> onto the Riemann
+sphere. Specifically, if either component of <CODE>x</CODE> is an
+infinity of either sign, the function returns a value whose real part is
+positive infinity and whose imaginary part is zero with the same sign
+as the imaginary part of <CODE>x</CODE>. Otherwise, the function returns
+<CODE>x</CODE>.</P>
+
+<H2><A NAME="creal"><CODE>creal</CODE></A></H2>
+
+<PRE>double <B>creal</B>(double _Complex x);
+float <B>creal</B>(float _Complex x);
+long double <B>creal</B>(long double _Complex x);</PRE>
+
+<P>The function returns the real part of <CODE>x</CODE>.</P>
+
+<H2><A NAME="erf"><CODE>erf</CODE></A></H2>
+
+<PRE>double <B>erf</B>(double x);
+float <B>erf</B>(float x);
+long double <B>erf</B>(long double x);</PRE>
+
+<P>The function returns the error function of <CODE>x</CODE>.</P>
+
+<H2><A NAME="erfc"><CODE>erfc</CODE></A></H2>
+
+<PRE>double <B>erfc</B>(double x);
+float <B>erfc</B>(float x);
+long double <B>erfc</B>(long double x);</PRE>
+
+<P>The function returns the complementary error function of <CODE>x</CODE>.</P>
+
+<H2><A NAME="exp"><CODE>exp</CODE></A></H2>
+
+<PRE>double <B>exp</B>(double x);
+float <B>exp</B>(float x);
+long double <B>exp</B>(long double x);
+double _Complex <B>exp</B>(double _Complex x);
+float _Complex <B>exp</B>(float _Complex x);
+long double _Complex <B>exp</B>(long double _Complex x);</PRE>
+
+<P>The function returns the exponential of <CODE>x</CODE>,
+e^<CODE>x</CODE>.</P>
+
+<H2><A NAME="exp2"><CODE>exp2</CODE></A></H2>
+
+<PRE>double <B>exp2</B>(double x);
+float <B>exp2</B>(float x);
+long double <B>exp2</B>(long double x);</PRE>
+
+<P>The function returns two raised to the power <CODE>x</CODE>,
+2^<CODE>x</CODE>.</P>
+
+<H2><A NAME="expm1"><CODE>expm1</CODE></A></H2>
+
+<PRE>double <B>expm1</B>(double x);
+float <B>expm1</B>(float x);
+long double <B>expm1</B>(long double x);</PRE>
+
+<P>The function returns one less than the exponential function of <CODE>x</CODE>,
+e^<CODE>x</CODE> - 1.</P>
+
+<H2><A NAME="fabs"><CODE>fabs</CODE></A></H2>
+
+<PRE>double <B>fabs</B>(double x);
+float <B>fabs</B>(float x);
+long double <B>fabs</B>(long double x);
+double <B>fabs</B>(double _Complex x);
+float <B>fabs</B>(float _Complex x);
+long double <B>fabs</B>(long double _Complex x);</PRE>
+
+<P>The function returns the magnitude of <CODE>x</CODE>,
+<CODE>|x|</CODE>.</P>
+
+<H2><A NAME="fdim"><CODE>fdim</CODE></A></H2>
+
+<PRE>double <B>fdim</B>(double x, double y);
+float <B>fdim</B>(float x, float y);
+long double <B>fdim</B>(long double x, long double y);</PRE>
+
+<P>The function returns the larger of <CODE>x - y</CODE> and zero.</P>
+
+<H2><A NAME="floor"><CODE>floor</CODE></A></H2>
+
+<PRE>double <B>floor</B>(double x);
+float <B>floor</B>(float x);
+long double <B>floor</B>(long double x);</PRE>
+
+<P>The function returns the largest integer value not greater than
+<CODE>x</CODE>.</P>
+
+<H2><A NAME="fma"><CODE>fma</CODE></A></H2>
+
+<PRE>double <B>fma</B>(double x, double y, double z);
+float <B>fma</B>(float x, float y, float z);
+long double <B>fma</B>(long double x, long double y, long double z);</PRE>
+
+<P>The function returns <CODE>x * y + z</CODE>, to arbitrary intermediate
+precision.</P>
+
+<H2><A NAME="fmax"><CODE>fmax</CODE></A></H2>
+
+<PRE>double <B>fmax</B>(double x, double y);
+float <B>fmax</B>(float x, float y);
+long double <B>fmax</B>(long double x, long double y);</PRE>
+
+<P>The function returns the larger (more positive) of <CODE>x</CODE> and <CODE>y</CODE>.</P>
+
+<H2><A NAME="fmin"><CODE>fmin</CODE></A></H2>
+
+<PRE>double <B>fmin</B>(double x, double y);
+float <B>fmin</B>(float x, float y);
+long double <B>fmin</B>(long double x, long double y);</PRE>
+
+<P>The function returns the smaller (more negative) of <CODE>x</CODE> and <CODE>y</CODE>.</P>
+
+<H2><A NAME="fmod"><CODE>fmod</CODE></A></H2>
+
+<PRE>double <B>fmod</B>(double x, double y);
+float <B>fmod</B>(float x, float y);
+long double <B>fmod</B>(long double x, long double y);</PRE>
+
+<P>The function returns the remainder of <CODE>x/y</CODE>,
+which is defined as follows:</P>
+
+<UL>
+<LI>If <CODE>y</CODE> is zero,
+the function either reports a domain error or simply returns zero.
+
+<LI>Otherwise, if <CODE>0 &lt;= x</CODE>,
+the value is <CODE>x - i*y</CODE>
+for some integer <CODE>i</CODE> such that:<BR>
+<CODE>0 &lt;= i*|y| &lt;= x &lt; (i + 1)*|y|</CODE>
+
+<LI>Otherwise, <CODE>x &lt; 0</CODE>
+and the value is <CODE>x - i*y</CODE>
+for some integer <CODE>i</CODE> such that:<BR>
+<CODE>i*|y| &lt;= x &lt; (i + 1)*|y| &lt;= 0</CODE>
+</UL>
+
+<H2><A NAME="frexp"><CODE>frexp</CODE></A></H2>
+
+<PRE>double <B>frexp</B>(double x, int *pexp);
+float <B>frexp</B>(float x, int *pexp);
+long double <B>frexp</B>(long double x, int *pexp);</PRE>
+
+<P>The function determines a fraction <CODE>frac</CODE> and an exponent integer
+<CODE>ex</CODE> that represent the value of <CODE>x</CODE>.
+It returns the value <CODE>frac</CODE> and stores the integer
+<CODE>ex</CODE> in <CODE>*pexp</CODE>, such that:
+
+<UL>
+<LI><CODE>|frac|</CODE> is in the interval [1/2, 1) or is zero</LI>
+
+<LI><CODE>x == frac * 2^ex</CODE></LI>
+</UL>
+
+<P>If <CODE>x</CODE> is zero, <CODE>*pexp</CODE> is also zero.</P>
+
+<H2><A NAME="hypot"><CODE>hypot</CODE></A></H2>
+
+<PRE>double <B>hypot</B>(double x, double y);
+float <B>hypot</B>(float x, float y);
+long double <B>hypot</B>(long double x, long double y);</PRE>
+
+<P>The function returns the square root of <CODE>x^2 + y^2</CODE>.</P>
+
+<H2><A NAME="ilogb"><CODE>ilogb</CODE></A></H2>
+
+<PRE>int <B>ilogb</B>(double x);
+int <B>ilogb</B>(float x);
+int <B>ilogb</B>(long double x);</PRE>
+
+<P>The function returns:</P>
+
+<UL>
+<LI>for <CODE>x</CODE> not-a-number (NaN), the value of the macro
+<CODE><A HREF="math.html#FP_ILOGBNAN">FP_ILOGBNAN</A></CODE></LI>
+
+<LI>for <CODE>x</CODE> equal to zero, the value of the macro
+<CODE><A HREF="math.html#FP_ILOGB0">FP_ILOGB0</A></CODE></LI>
+
+<LI>for <CODE>x</CODE> equal to positive or negative infinity,
+the value of the macro
+<CODE><A HREF="limits.html#INT_MAX">INT_MAX</A></CODE></LI>
+</UL>
+
+<P>Otherwise, it returns
+<CODE>(int)<A HREF="math.html#logb">logb</A>(x)</CODE>.</P>
+
+<H2><A NAME="ldexp"><CODE>ldexp</CODE></A></H2>
+
+<PRE>double <B>ldexp</B>(double x, int ex);
+float <B>ldexp</B>(float x, int ex);
+long double <B>ldexp</B>(long double x, int ex);</PRE>
+
+<P>The function returns <CODE>x * 2^ex</CODE>.</P>
+
+<H2><A NAME="lgamma"><CODE>lgamma</CODE></A></H2>
+
+<PRE>double <B>lgamma</B>(double x);
+float <B>lgamma</B>(float x);
+long double <B>lgamma</B>(long double x);</PRE>
+
+<P>The function returns the natural logarithm of the absolute value
+of the gamma function of <CODE>x</CODE>.</P>
+
+<H2><A NAME="llrint"><CODE>llrint</CODE></A></H2>
+
+<PRE>long long <B>llrint</B>(double x);
+long long <B>llrint</B>(float x);
+long long <B>llrint</B>(long double x);</PRE>
+
+<P>The function returns the nearest <I>long long</I> integer to <CODE>x</CODE>,
+consistent with the current rounding mode.</P>
+
+<H2><A NAME="llround"><CODE>llround</CODE></A></H2>
+
+<PRE>long long <B>llround</B>(double x);
+long long <B>llround</B>(float x);
+long long <B>llround</B>(long double x);</PRE>
+
+<P>The function returns the nearest <I>long long</I> integer to <CODE>x</CODE>,
+rounding halfway values away from zero,
+regardless of the current rounding mode.</P>
+
+<H2><A NAME="log"><CODE>log</CODE></A></H2>
+
+<PRE>double <B>log</B>(double x);
+float <B>log</B>(float x);
+long double <B>log</B>(long double x);
+double _Complex <B>log</B>(double _Complex x);
+float _Complex <B>log</B>(float _Complex x);
+long double _Complex <B>log</B>(long double _Complex x);</PRE>
+
+<P>The function returns the natural logarithm of <CODE>x</CODE>.</P>
+
+<H2><A NAME="log10"><CODE>log10</CODE></A></H2>
+
+<PRE>double <B>log10</B>(double x);
+float <B>log10</B>(float x);
+long double <B>log10</B>(long double x);</PRE>
+
+<P>The function returns the base-10 logarithm of <CODE>x</CODE>.
+A domain error occurs if <CODE>x &lt; 0</CODE>.</P>
+
+<H2><A NAME="log1p"><CODE>log1p</CODE></A></H2>
+
+<PRE>double <B>log1p</B>(double x);
+float <B>log1p</B>(float x);
+long double <B>log1p</B>(long double x);</PRE>
+
+<P>The function returns the natural logarithm of <CODE>1 + x</CODE>.
+A domain error occurs if <CODE>x &lt; -1</CODE>.</P>
+
+<H2><A NAME="log2"><CODE>log2</CODE></A></H2>
+
+<PRE>double <B>log2</B>(double x);
+float <B>log2</B>(float x);
+long double <B>log2</B>(long double x);</PRE>
+
+<P>The function returns the base-2 logarithm of <CODE>x</CODE>.
+A domain error occurs if <CODE>x &lt; 0</CODE>.</P>
+
+<H2><A NAME="logb"><CODE>logb</CODE></A></H2>
+
+<PRE>double <B>logb</B>(double x);
+float <B>logb</B>(float x);
+long double <B>logb</B>(long double x);</PRE>
+
+<P>The function determines an integer exponent <CODE>ex</CODE> and a fraction
+<CODE>frac</CODE> that represent the value of a finite <CODE>x</CODE>.
+It returns the value <CODE>ex</CODE> such that:</P>
+
+<UL>
+<LI><CODE>x == frac * ex^<A HREF="float.html#FLT_RADIX">FLT_RADIX</A></CODE></LI>
+
+<LI><CODE>|frac|</CODE> is in the interval [1, <CODE>FLT_RADIX</CODE>)</LI>
+</UL>
+
+<P>A domain error may occur if <CODE>x</CODE> is zero.</P>
+
+<H2><A NAME="lrint"><CODE>lrint</CODE></A></H2>
+
+<PRE>long <B>lrint</B>(double x);
+long <B>lrint</B>(float x);
+long <B>lrint</B>(long double x);</PRE>
+
+<P>The function returns the nearest <I>long</I> integer to <CODE>x</CODE>,
+consistent with the current rounding mode.</P>
+
+<H2><A NAME="lround"><CODE>lround</CODE></A></H2>
+
+<PRE>long <B>lround</B>(double x);
+long <B>lround</B>(float x);
+long <B>lround</B>(long double x);</PRE>
+
+<P>The function returns the nearest <I>long</I> integer to <CODE>x</CODE>,
+rounding halfway values away from zero,
+regardless of the current rounding mode.</P>
+
+<H2><A NAME="modf"><CODE>modf</CODE></A></H2>
+
+<PRE>double <B>modf</B>(double x, double *pint);
+float <B>modf</B>(float x, float *pint);
+long double <B>modf</B>(long double x, long double *pint);</PRE>
+
+<P>The function determines an integer <CODE>i</CODE> plus a fraction
+<CODE>frac</CODE> that represent the value of <CODE>x</CODE>.
+It returns the value <CODE>frac</CODE> and stores the integer
+<CODE>i</CODE> in <CODE>*pint</CODE>, such that:</P>
+
+<UL>
+<LI><CODE>x == frac + i</CODE></LI>
+
+<LI><CODE>|frac|</CODE> is in the interval [0, 1)</LI>
+
+<LI>both <CODE>frac</CODE> and <CODE>i</CODE> have the
+same sign as <CODE>x</CODE></LI>
+</UL>
+
+<H2><A NAME="nearbyint"><CODE>nearbyint</CODE></A></H2>
+
+<PRE>double <B>nearbyint</B>(double x);
+float <B>nearbyint</B>(float x);
+long double <B>nearbyint</B>(long double x);</PRE>
+
+<P>The function returns <CODE>x</CODE> rounded to the nearest integer, using
+the current rounding mode but without raising an
+<A HREF="fenv.html#inexact floating-point">inexact floating-point</A> exception.</P>
+
+<H2><A NAME="nextafter"><CODE>nextafter</CODE></A></H2>
+
+<PRE>double <B>nextafter</B>(double x, double y);
+float <B>nextafter</B>(float x, float y);
+long double <B>nextafter</B>(long double x, long double y);</PRE>
+
+<P>The function returns:</P>
+
+<UL>
+<LI>if <CODE>x &lt; y</CODE>, the next representable value after
+<CODE>x</CODE></LI>
+
+<LI>if <CODE>x == y</CODE>, <CODE>y</CODE></LI>
+
+<LI>if <CODE>x &gt; y</CODE>, the next representable value before
+<CODE>x</CODE></LI>
+</UL>
+
+<H2><A NAME="nexttoward"><CODE>nexttoward</CODE></A></H2>
+
+<PRE>double <B>nexttoward</B>(double x, long double y);
+float <B>nexttoward</B>(float x, long double y);
+long double <B>nexttoward</B>(long double x, long double y);</PRE>
+
+<P>The function returns:</P>
+
+<UL>
+<LI>if <CODE>x &lt; y</CODE>, the next representable value after
+<CODE>x</CODE></LI>
+
+<LI>if <CODE>x == y</CODE>, <CODE>y</CODE></LI>
+
+<LI>if <CODE>x &gt; y</CODE>, the next representable value before
+<CODE>x</CODE></LI>
+</UL>
+
+<H2><A NAME="pow"><CODE>pow</CODE></A></H2>
+
+<PRE>double <B>pow</B>(double x, double y);
+float <B>pow</B>(float x, float y);
+long double <B>pow</B>(long double x, long double y);
+double _Complex <B>pow</B>(double _Complex x, double _Complex y);
+float _Complex <B>pow</B>(float _Complex x, float _Complex y);
+long double _Complex <B>pow</B>(long double _Complex x, long double _Complex y);</PRE>
+
+<P>The function returns <CODE>x</CODE> raised to the power <CODE>y</CODE>,
+<CODE>x^y</CODE>.</P>
+
+<H2><A NAME="remainder"><CODE>remainder</CODE></A></H2>
+
+<PRE>double <B>remainder</B>(double x, double y);
+float <B>remainder</B>(float x, float y);
+long double <B>remainder</B>(long double x, long double y);</PRE>
+
+<P>The function effectively returns
+<CODE><A HREF="#remquo">remquo</A>(x, y, &temp)</CODE>, where
+<CODE>temp</CODE> is a temporary object of type <I>int</I> local to the
+function.</P>
+
+<H2><A NAME="remquo"><CODE>remquo</CODE></A></H2>
+
+<PRE>double <B>remquo</B>(double x, double y, int *pquo);
+float <B>remquo</B>(float x, float y, int *pquo);
+long double <B>remquo</B>(long double x, long double y, int *pquo);</PRE>
+
+<P>The function computes the remainder <CODE>rem == x - n*y</CODE>, where
+<CODE>n == x/y</CODE> rounded to the nearest integer, or to the nearest
+even integer if <CODE>|n - x/y| == 1/2</CODE>. If <CODE>rem</CODE> is zero,
+it has the same sign as <CODE>x</CODE>. A domain error occurs if
+<CODE>y</CODE> is zero.</P>
+
+<P>The function stores in <CODE>*pquo</CODE> at least three of the
+low-order bits of <CODE>|x/y|</CODE>, negated if <CODE>x/y &lt; 0</CODE>.
+It returns <CODE>rem</CODE>.</P>
+
+<H2><A NAME="rint"><CODE>rint</CODE></A></H2>
+
+<PRE>double <B>rint</B>(double x);
+float <B>rint</B>(float x);
+long double <B>rint</B>(long double x);</PRE>
+
+<P>The function returns <CODE>x</CODE> rounded to the nearest integer, using
+the current rounding mode. It may raise an
+<A HREF="fenv.html#inexact floating-point">inexact floating-point</A> exception
+if the return value does not equal <CODE>x</CODE>.</P>
+
+<H2><A NAME="round"><CODE>round</CODE></A></H2>
+
+<PRE>double <B>round</B>(double x);
+float <B>round</B>(float x);
+long double <B>round</B>(long double x);</PRE>
+
+<P>The function returns <CODE>x</CODE> rounded to the nearest integer
+<CODE>n</CODE>, or to the value with larger magnitude if
+<CODE>|n - x| == 1/2</CODE>.</P>
+
+<H2><A NAME="scalbln"><CODE>scalbln</CODE></A></H2>
+
+<PRE>double <B>scalbln</B>(double x, long ex);
+float <B>scalbln</B>(float x, long ex);
+long double <B>scalbln</B>(long double x, long ex);</PRE>
+
+<P>The function returns <CODE>x *
+<A HREF="float.html#FLT_RADIX">FLT_RADIX</A>^ex</CODE>.</P>
+
+<H2><A NAME="scalbn"><CODE>scalbn</CODE></A></H2>
+
+<PRE>double <B>scalbn</B>(double x, int ex);
+float <B>scalbn</B>(float x, int ex);
+long double <B>scalbn</B>(long double x, int ex);</PRE>
+
+<P>The function returns <CODE>x *
+<A HREF="float.html#FLT_RADIX">FLT_RADIX</A>^ex</CODE>.</P>
+
+<H2><A NAME="sin"><CODE>sin</CODE></A></H2>
+
+<PRE>double <B>sin</B>(double x);
+float <B>sin</B>(float x);
+long double <B>sin</B>(long double x);
+double _Complex <B>sin</B>(double _Complex x);
+float _Complex <B>sin</B>(float _Complex x);
+long double _Complex <B>sin</B>(long double _Complex x);</PRE>
+
+<P>The function returns the sine of <CODE>x</CODE>.</P>
+
+<H2><A NAME="sinh"><CODE>sinh</CODE></A></H2>
+
+<PRE>double <B>sinh</B>(double x);
+float <B>sinh</B>(float x);
+long double <B>sinh</B>(long double x);
+double _Complex <B>sinh</B>(double _Complex x);
+float _Complex <B>sinh</B>(float _Complex x);
+long double _Complex <B>sinh</B>(long double _Complex x);</PRE>
+
+<P>The function returns the hyperbolic sine of <CODE>x</CODE>.</P>
+
+<H2><A NAME="sqrt"><CODE>sqrt</CODE></A></H2>
+
+<PRE>double <B>sqrt</B>(double x);
+float <B>sqrt</B>(float x);
+long double <B>sqrt</B>(long double x);
+double _Complex <B>sqrt</B>(double _Complex x);
+float _Complex <B>sqrt</B>(float _Complex x);
+long double _Complex <B>sqrt</B>(long double _Complex x);</PRE>
+
+<P>The function returns the real square root of <CODE>x</CODE>,
+<CODE>x^(1/2)</CODE>.</P>
+
+<H2><A NAME="tan"><CODE>tan</CODE></A></H2>
+
+<PRE>double <B>tan</B>(double x);
+float <B>tan</B>(float x);
+long double <B>tan</B>(long double x);
+double _Complex <B>tan</B>(double _Complex x);
+float _Complex <B>tan</B>(float _Complex x);
+long double _Complex <B>tan</B>(long double _Complex x);</PRE>
+
+<P>The function returns the tangent of <CODE>x</CODE>.</P>
+
+<H2><A NAME="tanh"><CODE>tanh</CODE></A></H2>
+
+<PRE>double <B>tanh</B>(double x);
+float <B>tanh</B>(float x);
+long double <B>tanh</B>(long double x);
+double _Complex <B>tanh</B>(double _Complex x);
+float _Complex <B>tanh</B>(float _Complex x);
+long double _Complex <B>tanh</B>(long double _Complex x);</PRE>
+
+<P>The function returns the hyperbolic tangent of <CODE>x</CODE>.</P>
+
+<H2><A NAME="tgamma"><CODE>tgamma</CODE></A></H2>
+
+<PRE>double <B>tgamma</B>(double x);
+float <B>tgamma</B>(float x);
+long double <B>tgamma</B>(long double x);</PRE>
+
+<P>The function computes the gamma function of <CODE>x</CODE>.
+A domain error occurs if <CODE>x</CODE> is a negative integer.</P>
+
+<H2><A NAME="trunc"><CODE>trunc</CODE></A></H2>
+
+<PRE>double <B>trunc</B>(double x);
+float <B>trunc</B>(float x);
+long double <B>trunc</B>(long double x);</PRE>
+
+<P>The function returns <CODE>x</CODE> rounded to the nearest integer
+<CODE>n</CODE> not larger in magnitude than <CODE>x</CODE>
+(toward zero).</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pb.html">Copyright</A> &#169; 2000-2002
+by P.J. Plauger. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

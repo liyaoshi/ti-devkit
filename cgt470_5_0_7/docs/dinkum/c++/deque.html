@@ -1,0 +1,675 @@
+<HTML><HEAD><TITLE>&lt;deque&gt;</TITLE></HEAD><BODY>
+
+<H1><A NAME="&lt;deque&gt;"><CODE>&lt;deque&gt;</CODE></A></H1><HR>
+
+<P>Include the <A HREF="index.html#STL">STL</A>
+standard header <B><CODE>&lt;deque&gt;</CODE></B> to define the
+<A HREF="lib_cont.html#Containers">container</A>
+template class <CODE>deque</CODE> and several supporting
+templates.</P>
+
+<PRE>namespace std {
+template&lt;class Ty, class Alloc&gt;
+    class <B><A HREF="#deque">deque</A></B>;
+
+        // TEMPLATE FUNCTIONS
+template&lt;class Ty, class Alloc&gt;
+    bool <B><A HREF="#operator==">operator==</A></B>(
+        const deque&lt;Ty, Alloc&gt;&amp; left,
+        const deque&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <B><A HREF="#operator!=">operator!=</A></B>(
+        const deque&lt;Ty, Alloc&gt;&amp; left,
+        const deque&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <B><A HREF="#operator&lt;">operator&lt;</A></B>(
+        const deque&lt;Ty, Alloc&gt;&amp; left,
+        const deque&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <B><A HREF="#operator&gt;">operator&gt;</A></B>(
+        const deque&lt;Ty, Alloc&gt;&amp; left,
+        const deque&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <B><A HREF="#operator&lt;=">operator&lt;=</A></B>(
+        const deque&lt;Ty, Alloc&gt;&amp; left,
+        const deque&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    bool <B><A HREF="#operator&gt;=">operator&gt;=</A></B>(
+        const deque&lt;Ty, Alloc&gt;&amp; left,
+        const deque&lt;Ty, Alloc&gt;&amp; right);
+template&lt;class Ty, class Alloc&gt;
+    void <B><A HREF="#swap">swap</A></B>(
+        deque&lt;Ty, Alloc&gt;&amp; left,
+        deque&lt;Ty, Alloc&gt;&amp; right);
+    };</PRE>
+
+<H2><A NAME="deque"><CODE>deque</CODE></A></H2>
+
+<HR>
+<P><B><CODE><A HREF="#deque::allocator_type">allocator_type</A>
+&#183; <A HREF="#deque::assign">assign</A>
+&#183; <A HREF="#deque::at">at</A>
+&#183; <A HREF="#deque::back">back</A>
+&#183; <A HREF="#deque::begin">begin</A>
+&#183; <A HREF="#deque::clear">clear</A>
+&#183; <A HREF="#deque::const_iterator">const_iterator</A>
+&#183; <A HREF="#deque::const_pointer">const_pointer</A>
+&#183; <A HREF="#deque::const_reference">const_reference</A>
+&#183; <A HREF="#deque::const_reverse_iterator">const_reverse_iterator</A>
+&#183; <A HREF="#deque::deque">deque</A>
+&#183; <A HREF="#deque::difference_type">difference_type</A>
+&#183; <A HREF="#deque::empty">empty</A>
+&#183; <A HREF="#deque::end">end</A>
+&#183; <A HREF="#deque::erase">erase</A>
+&#183; <A HREF="#deque::front">front</A>
+&#183; <A HREF="#deque::get_allocator">get_allocator</A>
+&#183; <A HREF="#deque::insert">insert</A>
+&#183; <A HREF="#deque::iterator">iterator</A>
+&#183; <A HREF="#deque::max_size">max_size</A>
+&#183; <A HREF="#deque::operator[]">operator[]</A>
+&#183; <A HREF="#deque::pointer">pointer</A>
+&#183; <A HREF="#deque::pop_back">pop_back</A>
+&#183; <A HREF="#deque::pop_front">pop_front</A>
+&#183; <A HREF="#deque::push_back">push_back</A>
+&#183; <A HREF="#deque::push_front">push_front</A>
+&#183; <A HREF="#deque::rbegin">rbegin</A>
+&#183; <A HREF="#deque::reference">reference</A>
+&#183; <A HREF="#deque::rend">rend</A>
+&#183; <A HREF="#deque::resize">resize</A>
+&#183; <A HREF="#deque::reverse_iterator">reverse_iterator</A>
+&#183; <A HREF="#deque::size">size</A>
+&#183; <A HREF="#deque::size_type">size_type</A>
+&#183; <A HREF="#deque::swap">swap</A>
+&#183; <A HREF="#deque::value_type">value_type</A>
+</CODE></B></P>
+<HR>
+
+<PRE>template&lt;class Ty, class Alloc = allocator&lt;Ty&gt; &gt;
+    class <B>deque</B> {
+public:
+    typedef Alloc <B><A HREF="#deque::allocator_type">allocator_type</A></B>;
+    typedef typename Alloc::pointer <B><A HREF="#deque::pointer">pointer</A></B>;
+    typedef typename Alloc::const_pointer <B><A HREF="#deque::const_pointer">const_pointer</A></B>;
+    typedef typename Alloc::reference <B><A HREF="#deque::reference">reference</A></B>;
+    typedef typename Alloc::const_reference <B><A HREF="#deque::const_reference">const_reference</A></B>;
+    typedef typename Alloc::value_type <B><A HREF="#deque::value_type">value_type</A></B>;
+    typedef T0 <B><A HREF="#deque::iterator">iterator</A></B>;
+    typedef T1 <B><A HREF="#deque::const_iterator">const_iterator</A></B>;
+    typedef T2 <B><A HREF="#deque::size_type">size_type</A></B>;
+    typedef T3 <B><A HREF="#deque::difference_type">difference_type</A></B>;
+    typedef reverse_iterator&lt;const_iterator&gt;
+        <B><A HREF="#deque::const_reverse_iterator">const_reverse_iterator</A></B>;
+    typedef reverse_iterator&lt;iterator&gt;
+        <B><A HREF="#deque::reverse_iterator">reverse_iterator</A></B>;
+    <B><A HREF="#deque::deque">deque</A></B>();
+    explicit <B><A HREF="#deque::deque">deque</A></B>(const Alloc&amp; al);
+    explicit <B><A HREF="#deque::deque">deque</A></B>(size_type count);
+    <B><A HREF="#deque::deque">deque</A></B>(size_type count, const Ty&amp; val);
+    <B><A HREF="#deque::deque">deque</A></B>(size_type count, const Ty&amp; val,
+        const Alloc&amp; al);
+    <B><A HREF="#deque::deque">deque</A></B>(const deque&amp; right);
+    template&lt;class InIt&gt;
+        <B><A HREF="#deque::deque">deque</A></B>(InIt first, InIt last);
+    template&lt;class InIt&gt;
+        <B><A HREF="#deque::deque">deque</A></B>(InIt first, InIt last, const Alloc&amp; al);
+    iterator <B><A HREF="#deque::begin">begin</A></B>();
+    const_iterator <B><A HREF="#deque::begin">begin</A></B>() const;
+    iterator <B><A HREF="#deque::end">end</A></B>();
+    const_iterator <B><A HREF="#deque::end">end</A></B>() const;
+    reverse_iterator <B><A HREF="#deque::rbegin">rbegin</A></B>();
+    const_reverse_iterator <B><A HREF="#deque::rbegin">rbegin</A></B>() const;
+    reverse_iterator <B><A HREF="#deque::rend">rend</A></B>();
+    const_reverse_iterator <B><A HREF="#deque::rend">rend</A></B>() const;
+    void <B><A HREF="#deque::resize">resize</A></B>(size_type newsize);
+    void <B><A HREF="#deque::resize">resize</A></B>(size_type newsize, Ty val);
+    size_type <B><A HREF="#deque::size">size</A></B>() const;
+    size_type <B><A HREF="#deque::max_size">max_size</A></B>() const;
+    bool <B><A HREF="#deque::empty">empty</A></B>() const;
+    Alloc <B><A HREF="#deque::get_allocator">get_allocator</A></B>() const;
+    reference <B><A HREF="#deque::at">at</A></B>(size_type pos);
+    const_reference <B><A HREF="#deque::at">at</A></B>(size_type pos) const;
+    reference <B><A HREF="#deque::operator[]">operator[]</A></B>(size_type pos);
+    const_reference <B><A HREF="#deque::operator[]">operator[]</A></B>(size_type pos);
+    reference <B><A HREF="#deque::front">front</A></B>();
+    const_reference <B><A HREF="#deque::front">front</A></B>() const;
+    reference <B><A HREF="#deque::back">back</A></B>();
+    const_reference <B><A HREF="#deque::back">back</A></B>() const;
+    void <B><A HREF="#deque::push_front">push_front</A></B>(const Ty&amp; val);
+    void <B><A HREF="#deque::pop_front">pop_front</A></B>();
+    void <B><A HREF="#deque::push_back">push_back</A></B>(const Ty&amp; val);
+    void <B><A HREF="#deque::pop_back">pop_back</A></B>();
+    template&lt;class InIt&gt;
+        void <B><A HREF="#deque::assign">assign</A></B>(InIt first, InIt last);
+    void <B><A HREF="#deque::assign">assign</A></B>(size_type count, const Ty&amp; val);
+    iterator <B><A HREF="#deque::insert">insert</A></B>(iterator where, const Ty&amp; val);
+    void <B><A HREF="#deque::insert">insert</A></B>(iterator where, size_type count, const Ty&amp; val);
+    template&lt;class InIt&gt;
+        void <B><A HREF="#deque::insert">insert</A></B>(iterator where, InIt first, InIt last);
+    iterator <B><A HREF="#deque::erase">erase</A></B>(iterator where);
+    iterator <B><A HREF="#deque::erase">erase</A></B>(iterator first, iterator last);
+    void <B><A HREF="#deque::clear">clear</A></B>();
+    void <B><A HREF="#deque::swap">swap</A></B>(deque&amp; right);
+    };</PRE>
+
+<P>The template class describes an object that controls a
+varying-length sequence of elements of type <CODE>Ty</CODE>.
+The sequence is represented in a way that permits insertion
+and removal of an element at either end with a single element copy
+(constant time).
+Such operations in the middle of the sequence require element
+copies and assignments proportional to the number of elements
+in the sequence (linear time).</P>
+
+<P>The object allocates and frees storage for the sequence it controls
+through a stored <A HREF="memory.html#allocator object">allocator object</A>
+of class <CODE>Alloc</CODE>. Such an allocator object must have
+the same external interface as an object of template class
+<A HREF="memory.html#allocator"><CODE>allocator</CODE></A>.
+Note that the stored allocator object is <I>not</I> copied when the container
+object is assigned.</P>
+
+<P><B><A NAME="deque reallocation">Deque reallocation</A></B>
+occurs when a member function must insert or erase elements of
+the controlled sequence:</P>
+
+<UL>
+<LI>If an element is inserted into an empty sequence,
+or if an element is erased to leave an empty sequence, then
+iterators earlier returned by
+<CODE><A HREF="#deque::begin">begin</A>()</CODE> and
+<CODE><A HREF="#deque::end">end</A>()</CODE> become
+<B><A NAME="invalid deque iterators">invalid</A></B>.</LI>
+
+<LI>If an element is inserted at <CODE>begin()</CODE> or at
+<CODE><A HREF="#deque::end">end</A>()</CODE>,
+then all iterators become invalid, but no references
+that designate existing elements become invalid.</LI>
+
+<LI>If an element is erased at <CODE>begin()</CODE> or at
+<CODE><A HREF="#deque::end">end</A>()</CODE>,
+then only iterators and references that designate the erased element
+become invalid.</LI>
+
+<LI>Otherwise, inserting or erasing an element invalidates
+all iterators and references.</LI>
+</UL>
+
+<H3><CODE><A NAME="deque::allocator_type">deque::allocator_type</A></CODE></H3>
+
+<PRE>typedef Alloc <B>allocator_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Alloc</CODE>.</P>
+
+<H3><CODE><A NAME="deque::assign">deque::assign</A></CODE></H3>
+
+<PRE>template&lt;class InIt&gt;
+    void <B>assign</B>(InIt first, InIt last);
+void <B>assign</B>(size_type count, const Ty&amp; val);</PRE>
+
+<P>If <CODE>InIt</CODE> is an integer type, the first member
+function behaves the same as <CODE>assign((size_type)first, (Ty)last)</CODE>.
+Otherwise, the
+first member function replaces the sequence
+controlled by <CODE>*this</CODE> with the sequence
+<CODE>[first, last)</CODE>, which must <I>not</I> overlap
+the initial controlled sequence.
+The second member function replaces the sequence
+controlled by <CODE>*this</CODE> with a repetition of <CODE>count</CODE>
+elements of value <CODE>val</CODE>.</P>
+
+
+<H3><CODE><A NAME="deque::at">deque::at</A></CODE></H3>
+
+<PRE>const_reference <B>at</B>(size_type pos) const;
+reference <B>at</B>(size_type pos);</PRE>
+
+<P>The member function returns a reference to the element of the
+controlled sequence at position <CODE>pos</CODE>. If that position is
+invalid, the function throws an object of class
+<CODE>out_of_range</CODE>.</P>
+
+<H3><CODE><A NAME="deque::back">deque::back</A></CODE></H3>
+
+<PRE>reference <B>back</B>();
+const_reference <B>back</B>() const;</PRE>
+
+<P>The member function returns a reference to the last element of the
+controlled sequence, which must be non-empty.</P>
+
+<H3><CODE><A NAME="deque::begin">deque::begin</A></CODE></H3>
+
+<PRE>const_iterator <B>begin</B>() const;
+iterator <B>begin</B>();</PRE>
+
+<P>The member function returns a random-access iterator that points at
+the first element of the sequence (or just beyond the end of an empty
+sequence).</P>
+
+<H3><CODE><A NAME="deque::clear">deque::clear</A></CODE></H3>
+
+<PRE>void <B>clear</B>();</PRE>
+
+<P>The member function calls
+<CODE><A HREF="#deque::erase">erase</A>(
+<A HREF="#deque::begin">begin</A>(),
+<A HREF="#deque::end">end</A>())</CODE>.</P>
+
+<H3><CODE><A NAME="deque::const_iterator">deque::const_iterator</A></CODE></H3>
+
+<PRE>typedef T1 <B>const_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant
+random-access iterator for the controlled sequence.
+It is described here as a
+synonym for the implementation-defined type <CODE>T1</CODE>.</P>
+
+<H3><CODE><A NAME="deque::const_pointer">deque::const_pointer</A></CODE></H3>
+
+<PRE>typedef typename Alloc::const_pointer <B>const_pointer</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant pointer
+to an element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="deque::const_reference">deque::const_reference</A></CODE></H3>
+
+<PRE>typedef typename Alloc::const_reference <B>const_reference</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant reference
+to an element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="deque::const_reverse_iterator">deque::const_reverse_iterator</A></CODE></H3>
+
+<PRE>typedef reverse_iterator&lt;const_iterator&gt;
+    <B>const_reverse_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a constant reverse
+random-access iterator for the controlled sequence.</P>
+
+<H3><CODE><A NAME="deque::deque">deque::deque</A></CODE></H3>
+
+<PRE><B>deque</B>();
+explicit <B>deque</B>(const Alloc&amp; al);
+explicit <B>deque</B>(size_type count);
+<B>deque</B>(size_type count, const Ty&amp; val);
+<B>deque</B>(size_type count, const Ty&amp; val,
+    const Alloc&amp; al);
+<B>deque</B>(const deque&amp; right);
+template&lt;class InIt&gt;
+    <B>deque</B>(InIt first, InIt last);
+template&lt;class InIt&gt;
+    <B>deque</B>(InIt first, InIt last, const Alloc&amp; al);</PRE>
+
+<P>All constructors store an
+<A HREF="memory.html#allocator object">allocator object</A> and
+initialize the controlled sequence. The allocator object is the argument
+<CODE>al</CODE>, if present. For the copy constructor, it is
+<CODE>right.<A HREF="#deque::get_allocator">get_allocator</A>()</CODE>.
+Otherwise, it is <CODE>Alloc()</CODE>.</P>
+
+<P>The first two constructors specify an
+empty initial controlled sequence. The third constructor specifies
+a repetition of <CODE>count</CODE> elements of value <CODE>Ty()</CODE>.
+The fourth and fifth constructors specify
+a repetition of <CODE>count</CODE> elements of value <CODE>val</CODE>.
+The sixth constructor specifies a copy of the sequence controlled by
+<CODE>right</CODE>.
+If <CODE>InIt</CODE> is an integer type, the last two constructors
+specify a repetition of <CODE>(size_type)first</CODE> elements of value
+<CODE>(Ty)last</CODE>. Otherwise, the
+last two constructors specify the sequence
+<CODE>[first, last)</CODE>.</P>
+
+
+<H3><CODE><A NAME="deque::difference_type">deque::difference_type</A></CODE></H3>
+
+<PRE>typedef T3 <B>difference_type</B>;</PRE>
+
+<P>The signed integer type describes an object that can represent the
+difference between the addresses of any two elements in the controlled
+sequence. It is described here as a
+synonym for the implementation-defined type <CODE>T3</CODE>.</P>
+
+<H3><CODE><A NAME="deque::empty">deque::empty</A></CODE></H3>
+
+<PRE>bool <B>empty</B>() const;</PRE>
+
+<P>The member function returns true for an empty controlled sequence.</P>
+
+<H3><CODE><A NAME="deque::end">deque::end</A></CODE></H3>
+
+<PRE>const_iterator <B>end</B>() const;
+iterator <B>end</B>();</PRE>
+
+<P>The member function returns a random-access iterator that points
+just beyond the end of the sequence.</P>
+
+<H3><CODE><A NAME="deque::erase">deque::erase</A></CODE></H3>
+
+<PRE>iterator <B>erase</B>(iterator where);
+iterator <B>erase</B>(iterator first, iterator last);</PRE>
+
+<P>The first member function removes the element of the controlled
+sequence pointed to by <CODE>where</CODE>. The second member function
+removes the elements of the controlled sequence
+in the range <CODE>[first, last)</CODE>.
+Both return an iterator that designates the first element remaining
+beyond any elements removed, or
+<CODE><A HREF="#deque::end">end</A>()</CODE> if no such element exists.</P>
+
+<P>Removing <CODE>N</CODE> elements causes <CODE>N</CODE> destructor calls
+and an assignment for each of the elements between the insertion
+point and the nearer end of the sequence.
+Removing an element at either end
+<A HREF="#invalid deque iterators">invalidates</A> only iterators and
+references that designate the erased elements. Otherwise,
+erasing an element invalidates all iterators and references.</P>
+
+<P>The member functions throw an exception only if a copy operation
+throws an exception.</P>
+
+<H3><CODE><A NAME="deque::front">deque::front</A></CODE></H3>
+
+<PRE>reference <B>front</B>();
+const_reference <B>front</B>() const;</PRE>
+
+<P>The member function returns a reference to the first element of the
+controlled sequence, which must be non-empty.</P>
+
+<H3><CODE><A NAME="deque::get_allocator">deque::get_allocator</A></CODE></H3>
+
+<PRE>Alloc <B>get_allocator</B>() const;</PRE>
+
+<P>The member function returns the stored
+<A HREF="memory.html#allocator object">allocator object</A>.</P>
+
+<H3><CODE><A NAME="deque::insert">deque::insert</A></CODE></H3>
+
+<PRE>iterator <B>insert</B>(iterator where, const Ty&amp; val);
+void <B>insert</B>(iterator where, size_type count, const Ty&amp; val);
+template&lt;class InIt&gt;
+    void <B>insert</B>(iterator where, InIt first, InIt last);</PRE>
+
+<P>Each of the member functions inserts, before the element pointed to
+by <CODE>where</CODE> in the controlled sequence, a sequence
+specified by the remaining operands.
+The first member function inserts
+a single element with value <CODE>val</CODE> and returns an iterator
+that designates the newly inserted element.
+The second member function
+inserts a repetition of <CODE>count</CODE> elements of value <CODE>val</CODE>.
+
+<P>If <CODE>InIt</CODE> is an integer type, the last member
+function behaves the same as <CODE>insert(where, (size_type)first, (Ty)last)</CODE>.
+Otherwise, the
+last member function inserts the sequence
+<CODE>[first, last)</CODE>, which must <I>not</I> overlap
+the initial controlled sequence.</P>
+
+
+<P>When inserting a single element, the number of
+element copies is linear in the number of elements between the insertion
+point and the nearer end of the sequence. When inserting a single element
+at either end of the sequence, the amortized number of element copies
+is constant. When inserting <CODE>N</CODE> elements,
+the number of element copies is linear in
+<CODE>N</CODE> plus the number of elements between the insertion
+point and the nearer end of the sequence -- except when the template member
+is specialized for <CODE>InIt</CODE> an input or forward iterator, which
+behaves like <CODE>N</CODE> single insertions.
+Inserting an element at either end
+<A HREF="#invalid deque iterators">invalidates</A> all iterators,
+but no references, that designate existing elements. Otherwise,
+inserting an element invalidates all iterators and references.</P>
+
+<P>If an exception is thrown during the
+insertion of one or more elements, and the exception is not thrown while
+copying an element, the container is left unaltered
+and the exception is rethrown.</P>
+
+<H3><CODE><A NAME="deque::iterator">deque::iterator</A></CODE></H3>
+
+<PRE>typedef T0 <B>iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a random-access
+iterator for the controlled sequence.
+It is described here as a
+synonym for the implementation-defined type <CODE>T0</CODE>.</P>
+
+<H3><CODE><A NAME="deque::max_size">deque::max_size</A></CODE></H3>
+
+<PRE>size_type <B>max_size</B>() const;</PRE>
+
+<P>The member function returns the length of the longest sequence that
+the object can control.</P>
+
+<H3><CODE><A NAME="deque::operator[]">deque::operator[]</A></CODE></H3>
+
+<PRE>const_reference <B>operator[]</B>(size_type pos) const;
+reference <B>operator[]</B>(size_type pos);</PRE>
+
+<P>The member function returns a reference to the element of the
+controlled sequence at position <CODE>pos</CODE>. If that position is
+invalid, the behavior is undefined.</P>
+
+<H3><CODE><A NAME="deque::pointer">deque::pointer</A></CODE></H3>
+
+<PRE>typedef typename Alloc::pointer <B>pointer</B>;</PRE>
+
+<P>The type describes an object that can serve as a pointer to an
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="deque::pop_back">deque::pop_back</A></CODE></H3>
+
+<PRE>void <B>pop_back</B>();</PRE>
+
+<P>The member function removes the last element of the
+controlled sequence, which must be non-empty.
+Removing the element
+<A HREF="#invalid deque iterators">invalidates</A> only iterators and
+references that designate the erased element.</P>
+
+<P>The member function never throws an exception.</P>
+
+<H3><CODE><A NAME="deque::pop_front">deque::pop_front</A></CODE></H3>
+
+<PRE>void <B>pop_front</B>();</PRE>
+
+<P>The member function removes the first element of the
+controlled sequence, which must be non-empty.
+Removing the element
+<A HREF="#invalid deque iterators">invalidates</A> only iterators and
+references that designate the erased element.</P>
+
+<P>The member function never throws an exception.</P>
+
+<H3><CODE><A NAME="deque::push_back">deque::push_back</A></CODE></H3>
+
+<PRE>void <B>push_back</B>(const Ty&amp; val);</PRE>
+
+<P>The member function inserts an element with value <CODE>val</CODE>
+at the end of the controlled sequence. Inserting the element
+<A HREF="#invalid deque iterators">invalidates</A> all iterators,
+but no references, to existing elements.</P>
+
+<P>If an exception is thrown, the container is left unaltered
+and the exception is rethrown.</P>
+
+<H3><CODE><A NAME="deque::push_front">deque::push_front</A></CODE></H3>
+
+<PRE>void <B>push_front</B>(const Ty&amp; val);</PRE>
+
+<P>The member function inserts an element with value <CODE>val</CODE>
+at the beginning of the controlled sequence. Inserting the element
+<A HREF="#invalid deque iterators">invalidates</A> all iterators,
+but no references, to existing elements.</P>
+
+<P>If an exception is thrown, the container is left unaltered
+and the exception is rethrown.</P>
+
+<H3><CODE><A NAME="deque::rbegin">deque::rbegin</A></CODE></H3>
+
+<PRE>const_reverse_iterator <B>rbegin</B>() const;
+reverse_iterator <B>rbegin</B>();</PRE>
+
+<P>The member function returns a reverse iterator that points just
+beyond the end of the controlled sequence. Hence, it designates the
+beginning of the reverse sequence.</P>
+
+<H3><CODE><A NAME="deque::reference">deque::reference</A></CODE></H3>
+
+<PRE>typedef typename Alloc::reference <B>reference</B>;</PRE>
+
+<P>The type describes an object that can serve as a reference to an
+element of the controlled sequence.</P>
+
+<H3><CODE><A NAME="deque::rend">deque::rend</A></CODE></H3>
+
+<PRE>const_reverse_iterator <B>rend</B>() const;
+reverse_iterator <B>rend</B>();</PRE>
+
+<P>The member function returns a reverse iterator that points at the
+first element of the sequence (or just beyond the end of an empty
+sequence). Hence, it designates the end of the reverse sequence.</P>
+
+<H3><CODE><A NAME="deque::resize">deque::resize</A></CODE></H3>
+
+<PRE>void <B>resize</B>(size_type newsize);
+void <B>resize</B>(size_type newsize, Ty val);</PRE>
+
+<P>The member functions both ensure that
+<CODE><A HREF="#deque::size">size</A>()</CODE> henceforth
+returns <CODE>newsize</CODE>. If it must make the controlled sequence longer,
+the first member function
+appends elements with value <CODE>Ty()</CODE>, while the second member function
+appends elements with value <CODE>val</CODE>.
+To make the controlled sequence shorter, both member functions call
+<CODE><A HREF="#deque::erase">erase</A>(begin() + newsize, end())</CODE>.</P>
+
+<H3><CODE><A NAME="deque::reverse_iterator">deque::reverse_iterator</A></CODE></H3>
+
+<PRE>typedef reverse_iterator&lt;iterator&gt;
+    <B>reverse_iterator</B>;</PRE>
+
+<P>The type describes an object that can serve as a reverse
+random-access iterator for the controlled sequence.</P>
+
+<H3><CODE><A NAME="deque::size">deque::size</A></CODE></H3>
+
+<PRE>size_type <B>size</B>() const;</PRE>
+
+<P>The member function returns the length of the controlled sequence.</P>
+
+<H3><CODE><A NAME="deque::size_type">deque::size_type</A></CODE></H3>
+
+<PRE>typedef T2 <B>size_type</B>;</PRE>
+
+<P>The unsigned integer type describes an object that can represent the
+length of any controlled sequence. It is described here as a
+synonym for the implementation-defined type <CODE>T2</CODE>.</P>
+
+<H3><CODE><A NAME="deque::swap">deque::swap</A></CODE></H3>
+
+<PRE>void <B>swap</B>(deque&amp; right);</PRE>
+
+<P>The member function swaps the controlled sequences between
+<CODE>*this</CODE> and <CODE>right</CODE>. If
+<CODE><A HREF="#deque::get_allocator">get_allocator</A>()
+== right.get_allocator()</CODE>, it does so in constant time,
+it throws no exceptions, and it invalidates no references, pointers,
+or iterators that designate elements in the two controlled sequences.
+Otherwise, it performs a number of element assignments and constructor calls
+proportional to the number of elements in the two controlled sequences.</P>
+
+<H3><CODE><A NAME="deque::value_type">deque::value_type</A></CODE></H3>
+
+<PRE>typedef typename Alloc::value_type <B>value_type</B>;</PRE>
+
+<P>The type is a synonym for the template parameter <CODE>Ty</CODE>.</P>
+
+<H2><A NAME="operator!="><CODE>operator!=</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Alloc&gt;
+    bool <B>operator!=</B>(
+        const deque &lt;Ty, Alloc&gt;&amp; left,
+        const deque &lt;Ty, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(left == right)</CODE>.</P>
+
+<H2><A NAME="operator=="><CODE>operator==</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Alloc&gt;
+    bool <B>operator==</B>(
+        const deque &lt;Ty, Alloc&gt;&amp; left,
+        const deque &lt;Ty, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function overloads <CODE>operator==</CODE> to compare
+two objects of template class
+<A HREF="#deque"><CODE>deque</CODE></A>. The function returns
+<CODE>left.<A HREF="#deque::size">size</A>() == right.size() &amp;&amp;
+<A HREF="algorith.html#equal">equal</A>(left.
+<A HREF="#deque::begin">begin</A>(), left.
+<A HREF="#deque::end">end</A>(), right.begin())</CODE>.</P>
+
+<H2><A NAME="operator&lt;"><CODE>operator&lt;</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Alloc&gt;
+    bool <B>operator&lt;</B>(
+        const deque &lt;Ty, Alloc&gt;&amp; left,
+        const deque &lt;Ty, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function overloads <CODE>operator&lt;</CODE> to compare
+two objects of template class
+<A HREF="#deque"><CODE>deque</CODE></A>. The function returns
+<CODE><A HREF="algorith.html#lexicographical_compare">lexicographical_compare</A>(left.
+<A HREF="#deque::begin">begin</A>(), left.
+<A HREF="#deque::end">end</A>(), right.begin(), right.end())</CODE>.</P>
+
+<H2><A NAME="operator&lt;="><CODE>operator&lt;=</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Alloc&gt;
+    bool <B>operator&lt;=</B>(
+        const deque &lt;Ty, Alloc&gt;&amp; left,
+        const deque &lt;Ty, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(right &lt; left)</CODE>.</P>
+
+<H2><A NAME="operator&gt;"><CODE>operator&gt;</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Alloc&gt;
+    bool <B>operator&gt;</B>(
+        const deque &lt;Ty, Alloc&gt;&amp; left,
+        const deque &lt;Ty, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>right &lt; left</CODE>.</P>
+
+<H2><A NAME="operator&gt;="><CODE>operator&gt;=</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Alloc&gt;
+    bool <B>operator&gt;=</B>(
+        const deque &lt;Ty, Alloc&gt;&amp; left,
+        const deque &lt;Ty, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function returns <CODE>!(left &lt; right)</CODE>.</P>
+
+<H2><A NAME="swap"><CODE>swap</CODE></A></H2>
+
+<PRE>template&lt;class Ty, class Alloc&gt;
+    void <B>swap</B>(
+        deque &lt;Ty, Alloc&gt;&amp; left,
+        deque &lt;Ty, Alloc&gt;&amp; right);</PRE>
+
+<P>The template function executes
+<CODE>left.<A HREF="#deque::swap">swap</A>(right)</CODE>.</P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pjp.html">Copyright</A> &#169; 1994-2002
+by P.J. Plauger. Portions derived from work
+<A HREF="crit_hp.html">copyright</A> &#169; 1994
+by Hewlett-Packard Company. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>

@@ -1,0 +1,109 @@
+<HTML><HEAD><TITLE>Expressions</TITLE></HEAD><BODY>
+
+<H1><A NAME="Expressions">Expressions</A></H1><HR>
+
+<P>You write expressions to determine values, to alter values stored
+in objects, and to call functions that perform input and output. In
+fact, you express all computations in the program by writing expressions.
+The translator must evaluate some of the expressions you write
+to determine properties of the program. The translator or the target
+environment must evaluate other expressions prior to program startup
+to determine the initial values stored in objects with static duration.
+The program evaluates the remaining expressions when it executes.</P>
+
+<P>This document describes briefly just those aspect
+of expressions most relevant to the use of the Standard C library:</P>
+
+<P>An
+<B><A NAME="address constant expression">address constant expression</A></B>
+specifies a value that has a pointer type
+and that the translator or target environment can determine
+prior to program startup.</P>
+
+<P>A <B><A NAME="constant expression">constant expression</A></B>
+specifies a value that the translator or target environment can determine
+prior to program startup.</P>
+
+<P>An
+<B><A NAME="integer constant expression">integer constant expression</A></B>
+specifies a value that has an integer type
+and that the translator can determine at the point in
+the program where you write the expression.
+(You cannot write a function call, assigning operator,
+or <I>comma</I> operator except as part of the operand of a
+<I><A HREF="#sizeof operator">sizeof</A></I> operator.)
+In addition, you must write only subexpressions
+that have integer type. You can, however,
+write a floating-point constant expression as the operand of an integer
+<I>type cast</I> operator.</P>
+
+<P>A
+<B><A NAME="floating-point constant expression">floating-point constant expression</A></B>
+specifies a value that has a floating-point type
+and that the translator can determine at the point in
+the program where you write the expression.
+(You cannot write a function call, assigning operator,
+or <I>comma</I> operator except as part of the operand of a
+<I><A HREF="#sizeof operator">sizeof</A></I> operator.)
+In addition, you must write only subexpressions
+that have integer or floating-point type.</P>
+
+<P>An <B><A NAME="lvalue expression">lvalue expression</A></B>
+An lvalue expression designates an object that has
+an object type other than an array type. Hence, you can access the
+value stored in the object.
+A <I>modifiable</I> lvalue expression designates an object that has
+an object type other than an array type or a <I>const</I> type. Hence,
+you can alter the value stored in the object.
+You can also designate objects with an lvalue expression
+that has an array type or an incomplete type,
+but you can only take the address of such an expression.</P>
+
+<P><B><A NAME="Promoting">Promoting</A></B> occurs for an
+expression whose integer type is not one of the ``computational'' types.
+Except when it is the operand of the
+<I><A HREF="#sizeof operator">sizeof</A></I> operator,
+an integer
+<A HREF="#rvalue expression">rvalue expression</A>
+has one of four types:
+<I>int, unsigned int, long,</I> or <I>unsigned long.</I>
+When you write an expression in an rvalue context and the expression
+has an integer type that is not one of these types, the translator
+<I>promotes</I> its type to one of these.
+If all of the values representable in the
+original type are also representable as type <I>int,</I> then the
+promoted type is <I>int.</I> Otherwise, the promoted type is
+<I>unsigned int.</I> Thus, for <I>signed char, short,</I>
+and any <I>signed bitfield</I> type, the promoted type is <I>int.</I>
+For each of the remaining integer types (<I>char, unsigned char,
+unsigned short,</I> any plain <I>bitfield</I> type,
+or any <I>unsigned bitfield</I> type), the effect of these rules
+is to favor promoting to <I>int</I> wherever possible, but to promote
+to <I>unsigned int</I> if necessary to preserve the original value
+in all possible cases.</P>
+
+<P>An <B><A NAME="rvalue expression">rvalue expression</A></B>
+is an expression whose value can be determined only when the program executes.
+The term also applies to expressions which <I>need not</I>
+be determined until program execution.</P>
+
+<P>You use the <B><A NAME="sizeof operator">sizeof</A></B> operator,
+as in the expression <CODE>sizeof X</CODE>
+to determine the size in bytes of an object whose type
+is the type of <CODE>X</CODE>. The translator uses the expression
+you write for <CODE>X</CODE> only to determine a type;
+it is not evaluated.</P>
+
+<P>A <B><A NAME="void expression">void expression</A></B>
+has type <I>void.</I></P>
+
+<HR>
+<P>See also the
+<B><A HREF="index.html#Table of Contents">Table of Contents</A></B> and the
+<B><A HREF="_index.html">Index</A></B>.</P>
+
+<P><I>
+<A HREF="crit_pb.html">Copyright</A> &#169; 1989-2002
+by P.J. Plauger and Jim Brodie. All rights reserved.</I></P>
+
+<!--V4.02:1476--></BODY></HTML>
